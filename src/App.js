@@ -153,6 +153,7 @@ function App() {
   const [shortBreakMinutes, setShortBreakMinutes] = useState(loadShortBreakMinutes);
   const [longBreakMinutes,  setLongBreakMinutes]  = useState(loadLongBreakMinutes);
   const [cycleLength,       setCycleLength]       = useState(loadCycleLength);
+  const [cycleLengthDraft,  setCycleLengthDraft]  = useState(() => String(loadCycleLength()));
 
   // Timer state
   const [pomodoroCount, setPomodoroCount] = useState(loadPomodoroCount);
@@ -380,10 +381,25 @@ function App() {
   };
 
   const handleCycleLengthChange = (e) => {
-    const val = clamp(parseInt(e.target.value, 10), 1, 8);
+    setCycleLengthDraft(e.target.value);
+    // Commit immediately only when the typed value is already a valid integer in range,
+    // so the cycle dots update in real-time without snapping mid-edit.
+    const raw = parseInt(e.target.value, 10);
+    if (!isNaN(raw) && raw >= 1 && raw <= 8) {
+      setCycleLength(raw);
+      cycleLengthRef.current = raw;
+      if (pomodoroCountRef.current > raw) {
+        pomodoroCountRef.current = raw;
+        setPomodoroCount(raw);
+      }
+    }
+  };
+
+  const handleCycleLengthBlur = () => {
+    const val = clamp(parseInt(cycleLengthDraft, 10), 1, 8);
+    setCycleLengthDraft(String(val));
     setCycleLength(val);
     cycleLengthRef.current = val;
-    // Clamp the in-progress session count to the new cycle length
     if (pomodoroCountRef.current > val) {
       pomodoroCountRef.current = val;
       setPomodoroCount(val);
@@ -648,8 +664,10 @@ function App() {
             type="number"
             min="1"
             max="8"
-            value={cycleLength}
+            value={cycleLengthDraft}
             onChange={handleCycleLengthChange}
+            onBlur={handleCycleLengthBlur}
+            onKeyDown={e => e.key === 'Enter' && e.target.blur()}
             disabled={isRunning}
           />
           <span></span>
