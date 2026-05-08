@@ -321,7 +321,7 @@ function App() {
     }
   };
 
-  const restartTimer = () => {
+  const resetSession = () => {
     if (isRunningRef.current) {
       workerRef.current?.postMessage('stop');
       isRunningRef.current = false;
@@ -330,6 +330,19 @@ function App() {
     setTimeLeft(getDuration(
       modeRef.current, workSecsRef.current, shortSecsRef.current, longSecsRef.current
     ));
+  };
+
+  const resetCycle = () => {
+    if (isRunningRef.current) {
+      workerRef.current?.postMessage('stop');
+      isRunningRef.current = false;
+      setIsRunning(false);
+    }
+    modeRef.current = 'work';
+    pomodoroCountRef.current = 1;
+    setMode('work');
+    setPomodoroCount(1);
+    setTimeLeft(workSecsRef.current);
   };
 
   const requestNotificationPermission = () => {
@@ -581,8 +594,11 @@ function App() {
           <button className="btn" onClick={pauseTimer} disabled={!isRunning}>
             Pause
           </button>
-          <button className="btn btn-secondary" onClick={restartTimer}>
-            Restart
+          <button className="btn btn-secondary btn-sm" onClick={resetSession}>
+            Reset Session
+          </button>
+          <button className="btn btn-secondary btn-sm" onClick={resetCycle}>
+            Reset Cycle
           </button>
         </div>
 

@@ -497,6 +497,11 @@ h1 {
   color: var(--btn-sec-text);
 }
 
+.btn-sm {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.75rem;
+}
+
 /* ── Settings ─────────────────────────────────────────────────────────────── */
 
 .settings {
@@ -810,8 +815,9 @@ h1 {
   /* Timer */
   .timer-display      { font-size: clamp(2.8rem, 20vw, 4.5rem); }
 
-  /* Touch-friendly buttons — minimum 44 px tap target */
+  /* Touch-friendly buttons — minimum 48 px tap target */
   .btn                { padding: 0.8rem 1rem; font-size: 0.85rem; min-height: 48px; }
+  .btn.btn-sm         { padding: 0.65rem 0.75rem; font-size: 0.7rem; min-height: 48px; }
   .got-it-btn         { font-size: 0.85rem; min-height: 48px; }
   .picker-cancel-btn  { font-size: 0.75rem; min-height: 48px; }
   .settings-btn,
