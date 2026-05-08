@@ -1,43 +1,45 @@
 # Ascendi
 
-**A gamified Pomodoro timer where you earn XP from focus sessions to feed and evolve a pixel pet.**
+**A gamified Pomodoro timer where you focus to earn points, buy food, and evolve your pixel pet.**
 
 > Stay focused. Earn XP. Watch your sprite grow.
 
-## 🚀 Live Demo
+## Live Demo
 
-**[👉 pomosprite.github.io/pomodoro-gamefied](https://MariaGirones.github.io/pomodoro-gamefied)**
+**[mariagirones.github.io/Ascendi](https://mariagirones.github.io/Ascendi/)**
 
 ---
 
-## 🐾 How it works
+## How it works
 
-1. Pick a pixel pet companion (Cat, Dog, Dragon, Bunny, Fox, or Axolotl)
-2. Start a Pomodoro focus session
+1. Pick a pixel companion — Cat, Dog, Dragon, Bunny, Fox, or Axolotl
+2. Start a focus session (default 25 min, fully configurable)
 3. Complete the session → earn XP (1 XP per minute worked)
-4. Your pet evolves at **334 XP** and again at **667 XP**, maxing out at **1000 XP**
+4. XP fuels your pet's evolution through **10 stages**, from hatchling to legendary form
 5. Take your short or long break, then go again
 
-Your pet, XP, settings, and cycle progress are all saved automatically — nothing is lost on refresh.
+Your pet, XP, settings, and cycle position are all saved automatically — nothing is lost on refresh.
 
 ---
 
-## ✨ Features
+## Features
 
-- **6 pixel art companions** — each with 3 evolution stages, drawn on HTML Canvas (no image files)
-- **XP & evolution system** — earn XP by finishing work sessions; your pet visibly grows
-- **Full Pomodoro cycle** — 4 work sessions → short break → long break, with cycle progress dots
-- **Drift-free timer** — uses a Web Worker with `Date.now()` correction so the timer never drifts in background tabs
-- **Custom work duration** — set sessions from 1 to 90 minutes
-- **Sound + desktop notifications** when a session ends
-- **Retro pixel aesthetic** — Press Start 2P font, NES-style XP bar, CRT scanline overlay, neon timer glow
+- **6 pixel art companions** — each with 10 evolution stages, drawn procedurally on HTML Canvas (no image files)
+- **XP & evolution system** — earn XP by completing work sessions; your pet visibly transforms as it grows
+- **Full Pomodoro cycle** — configurable work sessions, short breaks, long breaks, and sessions-per-cycle; progress shown as cycle dots
+- **Reset controls** — *Reset Session* restarts only the current countdown; *Reset Cycle* jumps back to session 1 without touching XP or pet progress
+- **Drift-free timer** — Web Worker with `Date.now()` correction so the countdown stays accurate in background tabs
+- **Flexible settings** — work duration (5–90 min), short break (5–30 min), long break (10–30 min), sessions per cycle (1–8)
+- **Sound + desktop notifications** — start chime and end-of-session alert, with persistent notifications that work in background tabs
+- **Retro pixel aesthetic** — Press Start 2P font, NES-style XP bar, CRT scanline overlay, soft ambient timer glow
 - **Dark / light mode** — toggle anytime, persisted across sessions
-- **Full localStorage persistence** — pet, XP, theme, work duration, and cycle count all survive page refresh
-- **Mobile-friendly** — responsive layout down to 320 px
+- **WCAG 2.1 AA accessible** — 4.5:1+ contrast ratios, keyboard-visible focus indicators, no strobing animations
+- **Full localStorage persistence** — pet, XP, theme, all durations, and cycle count survive page refresh
+- **Mobile-friendly** — responsive layout down to 320 px with 48 px minimum tap targets
 
 ---
 
-## 🛠️ Tech stack
+## Tech stack
 
 | Layer | Tech |
 |---|---|
@@ -51,33 +53,35 @@ Your pet, XP, settings, and cycle progress are all saved automatically — nothi
 
 ---
 
-## 🗂️ Project structure
+## Project structure
 
 ```
 src/
   App.js          — timer logic, XP system, localStorage, session flow
-  App.css         — retro theme, dark/light mode, all UI styles
+  App.css         — retro theme, dark/light mode, WCAG-compliant styles
   PetDisplay.js   — animated pet canvas + XP bar
   PetPicker.js    — companion selection modal
-  PixelPet.js     — canvas pixel art renderer (6 pets × 3 stages)
+  PixelPet.js     — canvas rendering, animation loop
+  petSprites.js   — pixel art drawing functions (6 pets × 10 stages)
   pets.js         — pet definitions, XP thresholds, stage logic
 public/
   timer-worker.js — drift-correcting Web Worker
+  sw.js           — minimal service worker for reliable mobile notifications
   endOfPomodoro.wav
 ```
 
 ---
 
-## 💻 Run locally
+## Run locally
 
 ```bash
-git clone https://github.com/MariaGirones/pomodoro-gamefied.git
-cd pomodoro-gamefied
+git clone https://github.com/MariaGirones/Ascendi.git
+cd Ascendi
 npm install
 npm start
 ```
 
-Opens at [http://localhost:3000/pomodoro-gamefied](http://localhost:3000/pomodoro-gamefied).
+Opens at [http://localhost:3000/Ascendi](http://localhost:3000/Ascendi).
 
 ## Deploy
 
@@ -86,7 +90,3 @@ npm run deploy
 ```
 
 Builds and pushes to the `gh-pages` branch automatically.
-
----
-
-*Built with 💜 by a psychology student who understands the struggle of staying focused.*
