@@ -160,6 +160,36 @@ h1 {
   gap: 0.35rem;
 }
 
+/* ── Points chip ──────────────────────────────────────────────────────────── */
+
+.points-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.5rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border-hi);
+  box-shadow: 2px 2px 0 var(--shadow);
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.points-icon {
+  font-size: 0.6rem;
+  color: var(--xp-fill);
+  line-height: 1;
+}
+
+.points-value {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: var(--xp-fill);
+  letter-spacing: 0.04em;
+  min-width: 2ch;
+  text-align: right;
+}
+
 /* ── Settings (paw) button ────────────────────────────────────────────────── */
 
 .settings-btn {
@@ -878,6 +908,8 @@ h1 {
   .picker-cancel-btn  { font-size: 0.75rem; min-height: 48px; }
   .settings-btn,
   .theme-toggle       { min-height: 48px; min-width: 48px; }
+  .points-chip        { padding: 0.25rem 0.4rem; }
+  .points-value       { font-size: 0.6rem; }
 
   /* Controls */
   .controls           { gap: 0.5rem; }

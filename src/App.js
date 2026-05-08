@@ -103,8 +103,9 @@ const LS_WORK  = 'nsq_work';
 const LS_SHORT = 'nsq_short';
 const LS_LONG  = 'nsq_long';
 const LS_CYCLE = 'nsq_cycle';
-const LS_COUNT = 'nsq_count';
-const LS_MODE  = 'nsq_mode';
+const LS_COUNT  = 'nsq_count';
+const LS_MODE   = 'nsq_mode';
+const LS_POINTS = 'nsq_points';
 
 
 function loadXP() {
@@ -146,6 +147,11 @@ function loadMode() {
   return ['work', 'shortBreak', 'longBreak'].includes(raw) ? raw : 'work';
 }
 
+function loadPoints() {
+  const raw = parseInt(localStorage.getItem(LS_POINTS), 10);
+  return isNaN(raw) ? 0 : Math.max(0, raw);
+}
+
 function loadPomodoroCount() {
   const cycleLen = loadCycleLength();
   const raw = parseInt(localStorage.getItem(LS_COUNT), 10);
@@ -181,6 +187,9 @@ function App() {
   const [chosenPetId, setChosenPetId] = useState(loadPetId);
   const [xpGainCount, setXpGainCount] = useState(0);
 
+  // Points — earned in real time while the timer is running (1 per minute of work)
+  const [points, setPoints] = useState(loadPoints);
+
   // UI state
   const isFirstVisitRef               = useRef(localStorage.getItem(LS_PET) === null);
   const [showWelcome, setShowWelcome]     = useState(() => localStorage.getItem(LS_PET) === null);
@@ -199,6 +208,10 @@ function App() {
   const isRunningRef     = useRef(false);
   const workerRef        = useRef(null);
   const xpRef            = useRef(loadXP());
+  const pointsRef        = useRef(loadPoints());
+  // Tracks work-seconds and points awarded within the current work session
+  const workSecondsRef   = useRef(0);
+  const pointsEarnedRef  = useRef(0);
 
   // Keep refs in sync with state
   useEffect(() => { modeRef.current          = mode;                  }, [mode]);
@@ -209,6 +222,7 @@ function App() {
   useEffect(() => { cycleLengthRef.current   = cycleLength;           }, [cycleLength]);
   useEffect(() => { isRunningRef.current     = isRunning;             }, [isRunning]);
   useEffect(() => { xpRef.current            = xp;                    }, [xp]);
+  useEffect(() => { pointsRef.current        = points;                }, [points]);
 
   // Persist all settings & session state to localStorage
   useEffect(() => { localStorage.setItem(LS_XP,    xp);               }, [xp]);
@@ -218,7 +232,8 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_LONG,  longBreakMinutes); }, [longBreakMinutes]);
   useEffect(() => { localStorage.setItem(LS_CYCLE, cycleLength);      }, [cycleLength]);
   useEffect(() => { localStorage.setItem(LS_COUNT, pomodoroCount);    }, [pomodoroCount]);
-  useEffect(() => { localStorage.setItem(LS_MODE,  mode);             }, [mode]);
+  useEffect(() => { localStorage.setItem(LS_MODE,   mode);            }, [mode]);
+  useEffect(() => { localStorage.setItem(LS_POINTS, points);         }, [points]);
 
   // Apply theme and persist
   useEffect(() => {
@@ -248,6 +263,19 @@ function App() {
       if (event.data !== 'tick') return;
       if (!isRunningRef.current) return; // discard stale ticks after stop
       setTimeLeft(prev => Math.max(0, prev - 1));
+
+      // Award 1 point per 60 seconds of work time
+      if (modeRef.current === 'work') {
+        workSecondsRef.current++;
+        const earned = Math.floor(workSecondsRef.current / 60);
+        if (earned > pointsEarnedRef.current) {
+          const delta = earned - pointsEarnedRef.current;
+          const newPoints = pointsRef.current + delta;
+          pointsRef.current = newPoints;
+          pointsEarnedRef.current = earned;
+          setPoints(newPoints);
+        }
+      }
     };
   }, [worker]);
 
@@ -288,6 +316,10 @@ function App() {
       setXP(newXP);
       setXpGainCount(c => c + 1);
     }
+
+    // Reset per-session point tracking before advancing to the next session
+    workSecondsRef.current  = 0;
+    pointsEarnedRef.current = 0;
 
     // Advance to the next session
     const { nextMode, nextCount } = nextSession(
@@ -335,6 +367,8 @@ function App() {
       isRunningRef.current = false;
       setIsRunning(false);
     }
+    workSecondsRef.current  = 0;
+    pointsEarnedRef.current = 0;
     setTimeLeft(getDuration(
       modeRef.current, workSecsRef.current, shortSecsRef.current, longSecsRef.current
     ));
@@ -346,6 +380,8 @@ function App() {
       isRunningRef.current = false;
       setIsRunning(false);
     }
+    workSecondsRef.current  = 0;
+    pointsEarnedRef.current = 0;
     modeRef.current = 'work';
     pomodoroCountRef.current = 1;
     setMode('work');
@@ -563,6 +599,10 @@ function App() {
         <div className="top-bar">
           <h1>Ascendi</h1>
           <div className="top-bar-actions">
+            <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
+              <span className="points-icon">✦</span>
+              <span className="points-value">{points}</span>
+            </div>
             <button
               className="settings-btn"
               onClick={openPetPicker}
