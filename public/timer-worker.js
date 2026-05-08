@@ -12,6 +12,7 @@ function tick() {
 
 self.onmessage = function (e) {
   if (e.data === 'start') {
+    if (timeoutId !== null) return; // already running — ignore duplicate start
     // First tick fires after exactly 1 second, not immediately
     expected = Date.now() + 1000;
     timeoutId = setTimeout(tick, 1000);

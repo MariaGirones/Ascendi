@@ -104,6 +104,7 @@ const LS_SHORT = 'nsq_short';
 const LS_LONG  = 'nsq_long';
 const LS_CYCLE = 'nsq_cycle';
 const LS_COUNT = 'nsq_count';
+const LS_MODE  = 'nsq_mode';
 
 
 function loadXP() {
@@ -140,6 +141,11 @@ function loadCycleLength() {
   const raw = parseInt(localStorage.getItem(LS_CYCLE), 10);
   return isNaN(raw) ? 4 : clamp(raw, 1, 8);
 }
+function loadMode() {
+  const raw = localStorage.getItem(LS_MODE);
+  return ['work', 'shortBreak', 'longBreak'].includes(raw) ? raw : 'work';
+}
+
 function loadPomodoroCount() {
   const cycleLen = loadCycleLength();
   const raw = parseInt(localStorage.getItem(LS_COUNT), 10);
@@ -157,10 +163,10 @@ function App() {
 
   // Timer state
   const [pomodoroCount, setPomodoroCount] = useState(loadPomodoroCount);
-  const [mode, setMode]                   = useState('work');
+  const [mode, setMode]                   = useState(loadMode);
   const [timeLeft, setTimeLeft]           = useState(() =>
     getDuration(
-      'work',
+      loadMode(),
       loadWorkMinutes() * 60,
       loadShortBreakMinutes() * 60,
       loadLongBreakMinutes() * 60,
@@ -184,7 +190,7 @@ function App() {
   const [darkMode, setDarkMode]           = useState(loadDarkMode);
 
   // Refs — stable values readable inside async / stale-closure contexts
-  const modeRef          = useRef('work');
+  const modeRef          = useRef(loadMode());
   const pomodoroCountRef = useRef(loadPomodoroCount());
   const workSecsRef      = useRef(loadWorkMinutes() * 60);
   const shortSecsRef     = useRef(loadShortBreakMinutes() * 60);
@@ -212,6 +218,7 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_LONG,  longBreakMinutes); }, [longBreakMinutes]);
   useEffect(() => { localStorage.setItem(LS_CYCLE, cycleLength);      }, [cycleLength]);
   useEffect(() => { localStorage.setItem(LS_COUNT, pomodoroCount);    }, [pomodoroCount]);
+  useEffect(() => { localStorage.setItem(LS_MODE,  mode);             }, [mode]);
 
   // Apply theme and persist
   useEffect(() => {
