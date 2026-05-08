@@ -618,59 +618,74 @@ function App() {
           </button>
         </div>
 
-        <div className="settings">
-          <label htmlFor="work-duration">Work</label>
-          <select
-            id="work-duration"
-            value={workMinutes}
-            onChange={handleWorkMinutesChange}
-            disabled={isRunning && mode === 'work'}
-          >
-            {[5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90].map(m => (
-              <option key={m} value={m}>{m}</option>
-            ))}
-          </select>
-          <span>min</span>
+        <div className="settings-card">
+          <div className="setting-row">
+            <label htmlFor="work-duration">Work</label>
+            <div className="setting-control">
+              <select
+                id="work-duration"
+                value={workMinutes}
+                onChange={handleWorkMinutesChange}
+                disabled={isRunning && mode === 'work'}
+              >
+                {[5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90].map(m => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
+              </select>
+              <span>min</span>
+            </div>
+          </div>
 
-          <label htmlFor="short-break">Short break</label>
-          <select
-            id="short-break"
-            value={shortBreakMinutes}
-            onChange={handleShortBreakChange}
-            disabled={isRunning && mode === 'shortBreak'}
-          >
-            {[5,10,15,20,25,30].map(m => (
-              <option key={m} value={m}>{m}</option>
-            ))}
-          </select>
-          <span>min</span>
+          <div className="setting-row">
+            <label htmlFor="short-break">Short break</label>
+            <div className="setting-control">
+              <select
+                id="short-break"
+                value={shortBreakMinutes}
+                onChange={handleShortBreakChange}
+                disabled={isRunning && mode === 'shortBreak'}
+              >
+                {[5,10,15,20,25,30].map(m => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
+              </select>
+              <span>min</span>
+            </div>
+          </div>
 
-          <label htmlFor="long-break">Long break</label>
-          <select
-            id="long-break"
-            value={longBreakMinutes}
-            onChange={handleLongBreakChange}
-            disabled={isRunning && mode === 'longBreak'}
-          >
-            {[10,15,20,25,30].map(m => (
-              <option key={m} value={m}>{m}</option>
-            ))}
-          </select>
-          <span>min</span>
+          <div className="setting-row">
+            <label htmlFor="long-break">Long break</label>
+            <div className="setting-control">
+              <select
+                id="long-break"
+                value={longBreakMinutes}
+                onChange={handleLongBreakChange}
+                disabled={isRunning && mode === 'longBreak'}
+              >
+                {[10,15,20,25,30].map(m => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
+              </select>
+              <span>min</span>
+            </div>
+          </div>
 
-          <label htmlFor="cycle-length">Sessions / cycle</label>
-          <input
-            id="cycle-length"
-            type="number"
-            min="1"
-            max="8"
-            value={cycleLengthDraft}
-            onChange={handleCycleLengthChange}
-            onBlur={handleCycleLengthBlur}
-            onKeyDown={e => e.key === 'Enter' && e.target.blur()}
-            disabled={isRunning}
-          />
-          <span></span>
+          <div className="setting-row">
+            <label htmlFor="cycle-length">Sessions / cycle</label>
+            <div className="setting-control">
+              <input
+                id="cycle-length"
+                type="number"
+                min="1"
+                max="8"
+                value={cycleLengthDraft}
+                onChange={handleCycleLengthChange}
+                onBlur={handleCycleLengthBlur}
+                onKeyDown={e => e.key === 'Enter' && e.target.blur()}
+                disabled={isRunning}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>
