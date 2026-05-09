@@ -5,7 +5,19 @@ export const PETS = [
     description: 'A sleepy orange tabby who loves focus time',
     color: '#e8782a',
     bg: '#fff3e0',
-    stageNames: ['Kitten', 'Cat', 'Elder Cat'],
+    stageThresholds: [0, 111, 222, 333, 444, 556, 667, 778, 889],
+    stageNames: [
+      'Kitten',
+      'Drowsy Kit',
+      'Snoozy',
+      'Napper',
+      'Tabby',
+      'Lounger',
+      'Dreamer',
+      'House Cat',
+      'Elder Cat',
+      'Grand Tabby',
+    ],
   },
   {
     id: 'dog',
@@ -13,6 +25,7 @@ export const PETS = [
     description: 'An enthusiastic golden pup cheering you on',
     color: '#e8b84b',
     bg: '#fffde7',
+    stageThresholds: [0, 334, 667],
     stageNames: ['Puppy', 'Dog', 'Good Boy'],
   },
   {
@@ -21,6 +34,7 @@ export const PETS = [
     description: 'An ancient dragon awakening from its egg',
     color: '#1abc9c',
     bg: '#e0f8f3',
+    stageThresholds: [0, 334, 667],
     stageNames: ['Egg', 'Whelp', 'Dragon'],
   },
   {
@@ -29,6 +43,7 @@ export const PETS = [
     description: 'A soft lavender bunny with oversized ears',
     color: '#9b82c2',
     bg: '#f3effe',
+    stageThresholds: [0, 334, 667],
     stageNames: ['Kit', 'Bunny', 'Grand Hare'],
   },
   {
@@ -37,6 +52,7 @@ export const PETS = [
     description: 'A clever orange fox with a fluffy white tail',
     color: '#e8622a',
     bg: '#fff0e8',
+    stageThresholds: [0, 334, 667],
     stageNames: ['Kit', 'Fox', 'Spirit Fox'],
   },
   {
@@ -45,21 +61,24 @@ export const PETS = [
     description: 'A pink axolotl with magnificent frilly gills',
     color: '#e0607a',
     bg: '#fce4ec',
+    stageThresholds: [0, 334, 667],
     stageNames: ['Larva', 'Axolotl', 'Ancient Axie'],
   },
 ];
 
-// Thresholds at which each stage unlocks.
-export const STAGE_THRESHOLDS = [0, 334, 667];
 export const MAX_XP = 1000;
-
-/** 0-based stage index (0 = stage 1, 1 = stage 2, 2 = stage 3). */
-export function getStageIndex(xp) {
-  if (xp >= 667) return 2;
-  if (xp >= 334) return 1;
-  return 0;
-}
 
 export function getPetById(id) {
   return PETS.find(p => p.id === id) ?? PETS[0];
+}
+
+/** 0-based stage index for the given pet and XP amount. */
+export function getStageIndex(xp, petId) {
+  const thresholds = getPetById(petId).stageThresholds;
+  let stage = 0;
+  for (let i = 0; i < thresholds.length; i++) {
+    if (xp >= thresholds[i]) stage = i;
+    else break;
+  }
+  return stage;
 }

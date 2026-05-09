@@ -1,17 +1,26 @@
 import { getPetById, getStageIndex, MAX_XP } from './pets';
 import PixelPet from './PixelPet';
 
-const MARKER_1_PCT = (334 / MAX_XP) * 100;
-const MARKER_2_PCT = (667 / MAX_XP) * 100;
-
 export default function PetDisplay({ petId, xp, gainCount, isRunning }) {
-  const pet          = getPetById(petId);
-  const stageIndex   = getStageIndex(xp);
-  const isFullyEvolved = stageIndex >= 2;
-  const isMaxXP      = xp >= MAX_XP;
-  const nextThreshold = isFullyEvolved ? null : [334, 667][stageIndex];
-  const xpToNext     = nextThreshold !== null ? nextThreshold - xp : 0;
-  const barPct       = Math.min(100, (xp / MAX_XP) * 100);
+  const pet           = getPetById(petId);
+  const thresholds    = pet.stageThresholds;
+  const maxStageIndex = thresholds.length - 1;
+  const stageIndex    = getStageIndex(xp, petId);
+  const isFullyEvolved = stageIndex >= maxStageIndex;
+  const isMaxXP       = xp >= MAX_XP;
+  const nextThreshold = isFullyEvolved ? null : thresholds[stageIndex + 1];
+  const xpToNext      = nextThreshold !== null ? nextThreshold - xp : 0;
+  const barPct        = Math.min(100, (xp / MAX_XP) * 100);
+
+  // One marker per stage boundary, skipping the first (it's the bar's left edge).
+  const markerPcts = thresholds.slice(1).map(t => (t / MAX_XP) * 100);
+
+  // Stage labels: always show S1 at the left; for pets with > 5 stages show
+  // only every other label to avoid crowding the narrow bar.
+  const labelStep = thresholds.length > 5 ? 2 : 1;
+  const stageLabels = thresholds
+    .map((t, i) => ({ i, pct: (t / MAX_XP) * 100 }))
+    .filter(({ i }) => i % labelStep === 0);
 
   return (
     <div
@@ -45,14 +54,17 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning }) {
 
         <div className="xp-bar-track">
           <div className="xp-bar-fill" style={{ width: `${barPct}%` }} />
-          <div className="xp-marker" style={{ left: `${MARKER_1_PCT}%` }} />
-          <div className="xp-marker" style={{ left: `${MARKER_2_PCT}%` }} />
+          {markerPcts.map((pct, i) => (
+            <div key={i} className="xp-marker" style={{ left: `${pct}%` }} />
+          ))}
         </div>
 
         <div className="xp-stage-labels">
-          <span>S1</span>
-          <span style={{ left: `${MARKER_1_PCT}%` }}>S2</span>
-          <span style={{ left: `${MARKER_2_PCT}%` }}>S3</span>
+          {stageLabels.map(({ i, pct }) =>
+            i === 0
+              ? <span key={i}>S1</span>
+              : <span key={i} style={{ left: `${pct}%` }}>S{i + 1}</span>
+          )}
         </div>
       </div>
     </div>
