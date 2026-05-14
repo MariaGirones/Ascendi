@@ -41,6 +41,25 @@ Mochi the orange tabby evolves as you accumulate XP from completed focus session
 
 ---
 
+## Sunny Evolution Stages
+
+Sunny the golden retriever evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Appearance |
+|---|---|---|---|
+| 1 | Puppy | 0 | Tiny floating golden head with a waggy tail nub and no body yet |
+| 2 | Playful Pup | 111 | Small face above a compact body with stubby paw nubs and an animated wagging side tail |
+| 3 | Bounding Pup | 222 | Medium face on a wider body with a white belly patch and a tail with a white tip |
+| 4 | Young Dog | 333 | Medium face above a four-row body, a white belly stripe, and a longer curved right tail |
+| 5 | Retriever | 444 | Big face, full-width four-row body, wide white chest, fluffy tail, and white paw highlights |
+| 6 | Loyal Dog | 556 | Full-width body with five fur streaks across two rows and an animated upright tail on the left |
+| 7 | Good Dog | 667 | White belly, flanking dark fur marks on both sides, and a hooked right tail with a white tip |
+| 8 | Golden | 778 | Extra forehead fur marks, wide white belly, inner-edge fur detail, long sweeping right tail, and white paw highlights |
+| 9 | Elder Hound | 889 | White collar, dense seven-mark fur pattern, four-pixel toe highlights, and an animated thick swinging tail |
+| 10 | Good Boy | 1000 | Majestic two-row white chest ruff, elaborate fur markings, big wide paws, and a towering three-wide tail |
+
+---
+
 ## Features
 
 - **6 pixel art companions** — each with 10 evolution stages, drawn procedurally on HTML Canvas (no image files)
