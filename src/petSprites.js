@@ -455,50 +455,171 @@ function drawDragon(ctx, stage, af, rest) {
     f(ctx,ox-3,wy,3,3,dk); d(ctx,ox-3,wy,K); d(ctx,ox-1,wy+2,K);
     f(ctx,ox+9,wy,3,3,dk); d(ctx,ox+11,wy,K); d(ctx,ox+9,wy+2,K);
     f(ctx,ox+5,oy+11,5,2,D); d(ctx,ox+9,oy+12,Y);
-  } else {
-    // Adult dragon: full, impressive
-    // Wings (behind body)
-    f(ctx,0,2,4,8,dk); f(ctx,12,2,4,8,dk);
-    d(ctx,0,2,K); d(ctx,3,9,K);
-    d(ctx,15,2,K); d(ctx,12,9,K);
-    // Webbing detail
-    d(ctx,1,4,D); d(ctx,1,7,D); d(ctx,13,4,D); d(ctx,14,7,D);
-    // Body
+  } else if (stage===5) {
+    // Drake — small 3-wide wings, yellow eyes, 2 spines, no teeth
+    f(ctx,0,4,3,6,dk); f(ctx,13,4,3,6,dk);
+    d(ctx,0,4,K); d(ctx,2,9,K); d(ctx,15,4,K); d(ctx,13,9,K);
+    d(ctx,1,6,D); d(ctx,14,6,D);
     f(ctx,2,6,12,9,D);
     f(ctx,2,6,12,1,K); f(ctx,2,14,12,1,K);
     f(ctx,2,6,1,9,K); f(ctx,13,6,1,9,K);
     f(ctx,3,7,10,7,D);
-    // Scale pattern
-    f(ctx,4,9,2,1,dk); f(ctx,8,9,2,1,dk); f(ctx,6,11,2,1,dk); f(ctx,10,11,2,1,dk);
-    // Head
+    f(ctx,4,9,2,1,dk); f(ctx,8,9,2,1,dk); f(ctx,6,11,2,1,dk);
     f(ctx,3,1,10,7,D);
     f(ctx,3,1,10,1,K); f(ctx,3,7,10,1,K);
     f(ctx,3,1,1,7,K); f(ctx,12,1,1,7,K);
     f(ctx,4,2,8,5,D);
-    // Big horns
-    f(ctx,4,0,2,2,Y); d(ctx,4,0,K); d(ctx,5,0,K);
-    f(ctx,10,0,2,2,Y); d(ctx,11,0,K);
-    // Eyes (big, fierce)
+    d(ctx,5,0,Y); d(ctx,6,0,Y); d(ctx,9,0,Y); d(ctx,10,0,Y);
     if (rest) {
       f(ctx,5,3,3,1,K); f(ctx,9,3,3,1,K);
     } else {
-      f(ctx,5,3,3,2,R); f(ctx,9,3,3,2,R); // red dragon eyes
+      f(ctx,5,3,2,2,Y); f(ctx,9,3,2,2,Y);
+      d(ctx,6,4,K); d(ctx,10,4,K);
+      if (af===0) { d(ctx,5,3,W); d(ctx,9,3,W); }
+    }
+    d(ctx,6,6,K); d(ctx,9,6,K);
+    d(ctx,6,1,Y); d(ctx,10,1,Y);
+    f(ctx,11,13,4,2,D); d(ctx,14,14,Y);
+  } else if (stage===6) {
+    // Firedrake — full wings, red eyes, 3 spines, fire breath
+    f(ctx,0,2,4,8,dk); f(ctx,12,2,4,8,dk);
+    d(ctx,0,2,K); d(ctx,3,9,K); d(ctx,15,2,K); d(ctx,12,9,K);
+    d(ctx,1,4,D); d(ctx,1,7,D); d(ctx,13,4,D); d(ctx,14,7,D);
+    f(ctx,2,6,12,9,D);
+    f(ctx,2,6,12,1,K); f(ctx,2,14,12,1,K);
+    f(ctx,2,6,1,9,K); f(ctx,13,6,1,9,K);
+    f(ctx,3,7,10,7,D);
+    f(ctx,4,9,2,1,dk); f(ctx,8,9,2,1,dk); f(ctx,6,11,2,1,dk); f(ctx,10,11,2,1,dk);
+    f(ctx,3,1,10,7,D);
+    f(ctx,3,1,10,1,K); f(ctx,3,7,10,1,K);
+    f(ctx,3,1,1,7,K); f(ctx,12,1,1,7,K);
+    f(ctx,4,2,8,5,D);
+    f(ctx,4,0,2,2,Y); d(ctx,4,0,K); d(ctx,5,0,K);
+    f(ctx,10,0,2,2,Y); d(ctx,11,0,K);
+    if (rest) {
+      f(ctx,5,3,3,1,K); f(ctx,9,3,3,1,K);
+    } else {
+      f(ctx,5,3,3,2,R); f(ctx,9,3,3,2,R);
       d(ctx,6,4,K); d(ctx,10,4,K);
       if (af===0) { d(ctx,5,3,Y); d(ctx,9,3,Y); }
     }
-    // Nostrils + mouth
     d(ctx,6,6,K); d(ctx,9,6,K);
-    f(ctx,5,7,6,1,K); // mouth line
-    // Teeth
+    f(ctx,5,7,6,1,K);
     d(ctx,6,7,W); d(ctx,8,7,W); d(ctx,10,7,W);
-    // Tail
     f(ctx,11,13,5,2,D); f(ctx,13,15,3,1,D);
-    d(ctx,15,13,Y); d(ctx,15,14,Y); // tail spike
-    // Spines
+    d(ctx,15,13,Y); d(ctx,15,14,Y);
+    d(ctx,5,1,Y); d(ctx,7,1,Y); d(ctx,9,1,Y);
+    if (!rest && af===0) {
+      d(ctx,4,8,R); d(ctx,3,9,'#f39c12'); d(ctx,2,10,Y); d(ctx,1,11,Y);
+    }
+  } else if (stage===7) {
+    // Wyvern — swept-back tall wings reaching top, massive 3-row tail, 4 spines
+    f(ctx,0,0,3,7,dk); f(ctx,13,0,3,7,dk);
+    d(ctx,0,0,K); d(ctx,2,6,K); d(ctx,15,0,K); d(ctx,13,6,K);
+    d(ctx,1,2,D); d(ctx,1,4,D); d(ctx,14,2,D); d(ctx,14,4,D);
+    f(ctx,2,6,12,9,D);
+    f(ctx,2,6,12,1,K); f(ctx,2,14,12,1,K);
+    f(ctx,2,6,1,9,K); f(ctx,13,6,1,9,K);
+    f(ctx,3,7,10,7,D);
+    f(ctx,4,9,2,1,dk); f(ctx,8,9,2,1,dk); f(ctx,6,11,2,1,dk); f(ctx,10,11,2,1,dk);
+    f(ctx,3,1,10,7,D);
+    f(ctx,3,1,10,1,K); f(ctx,3,7,10,1,K);
+    f(ctx,3,1,1,7,K); f(ctx,12,1,1,7,K);
+    f(ctx,4,2,8,5,D);
+    f(ctx,4,0,2,2,Y); d(ctx,4,0,K); d(ctx,5,0,K);
+    f(ctx,10,0,2,2,Y); d(ctx,11,0,K);
+    if (rest) {
+      f(ctx,5,3,3,1,K); f(ctx,9,3,3,1,K);
+    } else {
+      f(ctx,5,3,3,2,R); f(ctx,9,3,3,2,R);
+      d(ctx,6,4,K); d(ctx,10,4,K);
+      if (af===0) { d(ctx,5,3,Y); d(ctx,9,3,Y); }
+    }
+    d(ctx,6,6,K); d(ctx,9,6,K);
+    f(ctx,5,7,6,1,K);
+    d(ctx,6,7,W); d(ctx,8,7,W); d(ctx,10,7,W);
+    f(ctx,10,12,6,3,D);
+    f(ctx,10,12,1,3,K); f(ctx,10,12,6,1,K);
+    d(ctx,15,12,Y); d(ctx,15,13,Y); d(ctx,15,14,Y);
     d(ctx,5,1,Y); d(ctx,7,1,Y); d(ctx,9,1,Y); d(ctx,11,1,Y);
-    // Fire breath (idle frame 0 only)
     if (!rest && af===0) {
       d(ctx,4,8,R); d(ctx,3,9,'#f39c12'); d(ctx,2,10,Y);
+    }
+  } else if (stage===8) {
+    // Elder Drake — extra webbing, white belly, dense flanking scales, alternating glowing eyes, 5 spines
+    f(ctx,0,2,4,8,dk); f(ctx,12,2,4,8,dk);
+    d(ctx,0,2,K); d(ctx,3,9,K); d(ctx,15,2,K); d(ctx,12,9,K);
+    d(ctx,1,4,D); d(ctx,1,6,D); d(ctx,1,8,D);
+    d(ctx,13,4,D); d(ctx,14,6,D); d(ctx,14,8,D);
+    f(ctx,2,6,12,9,D);
+    f(ctx,2,6,12,1,K); f(ctx,2,14,12,1,K);
+    f(ctx,2,6,1,9,K); f(ctx,13,6,1,9,K);
+    f(ctx,3,7,10,7,D);
+    f(ctx,5,9,6,4,W);
+    f(ctx,4,9,1,1,dk); f(ctx,11,9,1,1,dk);
+    f(ctx,4,11,1,1,dk); f(ctx,11,11,1,1,dk); f(ctx,7,12,2,1,dk);
+    f(ctx,3,1,10,7,D);
+    f(ctx,3,1,10,1,K); f(ctx,3,7,10,1,K);
+    f(ctx,3,1,1,7,K); f(ctx,12,1,1,7,K);
+    f(ctx,4,2,8,5,D);
+    f(ctx,4,0,2,2,Y); d(ctx,4,0,K); d(ctx,5,0,K);
+    f(ctx,10,0,2,2,Y); d(ctx,11,0,K);
+    d(ctx,4,2,dk); d(ctx,6,2,dk); d(ctx,9,2,dk); d(ctx,11,2,dk);
+    if (rest) {
+      f(ctx,5,3,3,1,K); f(ctx,9,3,3,1,K);
+    } else {
+      f(ctx,5,3,3,2,R); f(ctx,9,3,3,2,R);
+      d(ctx,6,4,K); d(ctx,10,4,K);
+      if (af===0) { d(ctx,5,3,W); d(ctx,9,3,W); }
+      else { d(ctx,7,3,W); d(ctx,11,3,W); }
+    }
+    d(ctx,6,6,K); d(ctx,9,6,K);
+    f(ctx,5,7,6,1,K);
+    d(ctx,6,7,W); d(ctx,8,7,W); d(ctx,10,7,W);
+    f(ctx,11,13,5,2,D); f(ctx,13,15,3,1,D);
+    d(ctx,15,13,Y); d(ctx,15,14,Y);
+    d(ctx,5,1,Y); d(ctx,6,1,Y); d(ctx,8,1,Y); d(ctx,10,1,Y); d(ctx,11,1,Y);
+    if (!rest && af===0) {
+      d(ctx,4,8,R); d(ctx,3,9,'#f39c12'); d(ctx,2,10,Y);
+    }
+  } else {
+    // Dragon (stage 9) — Y glow on wing edges, white belly, epic wider tail, fire on both frames
+    f(ctx,0,2,4,8,dk); f(ctx,12,2,4,8,dk);
+    d(ctx,0,2,K); d(ctx,3,9,K);
+    d(ctx,15,2,K); d(ctx,12,9,K);
+    d(ctx,1,4,D); d(ctx,1,7,D); d(ctx,13,4,D); d(ctx,14,7,D);
+    d(ctx,0,4,Y); d(ctx,0,7,Y); d(ctx,15,4,Y); d(ctx,15,7,Y);
+    f(ctx,2,6,12,9,D);
+    f(ctx,2,6,12,1,K); f(ctx,2,14,12,1,K);
+    f(ctx,2,6,1,9,K); f(ctx,13,6,1,9,K);
+    f(ctx,3,7,10,7,D);
+    f(ctx,5,9,6,4,W);
+    f(ctx,4,9,2,1,dk); f(ctx,8,9,2,1,dk); f(ctx,6,11,2,1,dk); f(ctx,10,11,2,1,dk);
+    f(ctx,3,1,10,7,D);
+    f(ctx,3,1,10,1,K); f(ctx,3,7,10,1,K);
+    f(ctx,3,1,1,7,K); f(ctx,12,1,1,7,K);
+    f(ctx,4,2,8,5,D);
+    f(ctx,4,0,2,2,Y); d(ctx,4,0,K); d(ctx,5,0,K);
+    f(ctx,10,0,2,2,Y); d(ctx,11,0,K);
+    if (rest) {
+      f(ctx,5,3,3,1,K); f(ctx,9,3,3,1,K);
+    } else {
+      f(ctx,5,3,3,2,R); f(ctx,9,3,3,2,R);
+      d(ctx,6,4,K); d(ctx,10,4,K);
+      if (af===0) { d(ctx,5,3,Y); d(ctx,9,3,Y); }
+    }
+    d(ctx,6,6,K); d(ctx,9,6,K);
+    f(ctx,5,7,6,1,K);
+    d(ctx,6,7,W); d(ctx,8,7,W); d(ctx,10,7,W);
+    f(ctx,10,12,6,3,D); f(ctx,13,15,3,1,D);
+    d(ctx,15,12,Y); d(ctx,15,13,Y);
+    d(ctx,5,1,Y); d(ctx,7,1,Y); d(ctx,9,1,Y); d(ctx,11,1,Y);
+    if (!rest) {
+      if (af===0) {
+        d(ctx,4,8,R); d(ctx,3,9,'#f39c12'); d(ctx,2,10,Y); d(ctx,1,11,Y);
+      } else {
+        d(ctx,4,8,'#f39c12'); d(ctx,3,9,Y);
+      }
     }
   }
 }
