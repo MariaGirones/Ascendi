@@ -35,7 +35,6 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning }) {
           isRunning={isRunning}
           gainCount={gainCount}
         />
-        <span className="pet-stage-badge">{pet.stageNames[stageIndex]}</span>
       </div>
       <p className="pet-name">{pet.name}</p>
 

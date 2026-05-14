@@ -269,22 +269,6 @@ h1 {
     inset 0 0 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Stage badge — bottom-right overlay */
-.pet-stage-badge {
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.65rem;
-  color: var(--pet-color, #d06878);
-  background: rgba(0, 0, 0, 0.75);
-  padding: 1px 3px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  line-height: 1.5;
-}
-
-[data-theme="light"] .pet-stage-badge { background: rgba(255, 255, 255, 0.85); }
 
 .pet-name {
   font-size: 1rem;
