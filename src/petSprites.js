@@ -104,16 +104,83 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,2,14,3,1,o); f(ctx,11,14,3,1,o);
     f(ctx,14,10,2,5,o); f(ctx,13,14,3,1,o);
     d(ctx,14,10,K); d(ctx,15,14,K); d(ctx,15,15,P);
-  } else {
+  } else if (stage===5) {
+    // Confident tabby: 4-row body, 5 stripes in 2 rows, upright animated left tail
     face(1,0,2);
-    f(ctx,1,12,14,3,O);
-    f(ctx,1,12,14,1,K); f(ctx,1,14,14,1,K);
-    f(ctx,1,12,1,3,K); f(ctx,14,12,1,3,K);
-    f(ctx,2,13,12,1,O);
-    f(ctx,4,13,2,1,o); f(ctx,9,13,2,1,o);
-    f(ctx,2,14,3,1,o); f(ctx,11,14,3,1,o);
-    f(ctx,14,10,2,5,o); f(ctx,13,14,3,1,o);
-    d(ctx,14,10,K); d(ctx,15,14,K); d(ctx,15,15,P);
+    f(ctx,1,12,14,4,O);
+    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
+    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
+    f(ctx,2,13,12,2,O);
+    f(ctx,2,13,3,1,o); f(ctx,6,13,3,1,o); f(ctx,10,13,3,1,o);
+    f(ctx,3,14,3,1,o); f(ctx,9,14,3,1,o);
+    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
+    const ty=af===0?8:7;
+    f(ctx,0,ty,1,5,o);
+    d(ctx,0,ty,K); d(ctx,0,ty+4,K);
+    d(ctx,0,ty-1,P);
+  } else if (stage===6) {
+    // Striped tabby: white belly, side stripes, right hooked tail
+    face(1,0,2);
+    f(ctx,1,12,14,4,O);
+    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
+    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
+    f(ctx,2,13,12,2,O);
+    f(ctx,5,13,6,2,W);
+    f(ctx,2,13,2,1,o); f(ctx,12,13,2,1,o);
+    f(ctx,2,14,2,1,o); f(ctx,12,14,2,1,o);
+    f(ctx,4,13,1,1,o); f(ctx,11,13,1,1,o);
+    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
+    f(ctx,14,9,2,4,o); f(ctx,13,12,2,1,o);
+    d(ctx,14,9,K); d(ctx,14,12,K); d(ctx,15,8,P);
+  } else if (stage===7) {
+    // Mature tabby: broader forehead marks, belly stripe, long sweeping tail, paw highlights
+    face(1,0,2);
+    f(ctx,5,1,2,1,o); f(ctx,9,1,2,1,o);
+    f(ctx,1,12,14,4,O);
+    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
+    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
+    f(ctx,2,13,12,2,O);
+    f(ctx,5,13,6,2,W);
+    f(ctx,2,13,2,1,o); f(ctx,12,13,2,1,o);
+    f(ctx,2,14,2,1,o); f(ctx,12,14,2,1,o);
+    f(ctx,4,13,1,1,o); f(ctx,11,13,1,1,o);
+    f(ctx,4,14,1,1,o); f(ctx,11,14,1,1,o);
+    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
+    d(ctx,3,15,W); d(ctx,12,15,W);
+    f(ctx,14,8,2,7,o); f(ctx,13,14,3,1,o);
+    d(ctx,14,8,K); d(ctx,15,14,K); d(ctx,15,15,P);
+  } else if (stage===8) {
+    // Elder tabby: white collar, dense 7-stripe pattern, animated thick tail, toe detail
+    face(1,0,2);
+    f(ctx,1,12,14,4,O);
+    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
+    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
+    f(ctx,2,13,12,2,O);
+    f(ctx,4,13,8,1,W);
+    f(ctx,2,13,1,1,o); f(ctx,13,13,1,1,o);
+    f(ctx,2,14,3,1,o); f(ctx,5,14,2,1,o); f(ctx,9,14,2,1,o); f(ctx,11,14,3,1,o);
+    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
+    d(ctx,3,15,W); d(ctx,4,15,W); d(ctx,12,15,W); d(ctx,13,15,W);
+    const tw=af===0?13:14;
+    f(ctx,tw,9,2,6,o);
+    d(ctx,tw,9,K); d(ctx,tw+1,14,K); d(ctx,tw+1,8,P);
+  } else {
+    // Grand Tabby: white chest ruff, elaborate markings, big paws, majestic tall tail
+    face(1,0,2);
+    f(ctx,1,12,14,4,O);
+    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
+    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
+    f(ctx,2,13,12,2,O);
+    f(ctx,4,13,8,2,W);
+    f(ctx,2,13,2,1,o); f(ctx,12,13,2,1,o);
+    f(ctx,2,14,2,1,o); f(ctx,12,14,2,1,o);
+    f(ctx,4,13,1,1,o); f(ctx,4,14,1,1,o);
+    f(ctx,11,13,1,1,o); f(ctx,11,14,1,1,o);
+    f(ctx,1,15,4,1,o); f(ctx,11,15,4,1,o);
+    d(ctx,2,15,O); d(ctx,3,15,O); d(ctx,12,15,O); d(ctx,13,15,O);
+    f(ctx,13,8,3,7,o); f(ctx,12,14,4,2,o);
+    d(ctx,13,8,K); d(ctx,15,14,K);
+    d(ctx,15,5,P); d(ctx,15,6,P);
   }
 }
 
