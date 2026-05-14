@@ -359,64 +359,102 @@ function drawDragon(ctx, stage, af, rest) {
   const D='#1abc9c', dk='#0e8a70', K='#1a1a2e', R='#e74c3c', Y='#f1c40f', W='#ffffff';
 
   if (stage===0) {
-    // Egg with crack and peeking eye
+    // Plain egg — smooth and mysterious, no cracks
     const ox=3,oy=2;
     f(ctx,ox,oy,10,12,D);
     f(ctx,ox,oy,10,1,K); f(ctx,ox,oy+11,10,1,K);
     f(ctx,ox,oy,1,12,K); f(ctx,ox+9,oy,1,12,K);
     f(ctx,ox+1,oy+1,8,10,D);
-    // egg highlight
+    f(ctx,ox+2,oy+2,2,4,W); d(ctx,ox+2,oy+2,D);
+    d(ctx,ox+7,oy+3,dk); d(ctx,ox+2,oy+8,dk); d(ctx,ox+7,oy+9,dk); d(ctx,ox+5,oy+5,dk);
+    if (!rest && af===0) d(ctx,ox+8,oy+9,Y);
+  } else if (stage===1) {
+    // Cracked egg — fractures spread, a glowing eye peers out
+    const ox=3,oy=2;
+    f(ctx,ox,oy,10,12,D);
+    f(ctx,ox,oy,10,1,K); f(ctx,ox,oy+11,10,1,K);
+    f(ctx,ox,oy,1,12,K); f(ctx,ox+9,oy,1,12,K);
+    f(ctx,ox+1,oy+1,8,10,D);
     f(ctx,ox+2,oy+2,2,3,W); d(ctx,ox+2,oy+2,D);
-    // crack lines
     f(ctx,ox+4,oy+4,1,3,K); f(ctx,ox+5,oy+6,1,2,K);
     f(ctx,ox+3,oy+5,1,1,K); f(ctx,ox+6,oy+7,1,1,K);
-    // peeking eye
     if (!rest) {
       d(ctx,ox+4,oy+8,Y); d(ctx,ox+5,oy+8,Y);
       d(ctx,ox+4,oy+9,K); d(ctx,ox+5,oy+9,K);
     }
-    // Shell speckles
     d(ctx,ox+7,oy+3,dk); d(ctx,ox+2,oy+8,dk); d(ctx,ox+7,oy+9,dk);
-    // Animating crack (af===1: wider crack)
-    if (!rest && af===1) {
-      f(ctx,ox+3,oy+4,3,1,K);
-    }
-  } else if (stage===1) {
-    // Small dragon with wings
-    // Body
-    f(ctx,3,6,10,9,D);
-    f(ctx,3,6,10,1,K); f(ctx,3,14,10,1,K);
-    f(ctx,3,6,1,9,K); f(ctx,12,6,1,9,K);
-    f(ctx,4,7,8,7,D);
-    // Head
-    f(ctx,4,2,8,6,D);
-    f(ctx,4,2,8,1,K); f(ctx,4,7,8,1,K);
-    f(ctx,4,2,1,6,K); f(ctx,11,2,1,6,K);
-    f(ctx,5,3,6,4,D);
-    // Horns
-    d(ctx,5,0,Y); d(ctx,5,1,Y);
-    d(ctx,10,0,Y); d(ctx,10,1,Y);
-    d(ctx,5,0,K); // horn outline
-    // Eyes
-    const ey=4;
+    if (!rest && af===1) f(ctx,ox+3,oy+4,3,1,K);
+  } else if (stage===2) {
+    // Whelp — tiny dragon rising from broken shell halves
+    f(ctx,1,11,5,4,D); f(ctx,1,11,5,1,K); f(ctx,1,14,5,1,K); f(ctx,1,11,1,4,K); f(ctx,5,11,1,4,K);
+    f(ctx,10,11,5,4,D); f(ctx,10,11,5,1,K); f(ctx,10,14,5,1,K); f(ctx,10,11,1,4,K); f(ctx,14,11,1,4,K);
+    const ox=5,oy=3;
+    f(ctx,ox,oy,6,5,D);
+    f(ctx,ox,oy,6,1,K); f(ctx,ox,oy+4,6,1,K);
+    f(ctx,ox,oy,1,5,K); f(ctx,ox+5,oy,1,5,K);
+    f(ctx,ox+1,oy+1,4,3,D);
+    d(ctx,ox+1,oy-1,Y); d(ctx,ox+4,oy-1,Y);
     if (rest) {
-      f(ctx,5,ey,2,1,K); f(ctx,9,ey,2,1,K);
+      f(ctx,ox+1,oy+2,2,1,K); f(ctx,ox+3,oy+2,2,1,K);
     } else {
-      f(ctx,5,ey,2,2,Y); f(ctx,9,ey,2,2,Y);
-      d(ctx,6,ey+1,K); d(ctx,10,ey+1,K);
-      if (af===0) { d(ctx,5,ey,W); d(ctx,9,ey,W); } // eye shine
+      d(ctx,ox+1,oy+2,Y); d(ctx,ox+4,oy+2,Y);
+      if (af===0) { d(ctx,ox+1,oy+2,W); d(ctx,ox+4,oy+2,W); }
     }
-    // Nostrils
-    d(ctx,6,6,K); d(ctx,9,6,K);
-    // Wings (stubs)
-    const wy=af===0?7:6;
-    f(ctx,0,wy,3,3,dk); d(ctx,0,wy,K); d(ctx,2,wy+2,K);
-    f(ctx,13,wy,3,3,dk); d(ctx,15,wy,K); d(ctx,13,wy+2,K);
-    // Tail
-    f(ctx,9,14,5,2,D); f(ctx,12,15,3,1,dk);
-    d(ctx,13,14,K); d(ctx,14,15,Y); // tail spike
-    // Spines on back
-    d(ctx,6,6,Y); d(ctx,8,6,Y); d(ctx,10,6,Y);
+    f(ctx,ox+1,oy+5,4,4,D);
+    f(ctx,ox+1,oy+5,4,1,K); f(ctx,ox+1,oy+8,4,1,K);
+    f(ctx,ox+1,oy+5,1,4,K); f(ctx,ox+4,oy+5,1,4,K);
+    f(ctx,ox+3,oy+9,3,1,dk); d(ctx,ox+5,oy+9,Y);
+  } else if (stage===3) {
+    // Hatchling — free of shell, tiny wing nubs appearing
+    const ox=4,oy=2;
+    f(ctx,ox,oy,8,6,D);
+    f(ctx,ox,oy,8,1,K); f(ctx,ox,oy+5,8,1,K);
+    f(ctx,ox,oy,1,6,K); f(ctx,ox+7,oy,1,6,K);
+    f(ctx,ox+1,oy+1,6,4,D);
+    d(ctx,ox+1,oy-1,Y); d(ctx,ox+2,oy-1,Y); d(ctx,ox+5,oy-1,Y); d(ctx,ox+6,oy-1,Y);
+    const ey=oy+2;
+    if (rest) {
+      f(ctx,ox+1,ey,2,1,K); f(ctx,ox+5,ey,2,1,K);
+    } else {
+      f(ctx,ox+1,ey,2,2,Y); f(ctx,ox+5,ey,2,2,Y);
+      d(ctx,ox+2,ey+1,K); d(ctx,ox+6,ey+1,K);
+      if (af===0) { d(ctx,ox+1,ey,W); d(ctx,ox+5,ey,W); }
+    }
+    d(ctx,ox+2,oy+4,K); d(ctx,ox+5,oy+4,K);
+    f(ctx,ox,oy+6,8,5,D);
+    f(ctx,ox,oy+6,8,1,K); f(ctx,ox,oy+10,8,1,K);
+    f(ctx,ox,oy+6,1,5,K); f(ctx,ox+7,oy+6,1,5,K);
+    f(ctx,ox+1,oy+7,6,3,D);
+    f(ctx,ox-2,oy+7,2,2,dk); d(ctx,ox-2,oy+7,K); d(ctx,ox-1,oy+8,K);
+    f(ctx,ox+8,oy+7,2,2,dk); d(ctx,ox+9,oy+7,K); d(ctx,ox+8,oy+8,K);
+    f(ctx,ox+5,oy+10,4,2,D); d(ctx,ox+8,oy+11,Y);
+  } else if (stage===4) {
+    // Sparkling — wings spreading, true dragon form emerging
+    const ox=4,oy=2;
+    f(ctx,ox,oy,8,6,D);
+    f(ctx,ox,oy,8,1,K); f(ctx,ox,oy+5,8,1,K);
+    f(ctx,ox,oy,1,6,K); f(ctx,ox+7,oy,1,6,K);
+    f(ctx,ox+1,oy+1,6,4,D);
+    f(ctx,ox+1,oy-2,2,2,Y); d(ctx,ox+1,oy-2,K); d(ctx,ox+2,oy-2,K);
+    f(ctx,ox+5,oy-2,2,2,Y); d(ctx,ox+5,oy-2,K); d(ctx,ox+6,oy-2,K);
+    const ey=oy+2;
+    if (rest) {
+      f(ctx,ox+1,ey,2,1,K); f(ctx,ox+5,ey,2,1,K);
+    } else {
+      f(ctx,ox+1,ey,2,2,Y); f(ctx,ox+5,ey,2,2,Y);
+      d(ctx,ox+2,ey+1,K); d(ctx,ox+6,ey+1,K);
+      if (af===0) { d(ctx,ox+1,ey,W); d(ctx,ox+5,ey,W); }
+    }
+    d(ctx,ox+2,oy+4,K); d(ctx,ox+5,oy+4,K);
+    d(ctx,ox+3,oy+5,Y); d(ctx,ox+5,oy+5,Y);
+    f(ctx,ox-1,oy+6,10,6,D);
+    f(ctx,ox-1,oy+6,10,1,K); f(ctx,ox-1,oy+11,10,1,K);
+    f(ctx,ox-1,oy+6,1,6,K); f(ctx,ox+8,oy+6,1,6,K);
+    f(ctx,ox,oy+7,8,4,D);
+    const wy=af===0?oy+7:oy+6;
+    f(ctx,ox-3,wy,3,3,dk); d(ctx,ox-3,wy,K); d(ctx,ox-1,wy+2,K);
+    f(ctx,ox+9,wy,3,3,dk); d(ctx,ox+11,wy,K); d(ctx,ox+9,wy+2,K);
+    f(ctx,ox+5,oy+11,5,2,D); d(ctx,ox+9,oy+12,Y);
   } else {
     // Adult dragon: full, impressive
     // Wings (behind body)
