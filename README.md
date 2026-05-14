@@ -22,6 +22,25 @@ Your pet, XP, settings, and cycle position are all saved automatically — nothi
 
 ---
 
+## Mochi Evolution Stages
+
+Mochi the orange tabby evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Appearance |
+|---|---|---|---|
+| 1 | Kitten | 0 | Tiny sleeping kitten — just a small head, no body |
+| 2 | Drowsy Kit | 111 | Small kitten with a compact body blob and stubby paw nubs |
+| 3 | Snoozy | 222 | Young kitten with a medium head, short 3-row body, and a tail stub |
+| 4 | Napper | 333 | Juvenile with a taller body, one belly stripe, and an animated swishing tail |
+| 5 | Tabby | 444 | Young tabby with a full-width body, three stripes, and a curled right tail |
+| 6 | Lounger | 556 | Confident tabby with five stripes across two rows and an upright animated tail on the left |
+| 7 | Dreamer | 667 | Striped tabby with a white belly patch, flanking side stripes, and a hooked right tail |
+| 8 | House Cat | 778 | Mature tabby with extra forehead marks, white belly, long sweeping right tail, and white paw highlights |
+| 9 | Elder Cat | 889 | Elder tabby with a white collar, dense seven-stripe pattern, toe highlights, and an animated thick tail |
+| 10 | Grand Tabby | 1000 | Majestic fully grown tabby with a white chest ruff, elaborate markings, big paws, and a towering three-wide tail |
+
+---
+
 ## Features
 
 - **6 pixel art companions** — each with 10 evolution stages, drawn procedurally on HTML Canvas (no image files)
