@@ -223,17 +223,56 @@ function drawDog(ctx, stage, af, rest) {
   }
 
   if (stage===0) {
+    // Tiny puppy: small floating head with a waggy tail nub
     face(3,5,0);
+    const tw = af===0 ? 13 : 14;
+    d(ctx,tw,11,g);
+    d(ctx,tw,12,g);
   } else if (stage===1) {
-    face(2,0,1);
-    f(ctx,2,10,12,5,G);
-    f(ctx,2,10,12,1,K); f(ctx,2,14,12,1,K);
-    f(ctx,2,10,1,5,K); f(ctx,13,10,1,5,K);
-    f(ctx,3,11,10,3,G);
-    f(ctx,3,14,3,1,g); f(ctx,10,14,3,1,g); // paws
-    // tail wag
-    const ty=af===0?10:11;
-    f(ctx,13,ty,2,4,g); d(ctx,14,ty,K);
+    // Playful pup: small face + compact 8×3 body + paw nubs + wagging side tail
+    face(3,2,0);
+    f(ctx,4,11,8,3,G);
+    f(ctx,4,11,8,1,K); f(ctx,4,13,8,1,K);
+    f(ctx,4,11,1,3,K); f(ctx,11,11,1,3,K);
+    f(ctx,5,12,6,1,G);
+    f(ctx,5,13,2,1,g); f(ctx,9,13,2,1,g);
+    const tw = af===0 ? 12 : 13;
+    f(ctx,tw,11,2,3,g);
+    d(ctx,tw,11,K); d(ctx,tw+1,13,K);
+  } else if (stage===2) {
+    // Bounding pup: medium face + 10×3 body + white belly + tail with tip
+    face(2,2,1);
+    f(ctx,3,12,10,3,G);
+    f(ctx,3,12,10,1,K); f(ctx,3,14,10,1,K);
+    f(ctx,3,12,1,3,K); f(ctx,12,12,1,3,K);
+    f(ctx,4,13,8,1,G);
+    f(ctx,6,13,4,1,W);
+    f(ctx,4,14,2,1,g); f(ctx,10,14,2,1,g);
+    f(ctx,13,12,2,3,g);
+    d(ctx,13,12,K); d(ctx,14,14,K); d(ctx,14,15,W);
+  } else if (stage===3) {
+    // Young dog: medium face + 10×4 body + belly stripe + longer curved tail
+    face(2,1,1);
+    f(ctx,3,11,10,4,G);
+    f(ctx,3,11,10,1,K); f(ctx,3,14,10,1,K);
+    f(ctx,3,11,1,4,K); f(ctx,12,11,1,4,K);
+    f(ctx,4,12,8,2,G);
+    f(ctx,5,12,6,2,W);
+    f(ctx,4,14,2,1,g); f(ctx,10,14,2,1,g);
+    f(ctx,14,9,2,5,g); f(ctx,13,13,3,1,g);
+    d(ctx,14,9,K); d(ctx,15,13,K); d(ctx,15,14,W);
+  } else if (stage===4) {
+    // Retriever: big face + 14×4 body + white chest + fluffy tail + paw highlights
+    face(1,0,2);
+    f(ctx,1,12,14,4,G);
+    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
+    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
+    f(ctx,2,13,12,2,G);
+    f(ctx,4,13,8,2,W);
+    f(ctx,2,15,3,1,g); f(ctx,11,15,3,1,g);
+    d(ctx,3,15,W); d(ctx,12,15,W);
+    f(ctx,14,9,2,6,g); f(ctx,13,14,3,1,g);
+    d(ctx,15,9,K); d(ctx,15,14,K); d(ctx,14,15,W);
   } else {
     face(1,0,2);
     f(ctx,1,12,14,3,G);
