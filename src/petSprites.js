@@ -62,36 +62,58 @@ function drawCat(ctx, stage, af, rest) {
   }
 
   if (stage===0) {
+    // Tiny sleeping kitten: just a small head, no body
     face(3,5,0);
   } else if (stage===1) {
+    // Small kitten: tiny head higher up + tiny body blob below
+    face(3,3,0);
+    f(ctx,4,12,8,2,O);
+    f(ctx,4,12,8,1,K); f(ctx,4,13,8,1,K);
+    f(ctx,4,12,1,2,K); f(ctx,11,12,1,2,K);
+    f(ctx,5,12,6,1,O);
+    d(ctx,5,14,o); d(ctx,9,14,o);
+  } else if (stage===2) {
+    // Young kitten: medium head + short body + tail stub
+    face(2,2,1);
+    f(ctx,3,12,10,3,O);
+    f(ctx,3,12,10,1,K); f(ctx,3,14,10,1,K);
+    f(ctx,3,12,1,3,K); f(ctx,12,12,1,3,K);
+    f(ctx,4,13,8,1,O);
+    d(ctx,5,14,o); d(ctx,9,14,o);
+    f(ctx,13,12,2,2,o); d(ctx,13,12,K); d(ctx,14,13,P);
+  } else if (stage===3) {
+    // Juvenile: medium head + taller body + one stripe + swishing tail
     face(2,1,1);
-    // body
     f(ctx,3,11,10,4,O);
     f(ctx,3,11,10,1,K); f(ctx,3,14,10,1,K);
     f(ctx,3,11,1,4,K); f(ctx,12,11,1,4,K);
     f(ctx,4,12,8,2,O);
-    // paws
+    f(ctx,5,13,4,1,o);
     f(ctx,4,14,3,1,o); f(ctx,9,14,3,1,o);
-    // tail
-    const tx = af===0 ? 13 : 14;
+    const tx=af===0?13:14;
     f(ctx,tx,10,2,5,o); d(ctx,tx,10,K); d(ctx,tx+1,14,K);
-    d(ctx,tx+1,15,P); // tail tip
-  } else {
+    d(ctx,tx+1,15,P);
+  } else if (stage===4) {
+    // Young tabby: big head + wide body + 3 stripes + curled tail
     face(1,0,2);
-    // larger body
     f(ctx,1,12,14,3,O);
     f(ctx,1,12,14,1,K); f(ctx,1,14,14,1,K);
     f(ctx,1,12,1,3,K); f(ctx,14,12,1,3,K);
     f(ctx,2,13,12,1,O);
-    // stripes on body
-    f(ctx,4,13,2,1,o); f(ctx,9,13,2,1,o);
-    // paws
+    f(ctx,3,13,2,1,o); f(ctx,7,13,2,1,o); f(ctx,11,13,2,1,o);
     f(ctx,2,14,3,1,o); f(ctx,11,14,3,1,o);
-    // tail curled right
-    f(ctx,14,10,2,5,o);
-    f(ctx,13,14,3,1,o); // tail base curves
-    d(ctx,14,10,K); d(ctx,15,14,K);
-    d(ctx,15,15,P); // tail tip
+    f(ctx,14,10,2,5,o); f(ctx,13,14,3,1,o);
+    d(ctx,14,10,K); d(ctx,15,14,K); d(ctx,15,15,P);
+  } else {
+    face(1,0,2);
+    f(ctx,1,12,14,3,O);
+    f(ctx,1,12,14,1,K); f(ctx,1,14,14,1,K);
+    f(ctx,1,12,1,3,K); f(ctx,14,12,1,3,K);
+    f(ctx,2,13,12,1,O);
+    f(ctx,4,13,2,1,o); f(ctx,9,13,2,1,o);
+    f(ctx,2,14,3,1,o); f(ctx,11,14,3,1,o);
+    f(ctx,14,10,2,5,o); f(ctx,13,14,3,1,o);
+    d(ctx,14,10,K); d(ctx,15,14,K); d(ctx,15,15,P);
   }
 }
 
