@@ -21,7 +21,7 @@ export const PETS = [
   },
   {
     id: 'dog',
-    name: 'Sunny',
+    name: 'Max',
     description: 'An enthusiastic golden pup cheering you on',
     color: '#e8b84b',
     bg: '#fffde7',

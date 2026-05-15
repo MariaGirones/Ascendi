@@ -41,9 +41,9 @@ Mochi the orange tabby evolves as you accumulate XP from completed focus session
 
 ---
 
-## Sunny Evolution Stages
+## Max Evolution Stages
 
-Sunny the golden retriever evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+Max the golden retriever evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
 
 | Stage | Name | XP Required | Appearance |
 |---|---|---|---|
