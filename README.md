@@ -60,6 +60,25 @@ Sunny the golden retriever evolves as you accumulate XP from completed focus ses
 
 ---
 
+## Drakon Evolution Stages
+
+Drakon the ancient dragon evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Appearance |
+|---|---|---|---|
+| 1 | Egg | 0 | Smooth teal egg with a white highlight patch, four dark speckles, and a faint yellow glow on one corner |
+| 2 | Cracked Egg | 111 | Teal egg with jagged crack lines spreading across the shell and a pair of glowing yellow eyes peeking out from within |
+| 3 | Whelp | 222 | Tiny dragon head rising above two broken shell halves, with yellow horn nubs, animated eyes, a small body, and a dark-tipped tail |
+| 4 | Hatchling | 333 | Free of the shell — compact head with four yellow horn pixels, 2×2 yellow eyes, a wider body, and small 2×2 dark wing nubs on each side |
+| 5 | Sparkling | 444 | Taller head with 2×2 block horns, two yellow back spines, a 10×6 body, and animated 3×3 dark wing stubs that bob up and down |
+| 6 | Drake | 556 | Young dragon with small 3-wide wings, glowing yellow eyes with white pupils, 2 spines, a 3-scale body pattern, and a short pointed tail |
+| 7 | Firedrake | 667 | Full 4×8 wings with webbing, fierce red eyes, 3 spines, visible teeth, and an animated four-pixel fire breath stream |
+| 8 | Wyvern | 778 | Swept-back narrow wings reaching the top of the canvas, red eyes, 4 spines, teeth, and a massive 6×3 tail with three yellow spikes |
+| 9 | Elder Drake | 889 | Full wings with triple webbing dots, white belly patch, flanking dark scale marks, four forehead crest marks, 5 spines, and alternating white glow in each eye |
+| 10 | Dragon | 1000 | Majestic ancient dragon with yellow glow on wing outer edges, white belly, four spines, epic wider tail, and fire burning on both animation frames |
+
+---
+
 ## Features
 
 - **6 pixel art companions** — each with 10 evolution stages, drawn procedurally on HTML Canvas (no image files)
