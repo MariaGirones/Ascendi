@@ -1,19 +1,20 @@
 // petSprites.js
 // Canvas pixel-art drawing for all 6 pets.
-// Canvas: 64×64 px. Each art "pixel" = 4×4 screen pixels (S=4, grid 16×16).
+// Canvas: 72×72 px. Each art "pixel" = 3×3 screen pixels (S=3, grid 16×16, PAD=12px).
 //
 // drawPet(ctx, petId, stage, animFrame, isResting)
 //   stage:     0=baby, 1=teen, 2=adult
 //   animFrame: 0 or 1 (idle animation cycle)
 //   isResting: true when timer is paused/on break
 
-const S = 4;
-const f = (ctx, x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(x*S, y*S, w*S, h*S); };
+const S = 3;
+const PAD = 12;
+const f = (ctx, x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(x*S+PAD, y*S+PAD, w*S, h*S); };
 const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 
 // ─── CAT (orange tabby) ───────────────────────────────────────────────────────
 function drawCat(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, 64, 64);
+  ctx.clearRect(0, 0, 72, 72);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', G='#44cc44', W='#ffffff';
 
   function face(ox, oy, sz) {
@@ -186,7 +187,7 @@ function drawCat(ctx, stage, af, rest) {
 
 // ─── DOG (golden retriever) ───────────────────────────────────────────────────
 function drawDog(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, 64, 64);
+  ctx.clearRect(0, 0, 72, 72);
   const G='#e8b84b', g='#c49030', K='#1a1a2e', W='#ffffff', T='#a06820';
 
   function face(ox, oy, sz) {
@@ -355,7 +356,7 @@ function drawDog(ctx, stage, af, rest) {
 
 // ─── DRAGON (dark teal/emerald) ───────────────────────────────────────────────
 function drawDragon(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, 64, 64);
+  ctx.clearRect(0, 0, 72, 72);
   const D='#1abc9c', dk='#0e8a70', K='#1a1a2e', R='#e74c3c', Y='#f1c40f', W='#ffffff';
 
   if (stage===0) {
@@ -626,7 +627,7 @@ function drawDragon(ctx, stage, af, rest) {
 
 // ─── BUNNY (soft lavender) ────────────────────────────────────────────────────
 function drawBunny(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, 64, 64);
+  ctx.clearRect(0, 0, 72, 72);
   const L='#c3aee0', l='#9b82c2', K='#1a1a2e', P='#ffb6c1', W='#ffffff', B='#4a3580';
 
   function ears(ox,earH,fw) {
@@ -741,7 +742,7 @@ function drawBunny(ctx, stage, af, rest) {
 
 // ─── FOX (orange-red with white) ─────────────────────────────────────────────
 function drawFox(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, 64, 64);
+  ctx.clearRect(0, 0, 72, 72);
   const F='#e8622a', f2='#f4956a', W='#ffffff', K='#1a1a2e', B='#3a1a00', BK='#222';
 
   function foxFace(ox,oy,fw,fh) {
@@ -832,7 +833,7 @@ function drawFox(ctx, stage, af, rest) {
 
 // ─── AXOLOTL (pink, external gills) ──────────────────────────────────────────
 function drawAxolotl(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, 64, 64);
+  ctx.clearRect(0, 0, 72, 72);
   const A='#ff91b0', a='#e0607a', K='#1a1a2e', W='#ffffff', G='#ff4466', B='#d63060';
 
   function gills(ctx, gx, gy, n, h) {
