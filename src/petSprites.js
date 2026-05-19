@@ -123,35 +123,35 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,0,ty-1,P);
   } else if (stage===6) {
     // Striped tabby: white belly, side stripes, right hooked tail
-    face(1,0,2);
-    f(ctx,1,12,14,4,O);
-    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
-    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
-    f(ctx,2,13,12,2,O);
-    f(ctx,5,13,6,2,W);
-    f(ctx,2,13,2,1,o); f(ctx,12,13,2,1,o);
-    f(ctx,2,14,2,1,o); f(ctx,12,14,2,1,o);
-    f(ctx,4,13,1,1,o); f(ctx,11,13,1,1,o);
-    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
-    f(ctx,14,10,2,4,o); f(ctx,13,13,2,1,o);
-    d(ctx,14,10,K); d(ctx,14,13,K); d(ctx,15,9,P);
+    face(1,0,1);
+    f(ctx,1,10,14,4,O);
+    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
+    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
+    f(ctx,2,11,12,2,O);
+    f(ctx,5,11,6,2,W);
+    f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
+    f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
+    f(ctx,4,11,1,1,o); f(ctx,11,11,1,1,o);
+    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
+    f(ctx,14,8,2,4,o); f(ctx,13,11,2,1,o);
+    d(ctx,14,8,K); d(ctx,14,11,K); d(ctx,15,7,P);
   } else if (stage===7) {
     // Mature tabby: broader forehead marks, belly stripe, long sweeping tail, paw highlights
-    face(1,0,2);
+    face(1,0,1);
     f(ctx,5,2,2,1,o); f(ctx,9,2,2,1,o);
-    f(ctx,1,12,14,4,O);
-    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
-    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
-    f(ctx,2,13,12,2,O);
-    f(ctx,5,13,6,2,W);
-    f(ctx,2,13,2,1,o); f(ctx,12,13,2,1,o);
-    f(ctx,2,14,2,1,o); f(ctx,12,14,2,1,o);
-    f(ctx,4,13,1,1,o); f(ctx,11,13,1,1,o);
-    f(ctx,4,14,1,1,o); f(ctx,11,14,1,1,o);
-    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
-    d(ctx,3,15,W); d(ctx,12,15,W);
-    f(ctx,14,9,2,7,o); f(ctx,13,15,3,1,o);
-    d(ctx,14,9,K); d(ctx,15,15,K); d(ctx,15,16,P);
+    f(ctx,1,10,14,4,O);
+    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
+    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
+    f(ctx,2,11,12,2,O);
+    f(ctx,5,11,6,2,W);
+    f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
+    f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
+    f(ctx,4,11,1,1,o); f(ctx,11,11,1,1,o);
+    f(ctx,4,12,1,1,o); f(ctx,11,12,1,1,o);
+    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
+    d(ctx,3,13,W); d(ctx,12,13,W);
+    f(ctx,14,7,2,7,o); f(ctx,13,13,3,1,o);
+    d(ctx,14,7,K); d(ctx,15,13,K); d(ctx,15,14,P);
   } else if (stage===8) {
     // Elder tabby: white collar, dense 7-stripe pattern, animated thick tail, toe detail
     face(1,0,2);
