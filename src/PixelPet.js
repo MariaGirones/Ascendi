@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { drawPet } from './petSprites';
 
-const CANVAS_SIZE = 72;
+const CANVAS_SIZE = 200;
 const FRAME_MS = 600; // ms per animation frame
 
 /**

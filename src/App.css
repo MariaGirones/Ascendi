@@ -249,8 +249,8 @@ h1 {
 /* Pixel-art frame */
 .pet-frame {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
