@@ -106,7 +106,7 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,3,14,2,1,o); f(ctx,7,14,2,1,o); f(ctx,11,14,2,1,o);
     f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
     f(ctx,14,11,2,5,o); f(ctx,13,15,3,1,o);
-    d(ctx,14,11,K); d(ctx,15,15,K); d(ctx,15,16,P);
+    d(ctx,14,11,K); d(ctx,15,15,K); d(ctx,14,15,P);
   } else if (stage===5) {
     // Confident tabby: 4-row body, 5 stripes in 2 rows, upright animated left tail
     face(1,0,2);
@@ -181,7 +181,7 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,11,13,1,1,o); f(ctx,11,14,1,1,o);
     f(ctx,1,15,4,1,o); f(ctx,11,15,4,1,o);
     d(ctx,2,15,O); d(ctx,3,15,O); d(ctx,12,15,O); d(ctx,13,15,O);
-    f(ctx,13,9,3,7,o); f(ctx,12,15,4,2,o);
+    f(ctx,13,9,3,7,o); f(ctx,12,15,4,1,o);
     d(ctx,13,9,K); d(ctx,15,15,K);
     d(ctx,15,6,P); d(ctx,15,7,P);
   }
