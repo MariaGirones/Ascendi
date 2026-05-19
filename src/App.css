@@ -254,6 +254,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
   background: var(--pet-bg, #181628);
   border: 3px solid var(--pet-color, #d06878);
   box-shadow:
