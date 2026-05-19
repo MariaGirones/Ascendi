@@ -25,6 +25,10 @@ export default function PixelPet({ petId, stageIndex, isRunning, gainCount }) {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
+    const size = canvas.width;
+    const S   = Math.max(1, Math.floor(size * 0.85 / 16));
+    const PAD = Math.round((size - S * 16) / 2);
+    console.log(`drawPet — w:${canvas.width} h:${canvas.height} S:${S} PAD:${PAD}`);
     drawPet(ctx, petId, stageIndex, af, resting);
   };
 
