@@ -151,7 +151,7 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
     d(ctx,3,15,W); d(ctx,12,15,W);
     f(ctx,14,9,2,7,o); f(ctx,13,15,3,1,o);
-    d(ctx,14,9,K); d(ctx,15,15,K); d(ctx,14,15,P);
+    d(ctx,14,9,K); d(ctx,15,15,K); d(ctx,15,16,P);
   } else if (stage===8) {
     // Elder tabby: white collar, dense 7-stripe pattern, animated thick tail, toe detail
     face(1,0,2);
