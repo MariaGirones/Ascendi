@@ -97,44 +97,209 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,tx,10,2,5,o); d(ctx,tx,10,K); d(ctx,tx+1,14,K);
     d(ctx,tx+1,15,P);
   } else if (stage===4) {
-    // Young tabby: big head + wide body + 3 stripes + curled tail
-    face(1,0,1);
-    f(ctx,1,10,14,3,O);
-    f(ctx,1,10,14,1,K); f(ctx,1,12,14,1,K);
-    f(ctx,1,10,1,3,K); f(ctx,14,10,1,3,K);
-    f(ctx,2,11,12,1,O);
-    f(ctx,3,11,2,1,o); f(ctx,7,11,2,1,o); f(ctx,11,11,2,1,o);
-    f(ctx,2,12,3,1,o); f(ctx,11,12,3,1,o);
-    f(ctx,14,8,2,5,o); f(ctx,13,12,3,1,o);
-    d(ctx,14,8,K); d(ctx,15,12,K); d(ctx,15,13,P);
+    // Young tabby — 280 px canvas, S=14 PAD=28
+    // face (ox=1 oy=0 fw=12 fh=10)
+    ctx.fillStyle=O; ctx.fillRect(42,28,168,140);          // head fill
+    ctx.fillStyle=K; ctx.fillRect(42,28,168,14);           // outline top
+    ctx.fillStyle=K; ctx.fillRect(42,154,168,14);          // outline bottom
+    ctx.fillStyle=K; ctx.fillRect(42,28,14,140);           // outline left
+    ctx.fillStyle=K; ctx.fillRect(196,28,14,140);          // outline right
+    ctx.fillStyle=O; ctx.fillRect(56,42,140,112);          // inner
+    ctx.fillStyle=O; ctx.fillRect(56,0,28,28);             // left ear
+    ctx.fillStyle=O; ctx.fillRect(168,0,28,28);            // right ear
+    ctx.fillStyle=K; ctx.fillRect(56,0,14,14);             // left ear outline
+    ctx.fillStyle=K; ctx.fillRect(70,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(168,0,14,14);            // right ear outline
+    ctx.fillStyle=K; ctx.fillRect(182,0,14,14);
+    ctx.fillStyle=P; ctx.fillRect(70,14,14,14);            // inner ears
+    ctx.fillStyle=P; ctx.fillRect(168,14,14,14);
+    ctx.fillStyle=o; ctx.fillRect(112,42,14,14);           // forehead stripes
+    ctx.fillStyle=o; ctx.fillRect(126,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(70,56,14,14);            // cheek stripes
+    ctx.fillStyle=o; ctx.fillRect(168,56,14,14);
+    if (rest) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,28,14);          // eyes closed
+      ctx.fillStyle=K; ctx.fillRect(154,84,28,14);
+    } else if (af===1) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,14,14);          // blink
+      ctx.fillStyle=K; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,84,14,14);
+    } else {
+      ctx.fillStyle=W; ctx.fillRect(70,84,28,28);          // left eye white
+      ctx.fillStyle=W; ctx.fillRect(154,84,28,28);         // right eye white
+      ctx.fillStyle=G; ctx.fillRect(70,84,14,14);          // irises
+      ctx.fillStyle=G; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(168,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,98,14,14);          // pupils
+      ctx.fillStyle=K; ctx.fillRect(168,98,14,14);
+    }
+    ctx.fillStyle=P; ctx.fillRect(112,112,14,14);          // nose
+    ctx.fillStyle=P; ctx.fillRect(126,112,14,14);
+    ctx.fillStyle=K; ctx.fillRect(98,126,14,14);           // mouth
+    ctx.fillStyle=K; ctx.fillRect(140,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(14,112,28,14);           // whiskers
+    ctx.fillStyle=K; ctx.fillRect(210,112,28,14);
+    // body (y=10–12, 3 rows)
+    ctx.fillStyle=O; ctx.fillRect(42,168,196,42);
+    ctx.fillStyle=K; ctx.fillRect(42,168,196,14);          // top border
+    ctx.fillStyle=K; ctx.fillRect(42,196,196,14);          // bottom border
+    ctx.fillStyle=K; ctx.fillRect(42,168,14,42);           // left border
+    ctx.fillStyle=K; ctx.fillRect(224,168,14,42);          // right border
+    ctx.fillStyle=O; ctx.fillRect(56,182,168,14);          // belly row
+    ctx.fillStyle=o; ctx.fillRect(70,182,28,14);           // stripe 1
+    ctx.fillStyle=o; ctx.fillRect(126,182,28,14);          // stripe 2
+    ctx.fillStyle=o; ctx.fillRect(182,182,28,14);          // stripe 3
+    // paws (y=12)
+    ctx.fillStyle=o; ctx.fillRect(56,196,42,14);
+    ctx.fillStyle=o; ctx.fillRect(182,196,42,14);
+    // tail (x=14–15, y=8–12)
+    ctx.fillStyle=o; ctx.fillRect(224,140,28,70);          // tail body
+    ctx.fillStyle=o; ctx.fillRect(210,196,42,14);          // tail base hook
+    ctx.fillStyle=K; ctx.fillRect(224,140,14,14);          // tail root outline
+    ctx.fillStyle=K; ctx.fillRect(238,196,14,14);          // tail tip outline
+    ctx.fillStyle=P; ctx.fillRect(238,210,14,14);          // curl tip
   } else if (stage===5) {
-    // Confident tabby: 4-row body, 5 stripes in 2 rows, upright animated left tail
-    face(1,0,1);
-    f(ctx,1,10,14,4,O);
-    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
-    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
-    f(ctx,2,11,12,2,O);
-    f(ctx,2,11,3,1,o); f(ctx,6,11,3,1,o); f(ctx,10,11,3,1,o);
-    f(ctx,3,12,3,1,o); f(ctx,9,12,3,1,o);
-    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
-    const ty=af===0?9:8;
-    f(ctx,0,ty,1,5,o);
-    d(ctx,0,ty,K); d(ctx,0,ty+4,K);
-    d(ctx,0,ty-1,P);
+    // Confident tabby — 280 px canvas, S=14 PAD=28
+    // face (ox=1 oy=0 fw=12 fh=10)
+    ctx.fillStyle=O; ctx.fillRect(42,28,168,140);
+    ctx.fillStyle=K; ctx.fillRect(42,28,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,154,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,28,14,140);
+    ctx.fillStyle=K; ctx.fillRect(196,28,14,140);
+    ctx.fillStyle=O; ctx.fillRect(56,42,140,112);
+    ctx.fillStyle=O; ctx.fillRect(56,0,28,28);
+    ctx.fillStyle=O; ctx.fillRect(168,0,28,28);
+    ctx.fillStyle=K; ctx.fillRect(56,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(70,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(168,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(182,0,14,14);
+    ctx.fillStyle=P; ctx.fillRect(70,14,14,14);
+    ctx.fillStyle=P; ctx.fillRect(168,14,14,14);
+    ctx.fillStyle=o; ctx.fillRect(112,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(126,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(70,56,14,14);
+    ctx.fillStyle=o; ctx.fillRect(168,56,14,14);
+    if (rest) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,28,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,28,14);
+    } else if (af===1) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,84,14,14);
+    } else {
+      ctx.fillStyle=W; ctx.fillRect(70,84,28,28);
+      ctx.fillStyle=W; ctx.fillRect(154,84,28,28);
+      ctx.fillStyle=G; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(168,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,98,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,98,14,14);
+    }
+    ctx.fillStyle=P; ctx.fillRect(112,112,14,14);
+    ctx.fillStyle=P; ctx.fillRect(126,112,14,14);
+    ctx.fillStyle=K; ctx.fillRect(98,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(140,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(14,112,28,14);
+    ctx.fillStyle=K; ctx.fillRect(210,112,28,14);
+    // body (y=10–13, 4 rows)
+    ctx.fillStyle=O; ctx.fillRect(42,168,196,56);
+    ctx.fillStyle=K; ctx.fillRect(42,168,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,210,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,168,14,56);
+    ctx.fillStyle=K; ctx.fillRect(224,168,14,56);
+    ctx.fillStyle=O; ctx.fillRect(56,182,168,28);          // inner belly
+    ctx.fillStyle=o; ctx.fillRect(56,182,42,14);           // stripe row 1
+    ctx.fillStyle=o; ctx.fillRect(112,182,42,14);
+    ctx.fillStyle=o; ctx.fillRect(168,182,42,14);
+    ctx.fillStyle=o; ctx.fillRect(70,196,42,14);           // stripe row 2
+    ctx.fillStyle=o; ctx.fillRect(154,196,42,14);
+    // paws (y=13)
+    ctx.fillStyle=o; ctx.fillRect(56,210,42,14);
+    ctx.fillStyle=o; ctx.fillRect(182,210,42,14);
+    // tail (left side, animated)
+    if (af===0) {
+      ctx.fillStyle=o; ctx.fillRect(28,154,14,70);         // ty=9, h=5
+      ctx.fillStyle=K; ctx.fillRect(28,154,14,14);         // top outline
+      ctx.fillStyle=K; ctx.fillRect(28,210,14,14);         // bottom outline
+      ctx.fillStyle=P; ctx.fillRect(28,140,14,14);         // tip
+    } else {
+      ctx.fillStyle=o; ctx.fillRect(28,140,14,70);         // ty=8, h=5
+      ctx.fillStyle=K; ctx.fillRect(28,140,14,14);         // top outline
+      ctx.fillStyle=K; ctx.fillRect(28,196,14,14);         // bottom outline
+      ctx.fillStyle=P; ctx.fillRect(28,126,14,14);         // tip
+    }
   } else if (stage===6) {
-    // Striped tabby: white belly, side stripes, right hooked tail
-    face(1,0,1);
-    f(ctx,1,10,14,4,O);
-    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
-    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
-    f(ctx,2,11,12,2,O);
-    f(ctx,5,11,6,2,W);
-    f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
-    f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
-    f(ctx,4,11,1,1,o); f(ctx,11,11,1,1,o);
-    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
-    f(ctx,14,8,2,4,o); f(ctx,13,11,2,1,o);
-    d(ctx,14,8,K); d(ctx,14,11,K); d(ctx,15,7,P);
+    // Striped tabby — 280 px canvas, S=14 PAD=28
+    // face (ox=1 oy=0 fw=12 fh=10)
+    ctx.fillStyle=O; ctx.fillRect(42,28,168,140);
+    ctx.fillStyle=K; ctx.fillRect(42,28,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,154,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,28,14,140);
+    ctx.fillStyle=K; ctx.fillRect(196,28,14,140);
+    ctx.fillStyle=O; ctx.fillRect(56,42,140,112);
+    ctx.fillStyle=O; ctx.fillRect(56,0,28,28);
+    ctx.fillStyle=O; ctx.fillRect(168,0,28,28);
+    ctx.fillStyle=K; ctx.fillRect(56,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(70,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(168,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(182,0,14,14);
+    ctx.fillStyle=P; ctx.fillRect(70,14,14,14);
+    ctx.fillStyle=P; ctx.fillRect(168,14,14,14);
+    ctx.fillStyle=o; ctx.fillRect(112,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(126,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(70,56,14,14);
+    ctx.fillStyle=o; ctx.fillRect(168,56,14,14);
+    if (rest) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,28,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,28,14);
+    } else if (af===1) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,84,14,14);
+    } else {
+      ctx.fillStyle=W; ctx.fillRect(70,84,28,28);
+      ctx.fillStyle=W; ctx.fillRect(154,84,28,28);
+      ctx.fillStyle=G; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(168,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,98,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,98,14,14);
+    }
+    ctx.fillStyle=P; ctx.fillRect(112,112,14,14);
+    ctx.fillStyle=P; ctx.fillRect(126,112,14,14);
+    ctx.fillStyle=K; ctx.fillRect(98,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(140,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(14,112,28,14);
+    ctx.fillStyle=K; ctx.fillRect(210,112,28,14);
+    // body (y=10–13, 4 rows)
+    ctx.fillStyle=O; ctx.fillRect(42,168,196,56);
+    ctx.fillStyle=K; ctx.fillRect(42,168,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,210,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,168,14,56);
+    ctx.fillStyle=K; ctx.fillRect(224,168,14,56);
+    ctx.fillStyle=O; ctx.fillRect(56,182,168,28);          // inner belly
+    ctx.fillStyle=W; ctx.fillRect(98,182,84,28);           // white belly stripe
+    ctx.fillStyle=o; ctx.fillRect(56,182,28,14);           // side stripes row 1
+    ctx.fillStyle=o; ctx.fillRect(196,182,28,14);
+    ctx.fillStyle=o; ctx.fillRect(56,196,28,14);           // side stripes row 2
+    ctx.fillStyle=o; ctx.fillRect(196,196,28,14);
+    ctx.fillStyle=o; ctx.fillRect(84,182,14,14);           // inner stripe dots
+    ctx.fillStyle=o; ctx.fillRect(182,182,14,14);
+    // paws (y=13)
+    ctx.fillStyle=o; ctx.fillRect(56,210,42,14);
+    ctx.fillStyle=o; ctx.fillRect(182,210,42,14);
+    // tail (right side, hooked)
+    ctx.fillStyle=o; ctx.fillRect(224,140,28,56);          // tail body (y=8–11, h=4)
+    ctx.fillStyle=o; ctx.fillRect(210,182,28,14);          // tail hook (y=11)
+    ctx.fillStyle=K; ctx.fillRect(224,140,14,14);          // tail root
+    ctx.fillStyle=K; ctx.fillRect(224,182,14,14);          // tail joint
+    ctx.fillStyle=P; ctx.fillRect(238,126,14,14);          // curl tip (y=7)
   } else if (stage===7) {
   // Mature tabby: face sz=1 to leave room, full body with paws and tail
   face(1,0,1);
