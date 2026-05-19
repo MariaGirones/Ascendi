@@ -136,23 +136,28 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,14,8,2,4,o); f(ctx,13,11,2,1,o);
     d(ctx,14,8,K); d(ctx,14,11,K); d(ctx,15,7,P);
   } else if (stage===7) {
-    // Mature tabby: broader forehead marks, belly stripe, long sweeping tail, paw highlights
-    face(1,0,1);
-    f(ctx,5,2,2,1,o); f(ctx,9,2,2,1,o);
-    f(ctx,1,10,14,4,O);
-    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
-    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
-    f(ctx,2,11,12,2,O);
-    f(ctx,5,11,6,2,W);
-    f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
-    f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
-    f(ctx,4,11,1,1,o); f(ctx,11,11,1,1,o);
-    f(ctx,4,12,1,1,o); f(ctx,11,12,1,1,o);
-    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
-    d(ctx,3,13,W); d(ctx,12,13,W);
-    f(ctx,14,7,2,7,o); f(ctx,13,13,3,1,o);
-    d(ctx,14,7,K); d(ctx,15,13,K); d(ctx,15,14,P);
-  } else if (stage===8) {
+  // Mature tabby: face sz=1 to leave room, full body with paws and tail
+  face(1,0,1);
+  f(ctx,4,2,2,1,o); f(ctx,8,2,2,1,o);
+  // body y=10-14
+  f(ctx,1,10,14,5,O);
+  f(ctx,1,10,14,1,K); f(ctx,1,14,14,1,K);
+  f(ctx,1,10,1,5,K); f(ctx,14,10,1,5,K);
+  f(ctx,2,11,12,3,O);
+  f(ctx,5,11,6,2,W);
+  f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
+  f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
+  f(ctx,4,11,1,1,o); f(ctx,11,11,1,1,o);
+  f(ctx,4,12,1,1,o); f(ctx,11,12,1,1,o);
+  // paws at y=13
+  f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
+  d(ctx,3,13,W); d(ctx,12,13,W);
+  // tail x=14-15, y=7-13
+  f(ctx,14,7,2,7,o);
+  f(ctx,13,13,3,1,o);
+  d(ctx,14,7,K); d(ctx,15,13,K);
+  d(ctx,14,13,P);
+} else if (stage===8) {
     // Elder tabby: white collar, dense 7-stripe pattern, animated thick tail, toe detail
     face(1,0,1);
     f(ctx,1,10,14,4,O);
