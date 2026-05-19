@@ -98,25 +98,25 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,tx+1,15,P);
   } else if (stage===4) {
     // Young tabby: big head + wide body + 3 stripes + curled tail
-    face(1,1,2);
-    f(ctx,1,13,14,3,O);
-    f(ctx,1,13,14,1,K); f(ctx,1,15,14,1,K);
-    f(ctx,1,13,1,3,K); f(ctx,14,13,1,3,K);
-    f(ctx,2,14,12,1,O);
-    f(ctx,3,14,2,1,o); f(ctx,7,14,2,1,o); f(ctx,11,14,2,1,o);
-    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
-    f(ctx,14,11,2,5,o); f(ctx,13,15,3,1,o);
-    d(ctx,14,11,K); d(ctx,15,15,K); d(ctx,15,16,P);
+    face(1,0,1);
+    f(ctx,1,10,14,3,O);
+    f(ctx,1,10,14,1,K); f(ctx,1,12,14,1,K);
+    f(ctx,1,10,1,3,K); f(ctx,14,10,1,3,K);
+    f(ctx,2,11,12,1,O);
+    f(ctx,3,11,2,1,o); f(ctx,7,11,2,1,o); f(ctx,11,11,2,1,o);
+    f(ctx,2,12,3,1,o); f(ctx,11,12,3,1,o);
+    f(ctx,14,8,2,5,o); f(ctx,13,12,3,1,o);
+    d(ctx,14,8,K); d(ctx,15,12,K); d(ctx,15,13,P);
   } else if (stage===5) {
     // Confident tabby: 4-row body, 5 stripes in 2 rows, upright animated left tail
-    face(1,0,2);
-    f(ctx,1,12,14,4,O);
-    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
-    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
-    f(ctx,2,13,12,2,O);
-    f(ctx,2,13,3,1,o); f(ctx,6,13,3,1,o); f(ctx,10,13,3,1,o);
-    f(ctx,3,14,3,1,o); f(ctx,9,14,3,1,o);
-    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
+    face(1,0,1);
+    f(ctx,1,10,14,4,O);
+    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
+    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
+    f(ctx,2,11,12,2,O);
+    f(ctx,2,11,3,1,o); f(ctx,6,11,3,1,o); f(ctx,10,11,3,1,o);
+    f(ctx,3,12,3,1,o); f(ctx,9,12,3,1,o);
+    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
     const ty=af===0?9:8;
     f(ctx,0,ty,1,5,o);
     d(ctx,0,ty,K); d(ctx,0,ty+4,K);
