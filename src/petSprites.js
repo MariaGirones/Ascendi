@@ -154,36 +154,36 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,14,7,K); d(ctx,15,13,K); d(ctx,15,14,P);
   } else if (stage===8) {
     // Elder tabby: white collar, dense 7-stripe pattern, animated thick tail, toe detail
-    face(1,0,2);
-    f(ctx,1,12,14,4,O);
-    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
-    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
-    f(ctx,2,13,12,2,O);
-    f(ctx,4,13,8,1,W);
-    f(ctx,2,13,1,1,o); f(ctx,13,13,1,1,o);
-    f(ctx,2,14,3,1,o); f(ctx,5,14,2,1,o); f(ctx,9,14,2,1,o); f(ctx,11,14,3,1,o);
-    f(ctx,2,15,3,1,o); f(ctx,11,15,3,1,o);
-    d(ctx,3,15,W); d(ctx,4,15,W); d(ctx,12,15,W); d(ctx,13,15,W);
+    face(1,0,1);
+    f(ctx,1,10,14,4,O);
+    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
+    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
+    f(ctx,2,11,12,2,O);
+    f(ctx,4,11,8,1,W);
+    f(ctx,2,11,1,1,o); f(ctx,13,11,1,1,o);
+    f(ctx,2,12,3,1,o); f(ctx,5,12,2,1,o); f(ctx,9,12,2,1,o); f(ctx,11,12,3,1,o);
+    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
+    d(ctx,3,13,W); d(ctx,4,13,W); d(ctx,12,13,W); d(ctx,13,13,W);
     const tw=af===0?13:14;
-    f(ctx,tw,10,2,6,o);
-    d(ctx,tw,10,K); d(ctx,tw+1,15,K); d(ctx,tw+1,9,P);
+    f(ctx,tw,8,2,6,o);
+    d(ctx,tw,8,K); d(ctx,tw+1,13,K); d(ctx,tw+1,7,P);
   } else {
     // Grand Tabby: white chest ruff, elaborate markings, big paws, majestic tall tail
-    face(1,0,2);
-    f(ctx,1,12,14,4,O);
-    f(ctx,1,12,14,1,K); f(ctx,1,15,14,1,K);
-    f(ctx,1,12,1,4,K); f(ctx,14,12,1,4,K);
-    f(ctx,2,13,12,2,O);
-    f(ctx,4,13,8,2,W);
-    f(ctx,2,13,2,1,o); f(ctx,12,13,2,1,o);
-    f(ctx,2,14,2,1,o); f(ctx,12,14,2,1,o);
-    f(ctx,4,13,1,1,o); f(ctx,4,14,1,1,o);
-    f(ctx,11,13,1,1,o); f(ctx,11,14,1,1,o);
-    f(ctx,1,15,4,1,o); f(ctx,11,15,4,1,o);
-    d(ctx,2,15,O); d(ctx,3,15,O); d(ctx,12,15,O); d(ctx,13,15,O);
-    f(ctx,13,9,3,7,o); f(ctx,12,15,4,2,o);
-    d(ctx,13,9,K); d(ctx,15,15,K);
-    d(ctx,15,6,P); d(ctx,15,7,P);
+    face(1,0,1);
+    f(ctx,1,10,14,4,O);
+    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
+    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
+    f(ctx,2,11,12,2,O);
+    f(ctx,4,11,8,2,W);
+    f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
+    f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
+    f(ctx,4,11,1,1,o); f(ctx,4,12,1,1,o);
+    f(ctx,11,11,1,1,o); f(ctx,11,12,1,1,o);
+    f(ctx,1,13,4,1,o); f(ctx,11,13,4,1,o);
+    d(ctx,2,13,O); d(ctx,3,13,O); d(ctx,12,13,O); d(ctx,13,13,O);
+    f(ctx,13,7,3,7,o); f(ctx,12,13,4,2,o);
+    d(ctx,13,7,K); d(ctx,15,13,K);
+    d(ctx,15,4,P); d(ctx,15,5,P);
   }
 }
 
