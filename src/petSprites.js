@@ -301,59 +301,232 @@ function drawCat(ctx, stage, af, rest) {
     ctx.fillStyle=K; ctx.fillRect(224,182,14,14);          // tail joint
     ctx.fillStyle=P; ctx.fillRect(238,126,14,14);          // curl tip (y=7)
   } else if (stage===7) {
-  // Mature tabby: face sz=1 to leave room, full body with paws and tail
-  face(1,0,1);
-  f(ctx,4,2,2,1,o); f(ctx,8,2,2,1,o);
-  // body y=10-14
-  f(ctx,1,10,14,5,O);
-  f(ctx,1,10,14,1,K); f(ctx,1,14,14,1,K);
-  f(ctx,1,10,1,5,K); f(ctx,14,10,1,5,K);
-  f(ctx,2,11,12,3,O);
-  f(ctx,5,11,6,2,W);
-  f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
-  f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
-  f(ctx,4,11,1,1,o); f(ctx,11,11,1,1,o);
-  f(ctx,4,12,1,1,o); f(ctx,11,12,1,1,o);
-  // paws at y=13
-  f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
-  d(ctx,3,13,W); d(ctx,12,13,W);
-  // tail x=14-15, y=7-13
-  f(ctx,14,7,2,7,o);
-  f(ctx,13,13,3,1,o);
-  d(ctx,14,7,K); d(ctx,15,13,K);
-  d(ctx,14,13,P);
-} else if (stage===8) {
-    // Elder tabby: white collar, dense 7-stripe pattern, animated thick tail, toe detail
-    face(1,0,1);
-    f(ctx,1,10,14,4,O);
-    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
-    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
-    f(ctx,2,11,12,2,O);
-    f(ctx,4,11,8,1,W);
-    f(ctx,2,11,1,1,o); f(ctx,13,11,1,1,o);
-    f(ctx,2,12,3,1,o); f(ctx,5,12,2,1,o); f(ctx,9,12,2,1,o); f(ctx,11,12,3,1,o);
-    f(ctx,2,13,3,1,o); f(ctx,11,13,3,1,o);
-    d(ctx,3,13,W); d(ctx,4,13,W); d(ctx,12,13,W); d(ctx,13,13,W);
-    const tw=af===0?13:14;
-    f(ctx,tw,8,2,6,o);
-    d(ctx,tw,8,K); d(ctx,tw+1,13,K); d(ctx,tw+1,7,P);
+    // Mature tabby — S=14 PAD=28
+    // face (ox=1 oy=0 fw=12 fh=10)
+    ctx.fillStyle=O; ctx.fillRect(42,28,168,140);
+    ctx.fillStyle=K; ctx.fillRect(42,28,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,154,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,28,14,140);
+    ctx.fillStyle=K; ctx.fillRect(196,28,14,140);
+    ctx.fillStyle=O; ctx.fillRect(56,42,140,112);
+    ctx.fillStyle=O; ctx.fillRect(56,0,28,28);
+    ctx.fillStyle=O; ctx.fillRect(168,0,28,28);
+    ctx.fillStyle=K; ctx.fillRect(56,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(70,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(168,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(182,0,14,14);
+    ctx.fillStyle=P; ctx.fillRect(70,14,14,14);
+    ctx.fillStyle=P; ctx.fillRect(168,14,14,14);
+    ctx.fillStyle=o; ctx.fillRect(112,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(126,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(70,56,14,14);
+    ctx.fillStyle=o; ctx.fillRect(168,56,14,14);
+    ctx.fillStyle=o; ctx.fillRect(84,56,28,14);
+    ctx.fillStyle=o; ctx.fillRect(140,56,28,14);
+    if (rest) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,28,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,28,14);
+    } else if (af===1) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,84,14,14);
+    } else {
+      ctx.fillStyle=W; ctx.fillRect(70,84,28,28);
+      ctx.fillStyle=W; ctx.fillRect(154,84,28,28);
+      ctx.fillStyle=G; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(168,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,98,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,98,14,14);
+    }
+    ctx.fillStyle=P; ctx.fillRect(112,112,14,14);
+    ctx.fillStyle=P; ctx.fillRect(126,112,14,14);
+    ctx.fillStyle=K; ctx.fillRect(98,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(140,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(14,112,28,14);
+    ctx.fillStyle=K; ctx.fillRect(210,112,28,14);
+    // body y=10-14
+    ctx.fillStyle=O; ctx.fillRect(42,168,196,70);
+    ctx.fillStyle=K; ctx.fillRect(42,168,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,224,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,168,14,70);
+    ctx.fillStyle=K; ctx.fillRect(224,168,14,70);
+    ctx.fillStyle=O; ctx.fillRect(56,182,168,42);
+    ctx.fillStyle=W; ctx.fillRect(98,182,84,28);
+    ctx.fillStyle=o; ctx.fillRect(56,182,28,14);
+    ctx.fillStyle=o; ctx.fillRect(196,182,28,14);
+    ctx.fillStyle=o; ctx.fillRect(56,196,28,14);
+    ctx.fillStyle=o; ctx.fillRect(196,196,28,14);
+    ctx.fillStyle=o; ctx.fillRect(84,182,14,14);
+    ctx.fillStyle=o; ctx.fillRect(182,182,14,14);
+    ctx.fillStyle=o; ctx.fillRect(84,196,14,14);
+    ctx.fillStyle=o; ctx.fillRect(182,196,14,14);
+    // paws y=13
+    ctx.fillStyle=o; ctx.fillRect(56,210,42,14);
+    ctx.fillStyle=o; ctx.fillRect(182,210,42,14);
+    ctx.fillStyle=W; ctx.fillRect(70,210,14,14);
+    ctx.fillStyle=W; ctx.fillRect(196,210,14,14);
+    // tail x=14-15, y=7-13
+    ctx.fillStyle=o; ctx.fillRect(224,126,28,98);
+    ctx.fillStyle=o; ctx.fillRect(210,210,42,14);
+    ctx.fillStyle=K; ctx.fillRect(224,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(238,210,14,14);
+    ctx.fillStyle=P; ctx.fillRect(224,210,14,14);
+  } else if (stage===8) {
+    // Elder tabby — S=14 PAD=28
+    // face (ox=1 oy=0 fw=12 fh=10)
+    ctx.fillStyle=O; ctx.fillRect(42,28,168,140);
+    ctx.fillStyle=K; ctx.fillRect(42,28,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,154,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,28,14,140);
+    ctx.fillStyle=K; ctx.fillRect(196,28,14,140);
+    ctx.fillStyle=O; ctx.fillRect(56,42,140,112);
+    ctx.fillStyle=O; ctx.fillRect(56,0,28,28);
+    ctx.fillStyle=O; ctx.fillRect(168,0,28,28);
+    ctx.fillStyle=K; ctx.fillRect(56,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(70,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(168,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(182,0,14,14);
+    ctx.fillStyle=P; ctx.fillRect(70,14,14,14);
+    ctx.fillStyle=P; ctx.fillRect(168,14,14,14);
+    ctx.fillStyle=o; ctx.fillRect(112,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(126,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(70,56,14,14);
+    ctx.fillStyle=o; ctx.fillRect(168,56,14,14);
+    if (rest) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,28,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,28,14);
+    } else if (af===1) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,84,14,14);
+    } else {
+      ctx.fillStyle=W; ctx.fillRect(70,84,28,28);
+      ctx.fillStyle=W; ctx.fillRect(154,84,28,28);
+      ctx.fillStyle=G; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(168,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,98,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,98,14,14);
+    }
+    ctx.fillStyle=P; ctx.fillRect(112,112,14,14);
+    ctx.fillStyle=P; ctx.fillRect(126,112,14,14);
+    ctx.fillStyle=K; ctx.fillRect(98,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(140,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(14,112,28,14);
+    ctx.fillStyle=K; ctx.fillRect(210,112,28,14);
+    // body y=10-13
+    ctx.fillStyle=O; ctx.fillRect(42,168,196,56);
+    ctx.fillStyle=K; ctx.fillRect(42,168,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,210,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,168,14,56);
+    ctx.fillStyle=K; ctx.fillRect(224,168,14,56);
+    ctx.fillStyle=O; ctx.fillRect(56,182,168,28);
+    ctx.fillStyle=W; ctx.fillRect(84,182,112,14);
+    ctx.fillStyle=o; ctx.fillRect(56,182,14,14);
+    ctx.fillStyle=o; ctx.fillRect(210,182,14,14);
+    ctx.fillStyle=o; ctx.fillRect(56,196,42,14);
+    ctx.fillStyle=o; ctx.fillRect(98,196,28,14);
+    ctx.fillStyle=o; ctx.fillRect(154,196,28,14);
+    ctx.fillStyle=o; ctx.fillRect(182,196,42,14);
+    // paws y=13
+    ctx.fillStyle=o; ctx.fillRect(56,210,42,14);
+    ctx.fillStyle=o; ctx.fillRect(182,210,42,14);
+    ctx.fillStyle=W; ctx.fillRect(70,210,14,14);
+    ctx.fillStyle=W; ctx.fillRect(84,210,14,14);
+    ctx.fillStyle=W; ctx.fillRect(196,210,14,14);
+    ctx.fillStyle=W; ctx.fillRect(210,210,14,14);
+    // tail animated: af===0 x=13, af===1 x=14
+    if (af===0) {
+      ctx.fillStyle=o; ctx.fillRect(210,140,28,84);
+      ctx.fillStyle=K; ctx.fillRect(210,140,14,14);
+      ctx.fillStyle=K; ctx.fillRect(224,210,14,14);
+      ctx.fillStyle=P; ctx.fillRect(224,126,14,14);
+    } else {
+      ctx.fillStyle=o; ctx.fillRect(224,140,28,84);
+      ctx.fillStyle=K; ctx.fillRect(224,140,14,14);
+      ctx.fillStyle=K; ctx.fillRect(238,210,14,14);
+      ctx.fillStyle=P; ctx.fillRect(238,126,14,14);
+    }
   } else {
-    // Grand Tabby: white chest ruff, elaborate markings, big paws, majestic tall tail
-    face(1,0,1);
-    f(ctx,1,10,14,4,O);
-    f(ctx,1,10,14,1,K); f(ctx,1,13,14,1,K);
-    f(ctx,1,10,1,4,K); f(ctx,14,10,1,4,K);
-    f(ctx,2,11,12,2,O);
-    f(ctx,4,11,8,2,W);
-    f(ctx,2,11,2,1,o); f(ctx,12,11,2,1,o);
-    f(ctx,2,12,2,1,o); f(ctx,12,12,2,1,o);
-    f(ctx,4,11,1,1,o); f(ctx,4,12,1,1,o);
-    f(ctx,11,11,1,1,o); f(ctx,11,12,1,1,o);
-    f(ctx,1,13,4,1,o); f(ctx,11,13,4,1,o);
-    d(ctx,2,13,O); d(ctx,3,13,O); d(ctx,12,13,O); d(ctx,13,13,O);
-    f(ctx,13,7,3,7,o); f(ctx,12,13,4,2,o);
-    d(ctx,13,7,K); d(ctx,15,13,K);
-    d(ctx,15,4,P); d(ctx,15,5,P);
+    // Grand Tabby — S=14 PAD=28
+    // face (ox=1 oy=0 fw=12 fh=10)
+    ctx.fillStyle=O; ctx.fillRect(42,28,168,140);
+    ctx.fillStyle=K; ctx.fillRect(42,28,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,154,168,14);
+    ctx.fillStyle=K; ctx.fillRect(42,28,14,140);
+    ctx.fillStyle=K; ctx.fillRect(196,28,14,140);
+    ctx.fillStyle=O; ctx.fillRect(56,42,140,112);
+    ctx.fillStyle=O; ctx.fillRect(56,0,28,28);
+    ctx.fillStyle=O; ctx.fillRect(168,0,28,28);
+    ctx.fillStyle=K; ctx.fillRect(56,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(70,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(168,0,14,14);
+    ctx.fillStyle=K; ctx.fillRect(182,0,14,14);
+    ctx.fillStyle=P; ctx.fillRect(70,14,14,14);
+    ctx.fillStyle=P; ctx.fillRect(168,14,14,14);
+    ctx.fillStyle=o; ctx.fillRect(112,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(126,42,14,14);
+    ctx.fillStyle=o; ctx.fillRect(70,56,14,14);
+    ctx.fillStyle=o; ctx.fillRect(168,56,14,14);
+    if (rest) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,28,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,28,14);
+    } else if (af===1) {
+      ctx.fillStyle=K; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,84,14,14);
+    } else {
+      ctx.fillStyle=W; ctx.fillRect(70,84,28,28);
+      ctx.fillStyle=W; ctx.fillRect(154,84,28,28);
+      ctx.fillStyle=G; ctx.fillRect(70,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(84,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(154,84,14,14);
+      ctx.fillStyle=G; ctx.fillRect(168,84,14,14);
+      ctx.fillStyle=K; ctx.fillRect(84,98,14,14);
+      ctx.fillStyle=K; ctx.fillRect(168,98,14,14);
+    }
+    ctx.fillStyle=P; ctx.fillRect(112,112,14,14);
+    ctx.fillStyle=P; ctx.fillRect(126,112,14,14);
+    ctx.fillStyle=K; ctx.fillRect(98,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(140,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(14,112,28,14);
+    ctx.fillStyle=K; ctx.fillRect(210,112,28,14);
+    // body y=10-13
+    ctx.fillStyle=O; ctx.fillRect(42,168,196,56);
+    ctx.fillStyle=K; ctx.fillRect(42,168,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,210,196,14);
+    ctx.fillStyle=K; ctx.fillRect(42,168,14,56);
+    ctx.fillStyle=K; ctx.fillRect(224,168,14,56);
+    ctx.fillStyle=O; ctx.fillRect(56,182,168,28);
+    ctx.fillStyle=W; ctx.fillRect(84,182,112,28);
+    ctx.fillStyle=o; ctx.fillRect(56,182,28,14);
+    ctx.fillStyle=o; ctx.fillRect(196,182,28,14);
+    ctx.fillStyle=o; ctx.fillRect(56,196,28,14);
+    ctx.fillStyle=o; ctx.fillRect(196,196,28,14);
+    ctx.fillStyle=o; ctx.fillRect(84,182,14,14);
+    ctx.fillStyle=o; ctx.fillRect(84,196,14,14);
+    ctx.fillStyle=o; ctx.fillRect(182,182,14,14);
+    ctx.fillStyle=o; ctx.fillRect(182,196,14,14);
+    // paws y=13
+    ctx.fillStyle=o; ctx.fillRect(42,210,56,14);
+    ctx.fillStyle=o; ctx.fillRect(182,210,56,14);
+    ctx.fillStyle=O; ctx.fillRect(56,210,14,14);
+    ctx.fillStyle=O; ctx.fillRect(70,210,14,14);
+    ctx.fillStyle=O; ctx.fillRect(196,210,14,14);
+    ctx.fillStyle=O; ctx.fillRect(210,210,14,14);
+    // tail x=13-15, y=7-13
+    ctx.fillStyle=o; ctx.fillRect(210,126,42,98);
+    ctx.fillStyle=o; ctx.fillRect(196,210,56,28);
+    ctx.fillStyle=K; ctx.fillRect(210,126,14,14);
+    ctx.fillStyle=K; ctx.fillRect(238,210,14,14);
+    ctx.fillStyle=P; ctx.fillRect(238,84,14,14);
+    ctx.fillStyle=P; ctx.fillRect(238,98,14,14);
   }
 }
 
