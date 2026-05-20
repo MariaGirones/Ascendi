@@ -363,17 +363,17 @@ function drawCat(ctx, stage, af, rest) {
     ctx.fillStyle=o; ctx.fillRect(211,245,17,17);
     ctx.fillStyle=o; ctx.fillRect(92,262,17,17);
     ctx.fillStyle=o; ctx.fillRect(211,262,17,17);
-    // paws y=15
-    ctx.fillStyle=o; ctx.fillRect(58,279,51,17);
-    ctx.fillStyle=o; ctx.fillRect(211,279,51,17);
-    ctx.fillStyle=W; ctx.fillRect(75,279,17,17);
-    ctx.fillStyle=W; ctx.fillRect(228,279,17,17);
-    // tail x=14-15, y=9-15
-    ctx.fillStyle=o; ctx.fillRect(262,177,34,119);
-    ctx.fillStyle=o; ctx.fillRect(245,279,51,17);
+    // paws y=16 (on bottom border row, sticking out)
+    ctx.fillStyle=o; ctx.fillRect(58,296,51,17);
+    ctx.fillStyle=o; ctx.fillRect(211,296,51,17);
+    ctx.fillStyle=W; ctx.fillRect(75,296,17,17);
+    ctx.fillStyle=W; ctx.fillRect(228,296,17,17);
+    // tail x=14-15, y=9-16
+    ctx.fillStyle=o; ctx.fillRect(262,177,34,136);
+    ctx.fillStyle=o; ctx.fillRect(245,296,51,17);
     ctx.fillStyle=K; ctx.fillRect(262,177,17,17);
-    ctx.fillStyle=K; ctx.fillRect(279,279,17,17);
-    ctx.fillStyle=P; ctx.fillRect(262,279,17,17);
+    ctx.fillStyle=K; ctx.fillRect(279,296,17,17);
+    ctx.fillStyle=P; ctx.fillRect(262,296,17,17);
   } else if (stage===8) {
     // Elder tabby — S=17 PAD=24
     // face (ox=1 oy=2 fw=12 fh=10)
