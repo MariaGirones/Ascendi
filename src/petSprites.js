@@ -1302,7 +1302,7 @@ const DRAW_FUNCTIONS = { cat: drawCat, dog: drawDog, dragon: drawDragon, bunny: 
 
 export function drawPet(ctx, petId, stage, animFrame, isResting) {
   const size = Math.min(ctx.canvas.width, ctx.canvas.height);
-  S = Math.max(1, Math.floor(size * 0.7 / 16));
+  S = Math.max(1, Math.floor(size * 0.65 / 16));
   PAD = Math.round((size - S * 16) / 2);
   const fn = DRAW_FUNCTIONS[petId];
   if (fn) fn(ctx, stage, animFrame, isResting);
