@@ -259,6 +259,7 @@ h1 {
   color: var(--text);
   text-shadow: 1px 1px 0 var(--shadow);
   letter-spacing: 0.06em;
+  margin-bottom: 1.5rem;
 }
 
 [data-theme="light"] .pet-name { text-shadow: 1px 1px 0 var(--shadow); }
