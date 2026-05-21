@@ -19,86 +19,92 @@ function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', G='#44cc44', W='#ffffff';
 
-  function face(ox, oy, sz) {
-    // sz=0:small(10wide,9tall)  sz=1:med(12w,10t)  sz=2:big(14w,12t)
-    const [fw,fh] = [[10,9],[12,10],[14,12]][sz];
-    // head fill
-    f(ctx,ox,oy,fw,fh,O);
-    // outline
-    f(ctx,ox,oy,fw,1,K); f(ctx,ox,oy+fh-1,fw,1,K);
-    f(ctx,ox,oy,1,fh,K); f(ctx,ox+fw-1,oy,1,fh,K);
-    // inner
-    f(ctx,ox+1,oy+1,fw-2,fh-2,O);
-    // ears
-    f(ctx,ox+1,oy-2,2,2,O);
-    f(ctx,ox+fw-3,oy-2,2,2,O);
-    d(ctx,ox+1,oy-2,K); d(ctx,ox+2,oy-2,K);
-    d(ctx,ox+fw-3,oy-2,K); d(ctx,ox+fw-2,oy-2,K);
-    d(ctx,ox+2,oy-1,P); d(ctx,ox+fw-3,oy-1,P); // inner ear
-    // stripes (teen/adult)
-    if (sz>=1) {
-      d(ctx,ox+Math.floor(fw/2)-1,oy+1,o); d(ctx,ox+Math.floor(fw/2),oy+1,o);
-      d(ctx,ox+2,oy+2,o); d(ctx,ox+fw-3,oy+2,o);
-    }
-    // eyes
-    const ex1=ox+2, ex2=ox+fw-4, ey=oy+Math.floor(fh*0.4);
+  // ── Stage 0: tiny kitten — small 8×6 head, no body ───────────────────────
+  if (stage===0) {
+    f(ctx,5,1,2,2,O); f(ctx,9,1,2,2,O);
+    d(ctx,5,1,K); d(ctx,6,1,K); d(ctx,9,1,K); d(ctx,10,1,K);
+    d(ctx,5,2,P); d(ctx,10,2,P);
+    f(ctx,4,3,8,6,O);
+    f(ctx,4,3,8,1,K); f(ctx,4,8,8,1,K); f(ctx,4,3,1,6,K); f(ctx,11,3,1,6,K);
     if (rest) {
-      f(ctx,ex1,ey,2,1,K); f(ctx,ex2,ey,2,1,K); // closed lines
+      f(ctx,6,5,2,1,K); f(ctx,9,5,2,1,K);
     } else if (af===1) {
-      d(ctx,ex1,ey,K); d(ctx,ex1+1,ey,K); // blink
-      d(ctx,ex2,ey,K); d(ctx,ex2+1,ey,K);
+      d(ctx,6,5,K); d(ctx,7,5,K); d(ctx,9,5,K); d(ctx,10,5,K);
     } else {
-      f(ctx,ex1,ey,2,2,W);   f(ctx,ex2,ey,2,2,W);   // eye whites
-      d(ctx,ex1,ey,G);   d(ctx,ex1+1,ey,G);   // iris
-      d(ctx,ex2,ey,G);   d(ctx,ex2+1,ey,G);
-      d(ctx,ex1+1,ey+1,K); d(ctx,ex2+1,ey+1,K); // pupils
+      f(ctx,6,5,2,2,W); f(ctx,9,5,2,2,W);
+      d(ctx,6,5,G); d(ctx,7,5,G); d(ctx,9,5,G); d(ctx,10,5,G);
+      d(ctx,7,6,K); d(ctx,10,6,K);
     }
-    // nose
-    const nx=ox+Math.floor(fw/2)-1, ny=oy+Math.floor(fh*0.65);
-    d(ctx,nx,ny,P); d(ctx,nx+1,ny,P);
-    // mouth
-    d(ctx,nx-1,ny+1,K); d(ctx,nx+2,ny+1,K);
-    // whiskers (teen/adult)
-    if (sz>=1) {
-      f(ctx,ox-2,ny,2,1,K); f(ctx,ox+fw,ny,2,1,K); // whiskers out
+    d(ctx,7,7,P); d(ctx,8,7,P);
+    return;
+  }
+
+  // ── Stages 1-9: full 10×7 head at x=3-12, y=2-8; ears at y=0-1 ──────────
+  f(ctx,4,0,2,2,O); f(ctx,10,0,2,2,O);
+  d(ctx,4,0,K); d(ctx,5,0,K); d(ctx,10,0,K); d(ctx,11,0,K);
+  d(ctx,4,1,P); d(ctx,11,1,P);
+
+  f(ctx,3,2,10,7,O);
+  f(ctx,3,2,10,1,K); f(ctx,3,8,10,1,K);
+  f(ctx,3,2,1,7,K);  f(ctx,12,2,1,7,K);
+
+  // forehead stripe (stage 3+)
+  if (stage>=3) { d(ctx,7,3,o); d(ctx,8,3,o); }
+  // cheek marks (stage 6+)
+  if (stage>=6) { d(ctx,4,5,o); d(ctx,11,5,o); }
+  // extra brow marks (stage 8+)
+  if (stage>=8) { d(ctx,5,3,o); d(ctx,9,3,o); }
+
+  // eyes at y=5
+  if (rest) {
+    f(ctx,5,5,2,1,K); f(ctx,10,5,2,1,K);
+  } else if (af===1) {
+    d(ctx,5,5,K); d(ctx,6,5,K); d(ctx,10,5,K); d(ctx,11,5,K);
+  } else {
+    f(ctx,5,5,2,2,W); f(ctx,10,5,2,2,W);
+    d(ctx,5,5,G); d(ctx,6,5,G); d(ctx,10,5,G); d(ctx,11,5,G);
+    d(ctx,6,6,K); d(ctx,11,6,K);
+  }
+
+  // rosy cheeks — stages 1-2 only (replaced by cheek marks from stage 6)
+  if (stage<=2) { d(ctx,5,7,P); d(ctx,10,7,P); }
+
+  // nose
+  d(ctx,7,7,P); d(ctx,8,7,P);
+
+  // ── Body: stages 3-9 ─────────────────────────────────────────────────────
+  if (stage>=3) {
+    const bh   = stage>=6 ? 5 : 4;   // 4 rows for stages 3-5, 5 rows for 6-9
+    const bend = 9+bh-1;              // y of bottom border
+
+    // body box: x=3-12, y=9 to bend
+    f(ctx,3,9,10,bh,O);
+    f(ctx,3,9,10,1,K);                // top border
+    f(ctx,3,bend,10,1,K);             // bottom border
+    f(ctx,3,9,1,bh,K);               // left border
+    f(ctx,12,9,1,bh,K);              // right border
+
+    // white belly (stage 5+)
+    if (stage>=5) { f(ctx,5,10,6,bh-2,W); }
+
+    // side dots
+    if (stage>=4) { d(ctx,4,10,o); d(ctx,11,10,o); }
+    if (stage>=7) { d(ctx,4,11,o); d(ctx,11,11,o); }
+
+    // paws on bottom border row
+    f(ctx,4,bend,2,1,o); f(ctx,9,bend,2,1,o);
+
+    // ── Tail: stages 6-9, x=13-14 (or 13-15 for stage 9) ─────────────────
+    if (stage>=6) {
+      const tw = stage>=9 ? 2 : 1;          // stage 9 gets a thicker tail
+      f(ctx,13,9,tw,bh-1,o);               // tail column, stops 1 row above bottom
+      d(ctx,13,9,K);                        // top outline
+      d(ctx,13+tw,bend-1,o);               // hook pixel
+      d(ctx,13+tw, af===0 ? bend-2 : bend-1, P); // animated pink tip
     }
   }
 
-  if (stage===0) {
-    // Tiny sleeping kitten: just a small head, no body
-    face(3,5,0);
-  } else if (stage===1) {
-    // Small kitten: tiny head higher up + tiny body blob below
-    face(3,3,0);
-    f(ctx,4,12,8,2,O);
-    f(ctx,4,12,8,1,K); f(ctx,4,13,8,1,K);
-    f(ctx,4,12,1,2,K); f(ctx,11,12,1,2,K);
-    f(ctx,5,12,6,1,O);
-    d(ctx,5,14,o); d(ctx,9,14,o);
-  } else if (stage===2) {
-    // Young kitten: medium head + short body + tail stub
-    face(2,2,1);
-    f(ctx,3,12,10,3,O);
-    f(ctx,3,12,10,1,K); f(ctx,3,14,10,1,K);
-    f(ctx,3,12,1,3,K); f(ctx,12,12,1,3,K);
-    f(ctx,4,13,8,1,O);
-    d(ctx,5,14,o); d(ctx,9,14,o);
-    f(ctx,13,12,2,2,o); d(ctx,13,12,K); d(ctx,14,13,P);
-  } else if (stage===3) {
-    // Juvenile: medium head + taller body + one stripe + swishing tail
-    face(2,1,1);
-    f(ctx,3,11,10,4,O);
-    f(ctx,3,11,10,1,K); f(ctx,3,14,10,1,K);
-    f(ctx,3,11,1,4,K); f(ctx,12,11,1,4,K);
-    f(ctx,4,12,8,2,O);
-    f(ctx,5,13,4,1,o);
-    f(ctx,4,14,3,1,o); f(ctx,9,14,3,1,o);
-    const tx=af===0?13:14;
-    f(ctx,tx,10,2,5,o); d(ctx,tx,10,K); d(ctx,tx+1,14,K);
-    d(ctx,tx+1,15,P);
-  } else if (stage===4) {
-    // Young tabby — 320 px canvas, S=17 PAD=24
-    // face (ox=1 oy=2 fw=12 fh=10)
+  if (false) { // dead — remove on next pass
     ctx.fillStyle=O; ctx.fillRect(41,58,204,170);
     ctx.fillStyle=K; ctx.fillRect(41,58,204,17);
     ctx.fillStyle=K; ctx.fillRect(41,211,204,17);
@@ -160,7 +166,7 @@ function drawCat(ctx, stage, af, rest) {
     ctx.fillStyle=K; ctx.fillRect(262,194,17,17);
     ctx.fillStyle=K; ctx.fillRect(279,262,17,17);
     ctx.fillStyle=P; ctx.fillRect(279,279,17,17);
-  } else if (stage===5) {
+  } else if (false) {
     // Confident tabby — 320 px canvas, S=17 PAD=24
     // face (ox=1 oy=2 fw=12 fh=10)
     ctx.fillStyle=O; ctx.fillRect(41,58,204,170);
@@ -232,7 +238,7 @@ function drawCat(ctx, stage, af, rest) {
       ctx.fillStyle=K; ctx.fillRect(24,262,17,17);
       ctx.fillStyle=P; ctx.fillRect(24,177,17,17);
     }
-  } else if (stage===6) {
+  } else if (false) {
     // Striped tabby — 320 px canvas, S=17 PAD=24
     // face (ox=1 oy=2 fw=12 fh=10)
     ctx.fillStyle=O; ctx.fillRect(41,58,204,170);
@@ -300,7 +306,7 @@ function drawCat(ctx, stage, af, rest) {
     ctx.fillStyle=K; ctx.fillRect(262,194,17,17);
     ctx.fillStyle=K; ctx.fillRect(262,245,17,17);
     ctx.fillStyle=P; ctx.fillRect(279,177,17,17);
-  } else if (stage===7) {
+  } else if (false) {
     // Mature tabby — S=17 PAD=24
     // face (ox=1 oy=2 fw=12 fh=10)
     ctx.fillStyle=O; ctx.fillRect(41,58,204,170);
@@ -374,7 +380,7 @@ function drawCat(ctx, stage, af, rest) {
     ctx.fillStyle=K; ctx.fillRect(262,177,17,17);
     ctx.fillStyle=K; ctx.fillRect(279,296,17,17);
     ctx.fillStyle=P; ctx.fillRect(262,296,17,17);
-  } else if (stage===8) {
+  } else if (false) {
     // Elder tabby — S=17 PAD=24
     // face (ox=1 oy=2 fw=12 fh=10)
     ctx.fillStyle=O; ctx.fillRect(41,58,204,170);
@@ -452,7 +458,7 @@ function drawCat(ctx, stage, af, rest) {
       ctx.fillStyle=K; ctx.fillRect(279,279,17,17);
       ctx.fillStyle=P; ctx.fillRect(279,177,17,17);
     }
-  } else {
+  } else if (false) {
     // Grand Tabby — S=17 PAD=24
     // face (ox=1 oy=2 fw=12 fh=10)
     ctx.fillStyle=O; ctx.fillRect(41,58,204,170);
