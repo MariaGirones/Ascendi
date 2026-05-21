@@ -251,6 +251,10 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 240px;
+  height: 240px;
+  overflow: visible;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
 
