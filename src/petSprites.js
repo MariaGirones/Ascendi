@@ -17,74 +17,71 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 // ─── CAT (orange tabby) ───────────────────────────────────────────────────────
 function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', G='#44cc44', W='#ffffff';
+  const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff';
 
   if (stage===0) {
-    // tiny kitten — 8×6 head (x=4-11, y=3-8), 2×2 ear bumps at y=2
-    f(ctx,5,2,2,2,O); f(ctx,9,2,2,2,O);
-    d(ctx,5,2,K); d(ctx,6,2,K); d(ctx,9,2,K); d(ctx,10,2,K);
-    f(ctx,4,3,8,6,O);
-    f(ctx,4,3,8,1,K); f(ctx,4,8,8,1,K); f(ctx,4,3,1,6,K); f(ctx,11,3,1,6,K);
-    d(ctx,5,3,P); d(ctx,10,3,P);
+    // tiny blob: 6×5 at x=5-10, y=6-10; single-pixel ear tips at y=5
+    f(ctx,5,6,6,5,O);
+    d(ctx,5,6,K); d(ctx,10,6,K); d(ctx,5,10,K); d(ctx,10,10,K);
+    d(ctx,6,5,O); d(ctx,9,5,O);
     if (rest) {
-      f(ctx,6,5,2,1,K); f(ctx,9,5,2,1,K);
-    } else if (af===1) {
-      d(ctx,6,5,K); d(ctx,7,5,K); d(ctx,9,5,K); d(ctx,10,5,K);
+      f(ctx,6,8,2,1,K); f(ctx,9,8,2,1,K);
     } else {
-      f(ctx,6,5,2,2,W); f(ctx,9,5,2,2,W);
-      d(ctx,6,5,G); d(ctx,7,5,G); d(ctx,9,5,G); d(ctx,10,5,G);
-      d(ctx,7,6,K); d(ctx,10,6,K);
+      d(ctx,6,8,K); d(ctx,9,8,K);
     }
-    d(ctx,7,7,P); d(ctx,8,7,P);
     return;
   }
 
-  // stages 1-9: 2×2 ear bumps at y=2, 10×7 head at x=3-12 y=3-9
-  f(ctx,4,2,2,2,O); f(ctx,10,2,2,2,O);
-  d(ctx,4,2,K); d(ctx,5,2,K); d(ctx,10,2,K); d(ctx,11,2,K);
-  f(ctx,3,3,10,7,O);
-  f(ctx,3,3,10,1,K); f(ctx,3,9,10,1,K);
-  f(ctx,3,3,1,7,K);  f(ctx,12,3,1,7,K);
-  d(ctx,4,3,P); d(ctx,11,3,P);
-
-  if (stage>=3) { d(ctx,7,4,o); d(ctx,8,4,o); }
-  if (stage>=6) { d(ctx,4,5,o); d(ctx,11,5,o); }
-  if (stage>=8) { d(ctx,5,4,o); d(ctx,9,4,o); }
-
-  if (rest) {
-    f(ctx,5,6,2,1,K); f(ctx,10,6,2,1,K);
-  } else if (af===1) {
-    d(ctx,5,6,K); d(ctx,6,6,K); d(ctx,10,6,K); d(ctx,11,6,K);
-  } else {
-    f(ctx,5,6,2,2,W); f(ctx,10,6,2,2,W);
-    d(ctx,5,6,G); d(ctx,6,6,G); d(ctx,10,6,G); d(ctx,11,6,G);
-    d(ctx,6,7,K); d(ctx,11,7,K);
+  if (stage<=2) {
+    // small blob: 8×7 at x=4-11, y=5-11; ear tips at y=4; pink nose; 2×2 eyes
+    f(ctx,4,5,8,7,O);
+    d(ctx,4,5,K); d(ctx,11,5,K); d(ctx,4,11,K); d(ctx,11,11,K);
+    d(ctx,5,4,O); d(ctx,10,4,O);
+    f(ctx,7,9,2,1,P);
+    if (rest) {
+      f(ctx,5,8,2,1,K); f(ctx,9,8,2,1,K);
+    } else if (af===1) {
+      f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
+    } else {
+      f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
+      d(ctx,5,7,W); d(ctx,9,7,W);
+    }
+    return;
   }
 
-  if (stage<=2) { d(ctx,5,8,P); d(ctx,10,8,P); }
-  d(ctx,7,8,P); d(ctx,8,8,P);
-
-  if (stage>=3) {
-    const bh   = stage>=6 ? 4 : 3;
-    const bend = 10+bh-1;
-
-    f(ctx,3,10,10,bh,O);
-    f(ctx,3,10,10,1,K);
-    f(ctx,3,bend,10,1,K);
-    f(ctx,3,10,1,bh,K);
-    f(ctx,12,10,1,bh,K);
-
-    if (stage>=5) { f(ctx,5,11,6,bh-2,W); }
-    if (stage>=4) { d(ctx,4,11,o); d(ctx,11,11,o); }
-    if (stage>=7) { d(ctx,4,12,o); d(ctx,11,12,o); }
-
-    f(ctx,4,bend,2,1,o); f(ctx,9,bend,2,1,o);
-
-    if (stage>=6) {
-      f(ctx,13,10,1,bh-1,o);
-      d(ctx,13,10,K);
-      d(ctx,13, af===0 ? 10+bh-2 : 10+bh-3, P);
+  if (stage<=5) {
+    // medium blob: 10×8 at x=3-12, y=4-11; ears; tabby stripe; curled tail; 2×2 eyes
+    f(ctx,3,4,10,8,O);
+    d(ctx,3,4,K); d(ctx,12,4,K); d(ctx,3,11,K); d(ctx,12,11,K);
+    d(ctx,4,3,O); d(ctx,11,3,O);
+    f(ctx,4,8,8,1,o);
+    d(ctx,12,3,o); d(ctx,13,4,o);
+    f(ctx,7,9,2,1,P);
+    if (rest) {
+      f(ctx,5,7,2,1,K); f(ctx,9,7,2,1,K);
+    } else if (af===1) {
+      f(ctx,5,6,2,2,K); f(ctx,9,6,2,2,K);
+    } else {
+      f(ctx,5,6,2,2,K); f(ctx,9,6,2,2,K);
+      d(ctx,5,6,W); d(ctx,9,6,W);
     }
+    return;
+  }
+
+  // large blob: 12×10 at x=2-13, y=3-12; wide ears; 2×2 tail; 2 stripes; 3×2 eyes
+  f(ctx,2,3,12,10,O);
+  d(ctx,2,3,K); d(ctx,13,3,K); d(ctx,2,12,K); d(ctx,13,12,K);
+  f(ctx,3,2,2,1,O); f(ctx,10,2,2,1,O);
+  f(ctx,4,8,9,1,o); f(ctx,5,10,8,1,o);
+  f(ctx,12,2,2,2,o);
+  f(ctx,7,10,3,1,P);
+  if (rest) {
+    f(ctx,4,7,3,1,K); f(ctx,9,7,3,1,K);
+  } else if (af===1) {
+    f(ctx,4,6,3,2,K); f(ctx,9,6,3,2,K);
+  } else {
+    f(ctx,4,6,3,2,K); f(ctx,9,6,3,2,K);
+    d(ctx,4,6,W); d(ctx,9,6,W);
   }
 }
 
