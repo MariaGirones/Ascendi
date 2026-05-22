@@ -5,9 +5,8 @@ export const PETS = [
     description: 'A sleepy orange tabby who loves focus time',
     color: '#e8782a',
     bg: '#fff3e0',
-    stageThresholds: [-1, 0, 111, 222, 333, 444, 556, 667, 778, 889],
+    stageThresholds: [0, 111, 222, 333, 444, 556, 667, 778, 889],
     stageNames: [
-      'Kitten',
       'Drowsy Kit',
       'Snoozy',
       'Napper',

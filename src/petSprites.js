@@ -19,22 +19,7 @@ function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff';
 
-  if (stage===0) {
-    // tiny blob: 6×5 at x=5-10, y=6-10; single-pixel ear tips at y=5
-    f(ctx,5,6,6,5,O);
-    d(ctx,5,6,K); d(ctx,10,6,K); d(ctx,5,10,K); d(ctx,10,10,K);
-    d(ctx,6,5,O); d(ctx,9,5,O);
-    if (rest) {
-      f(ctx,6,8,2,1,K); f(ctx,9,8,2,1,K);
-    } else if (af===1) {
-      d(ctx,6,8,K); d(ctx,9,8,K);
-    } else {
-      d(ctx,6,8,K); d(ctx,9,8,K);
-    }
-    return;
-  }
-
-  if (stage<=2) {
+  if (stage<=1) {
     // small blob: 8×7 at x=4-11, y=5-11; ear tips at y=4; pink nose; 2×2 eyes
     f(ctx,4,5,8,7,O);
     d(ctx,4,5,K); d(ctx,11,5,K); d(ctx,4,11,K); d(ctx,11,11,K);
@@ -51,7 +36,7 @@ function drawCat(ctx, stage, af, rest) {
     return;
   }
 
-  if (stage<=5) {
+  if (stage<=4) {
     // medium blob: 10×8 at x=3-12, y=4-11; ears; tabby stripe; curled tail; 2×2 eyes
     f(ctx,3,4,10,8,O);
     d(ctx,3,4,K); d(ctx,12,4,K); d(ctx,3,11,K); d(ctx,12,11,K);

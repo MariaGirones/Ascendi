@@ -43,7 +43,7 @@ export default function PetTestPage() {
       fontFamily: 'sans-serif',
     }}>
       <h2 style={{ marginTop: 0, marginBottom: '20px', color: '#333' }}>
-        Mochi — all 10 stages
+        Mochi — all 9 stages
       </h2>
       <div style={{
         display: 'grid',
@@ -51,7 +51,7 @@ export default function PetTestPage() {
         gap: '16px',
         width: 'fit-content',
       }}>
-        {Array.from({ length: 10 }, (_, i) => (
+        {Array.from({ length: 9 }, (_, i) => (
           <StageCanvas key={i} stage={i} />
         ))}
       </div>
