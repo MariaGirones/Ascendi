@@ -2,15 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import PetTestPage from './PetTestPage';
 import reportWebVitals from './reportWebVitals';
-
-const TEST_SPRITES = true; // set to false to restore normal app
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {TEST_SPRITES ? <PetTestPage /> : <App />}
+    <App />
   </React.StrictMode>
 );
 
