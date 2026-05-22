@@ -26,6 +26,8 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,6,5,O); d(ctx,9,5,O);
     if (rest) {
       f(ctx,6,8,2,1,K); f(ctx,9,8,2,1,K);
+    } else if (af===1) {
+      d(ctx,6,8,K); d(ctx,9,8,K);
     } else {
       d(ctx,6,8,K); d(ctx,9,8,K);
     }
