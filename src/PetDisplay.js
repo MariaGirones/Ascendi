@@ -47,7 +47,7 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning }) {
           ) : isFullyEvolved ? (
             <span className="xp-status">Fully evolved</span>
           ) : (
-            <span className="xp-status">{xpToNext} XP → Stage {stageIndex + 2}</span>
+            <span className="xp-status">{xpToNext} XP → Stage {stageIndex + 1}</span>
           )}
         </div>
 
