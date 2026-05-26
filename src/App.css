@@ -546,6 +546,133 @@ h1 {
   to   { opacity: 0.3; }
 }
 
+/* ── Additional Time ──────────────────────────────────────────────────────── */
+
+.mode-label--at {
+  color: var(--xp-fill);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--xp-fill) 40%, transparent), 2px 2px 0 var(--shadow);
+}
+
+.timer-display--at {
+  color: var(--xp-fill);
+  text-shadow:
+    0 0 22px color-mix(in srgb, var(--xp-fill) 42%, transparent),
+    0 0 50px color-mix(in srgb, var(--xp-fill) 18%, transparent),
+    3px 3px 0 var(--shadow);
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+[data-theme="light"] .timer-display--at {
+  text-shadow:
+    0 0 14px color-mix(in srgb, var(--xp-fill) 28%, transparent),
+    2px 2px 0 var(--shadow);
+}
+
+/* "Return to Cycle" button */
+.btn-at-cancel {
+  background: var(--xp-fill);
+  color: #0e0d1c;
+  border-color: #e8a830;
+}
+
+.btn-at-cancel:hover:not(:disabled) {
+  background: #e8a830;
+  color: #0e0d1c;
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+
+/* "Extra Time" start button */
+.btn-at {
+  background: var(--bg-card);
+  color: var(--xp-fill);
+  border-color: var(--xp-border);
+}
+
+.btn-at:hover:not(:disabled) {
+  background: var(--xp-fill);
+  color: #0e0d1c;
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+
+/* Row below main controls — duration picker + Extra Time button */
+.at-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Duration selector — three small pill buttons */
+.duration-picker {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.btn-duration {
+  padding: 0.4rem 0.6rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.08s, box-shadow 0.08s;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.btn-duration:hover {
+  border-color: var(--xp-border);
+  color: var(--xp-fill);
+}
+
+.btn-duration--active {
+  background: color-mix(in srgb, var(--xp-fill) 15%, var(--bg-card));
+  border-color: var(--xp-fill);
+  color: var(--xp-fill);
+}
+
+/* Paused cycle indicator — shown under AT controls */
+.at-paused-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 380px;
+}
+
+.at-paused-time {
+  color: var(--xp-fill);
+}
+
+.btn-at:focus-visible,
+.btn-at-cancel:focus-visible {
+  outline: 3px solid var(--xp-fill);
+  outline-offset: 3px;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--xp-fill) 28%, transparent),
+    3px 3px 0 var(--shadow);
+}
+
+.btn-duration:focus-visible {
+  outline: 2px solid var(--xp-fill);
+  outline-offset: 2px;
+}
+
 /* ── Settings card ─────────────────────────────────────────────────────────── */
 
 .settings-card {
@@ -882,6 +1009,8 @@ h1 {
   .session-info,
   .cycle-dots,
   .controls,
+  .at-row,
+  .at-paused-info,
   .settings-card      { max-width: 520px; }
   .modal-wide         { max-width: 560px; }
   h1                  { font-size: 1.6rem; }
@@ -912,6 +1041,8 @@ h1 {
 
   /* Controls */
   .controls           { gap: 0.5rem; }
+  .at-row             { gap: 0.4rem; }
+  .btn-duration       { min-height: 44px; padding: 0.5rem 0.65rem; }
 
   /* Pet picker — 2 columns on narrow phones */
   .pet-picker         { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }

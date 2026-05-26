@@ -769,12 +769,23 @@ function App() {
 
         {/* Timer */}
         <div className="session-info">
-          <span className="mode-label">{modeLabel}</span>
-          <span className="sub-label">{subLabel}</span>
+          {isAdditionalTime ? (
+            <>
+              <span className="mode-label mode-label--at">Additional Time</span>
+              <span className="sub-label">Main cycle paused</span>
+            </>
+          ) : (
+            <>
+              <span className="mode-label">{modeLabel}</span>
+              <span className="sub-label">{subLabel}</span>
+            </>
+          )}
         </div>
 
-        <div className="timer-display">
-          {minutes}:{seconds.toString().padStart(2, '0')}
+        <div className={`timer-display${isAdditionalTime ? ' timer-display--at' : ''}`}>
+          {isAdditionalTime
+            ? `${Math.floor(additionalTimeLeft / 60)}:${String(additionalTimeLeft % 60).padStart(2, '0')}`
+            : `${minutes}:${seconds.toString().padStart(2, '0')}`}
         </div>
 
         <div className="cycle-dots" aria-label="Session cycle progress">
@@ -791,25 +802,67 @@ function App() {
           ))}
         </div>
 
-        <div className="controls">
-          <button className="btn" onClick={startTimer} disabled={isRunning}>
-            Start
-          </button>
-          <button className="btn" onClick={pauseTimer} disabled={!isRunning}>
-            Pause
-          </button>
-          <button className="btn btn-secondary btn-sm" onClick={resetSession}>
-            Reset Session
-          </button>
-          <button className="btn btn-secondary btn-sm" onClick={resetCycle}>
-            Reset Cycle
-          </button>
-          {undoVisible && (
-            <button className="btn btn-undo btn-sm" onClick={handleUndo}>
-              Undo
+        {isAdditionalTime ? (
+          <div className="controls">
+            {isRunning ? (
+              <button className="btn btn-sm btn-secondary" onClick={pauseTimer}>Pause</button>
+            ) : (
+              <button className="btn btn-sm btn-secondary" onClick={() => {
+                workerRef.current?.postMessage('start');
+                isRunningRef.current = true;
+                setIsRunning(true);
+              }}>Resume</button>
+            )}
+            <button className="btn btn-sm btn-at-cancel" onClick={cancelAdditionalTime}>
+              Return to Cycle
             </button>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="controls">
+            <button className="btn" onClick={startTimer} disabled={isRunning}>
+              Start
+            </button>
+            <button className="btn" onClick={pauseTimer} disabled={!isRunning}>
+              Pause
+            </button>
+            <button className="btn btn-secondary btn-sm" onClick={resetSession}>
+              Reset Session
+            </button>
+            <button className="btn btn-secondary btn-sm" onClick={resetCycle}>
+              Reset Cycle
+            </button>
+            {undoVisible && (
+              <button className="btn btn-undo btn-sm" onClick={handleUndo}>
+                Undo
+              </button>
+            )}
+          </div>
+        )}
+
+        {isAdditionalTime ? (
+          <div className="at-paused-info">
+            <span>Paused at</span>
+            <span className="at-paused-time">{minutes}:{seconds.toString().padStart(2, '0')}</span>
+            <span>· Session {pomodoroCount}/{cycleLength}</span>
+          </div>
+        ) : (
+          <div className="at-row">
+            <div className="duration-picker">
+              {[300, 600, 900].map(sec => (
+                <button
+                  key={sec}
+                  className={`btn-duration${additionalTimeDuration === sec ? ' btn-duration--active' : ''}`}
+                  onClick={() => setAdditionalTimeDuration(sec)}
+                >
+                  {sec / 60}m
+                </button>
+              ))}
+            </div>
+            <button className="btn btn-sm btn-at" onClick={startAdditionalTime}>
+              + Extra Time
+            </button>
+          </div>
+        )}
 
         <div className="settings-card">
           <div className="setting-row">
