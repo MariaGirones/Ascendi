@@ -19,19 +19,49 @@ function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff';
 
-  if (stage<=1) {
-    // small blob: 8×7 at x=4-11, y=5-11; ear tips at y=4; pink nose; 2×2 eyes
-    f(ctx,4,5,8,7,O);
-    d(ctx,4,5,K); d(ctx,11,5,K); d(ctx,4,11,K); d(ctx,11,11,K);
-    d(ctx,5,4,O); d(ctx,10,4,O);
-    f(ctx,7,9,2,1,P);
+  if (stage===0) {
+    // tiny blob: 6×5 at x=5-10, y=6-10; single-pixel ears; dot eyes
+    f(ctx,5,6,6,5,O);
+    d(ctx,5,6,K); d(ctx,10,6,K); d(ctx,5,10,K); d(ctx,10,10,K);
+    d(ctx,6,5,K); d(ctx,9,5,K);
+    if (rest) {
+      f(ctx,6,8,2,1,K); f(ctx,9,8,2,1,K);
+    } else {
+      d(ctx,6,8,K); d(ctx,9,8,K);
+    }
+    return;
+  }
+
+  if (stage===1) {
+    // blob: 8×6 at x=4-11, y=5-10; 2px triangle ears; simple 2×2 eyes; nose pixel
+    f(ctx,4,5,8,6,O);
+    d(ctx,4,5,K); d(ctx,11,5,K); d(ctx,4,10,K); d(ctx,11,10,K);
+    d(ctx,5,4,O); d(ctx,6,4,O); d(ctx,6,3,K);
+    d(ctx,9,4,O); d(ctx,10,4,O); d(ctx,9,3,K);
+    d(ctx,7,9,P);
     if (rest) {
       f(ctx,5,8,2,1,K); f(ctx,9,8,2,1,K);
-    } else if (af===1) {
-      f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
     } else {
       f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
-      d(ctx,5,7,W); d(ctx,9,7,W);
+    }
+    return;
+  }
+
+  if (stage===2) {
+    // blob: 9×7 at x=3-11, y=4-10; 3px triangle ears; 2×2 eyes with shine; nose; tail pixel
+    f(ctx,3,4,9,7,O);
+    d(ctx,3,4,K); d(ctx,11,4,K); d(ctx,3,10,K); d(ctx,11,10,K);
+    f(ctx,4,3,2,1,O); d(ctx,5,2,O); d(ctx,5,1,K);
+    f(ctx,9,3,2,1,O); d(ctx,9,2,O); d(ctx,9,1,K);
+    d(ctx,7,8,P);
+    d(ctx,12,7,o);
+    if (rest) {
+      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
+    } else if (af===1) {
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
+    } else {
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
+      d(ctx,4,6,W); d(ctx,9,6,W);
     }
     return;
   }
