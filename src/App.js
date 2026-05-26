@@ -197,7 +197,10 @@ function App() {
   const [pendingPetId, setPendingPetId]   = useState(null);
   const [showXpWarning, setShowXpWarning] = useState(false);
   const [darkMode, setDarkMode]           = useState(loadDarkMode);
-  const [undoVisible, setUndoVisible]     = useState(false);
+  const [undoVisible, setUndoVisible]         = useState(false);
+  const [isAdditionalTime, setIsAdditionalTime]           = useState(false);
+  const [additionalTimeLeft, setAdditionalTimeLeft]       = useState(0);
+  const [additionalTimeDuration, setAdditionalTimeDuration] = useState(300); // seconds; 5 min default
 
   // Refs — stable values readable inside async / stale-closure contexts
   const modeRef          = useRef(loadMode());
@@ -215,6 +218,10 @@ function App() {
   const pointsEarnedRef  = useRef(0);
   const undoTimeoutRef   = useRef(null);
   const lastStateRef     = useRef(null);
+  const isAdditionalTimeRef       = useRef(false);
+  const savedCycleStateRef        = useRef(null);
+  const additionalWorkSecsRef     = useRef(0);
+  const additionalPointsEarnedRef = useRef(0);
 
   // Keep refs in sync with state
   useEffect(() => { modeRef.current          = mode;                  }, [mode]);
@@ -265,18 +272,31 @@ function App() {
     worker.onmessage = (event) => {
       if (event.data !== 'tick') return;
       if (!isRunningRef.current) return; // discard stale ticks after stop
-      setTimeLeft(prev => Math.max(0, prev - 1));
 
-      // Award 1 point per 60 seconds of work time
-      if (modeRef.current === 'work') {
-        workSecondsRef.current++;
-        const earned = Math.floor(workSecondsRef.current / 60);
-        if (earned > pointsEarnedRef.current) {
-          const delta = earned - pointsEarnedRef.current;
+      if (isAdditionalTimeRef.current) {
+        // Additional-time mode: count down the mini timer and award points
+        setAdditionalTimeLeft(prev => Math.max(0, prev - 1));
+        additionalWorkSecsRef.current++;
+        const earned = Math.floor(additionalWorkSecsRef.current / 60);
+        if (earned > additionalPointsEarnedRef.current) {
+          const delta = earned - additionalPointsEarnedRef.current;
           const newPoints = pointsRef.current + delta;
           pointsRef.current = newPoints;
-          pointsEarnedRef.current = earned;
+          additionalPointsEarnedRef.current = earned;
           setPoints(newPoints);
+        }
+      } else {
+        setTimeLeft(prev => Math.max(0, prev - 1));
+        if (modeRef.current === 'work') {
+          workSecondsRef.current++;
+          const earned = Math.floor(workSecondsRef.current / 60);
+          if (earned > pointsEarnedRef.current) {
+            const delta = earned - pointsEarnedRef.current;
+            const newPoints = pointsRef.current + delta;
+            pointsRef.current = newPoints;
+            pointsEarnedRef.current = earned;
+            setPoints(newPoints);
+          }
         }
       }
     };
@@ -334,6 +354,41 @@ function App() {
     setPomodoroCount(nextCount);
     setTimeLeft(getDuration(nextMode, workSecsRef.current, shortSecsRef.current, longSecsRef.current));
   }, [timeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Additional-time end effect ────────────────────────────────────────────
+  // Fires when the mini timer reaches 0.
+  useEffect(() => {
+    if (!isAdditionalTime || additionalTimeLeft !== 0) return;
+
+    workerRef.current?.postMessage('stop');
+    isRunningRef.current = false;
+    setIsRunning(false);
+    isAdditionalTimeRef.current = false;
+    setIsAdditionalTime(false);
+
+    setAlerting(true);
+    setTimeout(() => setAlerting(false), 1500);
+    preloadAudio();
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+    showNotification(
+      'Additional time complete!',
+      'Your main session is ready to resume.',
+      { persistent: true }
+    );
+
+    const saved = savedCycleStateRef.current;
+    if (saved) {
+      modeRef.current          = saved.mode;
+      pomodoroCountRef.current = saved.pomodoroCount;
+      workSecondsRef.current   = saved.workSeconds;
+      pointsEarnedRef.current  = saved.pointsEarned;
+      setMode(saved.mode);
+      setPomodoroCount(saved.pomodoroCount);
+      setTimeLeft(saved.timeLeft);
+      savedCycleStateRef.current = null;
+    }
+  }, [isAdditionalTime, additionalTimeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Controls ──────────────────────────────────────────────────────────────
   const startTimer = () => {
@@ -431,6 +486,48 @@ function App() {
     setMode(m);
     setPomodoroCount(cnt);
     setTimeLeft(tl);
+  };
+
+  const startAdditionalTime = () => {
+    // Snapshot the current cycle so it can be restored later
+    savedCycleStateRef.current = {
+      mode:          modeRef.current,
+      pomodoroCount: pomodoroCountRef.current,
+      timeLeft,
+      workSeconds:   workSecondsRef.current,
+      pointsEarned:  pointsEarnedRef.current,
+    };
+    additionalWorkSecsRef.current     = 0;
+    additionalPointsEarnedRef.current = 0;
+    isAdditionalTimeRef.current = true;
+    setIsAdditionalTime(true);
+    setAdditionalTimeLeft(additionalTimeDuration);
+    // Ensure the worker is ticking (it may have been paused)
+    if (!isRunningRef.current) {
+      workerRef.current?.postMessage('start');
+      isRunningRef.current = true;
+      setIsRunning(true);
+    }
+  };
+
+  const cancelAdditionalTime = () => {
+    workerRef.current?.postMessage('stop');
+    isRunningRef.current = false;
+    setIsRunning(false);
+    isAdditionalTimeRef.current = false;
+    setIsAdditionalTime(false);
+    setAdditionalTimeLeft(0);
+    const saved = savedCycleStateRef.current;
+    if (saved) {
+      modeRef.current          = saved.mode;
+      pomodoroCountRef.current = saved.pomodoroCount;
+      workSecondsRef.current   = saved.workSeconds;
+      pointsEarnedRef.current  = saved.pointsEarned;
+      setMode(saved.mode);
+      setPomodoroCount(saved.pomodoroCount);
+      setTimeLeft(saved.timeLeft);
+      savedCycleStateRef.current = null;
+    }
   };
 
   const requestNotificationPermission = () => {
