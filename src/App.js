@@ -197,6 +197,7 @@ function App() {
   const [pendingPetId, setPendingPetId]   = useState(null);
   const [showXpWarning, setShowXpWarning] = useState(false);
   const [darkMode, setDarkMode]           = useState(loadDarkMode);
+  const [undoVisible, setUndoVisible]     = useState(false);
 
   // Refs — stable values readable inside async / stale-closure contexts
   const modeRef          = useRef(loadMode());
@@ -212,6 +213,8 @@ function App() {
   // Tracks work-seconds and points awarded within the current work session
   const workSecondsRef   = useRef(0);
   const pointsEarnedRef  = useRef(0);
+  const undoTimeoutRef   = useRef(null);
+  const lastStateRef     = useRef(null);
 
   // Keep refs in sync with state
   useEffect(() => { modeRef.current          = mode;                  }, [mode]);
@@ -362,6 +365,19 @@ function App() {
   };
 
   const resetSession = () => {
+    lastStateRef.current = {
+      mode: modeRef.current,
+      pomodoroCount: pomodoroCountRef.current,
+      timeLeft,
+      workSeconds: workSecondsRef.current,
+      pointsEarned: pointsEarnedRef.current,
+    };
+    if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
+    setUndoVisible(true);
+    undoTimeoutRef.current = setTimeout(() => {
+      setUndoVisible(false);
+      lastStateRef.current = null;
+    }, 5000);
     if (isRunningRef.current) {
       workerRef.current?.postMessage('stop');
       isRunningRef.current = false;
@@ -375,6 +391,19 @@ function App() {
   };
 
   const resetCycle = () => {
+    lastStateRef.current = {
+      mode: modeRef.current,
+      pomodoroCount: pomodoroCountRef.current,
+      timeLeft,
+      workSeconds: workSecondsRef.current,
+      pointsEarned: pointsEarnedRef.current,
+    };
+    if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
+    setUndoVisible(true);
+    undoTimeoutRef.current = setTimeout(() => {
+      setUndoVisible(false);
+      lastStateRef.current = null;
+    }, 5000);
     if (isRunningRef.current) {
       workerRef.current?.postMessage('stop');
       isRunningRef.current = false;
@@ -387,6 +416,21 @@ function App() {
     setMode('work');
     setPomodoroCount(1);
     setTimeLeft(workSecsRef.current);
+  };
+
+  const handleUndo = () => {
+    if (!lastStateRef.current) return;
+    const { mode: m, pomodoroCount: cnt, timeLeft: tl, workSeconds, pointsEarned } = lastStateRef.current;
+    if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
+    setUndoVisible(false);
+    lastStateRef.current = null;
+    modeRef.current          = m;
+    pomodoroCountRef.current = cnt;
+    workSecondsRef.current   = workSeconds;
+    pointsEarnedRef.current  = pointsEarned;
+    setMode(m);
+    setPomodoroCount(cnt);
+    setTimeLeft(tl);
   };
 
   const requestNotificationPermission = () => {
@@ -663,6 +707,11 @@ function App() {
           <button className="btn btn-secondary btn-sm" onClick={resetCycle}>
             Reset Cycle
           </button>
+          {undoVisible && (
+            <button className="btn btn-undo btn-sm" onClick={handleUndo}>
+              Undo
+            </button>
+          )}
         </div>
 
         <div className="settings-card">
