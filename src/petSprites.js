@@ -125,20 +125,82 @@ function drawCat(ctx, stage, af, rest) {
     return;
   }
 
-  // large blob: 12×10 at x=2-13, y=3-12; wide ears; 2×2 tail; 2 stripes; 3×2 eyes
+  if (stage===6) {
+    // blob: 11×9 at x=2-12, y=3-11; 2-px inner-pink ears; 2 stripes; 3×2 eyes; 4-px side tail
+    f(ctx,2,3,11,9,O);
+    d(ctx,2,3,K); d(ctx,12,3,K); d(ctx,2,11,K); d(ctx,12,11,K);
+    f(ctx,3,2,2,1,O); d(ctx,4,2,P); d(ctx,4,1,K);
+    f(ctx,9,2,2,1,O); d(ctx,9,2,P); d(ctx,9,1,K);
+    f(ctx,3,7,8,1,o); f(ctx,3,9,8,1,o);
+    d(ctx,7,8,P);
+    d(ctx,13,10,o); d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,12,7,o);
+    if (rest) {
+      f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
+    } else if (af===1) {
+      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
+    } else {
+      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
+      d(ctx,4,5,W); d(ctx,9,5,W);
+    }
+    return;
+  }
+
+  if (stage===7) {
+    // blob: 11×10 at x=2-12, y=3-12; 3-px ears; 2 stripes; 3×2 eyes; thick tail + pink tip
+    f(ctx,2,3,11,10,O);
+    d(ctx,2,3,K); d(ctx,12,3,K); d(ctx,2,12,K); d(ctx,12,12,K);
+    f(ctx,3,2,3,1,O); d(ctx,4,2,P); d(ctx,4,1,K);
+    f(ctx,9,2,3,1,O); d(ctx,10,2,P); d(ctx,10,1,K);
+    f(ctx,3,7,8,1,o); f(ctx,3,9,8,1,o);
+    d(ctx,7,8,P);
+    f(ctx,13,8,1,3,o); d(ctx,12,7,o); d(ctx,11,6,P);
+    if (rest) {
+      f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
+    } else if (af===1) {
+      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
+    } else {
+      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
+      d(ctx,4,5,W); d(ctx,9,5,W);
+    }
+    return;
+  }
+
+  if (stage===8) {
+    // blob: 12×10 at x=2-13, y=3-12; 4-px double-pink ears; 3 stripes; 3×2 eyes; curled bottom tail
+    f(ctx,2,3,12,10,O);
+    d(ctx,2,3,K); d(ctx,13,3,K); d(ctx,2,12,K); d(ctx,13,12,K);
+    f(ctx,2,2,4,1,O); d(ctx,3,2,P); d(ctx,4,2,P); d(ctx,3,1,K);
+    f(ctx,10,2,4,1,O); d(ctx,10,2,P); d(ctx,11,2,P); d(ctx,11,1,K);
+    f(ctx,3,7,10,1,o); f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o);
+    d(ctx,7,8,P);
+    d(ctx,12,13,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,10,14,o);
+    if (rest) {
+      f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
+    } else if (af===1) {
+      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
+    } else {
+      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
+      d(ctx,4,5,W); d(ctx,9,5,W);
+    }
+    return;
+  }
+
+  // stage 9 — Grand Tabby: 12×10 blob, majestic 4-px ears, diamond forehead, 3 stripes, large curled tail
   f(ctx,2,3,12,10,O);
   d(ctx,2,3,K); d(ctx,13,3,K); d(ctx,2,12,K); d(ctx,13,12,K);
-  f(ctx,3,2,2,1,O); f(ctx,10,2,2,1,O);
-  f(ctx,4,8,9,1,o); f(ctx,5,10,8,1,o);
-  f(ctx,12,2,2,2,o);
-  f(ctx,7,10,3,1,P);
+  f(ctx,3,2,4,1,O); d(ctx,4,2,P); d(ctx,5,2,P); d(ctx,4,1,K);
+  f(ctx,9,2,4,1,O); d(ctx,10,2,P); d(ctx,11,2,P); d(ctx,11,1,K);
+  d(ctx,7,3,o); d(ctx,6,4,o); d(ctx,8,4,o); d(ctx,7,5,o);
+  f(ctx,3,7,10,1,o); f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o);
+  d(ctx,7,8,P);
+  f(ctx,11,13,3,1,o); d(ctx,10,14,o); d(ctx,9,14,o);
   if (rest) {
-    f(ctx,4,7,3,1,K); f(ctx,9,7,3,1,K);
+    f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
   } else if (af===1) {
-    f(ctx,4,6,3,2,K); f(ctx,9,6,3,2,K);
+    f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
   } else {
-    f(ctx,4,6,3,2,K); f(ctx,9,6,3,2,K);
-    d(ctx,4,6,W); d(ctx,9,6,W);
+    f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
+    d(ctx,4,5,W); d(ctx,9,5,W);
   }
 }
 
