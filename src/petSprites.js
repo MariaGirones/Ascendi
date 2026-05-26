@@ -26,8 +26,11 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,6,5,K); d(ctx,9,5,K);
     if (rest) {
       f(ctx,6,8,2,1,K); f(ctx,9,8,2,1,K);
+    } else if (af===1) {
+      f(ctx,6,7,2,2,K); f(ctx,9,7,2,2,K);
     } else {
-      d(ctx,6,8,K); d(ctx,9,8,K);
+      f(ctx,6,7,2,2,K); f(ctx,9,7,2,2,K);
+      d(ctx,6,7,W); d(ctx,9,7,W);
     }
     return;
   }
@@ -41,8 +44,11 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,7,9,P);
     if (rest) {
       f(ctx,5,8,2,1,K); f(ctx,9,8,2,1,K);
+    } else if (af===1) {
+      f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
     } else {
       f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
+      d(ctx,5,7,W); d(ctx,9,7,W);
     }
     return;
   }
