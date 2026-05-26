@@ -848,7 +848,7 @@ function App() {
         ) : (
           <div className="at-row">
             <div className="duration-picker">
-              {[300, 600, 900].map(sec => (
+              {[300, 600, 900, 1200, 1500, 1800, 2700, 3600].map(sec => (
                 <button
                   key={sec}
                   className={`btn-duration${additionalTimeDuration === sec ? ' btn-duration--active' : ''}`}

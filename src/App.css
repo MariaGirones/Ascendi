@@ -610,6 +610,8 @@ h1 {
 .duration-picker {
   display: flex;
   gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn-duration {
