@@ -520,30 +520,30 @@ h1 {
 }
 
 .btn-undo {
-  background: #2a2212;
-  color: #e8c048;
-  border-color: #5a4820;
+  background: #c8780a;
+  color: #0e0d1c;
+  border-color: #e8a830;
   animation: undo-countdown 5s linear forwards;
 }
 .btn-undo:hover:not(:disabled) {
-  background: #3a3018;
-  color: #e8c048;
+  background: #e8920e;
+  color: #0e0d1c;
   transform: translate(1px, 1px);
   box-shadow: 2px 2px 0 var(--shadow);
 }
 [data-theme="light"] .btn-undo {
-  background: #fdf4d0;
-  color: #7a5500;
-  border-color: #c8a040;
+  background: #e88a10;
+  color: #0e0d1c;
+  border-color: #c87008;
 }
 [data-theme="light"] .btn-undo:hover:not(:disabled) {
-  background: #f5e9b0;
-  color: #7a5500;
+  background: #c87008;
+  color: #0e0d1c;
 }
 
 @keyframes undo-countdown {
   from { opacity: 1; }
-  to   { opacity: 0.25; }
+  to   { opacity: 0.3; }
 }
 
 /* ── Settings card ─────────────────────────────────────────────────────────── */
