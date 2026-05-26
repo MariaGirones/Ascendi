@@ -66,21 +66,61 @@ function drawCat(ctx, stage, af, rest) {
     return;
   }
 
-  if (stage<=4) {
-    // medium blob: 10×8 at x=3-12, y=4-11; ears; tabby stripe; curled tail; 2×2 eyes
+  if (stage===3) {
+    // blob: 10×7 at x=3-12, y=4-10; 3px pointed ears+inner pink; 2×2 eyes+shine; nose; 2px tail
+    f(ctx,3,4,10,7,O);
+    d(ctx,3,4,K); d(ctx,12,4,K); d(ctx,3,10,K); d(ctx,12,10,K);
+    d(ctx,4,3,O); d(ctx,5,3,P); d(ctx,5,2,O); d(ctx,5,1,K);
+    d(ctx,10,3,P); d(ctx,11,3,O); d(ctx,10,2,O); d(ctx,10,1,K);
+    d(ctx,7,8,P);
+    d(ctx,13,7,o); d(ctx,13,8,o);
+    if (rest) {
+      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
+    } else if (af===1) {
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
+    } else {
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
+      d(ctx,4,6,W); d(ctx,9,6,W);
+    }
+    return;
+  }
+
+  if (stage===4) {
+    // blob: 10×8 at x=3-12, y=4-11; wider 3px ears+inner pink; one stripe; 2×2 eyes+shine; nose; 3px tail
     f(ctx,3,4,10,8,O);
     d(ctx,3,4,K); d(ctx,12,4,K); d(ctx,3,11,K); d(ctx,12,11,K);
-    d(ctx,4,3,O); d(ctx,11,3,O);
+    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,O); d(ctx,5,1,K);
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,O); d(ctx,10,1,K);
     f(ctx,4,8,8,1,o);
-    d(ctx,12,3,o); d(ctx,13,4,o);
-    f(ctx,7,9,2,1,P);
+    d(ctx,7,9,P);
+    d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,12,9,o);
     if (rest) {
-      f(ctx,5,7,2,1,K); f(ctx,9,7,2,1,K);
+      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
     } else if (af===1) {
-      f(ctx,5,6,2,2,K); f(ctx,9,6,2,2,K);
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
     } else {
-      f(ctx,5,6,2,2,K); f(ctx,9,6,2,2,K);
-      d(ctx,5,6,W); d(ctx,9,6,W);
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
+      d(ctx,4,6,W); d(ctx,9,6,W);
+    }
+    return;
+  }
+
+  if (stage===5) {
+    // blob: 11×8 at x=2-12, y=4-11; wide 3px ears; two stripes; 2×2 eyes+shine; nose; 4px upward tail
+    f(ctx,2,4,11,8,O);
+    d(ctx,2,4,K); d(ctx,12,4,K); d(ctx,2,11,K); d(ctx,12,11,K);
+    f(ctx,3,3,3,1,O); d(ctx,4,3,P); d(ctx,4,2,O); d(ctx,4,1,K);
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,O); d(ctx,10,1,K);
+    f(ctx,3,7,9,1,o); f(ctx,3,9,9,1,o);
+    d(ctx,7,8,P);
+    d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,13,7,o); d(ctx,12,6,o);
+    if (rest) {
+      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
+    } else if (af===1) {
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
+    } else {
+      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
+      d(ctx,4,6,W); d(ctx,9,6,W);
     }
     return;
   }
