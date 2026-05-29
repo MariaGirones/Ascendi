@@ -17,7 +17,7 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 // ─── CAT (orange tabby) ───────────────────────────────────────────────────────
 function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff';
+  const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff', G='#44cc44';
 
   if (stage===0) {
     // tiny blob: 6×5 at x=5-10, y=6-10; single-pixel ears; dot eyes
@@ -26,11 +26,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,6,5,K); d(ctx,9,5,K);
     if (rest) {
       f(ctx,6,8,2,1,K); f(ctx,9,8,2,1,K);
-    } else if (af===1) {
-      f(ctx,6,7,2,2,K); f(ctx,9,7,2,2,K);
     } else {
-      f(ctx,6,7,2,2,K); f(ctx,9,7,2,2,K);
-      d(ctx,6,7,W); d(ctx,9,7,W);
+      f(ctx,6,7,2,2,W); f(ctx,9,7,2,2,W);
+      d(ctx,7,8,G); d(ctx,10,8,G);
     }
     return;
   }
@@ -44,11 +42,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,7,9,P);
     if (rest) {
       f(ctx,5,8,2,1,K); f(ctx,9,8,2,1,K);
-    } else if (af===1) {
-      f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
     } else {
-      f(ctx,5,7,2,2,K); f(ctx,9,7,2,2,K);
-      d(ctx,5,7,W); d(ctx,9,7,W);
+      f(ctx,5,7,2,2,W); f(ctx,9,7,2,2,W);
+      d(ctx,6,8,G); d(ctx,10,8,G);
     }
     return;
   }
@@ -63,11 +59,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,12,7,o);
     if (rest) {
       f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else if (af===1) {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
     } else {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
-      d(ctx,4,6,W); d(ctx,9,6,W);
+      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
+      d(ctx,5,7,G); d(ctx,10,7,G);
     }
     return;
   }
@@ -82,11 +76,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,13,7,o); d(ctx,13,8,o);
     if (rest) {
       f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else if (af===1) {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
     } else {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
-      d(ctx,4,6,W); d(ctx,9,6,W);
+      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
+      d(ctx,5,7,G); d(ctx,10,7,G);
     }
     return;
   }
@@ -102,11 +94,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,12,9,o);
     if (rest) {
       f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else if (af===1) {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
     } else {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
-      d(ctx,4,6,W); d(ctx,9,6,W);
+      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
+      d(ctx,5,7,G); d(ctx,10,7,G);
     }
     return;
   }
@@ -123,11 +113,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,13,7,o); d(ctx,12,6,o);
     if (rest) {
       f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else if (af===1) {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
     } else {
-      f(ctx,4,6,2,2,K); f(ctx,9,6,2,2,K);
-      d(ctx,4,6,W); d(ctx,9,6,W);
+      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
+      d(ctx,5,7,G); d(ctx,10,7,G);
     }
     return;
   }
@@ -144,11 +132,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,13,10,o); d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,12,7,o);
     if (rest) {
       f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-    } else if (af===1) {
-      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
     } else {
-      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
-      d(ctx,4,5,W); d(ctx,9,5,W);
+      f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
+      d(ctx,5,6,G); d(ctx,10,6,G);
     }
     return;
   }
@@ -165,11 +151,9 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,13,8,1,3,o); d(ctx,12,7,o); d(ctx,11,6,P);
     if (rest) {
       f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-    } else if (af===1) {
-      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
     } else {
-      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
-      d(ctx,4,5,W); d(ctx,9,5,W);
+      f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
+      d(ctx,5,6,G); d(ctx,10,6,G);
     }
     return;
   }
@@ -186,11 +170,9 @@ function drawCat(ctx, stage, af, rest) {
     d(ctx,12,13,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,10,14,o);
     if (rest) {
       f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-    } else if (af===1) {
-      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
     } else {
-      f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
-      d(ctx,4,5,W); d(ctx,9,5,W);
+      f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
+      d(ctx,5,6,G); d(ctx,10,6,G);
     }
     return;
   }
@@ -207,11 +189,9 @@ function drawCat(ctx, stage, af, rest) {
   f(ctx,11,13,3,1,o); d(ctx,10,14,o); d(ctx,9,14,o);
   if (rest) {
     f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-  } else if (af===1) {
-    f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
   } else {
-    f(ctx,4,5,3,2,K); f(ctx,9,5,3,2,K);
-    d(ctx,4,5,W); d(ctx,9,5,W);
+    f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
+    d(ctx,5,6,G); d(ctx,10,6,G);
   }
 }
 
