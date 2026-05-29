@@ -110,7 +110,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,O); d(ctx,10,1,K);
     d(ctx,2,6,o); d(ctx,2,9,o); d(ctx,13,5,o); d(ctx,13,10,o);
     f(ctx,7,8,2,2,P);
-    d(ctx,5,8,K); d(ctx,10,8,K);
     d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,13,7,o); d(ctx,12,6,o);
     if (rest) {
       f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
@@ -129,7 +128,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,9,2,2,1,O); d(ctx,9,2,P); d(ctx,9,1,K);
     d(ctx,2,5,o); d(ctx,2,9,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,11,o);
     f(ctx,7,8,2,2,P);
-    d(ctx,5,8,K); d(ctx,5,9,K); d(ctx,10,8,K); d(ctx,10,9,K);
     d(ctx,13,10,o); d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,12,7,o);
     if (rest) {
       f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
@@ -148,7 +146,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,9,2,3,1,O); d(ctx,10,2,P); d(ctx,10,1,K);
     d(ctx,2,5,o); d(ctx,2,9,o); d(ctx,2,11,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,11,o);
     f(ctx,7,8,2,2,P);
-    d(ctx,5,8,K); d(ctx,5,9,K); d(ctx,4,9,K); d(ctx,10,8,K); d(ctx,10,9,K); d(ctx,11,9,K);
     f(ctx,13,8,1,3,o); d(ctx,12,7,o); d(ctx,11,6,P);
     if (rest) {
       f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
@@ -167,7 +164,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,10,2,4,1,O); d(ctx,10,2,P); d(ctx,11,2,P); d(ctx,11,1,K);
     d(ctx,2,5,o); d(ctx,2,8,o); d(ctx,2,11,o); d(ctx,3,4,o); d(ctx,13,5,o); d(ctx,13,8,o); d(ctx,13,11,o);
     f(ctx,7,8,2,2,P);
-    d(ctx,5,8,K); d(ctx,5,9,K); d(ctx,4,9,K); d(ctx,4,8,K); d(ctx,10,8,K); d(ctx,10,9,K); d(ctx,11,9,K); d(ctx,11,8,K);
     d(ctx,12,13,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,10,14,o);
     if (rest) {
       f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
@@ -183,10 +179,8 @@ function drawCat(ctx, stage, af, rest) {
   d(ctx,2,3,K); d(ctx,13,3,K); d(ctx,2,12,K); d(ctx,13,12,K);
   f(ctx,3,2,4,1,O); d(ctx,4,2,P); d(ctx,5,2,P); d(ctx,4,1,K);
   f(ctx,9,2,4,1,O); d(ctx,10,2,P); d(ctx,11,2,P); d(ctx,11,1,K);
-  d(ctx,7,3,o); d(ctx,6,4,o); d(ctx,8,4,o); d(ctx,7,5,o);
   d(ctx,2,5,o); d(ctx,2,8,o); d(ctx,2,10,o); d(ctx,2,11,o); d(ctx,3,4,o); d(ctx,13,5,o); d(ctx,13,8,o); d(ctx,13,10,o); d(ctx,13,11,o);
   f(ctx,7,8,2,2,P);
-  d(ctx,5,8,K); d(ctx,5,9,K); d(ctx,4,9,K); d(ctx,4,8,K); d(ctx,3,8,K); d(ctx,10,8,K); d(ctx,10,9,K); d(ctx,11,9,K); d(ctx,11,8,K); d(ctx,12,8,K);
   f(ctx,11,13,3,1,o); d(ctx,10,14,o); d(ctx,9,14,o);
   if (rest) {
     f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
