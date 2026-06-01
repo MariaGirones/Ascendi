@@ -18,121 +18,130 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff', G='#44cc44';
-  // droopy eyelid (2-wide dark bar) + one green iris pixel peeking below when awake
+  // droopy eyelid (2-wide dark bar) + one green iris pixel peeking below when awake;
+  // rest=true draws only the bar — fully closed line
   const eye = (ex, ey) => { f(ctx,ex,ey,2,1,K); if (!rest) d(ctx,ex+1,ey+1,G); };
 
   if (stage===0) {
-    // Drowsy Kit — small round blob, 3-wide ears flush to body top
     f(ctx,5,7,6,5,O);
-    f(ctx,5,6,3,1,O); d(ctx,6,6,P); d(ctx,6,5,K);  // left ear
-    f(ctx,8,6,3,1,O); d(ctx,9,6,P); d(ctx,9,5,K);  // right ear
+    f(ctx,5,6,3,1,O); d(ctx,6,6,P); d(ctx,6,5,K);
+    f(ctx,8,6,3,1,O); d(ctx,9,6,P); d(ctx,9,5,K);
     eye(6,8); eye(9,8);
-    d(ctx,8,10,P);                                   // 1×1 nose
+    d(ctx,8,10,P);
+    if (af===1 && !rest) d(ctx,8,11,P);              // tongue
     return;
   }
 
   if (stage===1) {
-    // Snoozy — slightly bigger blob, proper triangle ears
     f(ctx,4,6,8,6,O);
     f(ctx,5,5,3,1,O); d(ctx,6,5,P); d(ctx,6,4,K);
     f(ctx,8,5,3,1,O); d(ctx,9,5,P); d(ctx,9,4,K);
     eye(5,8); eye(9,8);
-    f(ctx,7,10,2,1,P);                              // 2×1 nose
+    f(ctx,7,10,2,1,P);
+    if (af===1 && !rest) d(ctx,8,11,P);              // tongue
     return;
   }
 
   if (stage===2) {
-    // Napper — rounder blob, one body stripe
     f(ctx,3,5,10,7,O);
     f(ctx,4,4,3,1,O); d(ctx,5,4,P); d(ctx,5,3,K);
     f(ctx,9,4,3,1,O); d(ctx,10,4,P); d(ctx,10,3,K);
     eye(5,7); eye(9,7);
     f(ctx,7,9,2,1,P);
-    f(ctx,4,10,8,1,o);                              // 1 tabby stripe
+    f(ctx,4,10,8,1,o);
+    if (af===1 && !rest) d(ctx,8,10,P);              // tongue (over stripe)
     return;
   }
 
   if (stage===3) {
-    // Tabby — wider blob, two body stripes
     f(ctx,3,4,10,8,O);
     f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
     f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,P);
-    f(ctx,4,9,8,1,o);                               // stripe 1
-    f(ctx,4,11,8,1,o);                              // stripe 2
+    f(ctx,4,9,8,1,o);
+    f(ctx,4,11,8,1,o);
+    if (af===1 && !rest) d(ctx,8,9,P);               // tongue (over stripe)
     return;
   }
 
   if (stage===4) {
-    // Lounger — two full-width stripes, tail curl to the right
     f(ctx,3,4,10,8,O);
     f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
     f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,P);
-    f(ctx,3,9,10,1,o);                              // stripe 1
-    f(ctx,3,11,10,1,o);                             // stripe 2
-    d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,12,10,o);  // tail curl
+    f(ctx,3,9,10,1,o);
+    f(ctx,3,11,10,1,o);
+    d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,12,10,o);
+    if (af===1) d(ctx,12,11,o);                      // tail tip droops 1 px
+    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
   if (stage===5) {
-    // Dreamer — taller blob, third tabby stripe, longer tail curl
     f(ctx,3,4,10,9,O);
-    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);      // left ear
-    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);    // right ear
+    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
     eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,P);                                   // nose
-    f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,12,10,1,o); // 3 stripes
-    d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,11,12,o); // tail
+    f(ctx,7,8,2,1,P);
+    f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,12,10,1,o);
+    d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,11,12,o);
+    if (af===1) d(ctx,11,13,o);                      // tail tip droops below body
+    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
   if (stage===6) {
-    // House Cat — max-height blob, 3 stripes, longer sweeping tail
     f(ctx,3,4,10,10,O);
     f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
     f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,P);
-    f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,13,10,1,o); // 3 stripes
-    d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,12,12,o); d(ctx,11,13,o); // tail
+    f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,13,10,1,o);
+    d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,12,12,o); d(ctx,11,13,o);
+    if (af===1) d(ctx,10,13,o);                      // tail tip extends left 1 px
+    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
   if (stage===7) {
-    // Elder Cat — wider max-height blob, 3 stripes, swooping tail
     f(ctx,2,4,11,10,O);
-    f(ctx,3,3,3,1,O); d(ctx,4,3,P); d(ctx,4,2,K);      // left ear
+    f(ctx,3,3,3,1,O); d(ctx,4,3,P); d(ctx,4,2,K);
     f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
     eye(4,6); eye(9,6);
     f(ctx,7,8,2,1,P);
-    f(ctx,2,9,11,1,o); f(ctx,2,11,11,1,o); f(ctx,2,13,11,1,o); // 3 full-width stripes
-    d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); // tail
+    f(ctx,2,9,11,1,o); f(ctx,2,11,11,1,o); f(ctx,2,13,11,1,o);
+    d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o);
+    if (af===1) d(ctx,9,13,o);                       // tail tip extends left 1 px
+    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
   if (stage===8) {
-    // Grand Tabby — 4-wide ears, 4 stripes in double-band pattern, full J-curl tail
     f(ctx,2,4,11,10,O);
-    f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,4,2,K);      // 4-wide left ear
-    f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,10,2,K);    // 4-wide right ear
+    f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,4,2,K);
+    f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
     eye(4,6); eye(9,6);
     f(ctx,7,8,2,1,P);
-    f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o); // 4 stripes
-    d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o); // tail
+    f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o);
+    d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o);
+    if (af===1) d(ctx,8,13,o);                       // tail extends 1 px
+    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
-  // stage 9 — Mythic Tabby: 4-wide ears with double pink, 4 stripes, majestic tail with pink tip
+  // stage 9 — Mythic Tabby
   f(ctx,2,4,11,10,O);
-  f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,5,3,P); d(ctx,4,2,K); // 4-wide left ear, 2 pink
-  f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,11,3,P); d(ctx,10,2,K); // 4-wide right ear, 2 pink
+  f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,5,3,P); d(ctx,4,2,K);
+  f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,11,3,P); d(ctx,10,2,K);
   eye(4,6); eye(9,6);
   f(ctx,7,8,2,1,P);
-  f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o); // 4 stripes
-  d(ctx,13,4,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o); d(ctx,8,13,P); // tail, pink tip
+  f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o);
+  d(ctx,13,4,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o);
+  // pink tip shifts left 1 px on af=1 — visible swish against dark stripe
+  if (af===1) { d(ctx,8,13,o); d(ctx,7,13,P); } else d(ctx,8,13,P);
+  if (af===1 && !rest) d(ctx,8,9,P);                 // tongue
 }
 
 // ─── DOG (golden retriever) ───────────────────────────────────────────────────
