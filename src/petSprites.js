@@ -119,7 +119,7 @@ function drawCat(ctx, stage, af, rest) {
 // ─── DOG (golden retriever blob) ─────────────────────────────────────────────
 function drawDog(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const G='#e8b84b', g='#c49030', L='#f0c860', N='#8B4513', K='#1a1a2e';
+  const G='#e8b84b', g='#c49030', P='#ffb6c1', N='#8B4513', K='#1a1a2e';
   const eye = (ex, ey) => { d(ctx, ex, ey, K); };
 
   if (stage <= 4) {
@@ -144,19 +144,18 @@ function drawDog(ctx, stage, af, rest) {
       f(ctx,4,10,8,1,g);
     } else if (stage===3) {
       f(ctx,3,4,10,8,G);
-      f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
+      f(ctx,2,5,2,3,G); f(ctx,2,5,1,3,g);
+      f(ctx,12,5,2,3,G); f(ctx,13,5,1,3,g);
       eye(5,6); eye(9,6);
-      f(ctx,7,8,2,1,N);
-      f(ctx,4,9,8,1,g); f(ctx,4,11,8,1,g);
+      d(ctx,7,8,N);
+      if(af===1) d(ctx,7,9,P);
     } else {
-      f(ctx,3,4,10,8,G);
-      f(ctx,2,5,2,5,G); f(ctx,2,5,1,5,g); d(ctx,3,9,g);
-      f(ctx,12,5,2,5,G); f(ctx,13,5,1,5,g); d(ctx,12,9,g);
-      d(ctx,8,3,g);
-      d(ctx,4,7,L); d(ctx,11,7,L);
+      f(ctx,3,4,10,9,G);
+      f(ctx,2,5,2,3,G); f(ctx,2,5,1,3,g);
+      f(ctx,12,5,2,3,G); f(ctx,13,5,1,3,g);
       eye(5,6); eye(9,6);
-      f(ctx,7,8,2,1,N);
-      d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,12,10,g);
+      d(ctx,7,8,N);
+      if(af===1) d(ctx,7,9,P);
     }
 
     ctx.restore();
@@ -168,53 +167,39 @@ function drawDog(ctx, stage, af, rest) {
 
   if (stage===5) {
     f(ctx,3,4,10,9,G);
-    f(ctx,2,5,2,6,G); f(ctx,2,5,1,6,g); d(ctx,3,10,g);
-    f(ctx,12,5,2,6,G); f(ctx,13,5,1,6,g); d(ctx,12,10,g);
-    d(ctx,8,3,g);
-    d(ctx,4,7,L); d(ctx,4,9,L); d(ctx,11,7,L); d(ctx,11,9,L);
+    f(ctx,2,5,2,4,G); f(ctx,2,5,1,4,g);
+    f(ctx,12,5,2,4,G); f(ctx,13,5,1,4,g);
     eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,N);
-    d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,12,11,g);
+    d(ctx,7,8,N);
+    if(af===1) d(ctx,7,9,P);
   } else if (stage===6) {
     f(ctx,3,4,10,10,G);
-    f(ctx,1,5,3,6,G); f(ctx,1,5,1,6,g); d(ctx,2,10,g); d(ctx,3,10,g);
-    f(ctx,12,5,3,6,G); f(ctx,14,5,1,6,g); d(ctx,12,10,g); d(ctx,13,10,g);
-    f(ctx,7,3,2,1,g);
-    d(ctx,4,7,L); d(ctx,4,9,L); d(ctx,4,11,L);
-    d(ctx,11,7,L); d(ctx,11,9,L); d(ctx,11,11,L);
+    f(ctx,2,5,2,4,G); f(ctx,2,5,1,4,g);
+    f(ctx,12,5,2,4,G); f(ctx,13,5,1,4,g);
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,N);
-    d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g);
+    if(af===1) d(ctx,7,9,P);
   } else if (stage===7) {
-    f(ctx,2,4,11,10,G);
-    f(ctx,1,5,3,7,G); f(ctx,1,5,1,7,g); d(ctx,2,11,g); d(ctx,3,11,g);
-    f(ctx,12,5,3,7,G); f(ctx,14,5,1,7,g); d(ctx,12,11,g); d(ctx,13,11,g);
-    f(ctx,7,3,2,1,g);
-    d(ctx,4,7,L); d(ctx,4,9,L); d(ctx,4,11,L);
-    d(ctx,11,7,L); d(ctx,11,9,L); d(ctx,11,11,L);
+    f(ctx,3,4,10,10,G);
+    f(ctx,2,5,2,5,G); f(ctx,2,5,1,5,g);
+    f(ctx,12,5,2,5,G); f(ctx,13,5,1,5,g);
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,N);
-    d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g);
+    if(af===1) d(ctx,7,9,P);
   } else if (stage===8) {
-    f(ctx,2,4,11,10,G);
-    f(ctx,1,5,3,8,G); f(ctx,1,5,1,8,g); d(ctx,2,12,g); d(ctx,3,12,g);
-    f(ctx,12,5,3,8,G); f(ctx,14,5,1,8,g); d(ctx,12,12,g); d(ctx,13,12,g);
-    f(ctx,7,3,3,1,g);
-    d(ctx,4,7,L); d(ctx,4,9,L); d(ctx,4,11,L); d(ctx,4,13,L);
-    d(ctx,11,7,L); d(ctx,11,9,L); d(ctx,11,11,L); d(ctx,11,13,L);
+    f(ctx,3,3,10,10,G);
+    f(ctx,2,5,2,5,G); f(ctx,2,5,1,5,g);
+    f(ctx,12,5,2,5,G); f(ctx,13,5,1,5,g);
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,N);
-    d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g);
+    if(af===1) d(ctx,7,9,P);
   } else {
-    f(ctx,2,4,11,10,G);
-    f(ctx,1,5,3,7,G); f(ctx,1,5,1,7,g); d(ctx,2,11,g); d(ctx,3,11,g);
-    f(ctx,12,5,3,7,G); f(ctx,14,5,1,7,g); d(ctx,12,11,g); d(ctx,13,11,g);
-    f(ctx,7,3,3,1,g);
-    d(ctx,4,7,L); d(ctx,4,9,L); d(ctx,4,11,L); d(ctx,4,13,L);
-    d(ctx,11,7,L); d(ctx,11,9,L); d(ctx,11,11,L); d(ctx,11,13,L);
+    f(ctx,3,3,10,10,G);
+    f(ctx,2,5,2,6,G); f(ctx,2,5,1,6,g);
+    f(ctx,12,5,2,6,G); f(ctx,13,5,1,6,g);
     eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,N);
-    d(ctx,13,5,g); d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g); d(ctx,9,13,g);
+    f(ctx,6,8,3,1,N);
+    if(af===1) d(ctx,7,9,P);
   }
 
   ctx.restore();
