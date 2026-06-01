@@ -18,9 +18,13 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff', G='#44cc44';
-  // droopy eyelid (2-wide dark bar) + one green iris pixel peeking below when awake;
-  // rest=true draws only the bar — fully closed line
-  const eye = (ex, ey) => { f(ctx,ex,ey,2,1,K); if (!rest) d(ctx,ex+1,ey+1,G); };
+  // rest=true : 2×1 black bar only — fully closed
+  // af=0,!rest: eyelid bar + green iris peek — half-closed, droopy
+  // af=1,!rest: eyelid bar + green iris + white shine — slightly more open, alert
+  const eye = (ex, ey) => {
+    f(ctx,ex,ey,2,1,K);
+    if (!rest) { d(ctx,ex+1,ey+1,G); if (af===1) d(ctx,ex,ey+1,W); }
+  };
 
   if (stage===0) {
     f(ctx,5,7,6,5,O);
@@ -28,7 +32,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,8,6,3,1,O); d(ctx,9,6,P); d(ctx,9,5,K);
     eye(6,8); eye(9,8);
     d(ctx,8,10,P);
-    if (af===1 && !rest) d(ctx,8,11,P);              // tongue
     return;
   }
 
@@ -38,7 +41,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,8,5,3,1,O); d(ctx,9,5,P); d(ctx,9,4,K);
     eye(5,8); eye(9,8);
     f(ctx,7,10,2,1,P);
-    if (af===1 && !rest) d(ctx,8,11,P);              // tongue
     return;
   }
 
@@ -49,7 +51,6 @@ function drawCat(ctx, stage, af, rest) {
     eye(5,7); eye(9,7);
     f(ctx,7,9,2,1,P);
     f(ctx,4,10,8,1,o);
-    if (af===1 && !rest) d(ctx,8,10,P);              // tongue (over stripe)
     return;
   }
 
@@ -61,7 +62,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,4,9,8,1,o);
     f(ctx,4,11,8,1,o);
-    if (af===1 && !rest) d(ctx,8,9,P);               // tongue (over stripe)
     return;
   }
 
@@ -74,8 +74,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,3,9,10,1,o);
     f(ctx,3,11,10,1,o);
     d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,12,10,o);
-    if (af===1) d(ctx,12,11,o);                      // tail tip droops 1 px
-    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
@@ -87,8 +85,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,12,10,1,o);
     d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,11,12,o);
-    if (af===1) d(ctx,11,13,o);                      // tail tip droops below body
-    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
@@ -100,8 +96,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,13,10,1,o);
     d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,12,12,o); d(ctx,11,13,o);
-    if (af===1) d(ctx,10,13,o);                      // tail tip extends left 1 px
-    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
@@ -113,8 +107,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,2,9,11,1,o); f(ctx,2,11,11,1,o); f(ctx,2,13,11,1,o);
     d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o);
-    if (af===1) d(ctx,9,13,o);                       // tail tip extends left 1 px
-    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
@@ -126,8 +118,6 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o);
     d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o);
-    if (af===1) d(ctx,8,13,o);                       // tail extends 1 px
-    if (af===1 && !rest) d(ctx,8,9,P);               // tongue
     return;
   }
 
@@ -139,9 +129,7 @@ function drawCat(ctx, stage, af, rest) {
   f(ctx,7,8,2,1,P);
   f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o);
   d(ctx,13,4,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o);
-  // pink tip shifts left 1 px on af=1 — visible swish against dark stripe
-  if (af===1) { d(ctx,8,13,o); d(ctx,7,13,P); } else d(ctx,8,13,P);
-  if (af===1 && !rest) d(ctx,8,9,P);                 // tongue
+  d(ctx,8,13,P);
 }
 
 // ─── DOG (golden retriever) ───────────────────────────────────────────────────
