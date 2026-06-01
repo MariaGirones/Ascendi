@@ -22,7 +22,7 @@ function drawCat(ctx, stage, af, rest) {
 
   if (stage <= 4) {
     ctx.save();
-    ctx.translate((af===1?2:af===2?-1:0)*S, (rest||af===2?1:0)*S);
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
 
     if (stage===0) {
       f(ctx,5,7,6,5,O);
@@ -67,7 +67,7 @@ function drawCat(ctx, stage, af, rest) {
   }
 
   ctx.save();
-  ctx.translate((af===1?2:af===2?-1:0)*S, (rest||af===2?1:0)*S);
+  ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
 
   if (stage===5) {
     f(ctx,3,4,10,9,O);
