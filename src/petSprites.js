@@ -193,14 +193,18 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,2,9,11,1,g); f(ctx,2,10,11,1,g); f(ctx,2,12,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g);
   } else {
+    // stage 9 — Good Boy (floppy-eared golden retriever)
     f(ctx,2,4,11,10,G);
-    f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
+    // Floppy left ear: hangs below forehead level, extends left of body
+    f(ctx,1,5,3,7,G); f(ctx,1,5,1,7,g); d(ctx,2,11,g); d(ctx,3,11,g);
+    // Floppy right ear: hangs below forehead, extends right (tail overlays at x=13)
+    f(ctx,12,5,3,7,G); f(ctx,14,5,1,7,g); d(ctx,12,11,g); d(ctx,13,11,g);
+    // Forehead fur tufts (not pointed ears)
     f(ctx,4,4,2,1,g); f(ctx,9,4,2,1,g);
-    eye(4,6); eye(9,6);
+    eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,N);
     f(ctx,2,9,11,1,g); f(ctx,2,10,11,1,g); f(ctx,2,12,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,5,g); d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g); d(ctx,9,13,g);
-    d(ctx,8,13,P);
   }
 
   ctx.restore();
