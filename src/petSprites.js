@@ -17,14 +17,9 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 // ─── CAT (orange tabby) ───────────────────────────────────────────────────────
 function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff', G='#44cc44';
-  // rest=true : 2×1 black bar only — fully closed
-  // af=0,!rest: eyelid bar + green iris peek — half-closed, droopy
-  // af=1,!rest: eyelid bar + green iris + white shine — slightly more open, alert
-  const eye = (ex, ey) => {
-    f(ctx,ex,ey,2,1,K);
-    if (!rest) { d(ctx,ex+1,ey+1,G); if (af===1) d(ctx,ex,ey+1,W); }
-  };
+  const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e';
+  // rest: 1px line — sleeping; af=0: 2px — sleepy; af=1: 3px — slightly open
+  const eye = (ex, ey) => { f(ctx,ex,ey,2,rest?1:af===1?3:2,K); };
 
   if (stage===0) {
     f(ctx,5,7,6,5,O);
