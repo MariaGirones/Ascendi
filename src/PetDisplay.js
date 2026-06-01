@@ -41,7 +41,7 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning }) {
       {/* ── XP bar ── */}
       <div className="xp-section">
         <div className="xp-label-row">
-          <span className="xp-count">XP {xp} / {MAX_XP}</span>
+          <span className="xp-count">Stage {stageIndex + 1} · XP {xp} / {MAX_XP}</span>
           {isMaxXP ? (
             <span className="xp-status xp-maxed">✨ Max XP!</span>
           ) : isFullyEvolved ? (
