@@ -36,7 +36,7 @@ export default function PixelPet({ petId, stageIndex, isRunning, gainCount }) {
 
     if (isRunning) {
       intervalRef.current = setInterval(() => {
-        frameRef.current = frameRef.current === 0 ? 1 : 0;
+        frameRef.current = (frameRef.current + 1) % 3;
         render(frameRef.current, false);
       }, FRAME_MS);
     }
