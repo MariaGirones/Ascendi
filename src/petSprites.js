@@ -21,54 +21,49 @@ function drawCat(ctx, stage, af, rest) {
   // rest: 1px line — sleeping; af=0: 2px — sleepy; af=1: 3px — slightly open
   const eye = (ex, ey) => { f(ctx,ex,ey,2,rest?1:af===1?3:2,K); };
 
-  if (stage===0) {
-    f(ctx,5,7,6,5,O);
-    f(ctx,5,6,3,1,O); d(ctx,6,6,P); d(ctx,6,5,K);
-    f(ctx,8,6,3,1,O); d(ctx,9,6,P); d(ctx,9,5,K);
-    eye(6,8); eye(9,8);
-    d(ctx,8,10,P);
-    return;
-  }
+  if (stage <= 4) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:0)*S);
 
-  if (stage===1) {
-    f(ctx,4,6,8,6,O);
-    f(ctx,5,5,3,1,O); d(ctx,6,5,P); d(ctx,6,4,K);
-    f(ctx,8,5,3,1,O); d(ctx,9,5,P); d(ctx,9,4,K);
-    eye(5,8); eye(9,8);
-    f(ctx,7,10,2,1,P);
-    return;
-  }
+    if (stage===0) {
+      f(ctx,5,7,6,5,O);
+      f(ctx,5,6,3,1,O); d(ctx,6,6,P); d(ctx,6,5,K);
+      f(ctx,8,6,3,1,O); d(ctx,9,6,P); d(ctx,9,5,K);
+      eye(6,8); eye(9,8);
+      d(ctx,8,10,P);
+    } else if (stage===1) {
+      f(ctx,4,6,8,6,O);
+      f(ctx,5,5,3,1,O); d(ctx,6,5,P); d(ctx,6,4,K);
+      f(ctx,8,5,3,1,O); d(ctx,9,5,P); d(ctx,9,4,K);
+      eye(5,8); eye(9,8);
+      f(ctx,7,10,2,1,P);
+    } else if (stage===2) {
+      f(ctx,3,5,10,7,O);
+      f(ctx,4,4,3,1,O); d(ctx,5,4,P); d(ctx,5,3,K);
+      f(ctx,9,4,3,1,O); d(ctx,10,4,P); d(ctx,10,3,K);
+      eye(5,7); eye(9,7);
+      f(ctx,7,9,2,1,P);
+      f(ctx,4,10,8,1,o);
+    } else if (stage===3) {
+      f(ctx,3,4,10,8,O);
+      f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
+      f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
+      eye(5,6); eye(9,6);
+      f(ctx,7,8,2,1,P);
+      f(ctx,4,9,8,1,o);
+      f(ctx,4,11,8,1,o);
+    } else {
+      f(ctx,3,4,10,8,O);
+      f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
+      f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
+      eye(5,6); eye(9,6);
+      f(ctx,7,8,2,1,P);
+      f(ctx,3,9,10,1,o);
+      f(ctx,3,11,10,1,o);
+      d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,12,10,o);
+    }
 
-  if (stage===2) {
-    f(ctx,3,5,10,7,O);
-    f(ctx,4,4,3,1,O); d(ctx,5,4,P); d(ctx,5,3,K);
-    f(ctx,9,4,3,1,O); d(ctx,10,4,P); d(ctx,10,3,K);
-    eye(5,7); eye(9,7);
-    f(ctx,7,9,2,1,P);
-    f(ctx,4,10,8,1,o);
-    return;
-  }
-
-  if (stage===3) {
-    f(ctx,3,4,10,8,O);
-    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
-    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
-    eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
-    f(ctx,4,9,8,1,o);
-    f(ctx,4,11,8,1,o);
-    return;
-  }
-
-  if (stage===4) {
-    f(ctx,3,4,10,8,O);
-    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
-    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
-    eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
-    f(ctx,3,9,10,1,o);
-    f(ctx,3,11,10,1,o);
-    d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,12,10,o);
+    ctx.restore();
     return;
   }
 
