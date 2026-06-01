@@ -18,8 +18,7 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e';
-  // rest: 1px line — sleeping; af=0: 2px — sleepy; af=1: 3px — slightly open
-  const eye = (ex, ey) => { f(ctx,ex,ey,2,rest?1:af===1?3:2,K); };
+  const eye = (ex, ey) => { d(ctx,ex,ey,K); };
 
   if (stage <= 4) {
     ctx.save();
