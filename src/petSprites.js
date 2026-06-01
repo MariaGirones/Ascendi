@@ -67,6 +67,9 @@ function drawCat(ctx, stage, af, rest) {
     return;
   }
 
+  ctx.save();
+  ctx.translate((af===1?2:0)*S, (rest?1:0)*S);
+
   if (stage===5) {
     f(ctx,3,4,10,9,O);
     f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
@@ -75,10 +78,7 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,12,10,1,o);
     d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,11,12,o);
-    return;
-  }
-
-  if (stage===6) {
+  } else if (stage===6) {
     f(ctx,3,4,10,10,O);
     f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
     f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
@@ -86,10 +86,7 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,13,10,1,o);
     d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,12,12,o); d(ctx,11,13,o);
-    return;
-  }
-
-  if (stage===7) {
+  } else if (stage===7) {
     f(ctx,2,4,11,10,O);
     f(ctx,3,3,3,1,O); d(ctx,4,3,P); d(ctx,4,2,K);
     f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
@@ -97,10 +94,7 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,2,9,11,1,o); f(ctx,2,11,11,1,o); f(ctx,2,13,11,1,o);
     d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o);
-    return;
-  }
-
-  if (stage===8) {
+  } else if (stage===8) {
     f(ctx,2,4,11,10,O);
     f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,4,2,K);
     f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
@@ -108,18 +102,19 @@ function drawCat(ctx, stage, af, rest) {
     f(ctx,7,8,2,1,P);
     f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o);
     d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o);
-    return;
+  } else {
+    // stage 9 — Mythic Tabby
+    f(ctx,2,4,11,10,O);
+    f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,5,3,P); d(ctx,4,2,K);
+    f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,11,3,P); d(ctx,10,2,K);
+    eye(4,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o);
+    d(ctx,13,4,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o);
+    d(ctx,8,13,P);
   }
 
-  // stage 9 — Mythic Tabby
-  f(ctx,2,4,11,10,O);
-  f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,5,3,P); d(ctx,4,2,K);
-  f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,11,3,P); d(ctx,10,2,K);
-  eye(4,6); eye(9,6);
-  f(ctx,7,8,2,1,P);
-  f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o);
-  d(ctx,13,4,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o);
-  d(ctx,8,13,P);
+  ctx.restore();
 }
 
 // ─── DOG (golden retriever) ───────────────────────────────────────────────────
