@@ -25,7 +25,7 @@ export const PETS = [
     description: 'Golden happy pup',
     color: '#e8b84b',
     bg: '#fffde7',
-    stageThresholds: [0, 111, 222, 333, 444, 556, 667, 778, 889, 1000],
+    stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
     stageNames: [
       'Puppy',
       'Playful Pup',

@@ -127,38 +127,33 @@ function drawDog(ctx, stage, af, rest) {
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
 
     if (stage===0) {
-      // Puppy: tiny 6×5 golden blob, ear nubs on sides
       f(ctx,5,7,6,5,G);
       f(ctx,3,7,2,3,g); f(ctx,11,7,2,3,g);
       eye(6,9); eye(9,9);
       d(ctx,8,10,P);
     } else if (stage===1) {
-      // Playful Pup: 8×6 blob, bigger ears
       f(ctx,4,6,8,6,G);
       f(ctx,2,6,2,4,g); f(ctx,12,6,2,4,g);
       eye(5,8); eye(9,8);
       f(ctx,7,10,2,1,P);
     } else if (stage===2) {
-      // Bounding Pup: 8×7 blob + first fur stripe
-      f(ctx,4,5,8,7,G);
+      f(ctx,3,5,10,7,G);
       f(ctx,2,5,2,5,g); f(ctx,12,5,2,5,g);
       eye(5,7); eye(9,7);
       f(ctx,7,9,2,1,P);
-      f(ctx,5,10,6,1,g);
+      f(ctx,4,10,8,1,g);
     } else if (stage===3) {
-      // Young Dog: 8×8 + two fur stripes
-      f(ctx,4,4,8,8,G);
+      f(ctx,3,4,10,8,G);
       f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
       eye(5,6); eye(9,6);
       f(ctx,7,8,2,1,P);
-      f(ctx,5,9,6,1,g); f(ctx,5,11,6,1,g);
+      f(ctx,4,9,8,1,g); f(ctx,4,11,8,1,g);
     } else {
-      // Retriever: 8×8 + three stripes + tail nub
-      f(ctx,4,4,8,8,G);
+      f(ctx,3,4,10,8,G);
       f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
       eye(5,6); eye(9,6);
       f(ctx,7,8,2,1,P);
-      f(ctx,4,9,8,1,g); f(ctx,4,11,8,1,g);
+      f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g);
       d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,12,10,g);
     }
 
@@ -170,45 +165,40 @@ function drawDog(ctx, stage, af, rest) {
   ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
 
   if (stage===5) {
-    // Loyal Dog: 10×8 + three stripes + growing tail
-    f(ctx,3,4,10,8,G);
-    f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
-    eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
-    f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g);
-    d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,12,11,g);
-  } else if (stage===6) {
-    // Good Dog: 10×9 + three stripes + longer tail
     f(ctx,3,4,10,9,G);
     f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,P);
     f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,12,10,1,g);
+    d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,12,11,g);
+  } else if (stage===6) {
+    f(ctx,3,4,10,10,G);
+    f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
+    eye(5,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,13,10,1,g);
     d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g);
   } else if (stage===7) {
-    // Golden: 10×10 + three stripes + sweeping tail
-    f(ctx,3,3,10,10,G);
-    f(ctx,2,3,2,7,g); f(ctx,12,3,2,6,g);
-    eye(5,5); eye(9,5);
-    f(ctx,7,7,2,1,P);
-    f(ctx,3,8,10,1,g); f(ctx,3,10,10,1,g); f(ctx,3,12,10,1,g);
+    f(ctx,2,4,11,10,G);
+    f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
+    eye(4,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,2,9,11,1,g); f(ctx,2,11,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g);
   } else if (stage===8) {
-    // Elder Hound: 10×10 + four stripes + long sweeping tail
-    f(ctx,3,3,10,10,G);
-    f(ctx,2,3,2,7,g); f(ctx,12,3,2,6,g);
-    eye(5,5); eye(9,5);
-    f(ctx,7,7,2,1,P);
-    f(ctx,3,8,10,1,g); f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,12,10,1,g);
+    f(ctx,2,4,11,10,G);
+    f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
+    eye(4,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,2,9,11,1,g); f(ctx,2,10,11,1,g); f(ctx,2,12,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g);
   } else {
-    // Good Boy: 10×10 + wider ear detail + four stripes + complete tail + pink paw
-    f(ctx,3,3,10,10,G);
-    f(ctx,2,3,2,7,g); f(ctx,12,3,2,6,g);
-    f(ctx,4,3,2,1,g); f(ctx,9,3,2,1,g);
-    eye(5,5); eye(9,5);
-    f(ctx,7,7,2,1,P);
-    f(ctx,3,8,10,1,g); f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,12,10,1,g);
+    f(ctx,2,4,11,10,G);
+    f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
+    f(ctx,4,4,2,1,g); f(ctx,9,4,2,1,g);
+    eye(4,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,2,9,11,1,g); f(ctx,2,10,11,1,g); f(ctx,2,12,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,5,g); d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g); d(ctx,9,13,g);
     d(ctx,8,13,P);
   }
