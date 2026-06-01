@@ -119,7 +119,7 @@ function drawCat(ctx, stage, af, rest) {
 // ─── DOG (golden retriever blob) ─────────────────────────────────────────────
 function drawDog(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const G='#e8b84b', g='#c49030', P='#ffb6c1', K='#1a1a2e';
+  const G='#e8b84b', g='#c49030', P='#ffb6c1', N='#8B4513', K='#1a1a2e';
   const eye = (ex, ey) => { d(ctx, ex, ey, K); };
 
   if (stage <= 4) {
@@ -130,29 +130,29 @@ function drawDog(ctx, stage, af, rest) {
       f(ctx,5,7,6,5,G);
       f(ctx,3,7,2,3,g); f(ctx,11,7,2,3,g);
       eye(6,9); eye(9,9);
-      d(ctx,8,10,P);
+      d(ctx,8,10,N);
     } else if (stage===1) {
       f(ctx,4,6,8,6,G);
       f(ctx,2,6,2,4,g); f(ctx,12,6,2,4,g);
       eye(5,8); eye(9,8);
-      f(ctx,7,10,2,1,P);
+      f(ctx,7,10,2,1,N);
     } else if (stage===2) {
       f(ctx,3,5,10,7,G);
       f(ctx,2,5,2,5,g); f(ctx,12,5,2,5,g);
       eye(5,7); eye(9,7);
-      f(ctx,7,9,2,1,P);
+      f(ctx,7,9,2,1,N);
       f(ctx,4,10,8,1,g);
     } else if (stage===3) {
       f(ctx,3,4,10,8,G);
       f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
       eye(5,6); eye(9,6);
-      f(ctx,7,8,2,1,P);
+      f(ctx,7,8,2,1,N);
       f(ctx,4,9,8,1,g); f(ctx,4,11,8,1,g);
     } else {
       f(ctx,3,4,10,8,G);
       f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
       eye(5,6); eye(9,6);
-      f(ctx,7,8,2,1,P);
+      f(ctx,7,8,2,1,N);
       f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g);
       d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,12,10,g);
     }
@@ -168,28 +168,28 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,3,4,10,9,G);
     f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
     eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
+    f(ctx,7,8,2,1,N);
     f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,12,10,1,g);
     d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,12,11,g);
   } else if (stage===6) {
     f(ctx,3,4,10,10,G);
     f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
     eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
+    f(ctx,7,8,2,1,N);
     f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,13,10,1,g);
     d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g);
   } else if (stage===7) {
     f(ctx,2,4,11,10,G);
     f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
     eye(4,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
+    f(ctx,7,8,2,1,N);
     f(ctx,2,9,11,1,g); f(ctx,2,11,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g);
   } else if (stage===8) {
     f(ctx,2,4,11,10,G);
     f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
     eye(4,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
+    f(ctx,7,8,2,1,N);
     f(ctx,2,9,11,1,g); f(ctx,2,10,11,1,g); f(ctx,2,12,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g);
   } else {
@@ -197,7 +197,7 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
     f(ctx,4,4,2,1,g); f(ctx,9,4,2,1,g);
     eye(4,6); eye(9,6);
-    f(ctx,7,8,2,1,P);
+    f(ctx,7,8,2,1,N);
     f(ctx,2,9,11,1,g); f(ctx,2,10,11,1,g); f(ctx,2,12,11,1,g); f(ctx,2,13,11,1,g);
     d(ctx,13,5,g); d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g); d(ctx,9,13,g);
     d(ctx,8,13,P);
