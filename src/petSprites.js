@@ -116,173 +116,104 @@ function drawCat(ctx, stage, af, rest) {
   ctx.restore();
 }
 
-// ─── DOG (golden retriever) ───────────────────────────────────────────────────
+// ─── DOG (golden retriever blob) ─────────────────────────────────────────────
 function drawDog(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const G='#e8b84b', g='#c49030', K='#1a1a2e', W='#ffffff', T='#a06820';
+  const G='#e8b84b', g='#c49030', P='#ffb6c1', K='#1a1a2e';
+  const eye = (ex, ey) => { d(ctx, ex, ey, K); };
 
-  function face(ox, oy, sz) {
-    const [fw,fh] = [[10,9],[12,10],[14,12]][sz];
-    f(ctx,ox,oy,fw,fh,G);
-    f(ctx,ox,oy,fw,1,K); f(ctx,ox,oy+fh-1,fw,1,K);
-    f(ctx,ox,oy,1,fh,K); f(ctx,ox+fw-1,oy,1,fh,K);
-    f(ctx,ox+1,oy+1,fw-2,fh-2,G);
-    // floppy ears (hang down from sides)
-    f(ctx,ox-2,oy,2,Math.floor(fh*0.7),T);
-    f(ctx,ox+fw,oy,2,Math.floor(fh*0.7),T);
-    d(ctx,ox-2,oy,K); d(ctx,ox-1,oy,K);
-    d(ctx,ox+fw,oy,K); d(ctx,ox+fw+1,oy,K);
-    // muzzle
-    const mw=Math.floor(fw*0.5), mx=ox+Math.floor(fw*0.25), my=oy+Math.floor(fh*0.5);
-    f(ctx,mx,my,mw,Math.floor(fh*0.4),W);
-    f(ctx,mx,my,mw,1,K); f(ctx,mx,my+Math.floor(fh*0.4)-1,mw,1,K);
-    // eyes
-    const ex1=ox+2, ex2=ox+fw-4, ey=oy+Math.floor(fh*0.3);
-    if (rest) {
-      f(ctx,ex1,ey,2,1,K); f(ctx,ex2,ey,2,1,K);
-    } else if (af===1) {
-      d(ctx,ex1,ey,K); d(ctx,ex2,ey,K);
+  if (stage <= 4) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+
+    if (stage===0) {
+      // Puppy: tiny 6×5 golden blob, ear nubs on sides
+      f(ctx,5,7,6,5,G);
+      f(ctx,3,7,2,3,g); f(ctx,11,7,2,3,g);
+      eye(6,9); eye(9,9);
+      d(ctx,8,10,P);
+    } else if (stage===1) {
+      // Playful Pup: 8×6 blob, bigger ears
+      f(ctx,4,6,8,6,G);
+      f(ctx,2,6,2,4,g); f(ctx,12,6,2,4,g);
+      eye(5,8); eye(9,8);
+      f(ctx,7,10,2,1,P);
+    } else if (stage===2) {
+      // Bounding Pup: 8×7 blob + first fur stripe
+      f(ctx,4,5,8,7,G);
+      f(ctx,2,5,2,5,g); f(ctx,12,5,2,5,g);
+      eye(5,7); eye(9,7);
+      f(ctx,7,9,2,1,P);
+      f(ctx,5,10,6,1,g);
+    } else if (stage===3) {
+      // Young Dog: 8×8 + two fur stripes
+      f(ctx,4,4,8,8,G);
+      f(ctx,2,4,2,6,g); f(ctx,12,4,2,6,g);
+      eye(5,6); eye(9,6);
+      f(ctx,7,8,2,1,P);
+      f(ctx,5,9,6,1,g); f(ctx,5,11,6,1,g);
     } else {
-      f(ctx,ex1,ey,2,2,K); f(ctx,ex2,ey,2,2,K); // dark dog eyes
-      d(ctx,ex1,ey,W); d(ctx,ex2,ey,W); // eye shine
+      // Retriever: 8×8 + three stripes + tail nub
+      f(ctx,4,4,8,8,G);
+      f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
+      eye(5,6); eye(9,6);
+      f(ctx,7,8,2,1,P);
+      f(ctx,4,9,8,1,g); f(ctx,4,11,8,1,g);
+      d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,12,10,g);
     }
-    // nose (big dark)
-    const nx=ox+Math.floor(fw/2)-1, ny=my+1;
-    f(ctx,nx-1,ny,4,2,K);
-    d(ctx,nx,ny,W); // nose shine
-    // tongue (idle frame 0 only)
-    if (!rest && af===0) d(ctx,nx,ny+3,'#ff6b8a');
+
+    ctx.restore();
+    return;
   }
 
-  if (stage===0) {
-    // Tiny puppy: small floating head with a waggy tail nub
-    face(3,5,0);
-    const tw = af===0 ? 13 : 14;
-    d(ctx,tw,11,g);
-    d(ctx,tw,12,g);
-  } else if (stage===1) {
-    // Playful pup: small face + compact 8×3 body + paw nubs + wagging side tail
-    face(3,2,0);
-    f(ctx,4,11,8,3,G);
-    f(ctx,4,11,8,1,K); f(ctx,4,13,8,1,K);
-    f(ctx,4,11,1,3,K); f(ctx,11,11,1,3,K);
-    f(ctx,5,12,6,1,G);
-    f(ctx,5,13,2,1,g); f(ctx,9,13,2,1,g);
-    const tw = af===0 ? 12 : 13;
-    f(ctx,tw,11,2,3,g);
-    d(ctx,tw,11,K); d(ctx,tw+1,13,K);
-  } else if (stage===2) {
-    // Bounding pup: medium face + 10×3 body + white belly + tail with tip
-    face(2,2,1);
-    f(ctx,3,12,10,3,G);
-    f(ctx,3,12,10,1,K); f(ctx,3,14,10,1,K);
-    f(ctx,3,12,1,3,K); f(ctx,12,12,1,3,K);
-    f(ctx,4,13,8,1,G);
-    f(ctx,6,13,4,1,W);
-    f(ctx,4,14,2,1,g); f(ctx,10,14,2,1,g);
-    f(ctx,13,12,2,3,g);
-    d(ctx,13,12,K); d(ctx,14,14,K); d(ctx,14,15,W);
-  } else if (stage===3) {
-    // Young dog: medium face + 10×4 body + belly stripe + longer curved tail
-    face(2,1,1);
-    f(ctx,3,11,10,4,G);
-    f(ctx,3,11,10,1,K); f(ctx,3,14,10,1,K);
-    f(ctx,3,11,1,4,K); f(ctx,12,11,1,4,K);
-    f(ctx,4,12,8,2,G);
-    f(ctx,5,12,6,2,W);
-    f(ctx,4,14,2,1,g); f(ctx,10,14,2,1,g);
-    f(ctx,14,9,2,5,g); f(ctx,13,13,3,1,g);
-    d(ctx,14,9,K); d(ctx,15,13,K); d(ctx,15,14,W);
-  } else if (stage===4) {
-    // Retriever: big face + 14×4 body + white chest + fluffy tail + paw highlights
-    face(1,1,2);
-    f(ctx,1,13,14,4,G);
-    f(ctx,1,13,14,1,K); f(ctx,1,16,14,1,K);
-    f(ctx,1,13,1,4,K); f(ctx,14,13,1,4,K);
-    f(ctx,2,14,12,2,G);
-    f(ctx,4,14,8,2,W);
-    f(ctx,2,16,3,1,g); f(ctx,11,16,3,1,g);
-    d(ctx,3,16,W); d(ctx,12,16,W);
-    f(ctx,14,10,2,6,g); f(ctx,13,15,3,1,g);
-    d(ctx,15,10,K); d(ctx,15,15,K); d(ctx,14,16,W);
-  } else if (stage===5) {
-    // Confident dog: 4-row body, 5 fur streaks in 2 rows, upright animated left tail
-    face(1,1,2);
-    f(ctx,1,13,14,4,G);
-    f(ctx,1,13,14,1,K); f(ctx,1,16,14,1,K);
-    f(ctx,1,13,1,4,K); f(ctx,14,13,1,4,K);
-    f(ctx,2,14,12,2,G);
-    f(ctx,2,14,3,1,g); f(ctx,6,14,3,1,g); f(ctx,10,14,3,1,g);
-    f(ctx,3,15,3,1,g); f(ctx,9,15,3,1,g);
-    f(ctx,2,16,3,1,g); f(ctx,11,16,3,1,g);
-    const ty = af===0 ? 9 : 8;
-    f(ctx,0,ty,1,5,g);
-    d(ctx,0,ty,K); d(ctx,0,ty+4,K);
-    d(ctx,0,ty-1,W);
+  ctx.save();
+  ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+
+  if (stage===5) {
+    // Loyal Dog: 10×8 + three stripes + growing tail
+    f(ctx,3,4,10,8,G);
+    f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
+    eye(5,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g);
+    d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,12,11,g);
   } else if (stage===6) {
-    // Good dog: white belly, flanking fur marks, hooked right tail
-    face(1,1,2);
-    f(ctx,1,13,14,4,G);
-    f(ctx,1,13,14,1,K); f(ctx,1,16,14,1,K);
-    f(ctx,1,13,1,4,K); f(ctx,14,13,1,4,K);
-    f(ctx,2,14,12,2,G);
-    f(ctx,5,14,6,2,W);
-    f(ctx,2,14,2,1,g); f(ctx,12,14,2,1,g);
-    f(ctx,2,15,2,1,g); f(ctx,12,15,2,1,g);
-    f(ctx,4,14,1,1,g); f(ctx,11,14,1,1,g);
-    f(ctx,2,16,3,1,g); f(ctx,11,16,3,1,g);
-    f(ctx,14,10,2,4,g); f(ctx,13,13,2,1,g);
-    d(ctx,14,10,K); d(ctx,14,13,K); d(ctx,15,9,W);
+    // Good Dog: 10×9 + three stripes + longer tail
+    f(ctx,3,4,10,9,G);
+    f(ctx,2,4,2,6,g); f(ctx,12,4,2,5,g);
+    eye(5,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,12,10,1,g);
+    d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g);
   } else if (stage===7) {
-    // Golden: forehead marks, wide belly, inner fur marks, long sweeping tail, paw highlights
-    face(1,1,2);
-    f(ctx,5,2,2,1,g); f(ctx,9,2,2,1,g);
-    f(ctx,1,13,14,4,G);
-    f(ctx,1,13,14,1,K); f(ctx,1,16,14,1,K);
-    f(ctx,1,13,1,4,K); f(ctx,14,13,1,4,K);
-    f(ctx,2,14,12,2,G);
-    f(ctx,5,14,6,2,W);
-    f(ctx,2,14,2,1,g); f(ctx,12,14,2,1,g);
-    f(ctx,2,15,2,1,g); f(ctx,12,15,2,1,g);
-    f(ctx,4,14,1,1,g); f(ctx,11,14,1,1,g);
-    f(ctx,4,15,1,1,g); f(ctx,11,15,1,1,g);
-    f(ctx,2,16,3,1,g); f(ctx,11,16,3,1,g);
-    d(ctx,3,16,W); d(ctx,12,16,W);
-    f(ctx,14,9,2,7,g); f(ctx,13,15,3,1,g);
-    d(ctx,14,9,K); d(ctx,15,15,K); d(ctx,15,16,W);
+    // Golden: 10×10 + three stripes + sweeping tail
+    f(ctx,3,3,10,10,G);
+    f(ctx,2,3,2,7,g); f(ctx,12,3,2,6,g);
+    eye(5,5); eye(9,5);
+    f(ctx,7,7,2,1,P);
+    f(ctx,3,8,10,1,g); f(ctx,3,10,10,1,g); f(ctx,3,12,10,1,g);
+    d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g);
   } else if (stage===8) {
-    // Elder hound: white collar, dense 7-mark fur, toe detail, animated thick tail
-    face(1,1,2);
-    f(ctx,1,13,14,4,G);
-    f(ctx,1,13,14,1,K); f(ctx,1,16,14,1,K);
-    f(ctx,1,13,1,4,K); f(ctx,14,13,1,4,K);
-    f(ctx,2,14,12,2,G);
-    f(ctx,4,14,8,1,W);
-    f(ctx,2,14,1,1,g); f(ctx,13,14,1,1,g);
-    f(ctx,2,15,3,1,g); f(ctx,5,15,2,1,g); f(ctx,9,15,2,1,g); f(ctx,11,15,3,1,g);
-    f(ctx,2,16,3,1,g); f(ctx,11,16,3,1,g);
-    d(ctx,3,16,W); d(ctx,4,16,W); d(ctx,12,16,W); d(ctx,13,16,W);
-    const tw = af===0 ? 13 : 14;
-    f(ctx,tw,10,2,6,g);
-    d(ctx,tw,10,K); d(ctx,tw+1,15,K); d(ctx,tw+1,9,W);
+    // Elder Hound: 10×10 + four stripes + long sweeping tail
+    f(ctx,3,3,10,10,G);
+    f(ctx,2,3,2,7,g); f(ctx,12,3,2,6,g);
+    eye(5,5); eye(9,5);
+    f(ctx,7,7,2,1,P);
+    f(ctx,3,8,10,1,g); f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,12,10,1,g);
+    d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g);
   } else {
-    // Good Boy: white chest ruff, elaborate markings, big paws, majestic 3-wide tail
-    face(1,1,2);
-    f(ctx,1,13,14,4,G);
-    f(ctx,1,13,14,1,K); f(ctx,1,16,14,1,K);
-    f(ctx,1,13,1,4,K); f(ctx,14,13,1,4,K);
-    f(ctx,2,14,12,2,G);
-    f(ctx,4,14,8,2,W);
-    f(ctx,2,14,2,1,g); f(ctx,12,14,2,1,g);
-    f(ctx,2,15,2,1,g); f(ctx,12,15,2,1,g);
-    f(ctx,4,14,1,1,g); f(ctx,4,15,1,1,g);
-    f(ctx,11,14,1,1,g); f(ctx,11,15,1,1,g);
-    f(ctx,1,16,4,1,g); f(ctx,11,16,4,1,g);
-    d(ctx,2,16,G); d(ctx,3,16,G); d(ctx,12,16,G); d(ctx,13,16,G);
-    f(ctx,13,9,3,7,g); f(ctx,12,15,4,2,g);
-    d(ctx,13,9,K); d(ctx,15,9,K);
-    d(ctx,15,15,K); d(ctx,12,16,K);
+    // Good Boy: 10×10 + wider ear detail + four stripes + complete tail + pink paw
+    f(ctx,3,3,10,10,G);
+    f(ctx,2,3,2,7,g); f(ctx,12,3,2,6,g);
+    f(ctx,4,3,2,1,g); f(ctx,9,3,2,1,g);
+    eye(5,5); eye(9,5);
+    f(ctx,7,7,2,1,P);
+    f(ctx,3,8,10,1,g); f(ctx,3,9,10,1,g); f(ctx,3,11,10,1,g); f(ctx,3,12,10,1,g);
+    d(ctx,13,5,g); d(ctx,13,6,g); d(ctx,13,7,g); d(ctx,13,8,g); d(ctx,13,9,g); d(ctx,13,10,g); d(ctx,13,11,g); d(ctx,12,12,g); d(ctx,11,13,g); d(ctx,10,13,g); d(ctx,9,13,g);
+    d(ctx,8,13,P);
   }
+
+  ctx.restore();
 }
 
 // ─── DRAGON (dark teal/emerald) ───────────────────────────────────────────────
