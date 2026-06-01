@@ -78,91 +78,61 @@ function drawCat(ctx, stage, af, rest) {
   }
 
   if (stage===5) {
-    // blob: 11×8 at x=2-12, y=4-11; wide 3px ears; two stripes; 2×2 eyes+shine; nose; 4px upward tail
-    f(ctx,2,4,11,8,O);
-    d(ctx,2,4,K); d(ctx,12,4,K); d(ctx,2,11,K); d(ctx,12,11,K);
-    f(ctx,3,3,3,1,O); d(ctx,4,3,P); d(ctx,4,2,O); d(ctx,4,1,K);
-    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,O); d(ctx,10,1,K);
-    d(ctx,2,6,o); d(ctx,2,9,o); d(ctx,13,5,o); d(ctx,13,10,o);
-    f(ctx,7,8,2,2,P);
-    d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,13,7,o); d(ctx,12,6,o);
-    if (rest) {
-      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else {
-      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
-      d(ctx,5,7,G); d(ctx,10,7,G);
-    }
+    // Dreamer — taller blob, third tabby stripe, longer tail curl
+    f(ctx,3,4,10,9,O);
+    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);      // left ear
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);    // right ear
+    eye(5,6); eye(9,6);
+    f(ctx,7,8,2,1,P);                                   // nose
+    f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,12,10,1,o); // 3 stripes
+    d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,11,12,o); // tail
     return;
   }
 
   if (stage===6) {
-    // blob: 11×9 at x=2-12, y=3-11; 2-px inner-pink ears; 2 stripes; 3×2 eyes; 4-px side tail
-    f(ctx,2,3,11,9,O);
-    d(ctx,2,3,K); d(ctx,12,3,K); d(ctx,2,11,K); d(ctx,12,11,K);
-    f(ctx,3,2,2,1,O); d(ctx,4,2,P); d(ctx,4,1,K);
-    f(ctx,9,2,2,1,O); d(ctx,9,2,P); d(ctx,9,1,K);
-    d(ctx,2,5,o); d(ctx,2,9,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,11,o);
-    f(ctx,7,8,2,2,P);
-    d(ctx,13,10,o); d(ctx,13,9,o); d(ctx,13,8,o); d(ctx,12,7,o);
-    if (rest) {
-      f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-    } else {
-      f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
-      d(ctx,5,6,G); d(ctx,10,6,G);
-    }
+    // House Cat — max-height blob, 3 stripes, longer sweeping tail
+    f(ctx,3,4,10,10,O);
+    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
+    eye(5,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,3,9,10,1,o); f(ctx,3,11,10,1,o); f(ctx,3,13,10,1,o); // 3 stripes
+    d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,12,11,o); d(ctx,12,12,o); d(ctx,11,13,o); // tail
     return;
   }
 
   if (stage===7) {
-    // blob: 11×10 at x=2-12, y=3-12; 3-px ears; 2 stripes; 3×2 eyes; thick tail + pink tip
-    f(ctx,2,3,11,10,O);
-    d(ctx,2,3,K); d(ctx,12,3,K); d(ctx,2,12,K); d(ctx,12,12,K);
-    f(ctx,3,2,3,1,O); d(ctx,4,2,P); d(ctx,4,1,K);
-    f(ctx,9,2,3,1,O); d(ctx,10,2,P); d(ctx,10,1,K);
-    d(ctx,2,5,o); d(ctx,2,9,o); d(ctx,2,11,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,11,o);
-    f(ctx,7,8,2,2,P);
-    f(ctx,13,8,1,3,o); d(ctx,12,7,o); d(ctx,11,6,P);
-    if (rest) {
-      f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-    } else {
-      f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
-      d(ctx,5,6,G); d(ctx,10,6,G);
-    }
+    // Elder Cat — wider max-height blob, 3 stripes, swooping tail
+    f(ctx,2,4,11,10,O);
+    f(ctx,3,3,3,1,O); d(ctx,4,3,P); d(ctx,4,2,K);      // left ear
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
+    eye(4,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,2,9,11,1,o); f(ctx,2,11,11,1,o); f(ctx,2,13,11,1,o); // 3 full-width stripes
+    d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); // tail
     return;
   }
 
   if (stage===8) {
-    // blob: 12×10 at x=2-13, y=3-12; 4-px double-pink ears; 3 stripes; 3×2 eyes; curled bottom tail
-    f(ctx,2,3,12,10,O);
-    d(ctx,2,3,K); d(ctx,13,3,K); d(ctx,2,12,K); d(ctx,13,12,K);
-    f(ctx,2,2,4,1,O); d(ctx,3,2,P); d(ctx,4,2,P); d(ctx,3,1,K);
-    f(ctx,10,2,4,1,O); d(ctx,10,2,P); d(ctx,11,2,P); d(ctx,11,1,K);
-    d(ctx,2,5,o); d(ctx,2,8,o); d(ctx,2,11,o); d(ctx,3,4,o); d(ctx,13,5,o); d(ctx,13,8,o); d(ctx,13,11,o);
-    f(ctx,7,8,2,2,P);
-    d(ctx,12,13,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,10,14,o);
-    if (rest) {
-      f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-    } else {
-      f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
-      d(ctx,5,6,G); d(ctx,10,6,G);
-    }
+    // Grand Tabby — 4-wide ears, 4 stripes in double-band pattern, full J-curl tail
+    f(ctx,2,4,11,10,O);
+    f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,4,2,K);      // 4-wide left ear
+    f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,10,2,K);    // 4-wide right ear
+    eye(4,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o); // 4 stripes
+    d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o); // tail
     return;
   }
 
-  // stage 9 — Grand Tabby: 12×10 blob, majestic 4-px ears, diamond forehead, 3 stripes, large curled tail
-  f(ctx,2,3,12,10,O);
-  d(ctx,2,3,K); d(ctx,13,3,K); d(ctx,2,12,K); d(ctx,13,12,K);
-  f(ctx,3,2,4,1,O); d(ctx,4,2,P); d(ctx,5,2,P); d(ctx,4,1,K);
-  f(ctx,9,2,4,1,O); d(ctx,10,2,P); d(ctx,11,2,P); d(ctx,11,1,K);
-  d(ctx,2,5,o); d(ctx,2,8,o); d(ctx,2,10,o); d(ctx,2,11,o); d(ctx,3,4,o); d(ctx,13,5,o); d(ctx,13,8,o); d(ctx,13,10,o); d(ctx,13,11,o);
-  f(ctx,7,8,2,2,P);
-  f(ctx,11,13,3,1,o); d(ctx,10,14,o); d(ctx,9,14,o);
-  if (rest) {
-    f(ctx,4,6,3,1,K); f(ctx,9,6,3,1,K);
-  } else {
-    f(ctx,4,5,3,2,W); f(ctx,9,5,3,2,W);
-    d(ctx,5,6,G); d(ctx,10,6,G);
-  }
+  // stage 9 — Mythic Tabby: 4-wide ears with double pink, 4 stripes, majestic tail with pink tip
+  f(ctx,2,4,11,10,O);
+  f(ctx,3,3,4,1,O); d(ctx,4,3,P); d(ctx,5,3,P); d(ctx,4,2,K); // 4-wide left ear, 2 pink
+  f(ctx,9,3,4,1,O); d(ctx,10,3,P); d(ctx,11,3,P); d(ctx,10,2,K); // 4-wide right ear, 2 pink
+  eye(4,6); eye(9,6);
+  f(ctx,7,8,2,1,P);
+  f(ctx,2,9,11,1,o); f(ctx,2,10,11,1,o); f(ctx,2,12,11,1,o); f(ctx,2,13,11,1,o); // 4 stripes
+  d(ctx,13,4,o); d(ctx,13,5,o); d(ctx,13,6,o); d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,13,10,o); d(ctx,13,11,o); d(ctx,12,12,o); d(ctx,11,13,o); d(ctx,10,13,o); d(ctx,9,13,o); d(ctx,8,13,P); // tail, pink tip
 }
 
 // ─── DOG (golden retriever) ───────────────────────────────────────────────────
