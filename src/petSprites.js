@@ -18,87 +18,62 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 function drawCat(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e', W='#ffffff', G='#44cc44';
+  // droopy eyelid (2-wide dark bar) + one green iris pixel peeking below when awake
+  const eye = (ex, ey) => { f(ctx,ex,ey,2,1,K); if (!rest) d(ctx,ex+1,ey+1,G); };
 
   if (stage===0) {
-    // tiny blob: 6×5 at x=5-10, y=6-10; single-pixel ears; dot eyes
-    f(ctx,5,6,6,5,O);
-    d(ctx,5,6,K); d(ctx,10,6,K); d(ctx,5,10,K); d(ctx,10,10,K);
-    d(ctx,6,5,K); d(ctx,9,5,K);
-    f(ctx,7,9,2,2,P);
-    if (rest) {
-      f(ctx,6,8,2,1,K); f(ctx,9,8,2,1,K);
-    } else {
-      f(ctx,6,7,2,2,W); f(ctx,9,7,2,2,W);
-      d(ctx,7,8,G); d(ctx,10,8,G);
-    }
+    // Drowsy Kit — small round blob, 3-wide ears flush to body top
+    f(ctx,5,7,6,5,O);
+    f(ctx,5,6,3,1,O); d(ctx,6,6,P); d(ctx,6,5,K);  // left ear
+    f(ctx,8,6,3,1,O); d(ctx,9,6,P); d(ctx,9,5,K);  // right ear
+    eye(6,8); eye(9,8);
+    d(ctx,8,10,P);                                   // 1×1 nose
     return;
   }
 
   if (stage===1) {
-    // blob: 8×6 at x=4-11, y=5-10; 2px triangle ears; simple 2×2 eyes; nose pixel
-    f(ctx,4,5,8,6,O);
-    d(ctx,4,5,K); d(ctx,11,5,K); d(ctx,4,10,K); d(ctx,11,10,K);
-    d(ctx,5,4,O); d(ctx,6,4,O); d(ctx,6,3,K);
-    d(ctx,9,4,O); d(ctx,10,4,O); d(ctx,9,3,K);
-    f(ctx,7,9,2,2,P);
-    if (rest) {
-      f(ctx,5,8,2,1,K); f(ctx,9,8,2,1,K);
-    } else {
-      f(ctx,5,7,2,2,W); f(ctx,9,7,2,2,W);
-      d(ctx,6,8,G); d(ctx,10,8,G);
-    }
+    // Snoozy — slightly bigger blob, proper triangle ears
+    f(ctx,4,6,8,6,O);
+    f(ctx,5,5,3,1,O); d(ctx,6,5,P); d(ctx,6,4,K);
+    f(ctx,8,5,3,1,O); d(ctx,9,5,P); d(ctx,9,4,K);
+    eye(5,8); eye(9,8);
+    f(ctx,7,10,2,1,P);                              // 2×1 nose
     return;
   }
 
   if (stage===2) {
-    // blob: 9×7 at x=3-11, y=4-10; 3px triangle ears; 2×2 eyes with shine; nose; tail pixel
-    f(ctx,3,4,9,7,O);
-    d(ctx,3,4,K); d(ctx,11,4,K); d(ctx,3,10,K); d(ctx,11,10,K);
-    f(ctx,4,3,2,1,O); d(ctx,5,2,O); d(ctx,5,1,K);
-    f(ctx,9,3,2,1,O); d(ctx,9,2,O); d(ctx,9,1,K);
-    f(ctx,7,8,2,2,P);
-    d(ctx,12,7,o);
-    if (rest) {
-      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else {
-      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
-      d(ctx,5,7,G); d(ctx,10,7,G);
-    }
+    // Napper — rounder blob, one body stripe
+    f(ctx,3,5,10,7,O);
+    f(ctx,4,4,3,1,O); d(ctx,5,4,P); d(ctx,5,3,K);
+    f(ctx,9,4,3,1,O); d(ctx,10,4,P); d(ctx,10,3,K);
+    eye(5,7); eye(9,7);
+    f(ctx,7,9,2,1,P);
+    f(ctx,4,10,8,1,o);                              // 1 tabby stripe
     return;
   }
 
   if (stage===3) {
-    // blob: 10×7 at x=3-12, y=4-10; 3px pointed ears+inner pink; 2×2 eyes+shine; nose; 2px tail
-    f(ctx,3,4,10,7,O);
-    d(ctx,3,4,K); d(ctx,12,4,K); d(ctx,3,10,K); d(ctx,12,10,K);
-    d(ctx,4,3,O); d(ctx,5,3,P); d(ctx,5,2,O); d(ctx,5,1,K);
-    d(ctx,10,3,P); d(ctx,11,3,O); d(ctx,10,2,O); d(ctx,10,1,K);
-    f(ctx,7,8,2,2,P);
-    d(ctx,13,7,o); d(ctx,13,8,o);
-    if (rest) {
-      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else {
-      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
-      d(ctx,5,7,G); d(ctx,10,7,G);
-    }
+    // Tabby — wider blob, two body stripes
+    f(ctx,3,4,10,8,O);
+    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
+    eye(5,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,4,9,8,1,o);                               // stripe 1
+    f(ctx,4,11,8,1,o);                              // stripe 2
     return;
   }
 
   if (stage===4) {
-    // blob: 10×8 at x=3-12, y=4-11; wider 3px ears+inner pink; one stripe; 2×2 eyes+shine; nose; 3px tail
+    // Lounger — two full-width stripes, tail curl to the right
     f(ctx,3,4,10,8,O);
-    d(ctx,3,4,K); d(ctx,12,4,K); d(ctx,3,11,K); d(ctx,12,11,K);
-    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,O); d(ctx,5,1,K);
-    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,O); d(ctx,10,1,K);
-    f(ctx,4,8,8,1,o);
-    f(ctx,7,8,2,2,P);
-    d(ctx,13,7,o); d(ctx,13,8,o); d(ctx,12,9,o);
-    if (rest) {
-      f(ctx,4,7,2,1,K); f(ctx,9,7,2,1,K);
-    } else {
-      f(ctx,4,6,2,2,W); f(ctx,9,6,2,2,W);
-      d(ctx,5,7,G); d(ctx,10,7,G);
-    }
+    f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
+    f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
+    eye(5,6); eye(9,6);
+    f(ctx,7,8,2,1,P);
+    f(ctx,3,9,10,1,o);                              // stripe 1
+    f(ctx,3,11,10,1,o);                             // stripe 2
+    d(ctx,13,8,o); d(ctx,13,9,o); d(ctx,12,10,o);  // tail curl
     return;
   }
 
