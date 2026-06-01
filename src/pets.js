@@ -2,7 +2,7 @@ export const PETS = [
   {
     id: 'cat',
     name: 'Mochi',
-    description: 'A sleepy orange tabby who loves focus time',
+    description: 'Sleepy orange tabby',
     color: '#e8782a',
     bg: '#fff3e0',
     stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
@@ -22,7 +22,7 @@ export const PETS = [
   {
     id: 'dog',
     name: 'Max',
-    description: 'An enthusiastic golden pup cheering you on',
+    description: 'Golden happy pup',
     color: '#e8b84b',
     bg: '#fffde7',
     stageThresholds: [0, 111, 222, 333, 444, 556, 667, 778, 889, 1000],
@@ -42,7 +42,7 @@ export const PETS = [
   {
     id: 'dragon',
     name: 'Drakon',
-    description: 'An ancient dragon awakening from its egg',
+    description: 'Ancient dragon egg',
     color: '#1abc9c',
     bg: '#e0f8f3',
     stageThresholds: [0, 111, 222, 333, 444, 556, 667, 778, 889, 1000],
@@ -62,7 +62,7 @@ export const PETS = [
   {
     id: 'bunny',
     name: 'Pochi',
-    description: 'A soft lavender bunny with oversized ears',
+    description: 'Lavender big ears',
     color: '#9b82c2',
     bg: '#f3effe',
     stageThresholds: [0, 334, 667],
@@ -71,7 +71,7 @@ export const PETS = [
   {
     id: 'fox',
     name: 'Kira',
-    description: 'A clever orange fox with a fluffy white tail',
+    description: 'Clever orange fox',
     color: '#e8622a',
     bg: '#fff0e8',
     stageThresholds: [0, 334, 667],
@@ -80,7 +80,7 @@ export const PETS = [
   {
     id: 'axolotl',
     name: 'Axie',
-    description: 'A pink axolotl with magnificent frilly gills',
+    description: 'Pink frilly axolotl',
     color: '#e0607a',
     bg: '#fce4ec',
     stageThresholds: [0, 334, 667],

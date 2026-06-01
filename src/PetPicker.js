@@ -15,9 +15,9 @@ function PetPreview({ petId, bg }) {
   return (
     <canvas
       ref={ref}
-      width={72}
-      height={72}
-      style={{ imageRendering: 'pixelated', width: '72px', height: '72px', background: bg, display: 'block' }}
+      width={96}
+      height={96}
+      style={{ imageRendering: 'pixelated', width: '96px', height: '96px', background: bg, display: 'block' }}
     />
   );
 }
