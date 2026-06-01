@@ -22,24 +22,6 @@ Your pet, XP, settings, and cycle position are all saved automatically — nothi
 
 ---
 
-## Mochi Evolution Stages
-
-Mochi the orange tabby evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
-
-| Stage | Name | XP Required | Appearance |
-|---|---|---|---|
-| 1 | Kitten | 0 | Tiny sleeping kitten — just a small head, no body |
-| 2 | Drowsy Kit | 111 | Small kitten with a compact body blob and stubby paw nubs |
-| 3 | Snoozy | 222 | Young kitten with a medium head, short 3-row body, and a tail stub |
-| 4 | Napper | 333 | Juvenile with a taller body, one belly stripe, and an animated swishing tail |
-| 5 | Tabby | 444 | Young tabby with a full-width body, three stripes, and a curled right tail |
-| 6 | Lounger | 556 | Confident tabby with five stripes across two rows and an upright animated tail on the left |
-| 7 | Dreamer | 667 | Striped tabby with a white belly patch, flanking side stripes, and a hooked right tail |
-| 8 | House Cat | 778 | Mature tabby with extra forehead marks, white belly, long sweeping right tail, and white paw highlights |
-| 9 | Elder Cat | 889 | Elder tabby with a white collar, dense seven-stripe pattern, toe highlights, and an animated thick tail |
-| 10 | Grand Tabby | 1000 | Majestic fully grown tabby with a white chest ruff, elaborate markings, big paws, and a towering three-wide tail |
-
----
 
 ## Max Evolution Stages
 
@@ -93,6 +75,25 @@ Drakon the ancient dragon evolves as you accumulate XP from completed focus sess
 - **WCAG 2.1 AA accessible** — 4.5:1+ contrast ratios, keyboard-visible focus indicators, no strobing animations
 - **Full localStorage persistence** — pet, XP, theme, all durations, and cycle count survive page refresh
 - **Mobile-friendly** — responsive layout down to 320 px with 48 px minimum tap targets
+
+---
+
+## 🐱 Mochi Evolution Stages
+
+Mochi the orange tabby evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Appearance |
+|---|---|---|---|
+| 1 | Drowsy Kit | 0 | Tiny 6×5 orange blob with nubby ears, single-pixel eyes, and a pink nose dot — just a drowsy kitten head |
+| 2 | Snoozy | 111 | Slightly wider 8×6 body with ear nubs and a small pink nose patch; still very round and compact |
+| 3 | Napper | 222 | 10×7 body with the first tabby stripe across the belly — starting to look like a real cat |
+| 4 | Tabby | 333 | 10×8 body with two belly stripes and taller ears; the classic tabby pattern takes shape |
+| 5 | Lounger | 444 | Full-width stripes and a small three-pixel tail stub — the tail appears for the first time |
+| 6 | Dreamer | 555 | 10×9 body with three stripes and a longer curling diagonal tail; a lounging, dreamy cat |
+| 7 | House Cat | 666 | 10×10 body with three stripes and an even longer sweeping tail with more diagonal pixels |
+| 8 | Elder Cat | 777 | Wider 11×10 body with three stripes and a long multi-pixel tail sweep — a distinguished tabby |
+| 9 | Grand Tabby | 888 | 11×10 body with wider ear detail, four belly stripes, and a very long diagonal tail |
+| 10 | Mythic Tabby | 999 | Double-pink ear markings, four stripes, a complete sweeping tail, and a pink paw pixel — the legendary final form |
 
 ---
 
