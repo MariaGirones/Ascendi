@@ -9,7 +9,7 @@ const FRAME_MS = 600; // ms per animation frame
  *
  * Props:
  *   petId      – one of: cat, dog, dragon, bunny, fox, axolotl
- *   stageIndex – 0 | 1 | 2
+ *   stageIndex – 0–9
  *   isRunning  – true while the timer is ticking (triggers idle animation)
  *   gainCount  – incremented each time XP is earned (triggers bounce)
  */
@@ -25,9 +25,6 @@ export default function PixelPet({ petId, stageIndex, isRunning, gainCount }) {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    const size = canvas.width;
-    const S   = Math.max(1, Math.floor(size * 0.85 / 16));
-    const PAD = Math.round((size - S * 16) / 2);
     drawPet(ctx, petId, stageIndex, af, resting);
   };
 
