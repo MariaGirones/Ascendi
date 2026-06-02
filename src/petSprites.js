@@ -208,7 +208,7 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,6,8,3,1,N);
     f(ctx,4,7,2,2,P); f(ctx,10,7,2,2,P);
     if(af===1) d(ctx,7,9,P);
-    f(ctx,5,11,6,1,R);
+    f(ctx,3,11,10,1,R);
   }
 
   ctx.restore();
