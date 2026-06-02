@@ -2,7 +2,7 @@
 
 **A gamified Pomodoro timer where you focus to earn points, buy food, and evolve your pixel pet.**
 
-> Stay focused. Earn XP. Watch your sprite grow.
+> Stay focused. Earn XP. Watch your pet grow.
 
 ## Live Demo
 
