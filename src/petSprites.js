@@ -220,31 +220,47 @@ function drawDragon(ctx, stage, af, rest) {
   const D='#1abc9c', dk='#0e8a70', K='#1a1a2e', R='#e74c3c', Y='#f1c40f', W='#ffffff';
 
   if (stage===0) {
-    // Plain egg — smooth and mysterious, no cracks
-    const ox=3,oy=2;
-    f(ctx,ox,oy,10,12,D);
-    f(ctx,ox,oy,10,1,K); f(ctx,ox,oy+11,10,1,K);
-    f(ctx,ox,oy,1,12,K); f(ctx,ox+9,oy,1,12,K);
-    f(ctx,ox+1,oy+1,8,10,D);
-    f(ctx,ox+2,oy+2,2,4,W); d(ctx,ox+2,oy+2,D);
-    d(ctx,ox+7,oy+3,dk); d(ctx,ox+2,oy+8,dk); d(ctx,ox+7,oy+9,dk); d(ctx,ox+5,oy+5,dk);
-    if (!rest && af===0) d(ctx,ox+8,oy+9,Y);
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    // Rounded oval egg body
+    f(ctx,7,2,2,1,D);
+    f(ctx,6,3,4,1,D);
+    f(ctx,4,4,8,1,D);
+    f(ctx,3,5,10,7,D);   // y=5-11, widest section
+    f(ctx,4,12,8,1,D);
+    f(ctx,6,13,4,1,D);
+    // Right-edge shading for depth
+    f(ctx,12,5,1,7,dk);
+    d(ctx,11,12,dk);
+    // Shine spot top-left
+    f(ctx,5,5,2,2,W);
+    d(ctx,6,6,D);
+    ctx.restore();
   } else if (stage===1) {
-    // Cracked egg — fractures spread, a glowing eye peers out
-    const ox=3,oy=2;
-    f(ctx,ox,oy,10,12,D);
-    f(ctx,ox,oy,10,1,K); f(ctx,ox,oy+11,10,1,K);
-    f(ctx,ox,oy,1,12,K); f(ctx,ox+9,oy,1,12,K);
-    f(ctx,ox+1,oy+1,8,10,D);
-    f(ctx,ox+2,oy+2,2,3,W); d(ctx,ox+2,oy+2,D);
-    f(ctx,ox+4,oy+4,1,3,K); f(ctx,ox+5,oy+6,1,2,K);
-    f(ctx,ox+3,oy+5,1,1,K); f(ctx,ox+6,oy+7,1,1,K);
-    if (!rest) {
-      d(ctx,ox+4,oy+8,Y); d(ctx,ox+5,oy+8,Y);
-      d(ctx,ox+4,oy+9,K); d(ctx,ox+5,oy+9,K);
-    }
-    d(ctx,ox+7,oy+3,dk); d(ctx,ox+2,oy+8,dk); d(ctx,ox+7,oy+9,dk);
-    if (!rest && af===1) f(ctx,ox+3,oy+4,3,1,K);
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    // Same rounded oval egg body
+    f(ctx,7,2,2,1,D);
+    f(ctx,6,3,4,1,D);
+    f(ctx,4,4,8,1,D);
+    f(ctx,3,5,10,7,D);
+    f(ctx,4,12,8,1,D);
+    f(ctx,6,13,4,1,D);
+    // Right-edge shading
+    f(ctx,12,5,1,7,dk);
+    d(ctx,11,12,dk);
+    // Smaller shine (cracks have appeared)
+    f(ctx,5,5,2,1,W);
+    // Yellow crack lines radiating from center
+    d(ctx,8,3,Y);                              // crack tip at top
+    d(ctx,8,4,Y); d(ctx,9,4,Y);               // main + right branch
+    d(ctx,7,5,Y); d(ctx,10,5,Y);              // zigzag + right branch
+    d(ctx,7,6,Y); d(ctx,6,6,Y);               // main + left branch
+    d(ctx,8,7,Y); d(ctx,9,7,Y); d(ctx,5,7,Y); // main zigzag + branches
+    d(ctx,8,8,Y); d(ctx,10,8,Y);              // main + right branch
+    d(ctx,7,9,Y);
+    d(ctx,7,10,Y);                             // crack end lower-left
+    ctx.restore();
   } else if (stage===2) {
     // Whelp — tiny dragon rising from broken shell halves
     f(ctx,1,11,5,4,D); f(ctx,1,11,5,1,K); f(ctx,1,14,5,1,K); f(ctx,1,11,1,4,K); f(ctx,5,11,1,4,K);
