@@ -127,35 +127,38 @@ function drawDog(ctx, stage, af, rest) {
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
 
     if (stage===0) {
-      f(ctx,5,7,6,5,G);
-      f(ctx,3,7,2,3,g); f(ctx,11,7,2,3,g);
-      eye(6,9); eye(9,9);
-      d(ctx,8,10,N);
+      // Tiny 6×4 blob, ear stubs, eyes only
+      f(ctx,5,7,6,4,G);
+      d(ctx,4,7,g); d(ctx,11,7,g);
+      eye(6,8); eye(9,8);
     } else if (stage===1) {
-      f(ctx,4,6,8,6,G);
-      f(ctx,2,6,2,4,g); f(ctx,12,6,2,4,g);
-      eye(5,8); eye(9,8);
-      f(ctx,7,10,2,1,N);
+      // 8×5 blob, 1×3 floppy ears, nose appears
+      f(ctx,4,7,8,5,G);
+      f(ctx,3,7,1,3,g); f(ctx,12,7,1,3,g);
+      eye(6,8); eye(9,8);
+      d(ctx,8,10,N);
     } else if (stage===2) {
-      f(ctx,3,5,10,7,G);
-      f(ctx,2,5,2,5,g); f(ctx,12,5,2,5,g);
-      eye(5,7); eye(9,7);
-      f(ctx,7,9,2,1,N);
-      f(ctx,4,10,8,1,g);
+      // 8×6 blob, 1×4 ears (1px longer)
+      f(ctx,4,6,8,6,G);
+      f(ctx,3,6,1,4,g); f(ctx,12,6,1,4,g);
+      eye(6,7); eye(9,7);
+      d(ctx,8,9,N);
     } else if (stage===3) {
-      f(ctx,3,4,10,8,G);
-      f(ctx,2,5,2,3,G); f(ctx,2,5,1,3,g);
-      f(ctx,12,5,2,3,G); f(ctx,13,5,1,3,g);
-      eye(5,6); eye(9,6);
-      d(ctx,7,8,N);
-      if(af===1) d(ctx,7,9,P);
+      // 10×7 blob, 2-tone 2×5 ears, 2px hair tuft
+      f(ctx,3,6,10,7,G);
+      f(ctx,2,6,2,5,G); f(ctx,2,6,1,5,g);
+      f(ctx,12,6,2,5,G); f(ctx,13,6,1,5,g);
+      eye(5,7); eye(9,7);
+      d(ctx,8,9,N);
+      d(ctx,7,5,g); d(ctx,8,5,g);
     } else {
-      f(ctx,3,4,10,9,G);
-      f(ctx,2,5,2,3,G); f(ctx,2,5,1,3,g);
-      f(ctx,12,5,2,3,G); f(ctx,13,5,1,3,g);
+      // 10×8 blob, 2-tone 2×7 ears (reach below face), 3px tuft
+      f(ctx,3,5,10,8,G);
+      f(ctx,2,5,2,7,G); f(ctx,2,5,1,7,g);
+      f(ctx,12,5,2,7,G); f(ctx,13,5,1,7,g);
       eye(5,6); eye(9,6);
-      d(ctx,7,8,N);
-      if(af===1) d(ctx,7,9,P);
+      d(ctx,8,8,N);
+      d(ctx,7,4,g); d(ctx,8,4,g); d(ctx,9,4,g);
     }
 
     ctx.restore();
