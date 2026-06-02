@@ -23,24 +23,6 @@ Your pet, XP, settings, and cycle position are all saved automatically — nothi
 ---
 
 
-## Max Evolution Stages
-
-Max the golden retriever evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
-
-| Stage | Name | XP Required | Appearance |
-|---|---|---|---|
-| 1 | Puppy | 0 | Tiny floating golden head with a waggy tail nub and no body yet |
-| 2 | Playful Pup | 111 | Small face above a compact body with stubby paw nubs and an animated wagging side tail |
-| 3 | Bounding Pup | 222 | Medium face on a wider body with a white belly patch and a tail with a white tip |
-| 4 | Young Dog | 333 | Medium face above a four-row body, a white belly stripe, and a longer curved right tail |
-| 5 | Retriever | 444 | Big face, full-width four-row body, wide white chest, fluffy tail, and white paw highlights |
-| 6 | Loyal Dog | 556 | Full-width body with five fur streaks across two rows and an animated upright tail on the left |
-| 7 | Good Dog | 667 | White belly, flanking dark fur marks on both sides, and a hooked right tail with a white tip |
-| 8 | Golden | 778 | Extra forehead fur marks, wide white belly, inner-edge fur detail, long sweeping right tail, and white paw highlights |
-| 9 | Elder Hound | 889 | White collar, dense seven-mark fur pattern, four-pixel toe highlights, and an animated thick swinging tail |
-| 10 | Good Boy | 1000 | Majestic two-row white chest ruff, elaborate fur markings, big wide paws, and a towering three-wide tail |
-
----
 
 ## Drakon Evolution Stages
 
@@ -94,6 +76,25 @@ Mochi the orange tabby evolves as you accumulate XP from completed focus session
 | 8 | Elder Cat | 777 | Wider 11×10 body with three stripes and a long multi-pixel tail sweep — a distinguished tabby |
 | 9 | Grand Tabby | 888 | 11×10 body with wider ear detail, four belly stripes, and a very long diagonal tail |
 | 10 | Mythic Tabby | 999 | Double-pink ear markings, four stripes, a complete sweeping tail, and a pink paw pixel — the legendary final form |
+
+---
+
+## 🐶 Max Evolution Stages
+
+Max the golden retriever evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Appearance |
+|---|---|---|---|
+| 1 | Puppy | 0 | Tiny golden head with small stub ears on each side, single-pixel eyes, and a brown nose dot — a baby pup |
+| 2 | Playful Pup | 111 | Slightly bigger golden blob with soft rounded floppy ears and a wider brown nose stripe |
+| 3 | Bounding Pup | 222 | Fuller golden body with longer dark-tipped floppy ears and a golden chin stripe below the face |
+| 4 | Young Dog | 333 | Proper two-tone floppy ears with a darker outer edge; a pink tongue peeks out during the bounce animation |
+| 5 | Retriever | 444 | Taller body with classic two-tone floppy ears — bouncy and full of energy |
+| 6 | Loyal Dog | 555 | Body grows taller, ears lengthen a pixel, and two dark golden curl pixels appear on the forehead for the first time |
+| 7 | Good Dog | 666 | Ears lengthen again, the forehead curl grows to three pixels, and the nose widens to two pixels across |
+| 8 | Golden | 777 | Body rises higher on the canvas; a four-pixel golden hair tuft crowns the head and pink cheek blush marks appear |
+| 9 | Elder Hound | 888 | Hair tuft widens to six pixels, nose broadens to three pixels wide, and cheek blush marks grow taller |
+| 10 | Good Boy | 999 | Dramatic eight-pixel full-width hair tuft, wide cheek blush on both sides, and a red collar stripe across the chest |
 
 ---
 
