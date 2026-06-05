@@ -62,7 +62,7 @@ export const PETS = [
   {
     id: 'bunny',
     name: 'Pochi',
-    description: 'Lavender big ears',
+    description: 'Soft lavender bunny',
     color: '#9b82c2',
     bg: '#f3effe',
     stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
