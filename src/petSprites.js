@@ -380,6 +380,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,9,7,2,3,L); f(ctx,9,7,1,3,P);
     f(ctx,6,10,2,2,K); d(ctx,6,10,W); f(ctx,8,10,2,2,K); d(ctx,8,10,W);
     d(ctx,5,12,P); d(ctx,10,12,P);
+    d(ctx,7,12,P); d(ctx,8,12,P); d(ctx,7,13,P);
     ctx.restore();
   } else if (stage===1) {
     ctx.save();
@@ -389,7 +390,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,9,5,2,4,L); f(ctx,9,5,1,4,P);
     f(ctx,6,9,2,2,K); d(ctx,6,9,W); f(ctx,8,9,2,2,K); d(ctx,8,9,W);
     d(ctx,5,11,P); d(ctx,10,11,P);
-    d(ctx,7,11,P);
+    d(ctx,7,11,P); d(ctx,8,11,P); d(ctx,7,12,P);
     ctx.restore();
   } else if (stage===2) {
     ctx.save();
@@ -399,7 +400,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,9,3,2,5,L); f(ctx,9,3,1,5,P);
     f(ctx,6,8,2,2,K); d(ctx,6,8,W); f(ctx,8,8,2,2,K); d(ctx,8,8,W);
     d(ctx,5,10,P); d(ctx,10,10,P);
-    d(ctx,7,10,P);
+    d(ctx,7,10,P); d(ctx,8,10,P); d(ctx,7,11,P);
     ctx.restore();
   } else if (stage===3) {
     ctx.save();
@@ -409,7 +410,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,9,1,2,6,L); f(ctx,9,1,1,6,P);
     f(ctx,6,7,2,2,K); d(ctx,6,7,W); f(ctx,8,7,2,2,K); d(ctx,8,7,W);
     d(ctx,5,9,P); d(ctx,10,9,P);
-    d(ctx,7,9,P);
+    d(ctx,7,9,P); d(ctx,8,9,P); d(ctx,7,10,P);
     ctx.restore();
   } else if (stage===4) {
     ctx.save();
@@ -419,7 +420,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,9,-1,2,7,L); f(ctx,9,-1,1,6,P);
     f(ctx,6,6,2,2,K); d(ctx,6,6,W); f(ctx,8,6,2,2,K); d(ctx,8,6,W);
     d(ctx,5,8,P); d(ctx,10,8,P);
-    d(ctx,7,8,P);
+    d(ctx,7,8,P); d(ctx,8,8,P); d(ctx,7,9,P);
     d(ctx,11,11,W);
     ctx.restore();
   } else if (stage===5) {
@@ -430,7 +431,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,13,3,2,10,L); f(ctx,13,4,1,7,P);
     f(ctx,5,5,2,2,K); d(ctx,5,5,W); f(ctx,9,5,2,2,K); d(ctx,9,5,W);
     d(ctx,4,7,P); d(ctx,11,7,P);
-    f(ctx,7,7,2,1,P);
+    d(ctx,7,7,P); d(ctx,8,7,P); d(ctx,7,8,P);
     d(ctx,12,13,W); d(ctx,13,13,W);
     ctx.restore();
   } else if (stage===6) {
@@ -440,7 +441,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,1,2,2,13,L); f(ctx,2,3,1,9,P);
     f(ctx,13,2,2,13,L); f(ctx,13,3,1,9,P);
     f(ctx,5,4,2,2,K); d(ctx,5,4,W); f(ctx,9,4,2,2,K); d(ctx,9,4,W);
-    f(ctx,7,6,2,1,P);
+    d(ctx,7,6,P); d(ctx,8,6,P); d(ctx,7,7,P);
     d(ctx,4,6,P); d(ctx,4,7,P); d(ctx,11,6,P); d(ctx,11,7,P);
     f(ctx,10,13,3,1,W);
     ctx.restore();
@@ -464,7 +465,7 @@ function drawBunny(ctx, stage, af, rest) {
       d(ctx,ox+3,oy+3,W); d(ctx,ox+fw-6,oy+3,W);
     }
     // Nose
-    f(ctx,ox+6,oy+6,2,2,P);
+    d(ctx,ox+6,oy+6,P); d(ctx,ox+7,oy+6,P); d(ctx,ox+6,oy+7,P);
     // Whiskers
     f(ctx,ox+1,oy+7,4,1,K); f(ctx,ox+fw-5,oy+7,4,1,K);
     // Mouth
