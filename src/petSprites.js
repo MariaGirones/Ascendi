@@ -407,8 +407,39 @@ function drawBunny(ctx, stage, af, rest) {
     d(ctx,5,6,K); d(ctx,9,6,K);
     f(ctx,7,8,2,1,P);
     ctx.restore();
+  } else if (stage===4) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,3,3,10,9,L);
+    f(ctx,1,3,2,8,L); f(ctx,2,4,1,5,P);
+    f(ctx,13,3,2,8,L); f(ctx,13,4,1,5,P);
+    d(ctx,5,5,K); d(ctx,9,5,K);
+    f(ctx,7,7,2,1,P);
+    d(ctx,13,12,W);
+    ctx.restore();
+  } else if (stage===5) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,3,3,10,10,L);
+    f(ctx,1,3,2,10,L); f(ctx,2,4,1,7,P);
+    f(ctx,13,3,2,10,L); f(ctx,13,4,1,7,P);
+    d(ctx,5,5,K); d(ctx,9,5,K);
+    f(ctx,7,7,2,1,P);
+    d(ctx,12,13,W); d(ctx,13,13,W);
+    ctx.restore();
+  } else if (stage===6) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,3,2,10,11,L);
+    f(ctx,1,2,2,13,L); f(ctx,2,3,1,9,P);
+    f(ctx,13,2,2,13,L); f(ctx,13,3,1,9,P);
+    d(ctx,5,4,K); d(ctx,9,4,K);
+    f(ctx,7,6,2,1,P);
+    d(ctx,4,6,P); d(ctx,4,7,P); d(ctx,11,6,P); d(ctx,11,7,P);
+    f(ctx,10,13,3,1,W);
+    ctx.restore();
   } else {
-    // Adult bunny full
+    // Adult bunny full (stages 7-9)
     const ox=1,oy=2,fw=14,fh=10;
     ears(ox,4,fw);
     f(ctx,ox,oy,fw,fh,L);
