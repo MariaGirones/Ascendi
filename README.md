@@ -22,27 +22,6 @@ Your pet, XP, settings, and cycle position are all saved automatically — nothi
 
 ---
 
-
-
-## Drakon Evolution Stages
-
-Drakon the ancient dragon evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
-
-| Stage | Name | XP Required | Appearance |
-|---|---|---|---|
-| 1 | Egg | 0 | Smooth teal egg with a white highlight patch, four dark speckles, and a faint yellow glow on one corner |
-| 2 | Cracked Egg | 111 | Teal egg with jagged crack lines spreading across the shell and a pair of glowing yellow eyes peeking out from within |
-| 3 | Whelp | 222 | Tiny dragon head rising above two broken shell halves, with yellow horn nubs, animated eyes, a small body, and a dark-tipped tail |
-| 4 | Hatchling | 333 | Free of the shell — compact head with four yellow horn pixels, 2×2 yellow eyes, a wider body, and small 2×2 dark wing nubs on each side |
-| 5 | Sparkling | 444 | Taller head with 2×2 block horns, two yellow back spines, a 10×6 body, and animated 3×3 dark wing stubs that bob up and down |
-| 6 | Drake | 556 | Young dragon with small 3-wide wings, glowing yellow eyes with white pupils, 2 spines, a 3-scale body pattern, and a short pointed tail |
-| 7 | Firedrake | 667 | Full 4×8 wings with webbing, fierce red eyes, 3 spines, visible teeth, and an animated four-pixel fire breath stream |
-| 8 | Wyvern | 778 | Swept-back narrow wings reaching the top of the canvas, red eyes, 4 spines, teeth, and a massive 6×3 tail with three yellow spikes |
-| 9 | Elder Drake | 889 | Full wings with triple webbing dots, white belly patch, flanking dark scale marks, four forehead crest marks, 5 spines, and alternating white glow in each eye |
-| 10 | Dragon | 1000 | Majestic ancient dragon with yellow glow on wing outer edges, white belly, four spines, epic wider tail, and fire burning on both animation frames |
-
----
-
 ## Features
 
 - **6 pixel art companions** — each with 10 evolution stages, drawn procedurally on HTML Canvas (no image files)
@@ -95,6 +74,25 @@ Max the golden retriever evolves as you accumulate XP from completed focus sessi
 | 8 | Golden | 777 | Body rises higher on the canvas; a four-pixel golden hair tuft crowns the head and pink cheek blush marks appear |
 | 9 | Elder Hound | 888 | Hair tuft widens to six pixels, nose broadens to three pixels wide, and cheek blush marks grow taller |
 | 10 | Good Boy | 999 | Dramatic eight-pixel full-width hair tuft, wide cheek blush on both sides, and a red collar stripe across the chest |
+
+---
+
+## 🐉 Drakon Evolution Stages
+
+Drakon the ancient dragon evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Description |
+|---|---|---|---|
+| 1 | Egg | 0 | Smooth teal oval egg with dark teal right-edge shading and a 2×2 white shine patch — pristine and unhatched |
+| 2 | Cracked Egg | 111 | Same teal egg crossed by branching yellow crack lines radiating in a zigzag from center to lower-left — breaking open |
+| 3 | Whelp | 222 | Tiny 8×6 orange body with a single dark eye on each side and small dark nubs — just emerged from the shell |
+| 4 | Hatchling | 333 | Taller 8×7 orange body with growing dark orange wing nubs and a single yellow horn pixel above the head |
+| 5 | Sparkling | 444 | 8×8 orange body with a salmon belly patch, wider 2×3 dark wings, a two-pixel diagonal tail stub, and a yellow horn |
+| 6 | Drake | 556 | Deep red body with a salmon belly, 3-row triangular dark red wings, a longer diagonal tail, and a single yellow horn |
+| 7 | Firedrake | 667 | Taller deep red body with 4-row triangular wings, a curved tail, and two yellow horn pixels flanking the head |
+| 8 | Wyvern | 778 | Electric blue body with 5-row wings, two medium frilly yellow horn clusters, and 5 fire breath pixels spreading right and up |
+| 9 | Elder Drake | 889 | Electric blue body with 6-row jagged wings, two large frilly yellow horns with side frills, and 7 fire pixels in a wider spread |
+| 10 | Dragon | 1000 | Dramatic 8-row wings spanning nearly the full canvas, a three-horn frilly crest, and 10 fire pixels cascading up and down |
 
 ---
 
