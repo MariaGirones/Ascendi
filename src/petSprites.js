@@ -373,58 +373,40 @@ function drawBunny(ctx, stage, af, rest) {
   }
 
   if (stage===0) {
-    const ox=4,oy=4,fw=8,fh=8;
-    ears(ox,5,fw); // tall ears even on baby
-    f(ctx,ox,oy,fw,fh,L);
-    f(ctx,ox,oy,fw,1,K); f(ctx,ox,oy+fh-1,fw,1,K);
-    f(ctx,ox,oy,1,fh,K); f(ctx,ox+fw-1,oy,1,fh,K);
-    f(ctx,ox+1,oy+1,fw-2,fh-2,L);
-    // Cheek puffs
-    d(ctx,ox+1,oy+4,P); d(ctx,ox+fw-2,oy+4,P);
-    // Eyes
-    if (rest) {
-      f(ctx,ox+2,oy+2,2,1,K); f(ctx,ox+5,oy+2,2,1,K);
-    } else if (af===1) {
-      d(ctx,ox+2,oy+2,K); d(ctx,ox+5,oy+2,K); // blink
-    } else {
-      f(ctx,ox+2,oy+2,2,2,K); f(ctx,ox+5,oy+2,2,2,K);
-      d(ctx,ox+2,oy+2,W); d(ctx,ox+5,oy+2,W); // eye shine
-    }
-    // Nose
-    d(ctx,ox+3,oy+5,P); d(ctx,ox+4,oy+5,P);
-    // Mouth
-    d(ctx,ox+3,oy+6,K); d(ctx,ox+4,oy+6,K);
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,5,7,6,5,L);
+    d(ctx,4,7,L); d(ctx,4,8,L);
+    d(ctx,11,7,L); d(ctx,11,8,L);
+    d(ctx,6,9,K); d(ctx,9,9,K);
+    ctx.restore();
   } else if (stage===1) {
-    const ox=2,oy=4,fw=12,fh=9;
-    ears(ox,5,fw);
-    f(ctx,ox,oy,fw,fh,L);
-    f(ctx,ox,oy,fw,1,K); f(ctx,ox,oy+fh-1,fw,1,K);
-    f(ctx,ox,oy,1,fh,K); f(ctx,ox+fw-1,oy,1,fh,K);
-    f(ctx,ox+1,oy+1,fw-2,fh-2,L);
-    // Cheeks
-    f(ctx,ox+1,oy+4,2,2,P); f(ctx,ox+fw-3,oy+4,2,2,P);
-    // Eyes
-    if (rest) {
-      f(ctx,ox+2,oy+2,3,1,K); f(ctx,ox+8,oy+2,3,1,K);
-    } else if (af===1) {
-      d(ctx,ox+3,oy+2,K); d(ctx,ox+9,oy+2,K);
-    } else {
-      f(ctx,ox+2,oy+2,3,2,K); f(ctx,ox+8,oy+2,3,2,K);
-      d(ctx,ox+2,oy+2,W); d(ctx,ox+8,oy+2,W);
-    }
-    // Nose
-    f(ctx,ox+5,oy+5,2,2,P);
-    // Mouth
-    d(ctx,ox+4,oy+7,K); d(ctx,ox+7,oy+7,K);
-    // Body
-    f(ctx,ox+1,oy+fh,fw-2,5,L);
-    f(ctx,ox+1,oy+fh,fw-2,1,K); f(ctx,ox+1,oy+fh+4,fw-2,1,K);
-    f(ctx,ox+1,oy+fh,1,5,K); f(ctx,ox+fw-2,oy+fh,1,5,K);
-    f(ctx,ox+2,oy+fh+1,fw-4,3,L);
-    // Fluffy tail
-    f(ctx,ox+fw-1,oy+fh+1,2,3,W); d(ctx,ox+fw,oy+fh+1,K);
-    // Paws
-    f(ctx,ox+2,oy+fh+4,3,1,l); f(ctx,ox+fw-5,oy+fh+4,3,1,l);
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,4,6,8,6,L);
+    f(ctx,2,6,2,2,L); d(ctx,3,7,P);
+    f(ctx,12,6,2,2,L); d(ctx,12,7,P);
+    d(ctx,5,8,K); d(ctx,9,8,K);
+    d(ctx,7,10,P);
+    ctx.restore();
+  } else if (stage===2) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,4,5,8,7,L);
+    f(ctx,2,5,2,3,L); d(ctx,3,6,P); d(ctx,3,7,P);
+    f(ctx,12,5,2,3,L); d(ctx,12,6,P); d(ctx,12,7,P);
+    d(ctx,5,7,K); d(ctx,9,7,K);
+    f(ctx,7,9,2,1,P);
+    ctx.restore();
+  } else if (stage===3) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,3,4,10,8,L);
+    f(ctx,1,4,2,6,L); f(ctx,2,5,1,4,P);
+    f(ctx,13,4,2,6,L); f(ctx,13,5,1,4,P);
+    d(ctx,5,6,K); d(ctx,9,6,K);
+    f(ctx,7,8,2,1,P);
+    ctx.restore();
   } else {
     // Adult bunny full
     const ox=1,oy=2,fw=14,fh=10;
