@@ -375,47 +375,46 @@ function drawBunny(ctx, stage, af, rest) {
   if (stage===0) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,5,7,6,5,L);
-    d(ctx,4,7,L); d(ctx,4,8,L);
-    d(ctx,11,7,L); d(ctx,11,8,L);
-    d(ctx,6,9,K); d(ctx,9,9,K);
+    f(ctx,5,9,5,4,L);
+    f(ctx,4,9,1,2,L); f(ctx,10,9,1,2,L);
+    d(ctx,6,10,K); d(ctx,8,10,K);
     ctx.restore();
   } else if (stage===1) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,4,6,8,6,L);
-    f(ctx,2,6,2,2,L); d(ctx,3,7,P);
-    f(ctx,12,6,2,2,L); d(ctx,12,7,P);
-    d(ctx,5,8,K); d(ctx,9,8,K);
-    d(ctx,7,10,P);
+    f(ctx,5,8,5,5,L);
+    f(ctx,4,8,1,3,L); f(ctx,10,8,1,3,L);
+    d(ctx,6,9,K); d(ctx,8,9,K);
+    d(ctx,7,11,P);
     ctx.restore();
   } else if (stage===2) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,4,5,8,7,L);
-    f(ctx,2,5,2,3,L); d(ctx,3,6,P); d(ctx,3,7,P);
-    f(ctx,12,5,2,3,L); d(ctx,12,6,P); d(ctx,12,7,P);
-    d(ctx,5,7,K); d(ctx,9,7,K);
-    f(ctx,7,9,2,1,P);
+    f(ctx,5,7,5,6,L);
+    f(ctx,4,7,1,4,L); f(ctx,10,7,1,4,L);
+    d(ctx,4,9,P); d(ctx,10,9,P);
+    d(ctx,6,8,K); d(ctx,8,8,K);
+    d(ctx,7,10,P);
     ctx.restore();
   } else if (stage===3) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,3,4,10,8,L);
-    f(ctx,1,4,2,6,L); f(ctx,2,5,1,4,P);
-    f(ctx,13,4,2,6,L); f(ctx,13,5,1,4,P);
-    d(ctx,5,6,K); d(ctx,9,6,K);
-    f(ctx,7,8,2,1,P);
+    f(ctx,5,6,5,7,L);
+    f(ctx,4,6,1,5,L); f(ctx,10,6,1,5,L);
+    d(ctx,4,8,P); d(ctx,4,9,P); d(ctx,10,8,P); d(ctx,10,9,P);
+    d(ctx,6,7,K); d(ctx,8,7,K);
+    d(ctx,7,9,P);
     ctx.restore();
   } else if (stage===4) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,3,3,10,9,L);
-    f(ctx,1,3,2,8,L); f(ctx,2,4,1,5,P);
-    f(ctx,13,3,2,8,L); f(ctx,13,4,1,5,P);
-    d(ctx,5,5,K); d(ctx,9,5,K);
-    f(ctx,7,7,2,1,P);
-    d(ctx,13,12,W);
+    f(ctx,5,5,5,8,L);
+    f(ctx,4,5,1,6,L); f(ctx,10,5,1,6,L);
+    d(ctx,4,7,P); d(ctx,4,8,P); d(ctx,4,9,P);
+    d(ctx,10,7,P); d(ctx,10,8,P); d(ctx,10,9,P);
+    d(ctx,6,6,K); d(ctx,8,6,K);
+    d(ctx,7,8,P);
+    d(ctx,11,11,W);
     ctx.restore();
   } else if (stage===5) {
     ctx.save();
