@@ -359,21 +359,6 @@ function drawBunny(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const L='#c3aee0', l='#9b82c2', K='#1a1a2e', P='#ffb6c1', W='#ffffff', B='#4a3580';
 
-  function ears(ox,earH,fw) {
-    // left ear
-    f(ctx,ox+1,0,2,earH,L);
-    f(ctx,ox+1,0,2,1,K); f(ctx,ox+1,earH-1,2,1,K);
-    f(ctx,ox+1,0,1,earH,K); f(ctx,ox+2,0,1,earH,K);
-    d(ctx,ox+1,1,P); // inner pink
-    d(ctx,ox,0,L); d(ctx,ox+3,0,L);
-    // right ear
-    f(ctx,ox+fw-3,0,2,earH,L);
-    f(ctx,ox+fw-3,0,2,1,K); f(ctx,ox+fw-3,earH-1,2,1,K);
-    f(ctx,ox+fw-3,0,1,earH,K); f(ctx,ox+fw-2,0,1,earH,K);
-    d(ctx,ox+fw-3,1,P);
-    d(ctx,ox+fw-4,0,L); d(ctx,ox+fw-1,0,L);
-  }
-
   if (stage===0) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
@@ -442,55 +427,55 @@ function drawBunny(ctx, stage, af, rest) {
   } else if (stage===6) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,3,2,10,11,L);
-    f(ctx,1,2,2,13,L); f(ctx,2,3,1,9,P);
-    f(ctx,13,2,2,13,L); f(ctx,13,3,1,9,P);
-    d(ctx,0,2,L); d(ctx,3,2,L); d(ctx,12,2,L); d(ctx,15,2,L);
-    f(ctx,5,4,2,2,K); d(ctx,5,4,W); f(ctx,9,4,2,2,K); d(ctx,9,4,W);
-    d(ctx,7,6,P); d(ctx,8,6,P); d(ctx,7,7,P);
-    d(ctx,4,6,P); d(ctx,4,7,P); d(ctx,11,6,P); d(ctx,11,7,P);
-    f(ctx,10,13,3,1,W);
+    f(ctx,2,6,11,8,L);
+    f(ctx,4,2,1,5,L); d(ctx,4,3,P);
+    f(ctx,10,2,1,5,L); d(ctx,10,3,P);
+    d(ctx,4,2,B);
+    f(ctx,5,7,2,2,K); d(ctx,5,7,W);
+    f(ctx,9,7,2,2,K); d(ctx,9,7,W);
+    d(ctx,7,9,P); d(ctx,8,9,P); d(ctx,7,10,P);
+    d(ctx,2,9,P); d(ctx,12,9,P);
+    d(ctx,13,11,W); d(ctx,13,12,W);
+    ctx.restore();
+  } else if (stage===7) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,2,6,12,8,L);
+    f(ctx,4,2,1,5,L); d(ctx,4,3,P);
+    f(ctx,10,2,1,5,L); d(ctx,10,3,P);
+    d(ctx,3,2,B); d(ctx,4,2,B); d(ctx,5,2,B);
+    f(ctx,5,7,2,2,K); d(ctx,5,7,W);
+    f(ctx,9,7,2,2,K); d(ctx,9,7,W);
+    d(ctx,7,9,P); d(ctx,8,9,P); d(ctx,7,10,P);
+    d(ctx,2,8,P); d(ctx,2,9,P); d(ctx,13,8,P); d(ctx,13,9,P);
+    d(ctx,13,11,W); d(ctx,13,12,W);
+    ctx.restore();
+  } else if (stage===8) {
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,2,6,12,8,L);
+    f(ctx,4,2,1,5,L); d(ctx,4,3,P);
+    f(ctx,10,2,1,5,L); d(ctx,10,3,P);
+    d(ctx,3,2,B); d(ctx,4,2,B); d(ctx,5,2,B); d(ctx,4,3,B);
+    f(ctx,5,7,2,2,K); d(ctx,5,7,W);
+    f(ctx,9,7,2,2,K); d(ctx,9,7,W);
+    d(ctx,7,9,P); d(ctx,8,9,P); d(ctx,7,10,P);
+    f(ctx,2,8,2,2,P); f(ctx,12,8,2,2,P);
+    f(ctx,12,11,2,2,W);
     ctx.restore();
   } else {
-    // Adult bunny full (stages 7-9)
-    const ox=1,oy=2,fw=14,fh=10;
-    ears(ox,4,fw);
-    f(ctx,ox,oy,fw,fh,L);
-    f(ctx,ox,oy,fw,1,K); f(ctx,ox,oy+fh-1,fw,1,K);
-    f(ctx,ox,oy,1,fh,K); f(ctx,ox+fw-1,oy,1,fh,K);
-    f(ctx,ox+1,oy+1,fw-2,fh-2,L);
-    // Big cheeks
-    f(ctx,ox+1,oy+4,3,3,P); f(ctx,ox+fw-4,oy+4,3,3,P);
-    // Eyes
-    if (rest) {
-      f(ctx,ox+3,oy+3,3,1,K); f(ctx,ox+fw-6,oy+3,3,1,K);
-    } else if (af===1) {
-      d(ctx,ox+4,oy+3,K); d(ctx,ox+fw-5,oy+3,K);
-    } else {
-      f(ctx,ox+3,oy+3,2,2,K); f(ctx,ox+fw-6,oy+3,2,2,K);
-      d(ctx,ox+3,oy+3,W); d(ctx,ox+fw-6,oy+3,W);
-    }
-    // Nose
-    d(ctx,ox+6,oy+6,P); d(ctx,ox+7,oy+6,P); d(ctx,ox+6,oy+7,P);
-    // Whiskers
-    f(ctx,ox+1,oy+7,4,1,K); f(ctx,ox+fw-5,oy+7,4,1,K);
-    // Mouth
-    d(ctx,ox+5,oy+8,K); d(ctx,ox+8,oy+8,K);
-    // Body
-    f(ctx,ox,oy+fh,fw,5,L);
-    f(ctx,ox,oy+fh,fw,1,K); f(ctx,ox,oy+fh+4,fw,1,K);
-    f(ctx,ox,oy+fh,1,5,K); f(ctx,ox+fw-1,oy+fh,1,5,K);
-    f(ctx,ox+1,oy+fh+1,fw-2,3,L);
-    // Stripe belly
-    f(ctx,ox+4,oy+fh+1,fw-8,3,W);
-    // Fluffy tail
-    f(ctx,ox+fw-1,oy+fh+1,2,3,W); d(ctx,ox+fw,oy+fh+1,K);
-    // Big paws
-    f(ctx,ox+2,oy+fh+4,4,1,l); f(ctx,ox+fw-6,oy+fh+4,4,1,l);
-    // Ear tip bounce on animation
-    if (!rest && af===0) {
-      d(ctx,ox+2,0,B); d(ctx,ox+fw-3,0,B); // darker ear tips
-    }
+    ctx.save();
+    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    f(ctx,2,6,12,8,L);
+    f(ctx,4,2,1,5,L); d(ctx,4,3,P);
+    f(ctx,10,2,1,5,L); d(ctx,10,3,P);
+    d(ctx,2,2,B); d(ctx,3,2,B); d(ctx,4,2,B); d(ctx,5,2,B); d(ctx,6,2,B); d(ctx,4,3,B);
+    f(ctx,5,7,2,2,K); d(ctx,5,7,W);
+    f(ctx,9,7,2,2,K); d(ctx,9,7,W);
+    d(ctx,7,9,P); d(ctx,8,9,P); d(ctx,7,10,P);
+    f(ctx,2,7,2,3,P); f(ctx,12,7,2,3,P);
+    f(ctx,12,10,2,3,W);
+    ctx.restore();
   }
 }
 
