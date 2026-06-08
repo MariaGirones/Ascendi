@@ -22,7 +22,7 @@ function drawCat(ctx, stage, af, rest) {
 
   if (stage <= 4) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
 
     if (stage===0) {
       f(ctx,5,7,6,5,O);
@@ -124,7 +124,7 @@ function drawDog(ctx, stage, af, rest) {
 
   if (stage <= 4) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
 
     if (stage===0) {
       f(ctx,5,7,6,5,G);
@@ -224,7 +224,7 @@ function drawDragon(ctx, stage, af, rest) {
 
   if (stage===0) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     // Rounded oval egg body
     f(ctx,7,2,2,1,D);
     f(ctx,6,3,4,1,D);
@@ -241,7 +241,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===1) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     // Same rounded oval egg body
     f(ctx,7,2,2,1,D);
     f(ctx,6,3,4,1,D);
@@ -266,14 +266,14 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===2) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,6,8,6,O);
     d(ctx,3,8,o); d(ctx,12,8,o);
     eye(6,8); eye(9,8);
     ctx.restore();
   } else if (stage===3) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,5,8,7,O);
     f(ctx,3,6,1,2,o); f(ctx,12,6,1,2,o);
     d(ctx,8,4,Y);
@@ -281,7 +281,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===4) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,4,8,8,O);
     f(ctx,5,8,4,2,B);
     f(ctx,2,6,2,3,o); f(ctx,12,6,2,3,o);
@@ -291,7 +291,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===5) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,4,8,8,RE);
     f(ctx,5,7,4,3,B);
     d(ctx,3,5,re); f(ctx,2,6,2,1,re); f(ctx,1,7,3,1,re);
@@ -302,7 +302,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===6) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,RE);
     f(ctx,5,7,4,4,B);
     d(ctx,3,3,re); f(ctx,2,4,2,1,re); f(ctx,1,5,3,1,re); f(ctx,1,6,3,1,re);
@@ -313,7 +313,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===7) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
     f(ctx,5,6,4,5,B);
     d(ctx,3,2,bl); f(ctx,2,3,2,1,bl); f(ctx,1,4,3,1,bl); f(ctx,1,5,3,1,bl); f(ctx,1,6,3,1,bl);
@@ -326,7 +326,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===8) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
     f(ctx,5,6,4,5,B);
     d(ctx,3,2,bl); f(ctx,2,3,2,1,bl); f(ctx,1,4,3,1,bl); f(ctx,1,5,3,1,bl); f(ctx,1,6,3,1,bl); f(ctx,1,7,2,1,bl);
@@ -339,7 +339,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.restore();
   } else {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
     f(ctx,5,5,4,6,B);
     d(ctx,3,2,bl); f(ctx,2,3,2,1,bl); f(ctx,1,4,3,5,bl); d(ctx,2,9,bl);
@@ -361,14 +361,14 @@ function drawBunny(ctx, stage, af, rest) {
 
   if (stage===0) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,6,4,4,3,L);
     d(ctx,6,3,L); d(ctx,9,3,L);
     d(ctx,6,5,K); d(ctx,9,5,K);
     ctx.restore();
   } else if (stage===1) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,6,4,4,3,L);
     f(ctx,6,2,1,2,L); d(ctx,6,3,P);
     f(ctx,9,2,1,2,L); d(ctx,9,3,P);
@@ -377,7 +377,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===2) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,5,4,6,4,L);
     f(ctx,5,1,1,3,L); d(ctx,5,2,P);
     f(ctx,10,1,1,3,L); d(ctx,10,2,P);
@@ -388,7 +388,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===3) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,4,8,4,L);
     f(ctx,4,1,1,4,L); d(ctx,4,2,P);
     f(ctx,11,1,1,4,L); d(ctx,11,2,P);
@@ -400,7 +400,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===4) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,2,4,8,4,L);
     f(ctx,2,0,1,4,L); d(ctx,2,1,P);
     f(ctx,10,0,1,4,L); d(ctx,10,1,P);
@@ -414,7 +414,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===5) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,2,4,8,4,L);
     f(ctx,2,0,1,4,L); d(ctx,2,1,P);
     f(ctx,10,0,1,4,L); d(ctx,10,1,P);
@@ -428,7 +428,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===6) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,2,4,8,4,'#d4c0f0');
     f(ctx,2,0,1,4,L); d(ctx,2,1,P);
     f(ctx,10,0,1,4,L); d(ctx,10,1,P);
@@ -443,7 +443,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===7) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,2,4,8,4,'#d4c8ee');
     f(ctx,2,0,1,4,'#d4c8ee'); d(ctx,2,1,P);
     f(ctx,10,0,1,4,'#d4c8ee'); d(ctx,10,1,P);
@@ -458,7 +458,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else if (stage===8) {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,2,4,8,4,'#e8e0f8');
     f(ctx,2,0,1,4,'#e8e0f8'); d(ctx,2,1,P);
     f(ctx,10,0,1,4,'#e8e0f8'); d(ctx,10,1,P);
@@ -474,7 +474,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.restore();
   } else {
     ctx.save();
-    ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,2,4,8,4,W);
     f(ctx,2,0,1,4,W); d(ctx,2,1,P);
     f(ctx,10,0,1,4,W); d(ctx,10,1,P);

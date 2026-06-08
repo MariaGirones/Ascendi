@@ -3,7 +3,7 @@ import { drawPet } from './petSprites';
 
 const CANVAS_SIZE = 240;
 const FRAME_MS = 600; // ms per animation frame
-const ANIM_SEQ = [0, 1, 0, 2]; // always return to center between movements
+const ANIM_SEQ = [0, 1, 2]; // triangle: center → right → up → repeat
 
 /**
  * Renders a pixel-art pet on a <canvas>.
