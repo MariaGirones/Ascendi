@@ -362,40 +362,40 @@ function drawBunny(ctx, stage, af, rest) {
   if (stage===0) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,4,4,4,3,L);
-    d(ctx,5,3,L); d(ctx,8,3,L);
-    d(ctx,5,5,K); d(ctx,8,5,K);
+    f(ctx,6,4,4,3,L);
+    d(ctx,6,3,L); d(ctx,9,3,L);
+    d(ctx,7,5,K); d(ctx,8,5,K);
     ctx.restore();
   } else if (stage===1) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,3,4,5,4,L);
-    f(ctx,4,2,1,2,L); d(ctx,4,3,P);
+    f(ctx,6,4,4,3,L);
+    f(ctx,6,2,1,2,L); d(ctx,6,3,P);
     f(ctx,9,2,1,2,L); d(ctx,9,3,P);
-    d(ctx,4,5,K); d(ctx,9,5,K);
-    d(ctx,6,7,P);
+    d(ctx,7,5,K); d(ctx,8,5,K);
+    d(ctx,7,6,P);
     ctx.restore();
   } else if (stage===2) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,3,4,6,4,L);
-    f(ctx,3,1,1,3,L); d(ctx,3,2,P);
-    f(ctx,9,1,1,3,L); d(ctx,9,2,P);
-    d(ctx,4,5,K); d(ctx,9,5,K);
-    d(ctx,6,7,P);
-    d(ctx,5,8,l);
-    d(ctx,11,8,W);
+    f(ctx,5,4,6,4,L);
+    f(ctx,5,1,1,3,L); d(ctx,5,2,P);
+    f(ctx,10,1,1,3,L); d(ctx,10,2,P);
+    d(ctx,6,5,K); d(ctx,9,5,K);
+    d(ctx,7,7,P);
+    f(ctx,7,8,2,1,l);
+    d(ctx,9,8,W);
     ctx.restore();
   } else if (stage===3) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,2,4,8,4,L);
-    f(ctx,2,1,1,4,L); d(ctx,2,2,P);
-    f(ctx,10,1,1,4,L); d(ctx,10,2,P);
-    d(ctx,3,5,K); d(ctx,10,5,K);
-    d(ctx,6,7,P);
-    f(ctx,3,8,6,2,l);
-    f(ctx,4,9,4,1,L);
+    f(ctx,4,4,8,4,L);
+    f(ctx,4,1,1,4,L); d(ctx,4,2,P);
+    f(ctx,11,1,1,4,L); d(ctx,11,2,P);
+    d(ctx,5,5,K); d(ctx,10,5,K);
+    d(ctx,7,7,P);
+    f(ctx,5,8,6,2,l);
+    f(ctx,6,9,4,1,L);
     d(ctx,11,8,W);
     ctx.restore();
   } else if (stage===4) {
