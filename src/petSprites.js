@@ -566,32 +566,72 @@ function drawFox(ctx, stage, af, rest) {
     d(ctx,4,8,fo); d(ctx,12,8,fo);
     d(ctx,8,10,K);
     ctx.restore();
+  } else if (stage===5) {
+    ctx.save();
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
+    const D5='#d45818';
+    f(ctx,13,4,2,8,F); f(ctx,13,10,2,2,W);
+    f(ctx,2,5,11,9,D5);
+    f(ctx,4,1,1,4,D5); d(ctx,4,1,K);
+    f(ctx,10,1,1,4,D5); d(ctx,10,1,K);
+    f(ctx,4,11,6,2,W);
+    d(ctx,4,7,A); d(ctx,10,7,A);
+    d(ctx,3,7,fo); d(ctx,11,7,fo);
+    d(ctx,7,11,K);
+    ctx.restore();
+  } else if (stage===6) {
+    ctx.save();
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
+    const D6='#c04010', SV='#c8c0b0';
+    f(ctx,12,4,3,9,F); f(ctx,13,5,1,4,SV); f(ctx,12,11,3,2,W);
+    f(ctx,2,4,11,10,D6);
+    f(ctx,4,0,1,4,D6); d(ctx,4,0,K);
+    f(ctx,10,0,1,4,D6); d(ctx,10,0,K);
+    f(ctx,4,10,6,3,W);
+    d(ctx,4,6,A); d(ctx,10,6,A);
+    d(ctx,3,6,fo); d(ctx,11,6,fo);
+    d(ctx,7,10,K);
+    ctx.restore();
+  } else if (stage===7) {
+    ctx.save();
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
+    const D6='#c04010', SV='#c8c0b0';
+    f(ctx,12,3,3,10,F); f(ctx,13,4,1,4,SV); f(ctx,12,11,3,3,W);
+    f(ctx,2,3,11,11,D6);
+    f(ctx,4,0,1,3,D6); d(ctx,4,0,K);
+    f(ctx,10,0,1,3,D6); d(ctx,10,0,K);
+    f(ctx,4,10,6,3,W);
+    d(ctx,4,5,A); d(ctx,10,5,A);
+    d(ctx,5,4,W); d(ctx,11,4,W);
+    d(ctx,3,5,fo); d(ctx,11,5,fo);
+    d(ctx,7,10,K);
+    ctx.restore();
+  } else if (stage===8) {
+    ctx.save();
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
+    const D8='#3a1a10', C8='#f0e0c0', Y8='#f1c40f';
+    f(ctx,11,2,4,12,W); f(ctx,11,12,4,2,Y8);
+    f(ctx,1,3,11,11,D8);
+    f(ctx,3,0,1,3,D8); d(ctx,3,0,K);
+    f(ctx,10,0,1,3,D8); d(ctx,10,0,K);
+    f(ctx,3,10,7,3,C8);
+    d(ctx,3,5,Y8); d(ctx,10,5,Y8);
+    d(ctx,4,4,W); d(ctx,11,4,W);
+    d(ctx,6,10,K);
+    ctx.restore();
   } else {
-    const {ex1,ex2,ey,nx,ny} = foxFace(1,0,14,11);
-    if (rest) {
-      f(ctx,ex1,ey,4,1,K); f(ctx,ex2,ey,4,1,K);
-    } else if (af===1) {
-      d(ctx,ex1+2,ey,K); d(ctx,ex2+2,ey,K);
-    } else {
-      f(ctx,ex1,ey,4,3,K); f(ctx,ex2,ey,4,3,K);
-      d(ctx,ex1,ey,W); d(ctx,ex2,ey,W); // eye shine
-      d(ctx,ex1+3,ey+2,B); d(ctx,ex2+3,ey+2,B); // amber glow
-    }
-    d(ctx,nx,ny,K); d(ctx,nx+1,ny,K); d(ctx,nx+2,ny,K);
-    f(ctx,nx-1,ny+1,5,1,K); // mouth
-    // Body
-    f(ctx,1,11,14,4,F);
-    f(ctx,1,11,14,1,K); f(ctx,1,14,14,1,K);
-    f(ctx,1,11,1,4,K); f(ctx,14,11,1,4,K);
-    f(ctx,2,12,12,2,F);
-    f(ctx,4,12,8,2,W); // big white belly
-    f(ctx,2,14,3,1,B); f(ctx,11,14,3,1,B); // black paws
-    // Huge bushy tail
-    f(ctx,13,7,3,8,F); f(ctx,14,7,2,8,f2);
-    f(ctx,13,13,3,3,W); // white tail tip
-    d(ctx,15,7,K); d(ctx,15,13,K);
-    // Whiskers
-    f(ctx,0,6,3,1,K); f(ctx,12,6,3,1,K);
+    ctx.save();
+    const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
+    const D9='#1a0a08', C9='#f0e0c0', Y9='#f1c40f', SH='#f0e8a0';
+    f(ctx,10,1,5,13,W); f(ctx,11,2,2,10,SH); f(ctx,10,12,5,3,Y9);
+    f(ctx,1,2,10,12,D9);
+    f(ctx,3,0,1,2,D9); d(ctx,3,0,K);
+    f(ctx,8,0,1,2,D9); d(ctx,8,0,K);
+    f(ctx,2,9,7,4,C9);
+    f(ctx,3,4,2,1,Y9); f(ctx,8,4,2,1,Y9);
+    d(ctx,4,3,W); d(ctx,9,3,W);
+    d(ctx,5,9,K);
+    ctx.restore();
   }
 }
 
