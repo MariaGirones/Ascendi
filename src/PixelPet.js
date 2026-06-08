@@ -3,7 +3,6 @@ import { drawPet } from './petSprites';
 
 const CANVAS_SIZE = 240;
 const FRAME_MS = 600; // ms per animation frame
-const ANIM_SEQ = [0, 1, 2]; // triangle: center → right → up → repeat
 
 /**
  * Renders a pixel-art pet on a <canvas>.
@@ -37,8 +36,8 @@ export default function PixelPet({ petId, stageIndex, isRunning, gainCount }) {
 
     if (isRunning) {
       intervalRef.current = setInterval(() => {
-        frameRef.current = (frameRef.current + 1) % ANIM_SEQ.length;
-        render(ANIM_SEQ[frameRef.current], false);
+        frameRef.current = (frameRef.current + 1) % 3;
+        render(frameRef.current, false);
       }, FRAME_MS);
     }
 
