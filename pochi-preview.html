@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pochi Preview — All Stages</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f3effe;
+      font-family: monospace;
+      padding: 24px;
+      color: #2e1a4a;
+    }
+
+    h1 {
+      color: #7b5ea7;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    button {
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border: 2px solid #7b5ea7;
+      border-radius: 6px;
+      background: #fff;
+      color: #7b5ea7;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    button:hover { background: #7b5ea7; color: #fff; }
+    button.active { background: #7b5ea7; color: #fff; }
+
+    .state-badge {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: #9b82c2;
+      color: #fff;
+    }
+
+    .state-badge.resting { background: #888; }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .stage-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    canvas {
+      border: 2px solid #7b5ea7;
+      border-radius: 10px;
+      background: #f3effe;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .stage-num {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #7b5ea7;
+    }
+
+    .stage-name {
+      font-size: 0.7rem;
+      color: #888;
+      text-align: center;
+      max-width: 90px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pochi — All Stages</h1>
+  <p class="subtitle">Open directly in browser (no build step). All 10 stages are in-game (999 XP unlocks Stage 10).</p>
+
+  <div class="controls">
+    <button id="btn-rest">Rest mode</button>
+    <span class="state-badge" id="state-badge">Animating</span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <script type="module">
+    import { drawPet } from './src/petSprites.js';
+
+    const STAGE_NAMES = [
+      'Kit', 'Cottontail', 'Bunny', 'Hopper', 'Thumper',
+      'Meadow Hare', 'Moon Hare', 'Elder Hare', 'Grand Hare', 'Lunar Hare',
+    ];
+
+    const CANVAS_SIZE = 160;
+    const canvases = [];
+    const grid = document.getElementById('grid');
+
+    for (let i = 0; i < 10; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'stage-cell';
+
+      const canvas = document.createElement('canvas');
+      canvas.width = CANVAS_SIZE;
+      canvas.height = CANVAS_SIZE;
+      canvases.push(canvas);
+
+      const num = document.createElement('div');
+      num.className = 'stage-num';
+      num.textContent = `Stage ${i + 1}`;
+
+      const name = document.createElement('div');
+      name.className = 'stage-name';
+      name.textContent = STAGE_NAMES[i] ?? '—';
+
+      cell.appendChild(canvas);
+      cell.appendChild(num);
+      cell.appendChild(name);
+
+      grid.appendChild(cell);
+    }
+
+    let af = 0;
+    let isResting = false;
+
+    function renderAll() {
+      for (let i = 0; i < canvases.length; i++) {
+        const ctx = canvases[i].getContext('2d');
+        drawPet(ctx, 'bunny', i, af, isResting);
+      }
+    }
+
+    renderAll();
+
+    setInterval(() => {
+      if (!isResting) {
+        af = af === 0 ? 1 : 0;
+        renderAll();
+      }
+    }, 600);
+
+    const btnRest = document.getElementById('btn-rest');
+    const badge   = document.getElementById('state-badge');
+
+    btnRest.addEventListener('click', () => {
+      isResting = !isResting;
+      af = 0;
+      btnRest.classList.toggle('active', isResting);
+      badge.textContent  = isResting ? 'Resting' : 'Animating';
+      badge.classList.toggle('resting', isResting);
+      renderAll();
+    });
+  </script>
+</body>
+</html>
