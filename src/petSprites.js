@@ -475,15 +475,15 @@ function drawBunny(ctx, stage, af, rest) {
   } else {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,2,4,8,4,'#f8f4ff');
-    f(ctx,2,0,1,4,'#f8f4ff'); d(ctx,2,1,P);
-    f(ctx,10,0,1,4,'#f8f4ff'); d(ctx,10,1,P);
+    f(ctx,2,4,8,4,W);
+    f(ctx,2,0,1,4,W); d(ctx,2,1,P);
+    f(ctx,10,0,1,4,W); d(ctx,10,1,P);
     d(ctx,3,1,Y); d(ctx,5,1,R); d(ctx,7,1,Y);
     f(ctx,3,2,5,1,Y);
     d(ctx,3,5,'#cc0000'); d(ctx,10,5,'#cc0000');
     d(ctx,6,7,P);
     f(ctx,2,8,8,3,W);
-    f(ctx,4,9,4,2,'#f8f4ff');
+    f(ctx,4,9,4,2,W);
     d(ctx,2,11,P); d(ctx,9,11,P);
     d(ctx,11,8,W);
     d(ctx,6,8,W); d(ctx,7,8,W);
