@@ -364,7 +364,7 @@ function drawBunny(ctx, stage, af, rest) {
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
     f(ctx,6,4,4,3,L);
     d(ctx,6,3,L); d(ctx,9,3,L);
-    d(ctx,7,5,K); d(ctx,8,5,K);
+    d(ctx,6,5,K); d(ctx,9,5,K);
     ctx.restore();
   } else if (stage===1) {
     ctx.save();
@@ -372,7 +372,7 @@ function drawBunny(ctx, stage, af, rest) {
     f(ctx,6,4,4,3,L);
     f(ctx,6,2,1,2,L); d(ctx,6,3,P);
     f(ctx,9,2,1,2,L); d(ctx,9,3,P);
-    d(ctx,7,5,K); d(ctx,8,5,K);
+    d(ctx,6,5,K); d(ctx,9,5,K);
     d(ctx,7,6,P);
     ctx.restore();
   } else if (stage===2) {
