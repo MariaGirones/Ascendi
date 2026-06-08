@@ -96,6 +96,25 @@ Drakon the ancient dragon evolves as you accumulate XP from completed focus sess
 
 ---
 
+## 🐇 Pochi Evolution Stages
+
+Pochi the soft lavender bunny evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Description |
+|---|---|---|---|
+| 1 | Kit | 0 | Tiny 4×3 lavender blob with two single-pixel ear nubs and dark dot eyes — barely a bunny yet |
+| 2 | Cottontail | 111 | Same small lavender body with 2-tall ears showing pink inners and a single pink nose pixel |
+| 3 | Bunny | 222 | Wider 6×4 lavender body, taller 3-pixel upright ears, a small purple belly stripe, and a white tail dot |
+| 4 | Hopper | 333 | Full 8-wide lavender body, long 4-tall upright ears, a wider purple belly with lavender center, and white tail |
+| 5 | Thumper | 444 | Crouching full form with upright ears reaching the top edge, a dark purple bow, pink paws, and white tail |
+| 6 | Meadow Hare | 555 | Identical silhouette to Thumper — same lavender body and purple bow |
+| 7 | Moon Hare | 666 | Body lightens to pale lavender (#d4c0f0); a single white tooth appears below the pink nose |
+| 8 | Elder Hare | 777 | Body and ears lighten uniformly to soft lilac (#d4c8ee), belly pales to near-white (#ede6fa), two white teeth |
+| 9 | Grand Hare | 888 | Very pale lavender (#e8e0f8) body; dark purple bow replaced by a 3-spike gold crown with a red gem; eyes turn dark red |
+| 10 | Lunar Hare | 999 | Fully white body, ears, and belly; crown grows to 5 spikes on a wider gold bar; eyes glow bright red; two white teeth |
+
+---
+
 ## Tech stack
 
 | Layer | Tech |
