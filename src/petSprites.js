@@ -444,14 +444,14 @@ function drawBunny(ctx, stage, af, rest) {
   } else if (stage===7) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,2,4,8,4,'#e0d4f5');
-    f(ctx,2,0,1,4,L); d(ctx,2,1,P);
-    f(ctx,10,0,1,4,L); d(ctx,10,1,P);
+    f(ctx,2,4,8,4,'#d4c8ee');
+    f(ctx,2,0,1,4,'#d4c8ee'); d(ctx,2,1,P);
+    f(ctx,10,0,1,4,'#d4c8ee'); d(ctx,10,1,P);
     f(ctx,4,2,3,1,B);
     d(ctx,3,5,K); d(ctx,10,5,K);
     d(ctx,6,7,P);
     f(ctx,2,8,8,3,'#ede6fa');
-    f(ctx,4,9,4,2,L);
+    f(ctx,4,9,4,2,'#d4c8ee');
     d(ctx,2,11,P); d(ctx,9,11,P);
     d(ctx,11,8,W);
     d(ctx,6,8,W); d(ctx,7,8,W);
@@ -459,15 +459,15 @@ function drawBunny(ctx, stage, af, rest) {
   } else if (stage===8) {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,2,4,8,4,'#ede6fa');
-    f(ctx,2,0,1,4,L); d(ctx,2,1,P);
-    f(ctx,10,0,1,4,L); d(ctx,10,1,P);
+    f(ctx,2,4,8,4,'#e8e0f8');
+    f(ctx,2,0,1,4,'#e8e0f8'); d(ctx,2,1,P);
+    f(ctx,10,0,1,4,'#e8e0f8'); d(ctx,10,1,P);
     d(ctx,4,1,Y); d(ctx,5,1,R); d(ctx,6,1,Y);
     f(ctx,4,2,3,1,Y);
     d(ctx,3,5,'#8b0000'); d(ctx,10,5,'#8b0000');
     d(ctx,6,7,P);
     f(ctx,2,8,8,3,l);
-    f(ctx,4,9,4,2,L);
+    f(ctx,4,9,4,2,'#e8e0f8');
     d(ctx,2,11,P); d(ctx,9,11,P);
     d(ctx,11,8,W);
     d(ctx,6,8,W); d(ctx,7,8,W);
@@ -475,15 +475,15 @@ function drawBunny(ctx, stage, af, rest) {
   } else {
     ctx.save();
     ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
-    f(ctx,2,4,8,4,'#f5f0ff');
-    f(ctx,2,0,1,4,L); d(ctx,2,1,P);
-    f(ctx,10,0,1,4,L); d(ctx,10,1,P);
+    f(ctx,2,4,8,4,'#f8f4ff');
+    f(ctx,2,0,1,4,'#f8f4ff'); d(ctx,2,1,P);
+    f(ctx,10,0,1,4,'#f8f4ff'); d(ctx,10,1,P);
     d(ctx,3,1,Y); d(ctx,5,1,R); d(ctx,7,1,Y);
     f(ctx,3,2,5,1,Y);
     d(ctx,3,5,'#cc0000'); d(ctx,10,5,'#cc0000');
     d(ctx,6,7,P);
     f(ctx,2,8,8,3,W);
-    f(ctx,4,9,4,2,L);
+    f(ctx,4,9,4,2,'#f8f4ff');
     d(ctx,2,11,P); d(ctx,9,11,P);
     d(ctx,11,8,W);
     d(ctx,6,8,W); d(ctx,7,8,W);
