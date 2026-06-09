@@ -569,7 +569,6 @@ function drawFox(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     const D5='#d45818';
-    f(ctx,13,4,2,8,F); f(ctx,13,10,2,2,W);
     f(ctx,2,5,11,9,D5);
     f(ctx,4,1,1,4,D5); d(ctx,4,1,K);
     f(ctx,10,1,1,4,D5); d(ctx,10,1,K);
@@ -577,12 +576,12 @@ function drawFox(ctx, stage, af, rest) {
     d(ctx,4,7,A); d(ctx,10,7,A);
     d(ctx,3,7,fo); d(ctx,11,7,fo);
     d(ctx,7,11,K);
+    f(ctx,12,7,2,5,F); d(ctx,11,7,F); d(ctx,11,9,F); d(ctx,11,11,F); f(ctx,12,11,2,2,W); d(ctx,11,12,W);
     ctx.restore();
   } else if (stage===6) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
-    const D6='#c04010', SV='#c8c0b0';
-    f(ctx,12,4,3,9,F); f(ctx,13,5,1,4,SV); f(ctx,12,11,3,2,W);
+    const D6='#c04010';
     f(ctx,2,4,11,10,D6);
     f(ctx,4,0,1,4,D6); d(ctx,4,0,K);
     f(ctx,10,0,1,4,D6); d(ctx,10,0,K);
@@ -590,12 +589,12 @@ function drawFox(ctx, stage, af, rest) {
     d(ctx,4,6,A); d(ctx,10,6,A);
     d(ctx,3,6,fo); d(ctx,11,6,fo);
     d(ctx,7,10,K);
+    f(ctx,3,12,8,2,F); d(ctx,3,11,F); d(ctx,5,11,F); d(ctx,7,11,F); d(ctx,9,11,F); f(ctx,4,12,6,1,W);
     ctx.restore();
   } else if (stage===7) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
-    const D6='#c04010', SV='#c8c0b0';
-    f(ctx,12,3,3,10,F); f(ctx,13,4,1,4,SV); f(ctx,12,11,3,3,W);
+    const D6='#c04010';
     f(ctx,2,3,11,11,D6);
     f(ctx,4,0,1,3,D6); d(ctx,4,0,K);
     f(ctx,10,0,1,3,D6); d(ctx,10,0,K);
@@ -603,30 +602,31 @@ function drawFox(ctx, stage, af, rest) {
     d(ctx,4,5,A); d(ctx,10,5,A);
     d(ctx,3,5,fo); d(ctx,11,5,fo);
     d(ctx,7,10,K);
+    f(ctx,2,12,10,2,F); d(ctx,2,11,F); d(ctx,4,11,F); d(ctx,6,11,F); d(ctx,8,11,F); d(ctx,10,11,F); f(ctx,3,12,8,1,W); d(ctx,5,13,W); d(ctx,7,13,W);
     ctx.restore();
   } else if (stage===8) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     const D8='#3a1a10', C8='#f0e0c0', Y8='#f1c40f';
-    f(ctx,11,2,4,12,W); f(ctx,11,12,4,2,Y8);
     f(ctx,1,3,11,11,D8);
     f(ctx,3,0,1,3,D8); d(ctx,3,0,K);
     f(ctx,10,0,1,3,D8); d(ctx,10,0,K);
     f(ctx,3,10,7,3,C8);
     d(ctx,3,5,Y8); d(ctx,10,5,Y8);
     d(ctx,6,10,K);
+    f(ctx,1,11,13,3,W); d(ctx,1,10,W); d(ctx,3,10,W); d(ctx,5,10,W); d(ctx,7,10,W); d(ctx,9,10,W); d(ctx,11,10,W); d(ctx,13,10,W); f(ctx,1,13,13,1,Y8);
     ctx.restore();
   } else {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
-    const D9='#1a0a08', C9='#f0e0c0', Y9='#f1c40f', SH='#f0e8a0';
-    f(ctx,10,1,5,13,W); f(ctx,11,2,2,10,SH); f(ctx,10,12,5,3,Y9);
+    const D9='#1a0a08', C9='#f0e0c0', Y9='#f1c40f';
     f(ctx,1,2,10,12,D9);
     f(ctx,3,0,1,2,D9); d(ctx,3,0,K);
     f(ctx,8,0,1,2,D9); d(ctx,8,0,K);
     f(ctx,2,9,7,4,C9);
     d(ctx,3,4,Y9); d(ctx,8,4,Y9);
     d(ctx,5,9,K);
+    f(ctx,1,11,13,3,W); d(ctx,1,10,W); d(ctx,3,10,W); d(ctx,5,10,W); d(ctx,7,10,W); d(ctx,9,10,W); d(ctx,11,10,W); d(ctx,13,10,W); d(ctx,0,11,W); d(ctx,14,11,W); f(ctx,0,13,15,2,Y9);
     ctx.restore();
   }
 }
