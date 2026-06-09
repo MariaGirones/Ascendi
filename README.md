@@ -115,6 +115,25 @@ Pochi the soft lavender bunny evolves as you accumulate XP from completed focus 
 
 ---
 
+## 🦊 Kira Evolution Stages
+
+Kira the clever fox evolves as you accumulate XP from completed focus sessions (1 XP per minute worked).
+
+| Stage | Name | XP Required | Description |
+|---|---|---|---|
+| 1 | Kit | 0 | Tiny 4×4 bright orange blob with two dark dot eyes — barely recognisable as a fox |
+| 2 | Cub | 111 | Small 6×5 orange body with single-pixel ear stubs, a white chin patch, and a dark nose pixel |
+| 3 | Fox | 222 | Wider 8×6 body with taller pointed ears, white muzzle patch, and dark dot eyes |
+| 4 | Swift Fox | 333 | Fuller 9×7 body, tall pointed ears, white muzzle, and a single white pixel tail peeking to the right |
+| 5 | Forest Fox | 444 | Broad 10×7 body with amber fur marks beside each eye and a small right-side tail with a white jagged tip |
+| 6 | Cunning Fox | 555 | Deep burnt-orange (#d45818) body, amber eyes, and a fluffy right-side tail with jagged orange edges and white tip — first full tail |
+| 7 | Shadow Fox | 666 | Darkened red-orange (#c04010) body; Kira sits on a full-width fluffy orange tail cushion at the base with a white center strip |
+| 8 | Elder Fox | 777 | Same dark body with brighter amber (#f0a000) eyes; tail cushion grows taller with a deeper white fill and more jagged top edge |
+| 9 | Spirit Fox | 888 | Near-black (#3a1a10) body, gold eyes with white shine pixel, cream muzzle patch; white fluffy tail throne spans the full canvas with a gold trim row at the base |
+| 10 | Celestial Fox | 999 | Jet-black (#1a0a08) body, brilliant gold eyes with white shine, cream muzzle; magnificent full-width white tail throne with very jagged fluffy top, inner shimmer pixels, and two rows of gold at the base |
+
+---
+
 ## Tech stack
 
 | Layer | Tech |
