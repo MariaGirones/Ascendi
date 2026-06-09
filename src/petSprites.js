@@ -535,7 +535,6 @@ function drawFox(ctx, stage, af, rest) {
   } else if (stage===2) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
-    f(ctx,1,6,2,5,F); d(ctx,1,10,W);
     f(ctx,4,7,8,6,F);
     f(ctx,5,4,1,3,F); d(ctx,5,4,K);
     f(ctx,10,4,1,3,F); d(ctx,10,4,K);
@@ -546,18 +545,17 @@ function drawFox(ctx, stage, af, rest) {
   } else if (stage===3) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
-    f(ctx,1,5,2,6,F); f(ctx,1,9,2,2,W);
     f(ctx,4,6,9,7,F);
     f(ctx,5,2,1,4,F); d(ctx,5,2,K);
     f(ctx,11,2,1,4,F); d(ctx,11,2,K);
     f(ctx,6,10,5,2,W);
     d(ctx,5,8,K); d(ctx,11,8,K);
     d(ctx,8,10,K);
+    d(ctx,13,11,W);
     ctx.restore();
   } else if (stage===4) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
-    f(ctx,1,5,2,7,F); f(ctx,1,10,2,2,W);
     f(ctx,3,6,10,7,F);
     f(ctx,4,2,1,4,F); d(ctx,4,2,K);
     f(ctx,12,2,1,4,F); d(ctx,12,2,K);
@@ -565,6 +563,7 @@ function drawFox(ctx, stage, af, rest) {
     d(ctx,5,8,K); d(ctx,11,8,K);
     d(ctx,4,8,fo); d(ctx,12,8,fo);
     d(ctx,8,10,K);
+    f(ctx,12,9,2,3,F); d(ctx,11,9,F); d(ctx,11,11,F); d(ctx,12,12,W); d(ctx,13,12,W);
     ctx.restore();
   } else if (stage===5) {
     ctx.save();
