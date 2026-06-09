@@ -562,7 +562,7 @@ function drawFox(ctx, stage, af, rest) {
     f(ctx,4,2,1,4,F); d(ctx,4,2,K);
     f(ctx,12,2,1,4,F); d(ctx,12,2,K);
     f(ctx,6,10,6,2,W);
-    d(ctx,5,8,A); d(ctx,11,8,A);
+    d(ctx,5,8,K); d(ctx,11,8,K);
     d(ctx,4,8,fo); d(ctx,12,8,fo);
     d(ctx,8,10,K);
     ctx.restore();
@@ -602,7 +602,6 @@ function drawFox(ctx, stage, af, rest) {
     f(ctx,10,0,1,3,D6); d(ctx,10,0,K);
     f(ctx,4,10,6,3,W);
     d(ctx,4,5,A); d(ctx,10,5,A);
-    d(ctx,5,4,W); d(ctx,11,4,W);
     d(ctx,3,5,fo); d(ctx,11,5,fo);
     d(ctx,7,10,K);
     ctx.restore();
@@ -616,7 +615,6 @@ function drawFox(ctx, stage, af, rest) {
     f(ctx,10,0,1,3,D8); d(ctx,10,0,K);
     f(ctx,3,10,7,3,C8);
     d(ctx,3,5,Y8); d(ctx,10,5,Y8);
-    d(ctx,4,4,W); d(ctx,11,4,W);
     d(ctx,6,10,K);
     ctx.restore();
   } else {
@@ -628,8 +626,7 @@ function drawFox(ctx, stage, af, rest) {
     f(ctx,3,0,1,2,D9); d(ctx,3,0,K);
     f(ctx,8,0,1,2,D9); d(ctx,8,0,K);
     f(ctx,2,9,7,4,C9);
-    f(ctx,3,4,2,1,Y9); f(ctx,8,4,2,1,Y9);
-    d(ctx,4,3,W); d(ctx,9,3,W);
+    d(ctx,3,4,Y9); d(ctx,8,4,Y9);
     d(ctx,5,9,K);
     ctx.restore();
   }
