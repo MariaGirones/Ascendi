@@ -640,7 +640,7 @@ function drawFox(ctx, stage, af, rest) {
 // ─── AXOLOTL (pink, external gills) ──────────────────────────────────────────
 function drawAxolotl(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const A='#ff91b0', a='#e0607a', K='#1a1a2e', W='#ffffff', G='#ff4466', B='#d63060';
+  const A='#ff91b0', a='#e0607a', K='#1a1a2e', W='#ffffff', G='#ff4466', B='#d63060', P='#ffd6e7';
 
   function gills(ctx, gx, gy, n, h) {
     // n gill stalks of height h at x=gx, going up (in columns spaced 1 apart)
@@ -651,34 +651,35 @@ function drawAxolotl(ctx, stage, af, rest) {
   }
 
   if (stage===0) {
-    // Round baby blob
+    // Left gills: 2 stalks h=2, branch left
+    f(ctx,1,4,1,2,G); d(ctx,1,4,B); d(ctx,0,4,G);
+    f(ctx,3,4,1,2,G); d(ctx,3,4,B); d(ctx,2,4,G);
+    // Right gills: 2 stalks h=2, branch right
+    f(ctx,11,4,1,2,G); d(ctx,11,4,B); d(ctx,12,4,G);
+    f(ctx,13,4,1,2,G); d(ctx,13,4,B); d(ctx,14,4,G);
+    // Body
     f(ctx,3,6,10,8,A);
     f(ctx,3,6,10,1,K); f(ctx,3,13,10,1,K);
     f(ctx,3,6,1,8,K); f(ctx,12,6,1,8,K);
     f(ctx,4,7,8,6,A);
-    // Tiny gills (2 on each side)
-    gills(ctx,1,6,2,2);
-    gills(ctx,11,6,2,2);
-    d(ctx,1,3,A); d(ctx,3,3,A);
-    d(ctx,11,3,A); d(ctx,13,3,A);
-    // eyes
+    // Face
     const ey=8;
     d(ctx,5,ey,K); d(ctx,9,ey,K);
-    // Nose
-    d(ctx,6,10,'#e0607a'); d(ctx,8,10,'#e0607a');
-    // Smile
+    d(ctx,6,10,a); d(ctx,8,10,a);
     d(ctx,7,11,K); d(ctx,8,11,K);
-    // Tiny legs
+    // Legs
     f(ctx,4,13,2,1,a); f(ctx,10,13,2,1,a);
     // Tail
-    d(ctx,8,14,'#ffd6e7'); d(ctx,8,15,'#ff4466');
+    d(ctx,8,14,P); d(ctx,8,15,G);
   } else if (stage===1) {
-    // Elongated teen
-    // Gills (3 per side, taller)
-    gills(ctx,1,5,3,3);
-    gills(ctx,10,5,3,3);
-    d(ctx,1,1,A); d(ctx,3,1,A); d(ctx,5,1,A);
-    d(ctx,10,1,A); d(ctx,12,1,A); d(ctx,14,1,A);
+    // Left gills: 3 stalks h=3, branch left
+    f(ctx,1,2,1,3,G); d(ctx,1,2,B); d(ctx,0,2,G);
+    f(ctx,3,2,1,3,G); d(ctx,3,2,B); d(ctx,2,2,G);
+    f(ctx,5,2,1,3,G); d(ctx,5,2,B); d(ctx,4,2,G);
+    // Right gills: 3 stalks h=3, branch right
+    f(ctx,10,2,1,3,G); d(ctx,10,2,B); d(ctx,11,2,G);
+    f(ctx,12,2,1,3,G); d(ctx,12,2,B); d(ctx,13,2,G);
+    f(ctx,14,2,1,3,G); d(ctx,14,2,B); d(ctx,15,2,G);
     // Head
     f(ctx,3,5,10,7,A);
     f(ctx,3,5,10,1,K); f(ctx,3,11,10,1,K);
@@ -689,34 +690,28 @@ function drawAxolotl(ctx, stage, af, rest) {
     f(ctx,4,11,8,1,K); f(ctx,4,14,8,1,K);
     f(ctx,4,11,1,4,K); f(ctx,11,11,1,4,K);
     f(ctx,5,12,6,2,A);
-    // Spots on body
+    // Spots
     d(ctx,6,12,a); d(ctx,9,12,a);
-    // Dorsal fin
-    f(ctx,6,9,4,2,G); d(ctx,7,9,B);
-    // Eyes
+    // Face
     const ey=7;
     d(ctx,5,ey,K); d(ctx,9,ey,K);
-    // Nose
-    d(ctx,6,8,'#e0607a'); d(ctx,8,8,'#e0607a');
-    // Smile
+    d(ctx,6,9,a); d(ctx,8,9,a);
     d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K);
-    // Legs (4)
+    // Legs
     f(ctx,4,14,2,1,a); f(ctx,10,14,2,1,a);
-    f(ctx,5,14,1,2,a); f(ctx,10,14,1,2,a); // front legs down
+    f(ctx,5,14,1,2,a); f(ctx,10,14,1,2,a);
     // Tail
-    d(ctx,8,14,'#ffd6e7'); d(ctx,8,15,'#ff4466');
+    d(ctx,8,14,P); d(ctx,8,15,G);
   } else {
     // Adult: elaborate
     // Big gills (4 per side, branched)
     for (let i=0;i<4;i++) {
       f(ctx,i*2,4,1,4,G); d(ctx,i*2,4,B);
       d(ctx,i*2-1,4,G); // branch
-      if (stage<=4) d(ctx,i*2,3,A);
     }
     for (let i=0;i<4;i++) {
       f(ctx,12+i*2,4,1,4,G); d(ctx,12+i*2,4,B);
       d(ctx,13+i*2,4,G);
-      if (stage<=4) d(ctx,12+i*2,3,A);
     }
     // Frilly dorsal fin
     for (let i=4;i<12;i+=2) {
@@ -749,14 +744,14 @@ function drawAxolotl(ctx, stage, af, rest) {
       if (!af) { d(ctx,5,ey,W); d(ctx,10,ey,W); }
     }
     // Nose (stages 2-4)
-    if (stage<=4) { d(ctx,6,11,'#e0607a'); d(ctx,8,11,'#e0607a'); }
+    if (stage<=4) { d(ctx,6,11,a); d(ctx,8,11,a); }
     // Smile
     f(ctx,6,12,4,1,K); d(ctx,7,12,A); d(ctx,8,12,A); // curved smile
     // All 4 legs
     f(ctx,4,15,2,1,a); f(ctx,10,15,2,1,a);
     // Tail
     if (stage<=4) {
-      d(ctx,8,14,'#ffd6e7'); d(ctx,8,15,'#ff4466');
+      d(ctx,8,14,P); d(ctx,8,15,G);
     } else {
       f(ctx,11,13,5,3,A); f(ctx,14,12,2,4,a);
       d(ctx,15,12,G); d(ctx,15,15,G); // tail frills
