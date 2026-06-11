@@ -640,123 +640,314 @@ function drawFox(ctx, stage, af, rest) {
 // ─── AXOLOTL (pink, external gills) ──────────────────────────────────────────
 function drawAxolotl(ctx, stage, af, rest) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const A='#ff91b0', a='#e0607a', K='#1a1a2e', W='#ffffff', G='#ff4466', B='#d63060', P='#ffd6e7';
-
-  function gills(ctx, gx, gy, n, h) {
-    // n gill stalks of height h at x=gx, going up (in columns spaced 1 apart)
-    for (let i=0;i<n;i++) {
-      f(ctx,gx+i*2,gy-h,1,h,G);
-      d(ctx,gx+i*2,gy-h,B); // tip
-    }
-  }
+  const A='#ff91b0', a='#e0607a', K='#1a1a2e', G='#ff4466';
 
   if (stage===0) {
-    // Left gills: 2 stalks h=2, branch left
-    f(ctx,1,4,1,2,G); d(ctx,1,4,B); d(ctx,0,4,G);
-    f(ctx,3,4,1,2,G); d(ctx,3,4,B); d(ctx,2,4,G);
-    // Right gills: 2 stalks h=2, branch right
-    f(ctx,11,4,1,2,G); d(ctx,11,4,B); d(ctx,12,4,G);
-    f(ctx,13,4,1,2,G); d(ctx,13,4,B); d(ctx,14,4,G);
-    // Body
-    f(ctx,3,6,10,8,A);
-    f(ctx,3,6,10,1,K); f(ctx,3,13,10,1,K);
-    f(ctx,3,6,1,8,K); f(ctx,12,6,1,8,K);
-    f(ctx,4,7,8,6,A);
-    // Face
-    const ey=8;
-    d(ctx,5,ey,K); d(ctx,9,ey,K);
-    d(ctx,6,10,a); d(ctx,8,10,a);
-    d(ctx,7,11,K); d(ctx,8,11,K);
-    // Legs
-    f(ctx,4,13,2,1,a); f(ctx,10,13,2,1,a);
-    // Tail
-    d(ctx,8,14,P); d(ctx,8,15,G);
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    // Egg
+    f(ctx,5+xo,3+yo,6,8,'#ffcce0');
+    f(ctx,4+xo,4+yo,8,6,'#ffcce0');
+    // Outline
+    f(ctx,5+xo,3+yo,6,1,K); f(ctx,5+xo,10+yo,6,1,K);
+    f(ctx,4+xo,4+yo,1,6,K); f(ctx,11+xo,4+yo,1,6,K);
+    // Inner
+    f(ctx,6+xo,4+yo,4,6,'#ffd6e7');
+    // Shine
+    d(ctx,6+xo,4+yo,'#ffffff'); d(ctx,7+xo,4+yo,'#ffffff');
+    // Spots
+    d(ctx,8+xo,6+yo,a); d(ctx,6+xo,8+yo,a);
   } else if (stage===1) {
-    // Left gills: 3 stalks h=3, branch left
-    f(ctx,1,2,1,3,G); d(ctx,1,2,B); d(ctx,0,2,G);
-    f(ctx,3,2,1,3,G); d(ctx,3,2,B); d(ctx,2,2,G);
-    f(ctx,5,2,1,3,G); d(ctx,5,2,B); d(ctx,4,2,G);
-    // Right gills: 3 stalks h=3, branch right
-    f(ctx,10,2,1,3,G); d(ctx,10,2,B); d(ctx,11,2,G);
-    f(ctx,12,2,1,3,G); d(ctx,12,2,B); d(ctx,13,2,G);
-    f(ctx,14,2,1,3,G); d(ctx,14,2,B); d(ctx,15,2,G);
-    // Head
-    f(ctx,3,5,10,7,A);
-    f(ctx,3,5,10,1,K); f(ctx,3,11,10,1,K);
-    f(ctx,3,5,1,7,K); f(ctx,12,5,1,7,K);
-    f(ctx,4,6,8,5,A);
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    // Tiny gills
+    f(ctx,1+xo,7+yo,1,2,A); f(ctx,14+xo,7+yo,1,2,A);
+    d(ctx,1+xo,7+yo,'#ffb6c1'); d(ctx,14+xo,7+yo,'#ffb6c1');
     // Body
-    f(ctx,4,11,8,4,A);
-    f(ctx,4,11,8,1,K); f(ctx,4,14,8,1,K);
-    f(ctx,4,11,1,4,K); f(ctx,11,11,1,4,K);
-    f(ctx,5,12,6,2,A);
-    // Spots
-    d(ctx,6,12,a); d(ctx,9,12,a);
-    // Face
-    const ey=7;
-    d(ctx,5,ey,K); d(ctx,9,ey,K);
-    d(ctx,6,9,a); d(ctx,8,9,a);
-    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K);
-    // Legs
-    f(ctx,4,14,2,1,a); f(ctx,10,14,2,1,a);
-    f(ctx,5,14,1,2,a); f(ctx,10,14,1,2,a);
-    // Tail
-    d(ctx,8,14,P); d(ctx,8,15,G);
-  } else {
-    // Adult: elaborate
-    // Big gills (4 per side, branched)
-    for (let i=0;i<4;i++) {
-      f(ctx,i*2,4,1,4,G); d(ctx,i*2,4,B);
-      d(ctx,i*2-1,4,G); // branch
-    }
-    for (let i=0;i<4;i++) {
-      f(ctx,12+i*2,4,1,4,G); d(ctx,12+i*2,4,B);
-      d(ctx,13+i*2,4,G);
-    }
-    // Frilly dorsal fin
-    for (let i=4;i<12;i+=2) {
-      d(ctx,i,5,G); d(ctx,i,6,B);
-    }
-    // Head
-    f(ctx,2,7,12,7,A);
-    f(ctx,2,7,12,1,K); f(ctx,2,13,12,1,K);
-    f(ctx,2,7,1,7,K); f(ctx,13,7,1,7,K);
-    f(ctx,3,8,10,5,A);
-    // Body
-    f(ctx,3,13,10,3,A);
-    f(ctx,3,13,10,1,K); f(ctx,3,15,10,1,K);
-    f(ctx,3,13,1,3,K); f(ctx,12,13,1,3,K);
-    f(ctx,4,14,8,1,A);
-    // Belly lighter
-    f(ctx,5,14,6,1,W);
-    // Spots
-    d(ctx,5,14,a); d(ctx,8,14,a); d(ctx,10,13,a);
+    f(ctx,3+xo,6+yo,10,6,A);
+    f(ctx,3+xo,6+yo,10,1,K); f(ctx,3+xo,11+yo,10,1,K);
+    f(ctx,3+xo,6+yo,1,6,K); f(ctx,12+xo,6+yo,1,6,K);
+    f(ctx,4+xo,7+yo,8,4,'#ffcce0');
     // Eyes
-    const ey=9;
-    if (stage<=4) {
-      d(ctx,4,ey,K); d(ctx,9,ey,K);
-    } else if (rest) {
-      f(ctx,4,ey,3,1,K); f(ctx,9,ey,3,1,K);
-    } else {
-      f(ctx,4,ey,3,3,K); f(ctx,9,ey,3,3,K);
-      d(ctx,4,ey,W); d(ctx,9,ey,W);
-      d(ctx,6,ey+2,A); d(ctx,11,ey+2,A); // blink var
-      if (!af) { d(ctx,5,ey,W); d(ctx,10,ey,W); }
-    }
-    // Nose (stages 2-4)
-    if (stage<=4) { d(ctx,6,11,a); d(ctx,8,11,a); }
-    // Smile
-    f(ctx,6,12,4,1,K); d(ctx,7,12,A); d(ctx,8,12,A); // curved smile
-    // All 4 legs
-    f(ctx,4,15,2,1,a); f(ctx,10,15,2,1,a);
+    d(ctx,5+xo,8+yo,K); d(ctx,10+xo,8+yo,K);
+    // Nose
+    d(ctx,7+xo,10+yo,a); d(ctx,8+xo,10+yo,a);
     // Tail
-    if (stage<=4) {
-      d(ctx,8,14,P); d(ctx,8,15,G);
-    } else {
-      f(ctx,11,13,5,3,A); f(ctx,14,12,2,4,a);
-      d(ctx,15,12,G); d(ctx,15,15,G); // tail frills
-      d(ctx,14,11,G);
-    }
+    f(ctx,5+xo,12+yo,6,2,'#ffd6e7');
+    f(ctx,6+xo,13+yo,4,1,'#ffd6e7');
+    f(ctx,5+xo,14+yo,6,1,A);
+  } else if (stage===2) {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    // 2 gills left
+    f(ctx,1+xo,7+yo,1,3,a); d(ctx,1+xo,7+yo,'#ffb6c1');
+    f(ctx,2+xo,6+yo,1,4,a); d(ctx,2+xo,6+yo,'#ffb6c1');
+    // 2 gills right
+    f(ctx,13+xo,7+yo,1,3,a); d(ctx,13+xo,7+yo,'#ffb6c1');
+    f(ctx,14+xo,6+yo,1,4,a); d(ctx,14+xo,6+yo,'#ffb6c1');
+    // Fin
+    f(ctx,4+xo,3+yo,8,2,G);
+    d(ctx,5+xo,2+yo,G); d(ctx,8+xo,1+yo,G); d(ctx,8+xo,2+yo,G); d(ctx,11+xo,2+yo,G);
+    // Body
+    f(ctx,2+xo,5+yo,12,7,A);
+    f(ctx,2+xo,5+yo,12,1,K); f(ctx,2+xo,11+yo,12,1,K);
+    f(ctx,2+xo,5+yo,1,7,K); f(ctx,13+xo,5+yo,1,7,K);
+    f(ctx,3+xo,6+yo,10,5,'#ffcce0');
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,a); d(ctx,8+xo,9+yo,a);
+    // Leg nubs
+    f(ctx,2+xo,12+yo,2,1,A); f(ctx,12+xo,12+yo,2,1,A);
+    // Tail
+    f(ctx,4+xo,12+yo,8,2,'#ffd6e7');
+    f(ctx,5+xo,13+yo,6,1,'#ffd6e7');
+    f(ctx,4+xo,14+yo,8,1,A);
+  } else if (stage===3) {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    // 3 gills left
+    f(ctx,0+xo,7+yo,1,3,a); d(ctx,0+xo,7+yo,'#ffb6c1');
+    f(ctx,1+xo,6+yo,1,4,a); d(ctx,1+xo,6+yo,'#ffb6c1');
+    f(ctx,2+xo,6+yo,1,4,a); d(ctx,2+xo,6+yo,'#ffb6c1');
+    // 3 gills right
+    f(ctx,15+xo,7+yo,1,3,a); d(ctx,15+xo,7+yo,'#ffb6c1');
+    f(ctx,14+xo,6+yo,1,4,a); d(ctx,14+xo,6+yo,'#ffb6c1');
+    f(ctx,13+xo,6+yo,1,4,a); d(ctx,13+xo,6+yo,'#ffb6c1');
+    // Fin
+    f(ctx,3+xo,2+yo,10,3,G);
+    d(ctx,4+xo,1+yo,G); d(ctx,8+xo,0+yo,G); d(ctx,8+xo,1+yo,G); d(ctx,12+xo,1+yo,G);
+    // Body
+    f(ctx,2+xo,5+yo,12,7,A);
+    f(ctx,2+xo,5+yo,12,1,K); f(ctx,2+xo,11+yo,12,1,K);
+    f(ctx,2+xo,5+yo,1,7,K); f(ctx,13+xo,5+yo,1,7,K);
+    f(ctx,3+xo,6+yo,10,5,'#ffcce0');
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,a); d(ctx,8+xo,9+yo,a);
+    // 4 legs
+    f(ctx,2+xo,11+yo,2,1,A); f(ctx,12+xo,11+yo,2,1,A);
+    f(ctx,2+xo,12+yo,2,1,A); f(ctx,12+xo,12+yo,2,1,A);
+    // Tail
+    f(ctx,3+xo,12+yo,10,2,'#ffd6e7');
+    f(ctx,4+xo,13+yo,8,1,'#ffd6e7');
+    f(ctx,3+xo,14+yo,10,1,A);
+  } else if (stage===4) {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    // 3 gills left taller
+    f(ctx,0+xo,6+yo,1,5,a); d(ctx,0+xo,6+yo,'#ffb6c1');
+    f(ctx,1+xo,5+yo,1,6,a); d(ctx,1+xo,5+yo,'#ffb6c1');
+    f(ctx,2+xo,6+yo,1,5,a); d(ctx,2+xo,6+yo,'#ffb6c1');
+    // 3 gills right taller
+    f(ctx,15+xo,6+yo,1,5,a); d(ctx,15+xo,6+yo,'#ffb6c1');
+    f(ctx,14+xo,5+yo,1,6,a); d(ctx,14+xo,5+yo,'#ffb6c1');
+    f(ctx,13+xo,6+yo,1,5,a); d(ctx,13+xo,6+yo,'#ffb6c1');
+    // Fin 3 spikes
+    f(ctx,3+xo,2+yo,10,3,G);
+    f(ctx,4+xo,0+yo,2,3,G); f(ctx,8+xo,0+yo,2,3,G); f(ctx,12+xo,0+yo,2,3,G);
+    // Body
+    f(ctx,2+xo,5+yo,12,7,A);
+    f(ctx,2+xo,5+yo,12,1,K); f(ctx,2+xo,11+yo,12,1,K);
+    f(ctx,2+xo,5+yo,1,7,K); f(ctx,13+xo,5+yo,1,7,K);
+    f(ctx,3+xo,6+yo,10,5,'#ffcce0');
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,a); d(ctx,8+xo,9+yo,a);
+    // Legs
+    f(ctx,2+xo,11+yo,2,2,A); f(ctx,12+xo,11+yo,2,2,A);
+    // Tail
+    f(ctx,3+xo,12+yo,10,2,'#ffd6e7');
+    f(ctx,4+xo,13+yo,8,2,'#ffd6e7');
+    f(ctx,3+xo,14+yo,10,1,A);
+  } else if (stage===5) {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    // 4 gills left
+    f(ctx,0+xo,5+yo,1,6,a); d(ctx,0+xo,5+yo,'#ffb6c1');
+    f(ctx,1+xo,4+yo,1,7,a); d(ctx,1+xo,4+yo,'#ffb6c1');
+    f(ctx,2+xo,5+yo,1,6,a); d(ctx,2+xo,5+yo,'#ffb6c1');
+    f(ctx,3+xo,6+yo,1,5,a); d(ctx,3+xo,6+yo,'#ffb6c1');
+    // 4 gills right
+    f(ctx,15+xo,5+yo,1,6,a); d(ctx,15+xo,5+yo,'#ffb6c1');
+    f(ctx,14+xo,4+yo,1,7,a); d(ctx,14+xo,4+yo,'#ffb6c1');
+    f(ctx,13+xo,5+yo,1,6,a); d(ctx,13+xo,5+yo,'#ffb6c1');
+    f(ctx,12+xo,6+yo,1,5,a); d(ctx,12+xo,6+yo,'#ffb6c1');
+    // Fin 4 spikes
+    f(ctx,3+xo,2+yo,10,3,G);
+    f(ctx,4+xo,0+yo,2,3,G); f(ctx,7+xo,0+yo,2,3,G);
+    f(ctx,10+xo,0+yo,2,3,G); f(ctx,13+xo,0+yo,2,3,G);
+    // Body
+    f(ctx,3+xo,5+yo,10,7,A);
+    f(ctx,3+xo,5+yo,10,1,K); f(ctx,3+xo,11+yo,10,1,K);
+    f(ctx,3+xo,5+yo,1,7,K); f(ctx,12+xo,5+yo,1,7,K);
+    f(ctx,4+xo,6+yo,8,5,'#ffcce0');
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,a); d(ctx,8+xo,9+yo,a);
+    // Legs
+    f(ctx,3+xo,11+yo,2,2,A); f(ctx,11+xo,11+yo,2,2,A);
+    // Tail
+    f(ctx,4+xo,12+yo,8,2,'#ffd6e7');
+    f(ctx,5+xo,13+yo,6,1,'#ffd6e7');
+    f(ctx,4+xo,14+yo,8,1,A);
+  } else if (stage===6) {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    const B='#c3aee0', b='#9b82c2', Bv='#ddd0f0', Gv='#7b62a2';
+    // 4 gills left
+    f(ctx,0+xo,5+yo,1,6,b); d(ctx,0+xo,5+yo,'#e0d4f5');
+    f(ctx,1+xo,4+yo,1,7,b); d(ctx,1+xo,4+yo,'#e0d4f5');
+    f(ctx,2+xo,5+yo,1,6,b); d(ctx,2+xo,5+yo,'#e0d4f5');
+    f(ctx,3+xo,6+yo,1,5,b); d(ctx,3+xo,6+yo,'#e0d4f5');
+    // 4 gills right
+    f(ctx,15+xo,5+yo,1,6,b); d(ctx,15+xo,5+yo,'#e0d4f5');
+    f(ctx,14+xo,4+yo,1,7,b); d(ctx,14+xo,4+yo,'#e0d4f5');
+    f(ctx,13+xo,5+yo,1,6,b); d(ctx,13+xo,5+yo,'#e0d4f5');
+    f(ctx,12+xo,6+yo,1,5,b); d(ctx,12+xo,6+yo,'#e0d4f5');
+    // Fin lavender
+    f(ctx,3+xo,2+yo,10,3,Gv);
+    f(ctx,4+xo,0+yo,2,3,Gv); f(ctx,7+xo,0+yo,2,3,Gv);
+    f(ctx,10+xo,0+yo,2,3,Gv); f(ctx,13+xo,0+yo,2,3,Gv);
+    // Body lavender
+    f(ctx,3+xo,5+yo,10,7,B);
+    f(ctx,3+xo,5+yo,10,1,K); f(ctx,3+xo,11+yo,10,1,K);
+    f(ctx,3+xo,5+yo,1,7,K); f(ctx,12+xo,5+yo,1,7,K);
+    f(ctx,4+xo,6+yo,8,5,Bv);
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,b); d(ctx,8+xo,9+yo,b);
+    // Legs
+    f(ctx,3+xo,11+yo,2,2,B); f(ctx,11+xo,11+yo,2,2,B);
+    // Tail
+    ctx.globalAlpha = 0.35;
+    f(ctx, 4+xo, 12+yo, 8, 2, '#c3aee0');
+    f(ctx, 5+xo, 13+yo, 6, 1, '#c3aee0');
+    ctx.globalAlpha = 1.0;
+    f(ctx,4+xo,14+yo,8,1,B);
+  } else if (stage===7) {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    const Bl='#60a0e0', bl='#4080d0', Blv='#a0c8f0', Gbl='#2060b0';
+    // 4 gills left
+    f(ctx,0+xo,5+yo,1,6,bl); d(ctx,0+xo,5+yo,'#80b0f0');
+    f(ctx,1+xo,4+yo,1,7,bl); d(ctx,1+xo,4+yo,'#80b0f0');
+    f(ctx,2+xo,5+yo,1,6,bl); d(ctx,2+xo,5+yo,'#80b0f0');
+    f(ctx,3+xo,6+yo,1,5,bl); d(ctx,3+xo,6+yo,'#80b0f0');
+    // 4 gills right
+    f(ctx,15+xo,5+yo,1,6,bl); d(ctx,15+xo,5+yo,'#80b0f0');
+    f(ctx,14+xo,4+yo,1,7,bl); d(ctx,14+xo,4+yo,'#80b0f0');
+    f(ctx,13+xo,5+yo,1,6,bl); d(ctx,13+xo,5+yo,'#80b0f0');
+    f(ctx,12+xo,6+yo,1,5,bl); d(ctx,12+xo,6+yo,'#80b0f0');
+    // Fin blue + crown
+    f(ctx,3+xo,2+yo,10,3,Gbl);
+    f(ctx,4+xo,0+yo,2,3,Gbl); f(ctx,7+xo,0+yo,2,3,Gbl);
+    f(ctx,10+xo,0+yo,2,3,Gbl); f(ctx,13+xo,0+yo,2,3,Gbl);
+    d(ctx,5+xo,0+yo,'#f1c40f'); d(ctx,8+xo,0+yo,'#f1c40f');
+    d(ctx,11+xo,0+yo,'#f1c40f'); d(ctx,8+xo,1+yo,'#e74c3c');
+    // Body blue
+    f(ctx,3+xo,5+yo,10,7,Bl);
+    f(ctx,3+xo,5+yo,10,1,K); f(ctx,3+xo,11+yo,10,1,K);
+    f(ctx,3+xo,5+yo,1,7,K); f(ctx,12+xo,5+yo,1,7,K);
+    f(ctx,4+xo,6+yo,8,5,Blv);
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,bl); d(ctx,8+xo,9+yo,bl);
+    // Legs
+    f(ctx,3+xo,11+yo,2,2,Bl); f(ctx,11+xo,11+yo,2,2,Bl);
+    // Tail
+    ctx.globalAlpha = 0.35;
+    f(ctx, 4+xo, 12+yo, 8, 2, '#60a0e0');
+    f(ctx, 5+xo, 13+yo, 6, 2, '#60a0e0');
+    f(ctx, 6+xo, 14+yo, 4, 1, '#60a0e0');
+    ctx.globalAlpha = 0.2;
+    f(ctx, 5+xo, 15+yo, 6, 1, '#60a0e0');
+    ctx.globalAlpha = 1.0;
+  } else if (stage===8) {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    const T='#1abc9c', t='#0e8a70', Tv='#a8ffe8', Gt='#0e8a70';
+    // 4 gills left
+    f(ctx,0+xo,5+yo,1,6,t); d(ctx,0+xo,5+yo,'#a8ffe8');
+    f(ctx,1+xo,4+yo,1,7,t); d(ctx,1+xo,4+yo,'#a8ffe8');
+    f(ctx,2+xo,5+yo,1,6,t); d(ctx,2+xo,5+yo,'#a8ffe8');
+    f(ctx,3+xo,6+yo,1,5,t); d(ctx,3+xo,6+yo,'#a8ffe8');
+    // 4 gills right
+    f(ctx,15+xo,5+yo,1,6,t); d(ctx,15+xo,5+yo,'#a8ffe8');
+    f(ctx,14+xo,4+yo,1,7,t); d(ctx,14+xo,4+yo,'#a8ffe8');
+    f(ctx,13+xo,5+yo,1,6,t); d(ctx,13+xo,5+yo,'#a8ffe8');
+    f(ctx,12+xo,6+yo,1,5,t); d(ctx,12+xo,6+yo,'#a8ffe8');
+    // Fin teal + crown
+    f(ctx,3+xo,2+yo,10,3,Gt);
+    f(ctx,4+xo,0+yo,2,3,Gt); f(ctx,7+xo,0+yo,2,3,Gt);
+    f(ctx,10+xo,0+yo,2,3,Gt); f(ctx,13+xo,0+yo,2,3,Gt);
+    d(ctx,5+xo,0+yo,'#f1c40f'); d(ctx,8+xo,0+yo,'#f1c40f');
+    d(ctx,11+xo,0+yo,'#f1c40f'); d(ctx,8+xo,1+yo,'#e74c3c');
+    // Body teal
+    f(ctx,3+xo,5+yo,10,7,T);
+    f(ctx,3+xo,5+yo,10,1,K); f(ctx,3+xo,11+yo,10,1,K);
+    f(ctx,3+xo,5+yo,1,7,K); f(ctx,12+xo,5+yo,1,7,K);
+    f(ctx,4+xo,6+yo,8,5,Tv);
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,t); d(ctx,8+xo,9+yo,t);
+    // Legs
+    f(ctx,3+xo,11+yo,2,2,T); f(ctx,11+xo,11+yo,2,2,T);
+    // Tail
+    ctx.globalAlpha = 0.4;
+    f(ctx, 3+xo, 12+yo, 10, 2, '#1abc9c');
+    ctx.globalAlpha = 0.3;
+    f(ctx, 4+xo, 13+yo, 8, 2, '#1abc9c');
+    ctx.globalAlpha = 0.2;
+    f(ctx, 5+xo, 14+yo, 6, 1, '#1abc9c');
+    f(ctx, 6+xo, 15+yo, 4, 1, '#1abc9c');
+    ctx.globalAlpha = 1.0;
+  } else {
+    const xo=af===1?2:0, yo=af===2?-1:rest?1:0;
+    const Gl='#e8b84b', gl='#c49030', Glv='#f0d080', Gg='#c49030';
+    // Stars
+    d(ctx, 1+xo,  0+yo, '#ffffff'); d(ctx, 0+xo,  2+yo, '#f1c40f');
+    d(ctx,15+xo,  0+yo, '#f1c40f'); d(ctx,15+xo,  3+yo, '#ffffff');
+    d(ctx, 0+xo, 13+yo, '#f1c40f'); d(ctx, 1+xo, 15+yo, '#ffffff');
+    d(ctx,15+xo, 13+yo, '#ffffff'); d(ctx,14+xo, 15+yo, '#f1c40f');
+    // 4 gills left gold
+    f(ctx,0+xo,5+yo,1,6,gl); d(ctx,0+xo,5+yo,'#f1c40f');
+    f(ctx,1+xo,4+yo,1,7,gl); d(ctx,1+xo,4+yo,'#f1c40f');
+    f(ctx,2+xo,5+yo,1,6,gl); d(ctx,2+xo,5+yo,'#f1c40f');
+    f(ctx,3+xo,6+yo,1,5,gl); d(ctx,3+xo,6+yo,'#f1c40f');
+    // 4 gills right gold
+    f(ctx,15+xo,5+yo,1,6,gl); d(ctx,15+xo,5+yo,'#f1c40f');
+    f(ctx,14+xo,4+yo,1,7,gl); d(ctx,14+xo,4+yo,'#f1c40f');
+    f(ctx,13+xo,5+yo,1,6,gl); d(ctx,13+xo,5+yo,'#f1c40f');
+    f(ctx,12+xo,6+yo,1,5,gl); d(ctx,12+xo,6+yo,'#f1c40f');
+    // Fin gold + big crown
+    f(ctx,3+xo,2+yo,10,3,Gg);
+    f(ctx,4+xo,0+yo,2,3,Gg); f(ctx,7+xo,0+yo,2,3,Gg);
+    f(ctx,10+xo,0+yo,2,3,Gg); f(ctx,13+xo,0+yo,2,3,Gg);
+    f(ctx,4+xo,0+yo,2,1,'#f1c40f'); f(ctx,7+xo,0+yo,2,1,'#f1c40f');
+    f(ctx,10+xo,0+yo,2,1,'#f1c40f'); f(ctx,13+xo,0+yo,2,1,'#f1c40f');
+    d(ctx,8+xo,0+yo,'#e74c3c'); d(ctx,8+xo,1+yo,'#e74c3c');
+    // Cheek marks
+    d(ctx,4+xo,9+yo,gl); d(ctx,11+xo,9+yo,gl);
+    // Body gold
+    f(ctx,3+xo,5+yo,10,7,Gl);
+    f(ctx,3+xo,5+yo,10,1,K); f(ctx,3+xo,11+yo,10,1,K);
+    f(ctx,3+xo,5+yo,1,7,K); f(ctx,12+xo,5+yo,1,7,K);
+    f(ctx,4+xo,6+yo,8,5,Glv);
+    // Eyes
+    d(ctx,5+xo,7+yo,K); d(ctx,10+xo,7+yo,K);
+    // Nose
+    d(ctx,7+xo,9+yo,gl); d(ctx,8+xo,9+yo,gl);
+    // Legs
+    f(ctx,3+xo,11+yo,2,2,Gl); f(ctx,11+xo,11+yo,2,2,Gl);
+    // Tail
+    ctx.globalAlpha = 0.45;
+    f(ctx, 3+xo, 12+yo, 10, 2, '#e8b84b');
+    ctx.globalAlpha = 0.35;
+    f(ctx, 4+xo, 13+yo, 8, 2, '#e8b84b');
+    ctx.globalAlpha = 0.25;
+    f(ctx, 5+xo, 14+yo, 6, 2, '#e8b84b');
+    ctx.globalAlpha = 0.15;
+    f(ctx, 6+xo, 15+yo, 4, 1, '#e8b84b');
+    f(ctx, 7+xo, 16+yo, 2, 1, '#e8b84b');
+    ctx.globalAlpha = 1.0;
   }
 }
 
