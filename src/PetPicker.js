@@ -2,42 +2,59 @@ import { useEffect, useRef } from 'react';
 import { PETS } from './pets';
 import { drawPet } from './petSprites';
 
-function PetPreview({ petId, bg }) {
+function PetPreview({ petId, innerBg }) {
   const ref = useRef(null);
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    drawPet(ctx, petId, 0, 0, true); // stage 0, frame 0, resting
+    drawPet(ctx, petId, 0, 0, true);
   }, [petId]);
 
   return (
-    <canvas
-      ref={ref}
-      width={96}
-      height={96}
-      style={{ imageRendering: 'pixelated', width: '96px', height: '96px', background: bg, display: 'block' }}
-    />
+    <div className="pet-card-canvas-box" style={{ background: innerBg }}>
+      <canvas
+        ref={ref}
+        width={96}
+        height={96}
+        style={{ imageRendering: 'pixelated', width: '80px', height: '80px', display: 'block' }}
+      />
+    </div>
   );
 }
 
-export default function PetPicker({ currentPetId, onSelect }) {
+export default function PetPicker({ currentPetId, onSelect, onConfirm, onCancel, isFirstVisit }) {
   return (
-    <div className="pet-picker">
-      {PETS.map(pet => (
-        <button
-          key={pet.id}
-          className={`pet-card${currentPetId === pet.id ? ' pet-card-selected' : ''}`}
-          style={{ '--pet-color': pet.color, '--pet-bg': pet.bg }}
-          onClick={() => onSelect(pet.id)}
-          aria-pressed={currentPetId === pet.id}
-        >
-          <PetPreview petId={pet.id} bg={pet.bg} />
-          <span className="pet-card-name">{pet.name}</span>
-          <span className="pet-card-desc">{pet.description}</span>
+    <>
+      <div className="pet-picker">
+        {PETS.map(pet => (
+          <button
+            key={pet.id}
+            className={`pet-card${currentPetId === pet.id ? ' pet-card-selected' : ''}`}
+            style={{ '--pet-color': pet.textColor, '--pet-bg': pet.bg }}
+            onClick={() => onSelect(pet.id)}
+            aria-pressed={currentPetId === pet.id}
+          >
+            <PetPreview petId={pet.id} innerBg={pet.innerBg} />
+            <span className="pet-card-name" style={{ color: pet.textColor }}>{pet.name}</span>
+            <span className="pet-card-desc" style={{ color: pet.textColor }}>{pet.description}</span>
+          </button>
+        ))}
+      </div>
+      {!isFirstVisit && (
+        <p className="pet-picker-warning">
+          Consistency matters — switching companion resets your XP to 0.
+        </p>
+      )}
+      <button className="picker-confirm-btn" onClick={onConfirm}>
+        {isFirstVisit ? "LET'S GO!" : 'CONFIRM'}
+      </button>
+      {!isFirstVisit && onCancel && (
+        <button className="picker-cancel-btn" onClick={onCancel}>
+          CANCEL
         </button>
-      ))}
-    </div>
+      )}
+    </>
   );
 }

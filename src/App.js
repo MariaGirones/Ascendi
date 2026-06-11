@@ -676,36 +676,19 @@ function App() {
       {showPicker && (
         <div className="welcome-modal">
           <div className="modal-content modal-wide">
-            {isFirstVisitRef.current ? (
-              <>
-                <h3>Choose your companion</h3>
-                <p className="modal-sub">
-                  It grows as you earn XP from focus sessions.
-                </p>
-              </>
-            ) : (
-              <>
-                <h3>🐾 Change companion</h3>
-                <p className="modal-sub">
-                  Switching to a new companion will reset your XP to 0.
-                </p>
-              </>
+            <h3>{isFirstVisitRef.current ? 'Choose your companion' : '🐾 Change companion'}</h3>
+            {isFirstVisitRef.current && (
+              <p className="modal-sub">
+                It grows as you earn XP from focus sessions.
+              </p>
             )}
-
             <PetPicker
               currentPetId={pendingPetId ?? chosenPetId}
               onSelect={setPendingPetId}
+              onConfirm={handlePickerConfirm}
+              onCancel={!isFirstVisitRef.current ? handlePickerCancel : undefined}
+              isFirstVisit={isFirstVisitRef.current}
             />
-
-            <button className="got-it-btn" onClick={handlePickerConfirm}>
-              {isFirstVisitRef.current ? "Let's go!" : 'Confirm'}
-            </button>
-
-            {!isFirstVisitRef.current && (
-              <button className="picker-cancel-btn" onClick={handlePickerCancel}>
-                Cancel
-              </button>
-            )}
           </div>
         </div>
       )}

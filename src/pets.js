@@ -4,7 +4,9 @@ export const PETS = [
     name: 'Mochi',
     description: 'Sleepy orange tabby',
     color: '#e8782a',
-    bg: '#fff3e0',
+    bg: '#fff5f0',
+    textColor: '#c04010',
+    innerBg: '#ffd8c4',
     stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
     stageNames: [
       'Drowsy Kit',
@@ -22,9 +24,11 @@ export const PETS = [
   {
     id: 'dog',
     name: 'Max',
-    description: 'Golden happy pup',
+    description: 'Golden happy pupper',
     color: '#e8b84b',
-    bg: '#fffde7',
+    bg: '#fff8f0',
+    textColor: '#8a6010',
+    innerBg: '#ffe4b8',
     stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
     stageNames: [
       'Puppy',
@@ -42,9 +46,11 @@ export const PETS = [
   {
     id: 'dragon',
     name: 'Drakon',
-    description: 'Ancient dragon egg',
+    description: 'Ancient egg awakens',
     color: '#1abc9c',
-    bg: '#e0f8f3',
+    bg: '#f0fff8',
+    textColor: '#0a6040',
+    innerBg: '#b0f0d0',
     stageThresholds: [0, 111, 222, 333, 444, 556, 667, 778, 889, 1000],
     stageNames: [
       'Egg',
@@ -64,7 +70,9 @@ export const PETS = [
     name: 'Pochi',
     description: 'Soft lavender bunny',
     color: '#9b82c2',
-    bg: '#f3effe',
+    bg: '#f5f0ff',
+    textColor: '#5a3090',
+    innerBg: '#d8c8ff',
     stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
     stageNames: [
       'Kit',
@@ -84,7 +92,9 @@ export const PETS = [
     name: 'Kira',
     description: 'Clever orange fox',
     color: '#e8622a',
-    bg: '#fff0e8',
+    bg: '#fff5f0',
+    textColor: '#a04010',
+    innerBg: '#ffd8b4',
     stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
     stageNames: [
       'Kit',
@@ -102,9 +112,11 @@ export const PETS = [
   {
     id: 'axolotl',
     name: 'Axie',
-    description: 'Pink frilly axolotl',
+    description: 'Pink wiggly axolotl',
     color: '#e0607a',
-    bg: '#fce4ec',
+    bg: '#fff0f5',
+    textColor: '#a03060',
+    innerBg: '#ffc8dc',
     stageThresholds: [0, 111, 222, 333, 444, 555, 666, 777, 888, 999],
     stageNames: [
       'Larva',
