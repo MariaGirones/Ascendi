@@ -659,24 +659,26 @@ function drawAxolotl(ctx, stage, af, rest) {
     // Tiny gills (2 on each side)
     gills(ctx,1,6,2,2);
     gills(ctx,11,6,2,2);
+    d(ctx,1,3,A); d(ctx,3,3,A);
+    d(ctx,11,3,A); d(ctx,13,3,A);
     // eyes
     const ey=8;
-    if (rest) {
-      f(ctx,5,ey,2,1,K); f(ctx,9,ey,2,1,K);
-    } else {
-      f(ctx,5,ey,2,2,K); f(ctx,9,ey,2,2,K);
-      d(ctx,5,ey,W); d(ctx,9,ey,W);
-      if (af===1) d(ctx,6,ey+1,A); // blink variation
-    }
+    d(ctx,5,ey,K); d(ctx,9,ey,K);
+    // Nose
+    d(ctx,6,10,'#e0607a'); d(ctx,8,10,'#e0607a');
     // Smile
     d(ctx,7,11,K); d(ctx,8,11,K);
     // Tiny legs
     f(ctx,4,13,2,1,a); f(ctx,10,13,2,1,a);
+    // Tail
+    d(ctx,8,14,'#ffd6e7'); d(ctx,8,15,'#ff4466');
   } else if (stage===1) {
     // Elongated teen
     // Gills (3 per side, taller)
     gills(ctx,1,5,3,3);
     gills(ctx,10,5,3,3);
+    d(ctx,1,1,A); d(ctx,3,1,A); d(ctx,5,1,A);
+    d(ctx,10,1,A); d(ctx,12,1,A); d(ctx,14,1,A);
     // Head
     f(ctx,3,5,10,7,A);
     f(ctx,3,5,10,1,K); f(ctx,3,11,10,1,K);
@@ -693,30 +695,28 @@ function drawAxolotl(ctx, stage, af, rest) {
     f(ctx,6,9,4,2,G); d(ctx,7,9,B);
     // Eyes
     const ey=7;
-    if (rest) {
-      f(ctx,5,ey,2,1,K); f(ctx,9,ey,2,1,K);
-    } else {
-      f(ctx,5,ey,2,2,K); f(ctx,9,ey,2,2,K);
-      d(ctx,5,ey,W); d(ctx,9,ey,W);
-    }
+    d(ctx,5,ey,K); d(ctx,9,ey,K);
+    // Nose
+    d(ctx,6,8,'#e0607a'); d(ctx,8,8,'#e0607a');
     // Smile
     d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K);
     // Legs (4)
     f(ctx,4,14,2,1,a); f(ctx,10,14,2,1,a);
     f(ctx,5,14,1,2,a); f(ctx,10,14,1,2,a); // front legs down
     // Tail
-    f(ctx,10,12,5,3,A); f(ctx,13,12,3,2,a);
-    d(ctx,15,12,K); d(ctx,15,13,G);
+    d(ctx,8,14,'#ffd6e7'); d(ctx,8,15,'#ff4466');
   } else {
     // Adult: elaborate
     // Big gills (4 per side, branched)
     for (let i=0;i<4;i++) {
       f(ctx,i*2,4,1,4,G); d(ctx,i*2,4,B);
       d(ctx,i*2-1,4,G); // branch
+      if (stage<=4) d(ctx,i*2,3,A);
     }
     for (let i=0;i<4;i++) {
       f(ctx,12+i*2,4,1,4,G); d(ctx,12+i*2,4,B);
       d(ctx,13+i*2,4,G);
+      if (stage<=4) d(ctx,12+i*2,3,A);
     }
     // Frilly dorsal fin
     for (let i=4;i<12;i+=2) {
@@ -736,9 +736,11 @@ function drawAxolotl(ctx, stage, af, rest) {
     f(ctx,5,14,6,1,W);
     // Spots
     d(ctx,5,14,a); d(ctx,8,14,a); d(ctx,10,13,a);
-    // Eyes (big)
+    // Eyes
     const ey=9;
-    if (rest) {
+    if (stage<=4) {
+      d(ctx,4,ey,K); d(ctx,9,ey,K);
+    } else if (rest) {
       f(ctx,4,ey,3,1,K); f(ctx,9,ey,3,1,K);
     } else {
       f(ctx,4,ey,3,3,K); f(ctx,9,ey,3,3,K);
@@ -746,14 +748,20 @@ function drawAxolotl(ctx, stage, af, rest) {
       d(ctx,6,ey+2,A); d(ctx,11,ey+2,A); // blink var
       if (!af) { d(ctx,5,ey,W); d(ctx,10,ey,W); }
     }
+    // Nose (stages 2-4)
+    if (stage<=4) { d(ctx,6,11,'#e0607a'); d(ctx,8,11,'#e0607a'); }
     // Smile
     f(ctx,6,12,4,1,K); d(ctx,7,12,A); d(ctx,8,12,A); // curved smile
     // All 4 legs
     f(ctx,4,15,2,1,a); f(ctx,10,15,2,1,a);
-    // Long feathery tail
-    f(ctx,11,13,5,3,A); f(ctx,14,12,2,4,a);
-    d(ctx,15,12,G); d(ctx,15,15,G); // tail frills
-    d(ctx,14,11,G);
+    // Tail
+    if (stage<=4) {
+      d(ctx,8,14,'#ffd6e7'); d(ctx,8,15,'#ff4466');
+    } else {
+      f(ctx,11,13,5,3,A); f(ctx,14,12,2,4,a);
+      d(ctx,15,12,G); d(ctx,15,15,G); // tail frills
+      d(ctx,14,11,G);
+    }
   }
 }
 
