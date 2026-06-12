@@ -134,6 +134,25 @@ Kira the clever fox evolves as you accumulate XP from completed focus sessions (
 
 ---
 
+## 🦎 Axie Evolution Stages
+
+Axie the axolotl evolves as you accumulate XP from completed focus sessions (1 XP per minute worked). The journey runs from a pink egg through lavender, blue, and teal, all the way to a shimmering golden final form.
+
+| Stage | Name | XP Required | Description |
+|---|---|---|---|
+| 1 | Larva | 0 | A plump pink egg (#ffcce0) with a black pixel border, bright inner highlight, and tiny pink spot details — Axie hasn't hatched yet |
+| 2 | Gill Nub | 111 | Small pink body with the first tiny stub gills on each side (single highlight pixel), black dot eyes, two pink mouth pixels, and a small tail nub — just emerged |
+| 3 | Axolotl | 222 | Two full gills per side in dark pink with highlight tips, a two-row dorsal fin with red (#ff4466) spikes, a pale pink body, and small leg and tail hints |
+| 4 | Water Sprite | 333 | Three gills per side, a taller 4-spike dorsal fin, a wider pink body, four visible leg pixels, and single black dot eyes — looks like a proper axolotl |
+| 5 | Gill Bloom | 444 | Three tall gills with a three-spike fin (2-pixel-wide spikes), 2×2 block legs, a rounder pink body, and black eyes — fuller and sturdier |
+| 6 | Deep Swimmer | 555 | Four gills per side, a four-spike dorsal fin, wide 2×2 legs, and a flowing tail — the biggest pink form before the palette shift |
+| 7 | Mystic Axie | 666 | Palette shifts to soft lavender (#c3aee0) — four gills in muted purple with pale lilac tips, a four-spike lavender fin, and a translucent lavender tail that fades at 35% opacity |
+| 8 | Elder Axie | 777 | Palette shifts to ocean blue (#60a0e0) — four gills with sky-blue tips, a blue fin crowned with three gold dots and a red jewel, and a layered translucent blue tail dissolving across four rows |
+| 9 | Ancient Axie | 888 | Palette shifts to teal (#1abc9c) — four gills with pale aqua tips, a teal fin with gold crown and red gem, and a wide four-row translucent teal tail fading from 40% to 15% opacity |
+| 10 | Primordial Axie | 999 | Palette shifts to gold (#e8b84b) — four gills with bright yellow tips, a wide gold fin with full spike rows and a red crown gem, gold cheek marks, and a magnificent five-row translucent golden tail surrounded by eight gold and white star sparkle pixels |
+
+---
+
 ## Tech stack
 
 | Layer | Tech |
