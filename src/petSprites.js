@@ -42,15 +42,14 @@ function drawCat(ctx, stage, af, rest) {
       f(ctx,9,4,3,1,O); d(ctx,10,4,P); d(ctx,10,3,K);
       eye(5,7); eye(9,7);
       f(ctx,7,9,2,1,P);
-      f(ctx,4,10,8,1,o);
+      ctx.globalAlpha=0.4; f(ctx,4,10,8,1,'#f4956a'); ctx.globalAlpha=1.0;
     } else if (stage===3) {
       f(ctx,3,4,10,8,O);
       f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
       f(ctx,9,3,3,1,O); d(ctx,10,3,P); d(ctx,10,2,K);
       eye(5,6); eye(9,6);
       f(ctx,7,8,2,1,P);
-      f(ctx,4,9,8,1,o);
-      f(ctx,4,11,8,1,o);
+      ctx.globalAlpha=0.4; f(ctx,4,9,8,3,'#f4956a'); ctx.globalAlpha=1.0;
     } else {
       f(ctx,3,4,10,8,O);
       f(ctx,4,3,3,1,O); d(ctx,5,3,P); d(ctx,5,2,K);
