@@ -951,6 +951,10 @@ h1 {
   flex-shrink: 0;
 }
 
+.pet-card-canvas-box canvas {
+  background: #ffffff !important;
+}
+
 .pet-card-name {
   font-size: 0.5rem;
   letter-spacing: 0.03em;
