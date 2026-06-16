@@ -16,7 +16,6 @@ const d = (ctx, x, y, c) => f(ctx, x, y, 1, 1, c);
 
 // ─── CAT (orange tabby) ───────────────────────────────────────────────────────
 function drawCat(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const O='#f4a35c', o='#c07030', P='#ffb6c1', K='#1a1a2e';
   const eye = (ex, ey) => { d(ctx,ex,ey,K); };
 
@@ -117,7 +116,6 @@ function drawCat(ctx, stage, af, rest) {
 
 // ─── DOG (golden retriever blob) ─────────────────────────────────────────────
 function drawDog(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const G='#e8b84b', g='#c49030', P='#ffb6c1', N='#8B4513', K='#1a1a2e', R='#c0392b';
   const eye = (ex, ey) => { d(ctx, ex, ey, K); };
 
@@ -215,7 +213,6 @@ function drawDog(ctx, stage, af, rest) {
 
 // ─── DRAGON (dark teal/emerald) ───────────────────────────────────────────────
 function drawDragon(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const D='#1abc9c', dk='#0e8a70', K='#1a1a2e', R='#e74c3c', Y='#f1c40f', W='#ffffff';
   const O='#e8622a', o='#c04b1c', B='#f4956a';
   const RE='#c0392b', re='#a93226', BL='#2980b9', bl='#1a5276', FA='#f39c12';
@@ -355,7 +352,6 @@ function drawDragon(ctx, stage, af, rest) {
 
 // ─── BUNNY (soft lavender) ────────────────────────────────────────────────────
 function drawBunny(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const L='#c3aee0', l='#9b82c2', K='#1a1a2e', P='#ffb6c1', W='#ffffff', B='#4a3580', Y='#f1c40f', R='#e74c3c';
 
   if (stage===0) {
@@ -492,7 +488,6 @@ function drawBunny(ctx, stage, af, rest) {
 
 // ─── FOX (orange-red with white) ─────────────────────────────────────────────
 function drawFox(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const F='#e8622a', fo='#c07030', f2='#f4956a', W='#ffffff', K='#1a1a2e', A='#e8a020', B='#3a1a00', BK='#222';
 
   function foxFace(ox,oy,fw,fh) {
@@ -638,7 +633,6 @@ function drawFox(ctx, stage, af, rest) {
 
 // ─── AXOLOTL (pink, external gills) ──────────────────────────────────────────
 function drawAxolotl(ctx, stage, af, rest) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const A='#ff91b0', a='#e0607a', K='#1a1a2e', G='#ff4466';
 
   if (stage===0) {
@@ -954,10 +948,12 @@ function drawAxolotl(ctx, stage, af, rest) {
 
 const DRAW_FUNCTIONS = { cat: drawCat, dog: drawDog, dragon: drawDragon, bunny: drawBunny, fox: drawFox, axolotl: drawAxolotl };
 
-export function drawPet(ctx, petId, stage, animFrame, isResting) {
+export function drawPet(ctx, petId, stage, animFrame, isResting, bgColor) {
   const size = Math.min(ctx.canvas.width, ctx.canvas.height);
   S = Math.max(1, Math.floor(size * 0.65 / 16));
   PAD = Math.round((size - S * 16) / 2);
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  if (bgColor) { ctx.fillStyle = bgColor; ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height); }
   const fn = DRAW_FUNCTIONS[petId];
   if (fn) fn(ctx, stage, animFrame, isResting);
 }

@@ -9,9 +9,7 @@ function PetPreview({ petId, innerBg }) {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    drawPet(ctx, petId, 0, 0, true);
+    drawPet(ctx, petId, 0, 0, true, '#ffffff');
   }, [petId]);
 
   return (
