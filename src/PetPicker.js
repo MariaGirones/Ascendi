@@ -15,7 +15,7 @@ function PetPreview({ petId, innerBg }) {
   }, [petId]);
 
   return (
-    <div className="pet-card-canvas-box" style={{ background: innerBg }}>
+    <div className="pet-card-canvas-box" style={{ background: '#ffffff' }}>
       <canvas
         ref={ref}
         width={144}
