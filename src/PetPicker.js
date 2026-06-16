@@ -20,7 +20,7 @@ function PetPreview({ petId, innerBg }) {
         ref={ref}
         width={144}
         height={144}
-        style={{ imageRendering: 'pixelated', width: '120px', height: '120px', display: 'block', background: '#ffffff', borderRadius: '8px' }}
+        style={{ imageRendering: 'pixelated', width: '120px', height: '120px', display: 'block', background: '#ffffff', backgroundColor: '#ffffff', borderRadius: '8px' }}
       />
     </div>
   );
