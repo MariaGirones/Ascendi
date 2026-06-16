@@ -16,9 +16,9 @@ function PetPreview({ petId, innerBg }) {
     <div className="pet-card-canvas-box" style={{ background: innerBg }}>
       <canvas
         ref={ref}
-        width={96}
-        height={96}
-        style={{ imageRendering: 'pixelated', width: '80px', height: '80px', display: 'block' }}
+        width={144}
+        height={144}
+        style={{ imageRendering: 'pixelated', width: '120px', height: '120px', display: 'block' }}
       />
     </div>
   );

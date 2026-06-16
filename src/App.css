@@ -944,8 +944,8 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
@@ -1089,8 +1089,8 @@ h1 {
   /* Pet picker — 2 columns on narrow phones */
   .pet-picker         { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
   .pet-card           { padding: 0.55rem 0.3rem; }
-  .pet-card-canvas-box { width: 64px; height: 64px; }
-  .pet-card-canvas-box canvas { width: 64px !important; height: 64px !important; }
+  .pet-card-canvas-box { width: 96px; height: 96px; }
+  .pet-card-canvas-box canvas { width: 96px !important; height: 96px !important; }
 
   /* Modals */
   .modal-content      { padding: 1rem 0.85rem; }
