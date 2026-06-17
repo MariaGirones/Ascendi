@@ -2,7 +2,8 @@ import './App.css';
 import { useState, useEffect, useRef } from 'react';
 import PetDisplay from './PetDisplay';
 import PetPicker from './PetPicker';
-import { MAX_XP } from './pets';
+import { MAX_XP, getStageIndex } from './pets';
+import { drawPet } from './petSprites';
 
 // ── Audio: end-of-session WAV ─────────────────────────────────────────────────
 let audio = null;
@@ -156,6 +157,26 @@ function loadPomodoroCount() {
   const cycleLen = loadCycleLength();
   const raw = parseInt(localStorage.getItem(LS_COUNT), 10);
   return isNaN(raw) ? 1 : clamp(raw, 1, cycleLen);
+}
+
+// ── Break popup pet canvas ────────────────────────────────────────────────────
+function BreakPetCanvas({ petId, xp }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    drawPet(ctx, petId, getStageIndex(xp, petId), 0, true, '#ffffff');
+  }, [petId, xp]);
+  return (
+    <canvas
+      ref={ref}
+      width={96}
+      height={96}
+      style={{ imageRendering: 'pixelated', width: '80px', height: '80px', display: 'block', background: '#ffffff', borderRadius: '8px' }}
+    />
+  );
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -733,23 +754,26 @@ function App() {
       {showBreakPopup && (
         <div className={`welcome-modal break-popup-${pendingBreakMode === 'shortBreak' ? 'short' : 'long'}`}>
           <div className="modal-content modal-narrow">
-            <h3>{pendingBreakMode === 'shortBreak' ? '☕ Short Break!' : '🛋️ Long Break!'}</h3>
+            <div className="break-popup-pet">
+              <BreakPetCanvas petId={chosenPetId} xp={xp} />
+            </div>
+            <h3>{pendingBreakMode === 'shortBreak' ? 'Short Break!' : 'Long Break!'}</h3>
             <p className="modal-sub">
               {pendingBreakMode === 'shortBreak' ? 'Take a quick breather' : 'You earned it — recharge!'}
             </p>
             <ul className="welcome-instructions break-suggestions">
               {pendingBreakMode === 'shortBreak' ? (
                 <>
-                  <li>💧 Drink some water</li>
-                  <li>🧘 Stretch &amp; breathe</li>
-                  <li>👀 Rest your eyes</li>
+                  <li>Drink some water</li>
+                  <li>Stretch &amp; breathe</li>
+                  <li>Rest your eyes</li>
                 </>
               ) : (
                 <>
-                  <li>🚶 Go for a short walk</li>
-                  <li>📖 Read a few pages</li>
-                  <li>🍎 Grab a healthy snack</li>
-                  <li>🎵 Listen to a song</li>
+                  <li>Go for a short walk</li>
+                  <li>Read a few pages</li>
+                  <li>Grab a healthy snack</li>
+                  <li>Listen to a song</li>
                 </>
               )}
             </ul>
