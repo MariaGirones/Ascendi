@@ -197,6 +197,8 @@ function App() {
   const [pendingPetId, setPendingPetId]   = useState(null);
   const [showXpWarning, setShowXpWarning] = useState(false);
   const [darkMode, setDarkMode]           = useState(loadDarkMode);
+  const [showBreakPopup, setShowBreakPopup]   = useState(false);
+  const [pendingBreakMode, setPendingBreakMode] = useState(null);
   const [undoVisible, setUndoVisible]         = useState(false);
   const [isAdditionalTime, setIsAdditionalTime]           = useState(false);
   const [additionalTimeLeft, setAdditionalTimeLeft]       = useState(0);
@@ -353,6 +355,11 @@ function App() {
     setMode(nextMode);
     setPomodoroCount(nextCount);
     setTimeLeft(getDuration(nextMode, workSecsRef.current, shortSecsRef.current, longSecsRef.current));
+
+    if (nextMode === 'shortBreak' || nextMode === 'longBreak') {
+      setPendingBreakMode(nextMode);
+      setShowBreakPopup(true);
+    }
   }, [timeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Additional-time end effect ────────────────────────────────────────────
@@ -630,6 +637,10 @@ function App() {
     setPendingPetId(null);
   };
 
+  const handleStartBreak = () => {
+    setShowBreakPopup(false);
+  };
+
   // ── Derived display values ────────────────────────────────────────────────
   const completedInCycle =
     mode === 'work'      ? pomodoroCount - 1 :
@@ -713,6 +724,37 @@ function App() {
               onClick={() => setShowXpWarning(false)}
             >
               Go back
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Break popup ── */}
+      {showBreakPopup && (
+        <div className={`welcome-modal break-popup-${pendingBreakMode === 'shortBreak' ? 'short' : 'long'}`}>
+          <div className="modal-content modal-narrow">
+            <h3>{pendingBreakMode === 'shortBreak' ? '☕ Short Break!' : '🛋️ Long Break!'}</h3>
+            <p className="modal-sub">
+              {pendingBreakMode === 'shortBreak' ? 'Take a quick breather' : 'You earned it — recharge!'}
+            </p>
+            <ul className="welcome-instructions break-suggestions">
+              {pendingBreakMode === 'shortBreak' ? (
+                <>
+                  <li>💧 Drink some water</li>
+                  <li>🧘 Stretch &amp; breathe</li>
+                  <li>👀 Rest your eyes</li>
+                </>
+              ) : (
+                <>
+                  <li>🚶 Go for a short walk</li>
+                  <li>📖 Read a few pages</li>
+                  <li>🍎 Grab a healthy snack</li>
+                  <li>🎵 Listen to a song</li>
+                </>
+              )}
+            </ul>
+            <button className="got-it-btn" onClick={handleStartBreak}>
+              START BREAK
             </button>
           </div>
         </div>

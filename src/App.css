@@ -53,6 +53,12 @@
 [data-theme="light"] .App.mode-shortBreak { --accent: #1f7a64; --accent-dark: #1a6554; }
 [data-theme="light"] .App.mode-longBreak  { --accent: #2e5fa8; --accent-dark: #264e8c; }
 
+/* Break popup accent overrides (applied to .welcome-modal so children inherit) */
+.break-popup-short { --accent: #3aaa8e; }
+.break-popup-long  { --accent: #5888c8; }
+[data-theme="light"] .break-popup-short { --accent: #1f7a64; }
+[data-theme="light"] .break-popup-long  { --accent: #2e5fa8; }
+
 /* ── Base ─────────────────────────────────────────────────────────────────── */
 
 body {
@@ -1013,6 +1019,10 @@ h1 {
   padding: 0.5rem 0.6rem;
   background: var(--bg-card);
   border-left: 3px solid var(--accent, #d06878);
+}
+
+.break-suggestions li {
+  font-size: 0.75rem;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
