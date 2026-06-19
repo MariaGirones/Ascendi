@@ -384,6 +384,17 @@ function App() {
       { persistent: true }
     );
 
+    // Award XP for additional time worked (same rate as regular work sessions)
+    const atEarned = Math.floor(additionalWorkSecsRef.current / 60);
+    if (atEarned > 0) {
+      const newXP = Math.min(MAX_XP, xpRef.current + atEarned);
+      xpRef.current = newXP;
+      setXP(newXP);
+      setXpGainCount(c => c + 1);
+    }
+    additionalWorkSecsRef.current     = 0;
+    additionalPointsEarnedRef.current = 0;
+
     const saved = savedCycleStateRef.current;
     if (saved) {
       modeRef.current          = saved.mode;
