@@ -1085,6 +1085,41 @@ h1 {
   animation: floatZ4 2.4s ease-out infinite 1.5s;
 }
 
+.sleep-box-large {
+  width: 240px;
+  height: 240px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.sleep-box-large .z1 {
+  position: absolute; right: 40px; bottom: 60px;
+  font-family: 'Press Start 2P', monospace; font-size: 48px;
+  color: var(--accent);
+  animation: floatZ1 2.4s ease-out infinite;
+}
+.sleep-box-large .z2 {
+  position: absolute; right: 65px; bottom: 60px;
+  font-family: 'Press Start 2P', monospace; font-size: 34px;
+  color: var(--accent);
+  animation: floatZ2 2.4s ease-out infinite 0.5s;
+}
+.sleep-box-large .z3 {
+  position: absolute; right: 85px; bottom: 60px;
+  font-family: 'Press Start 2P', monospace; font-size: 24px;
+  color: var(--accent);
+  animation: floatZ3 2.4s ease-out infinite 1s;
+}
+.sleep-box-large .z4 {
+  position: absolute; right: 100px; bottom: 60px;
+  font-family: 'Press Start 2P', monospace; font-size: 16px;
+  color: var(--accent);
+  animation: floatZ4 2.4s ease-out infinite 1.5s;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    FOCUS INDICATORS  (WCAG 2.1 AA 2.4.7)
    ═══════════════════════════════════════════════════════════════════════════ */

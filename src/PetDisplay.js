@@ -1,7 +1,7 @@
 import { getPetById, getStageIndex, MAX_XP } from './pets';
 import PixelPet from './PixelPet';
 
-export default function PetDisplay({ petId, xp, gainCount, isRunning }) {
+export default function PetDisplay({ petId, xp, gainCount, isRunning, mode }) {
   const pet           = getPetById(petId);
   const thresholds    = pet.stageThresholds;
   const maxStageIndex = thresholds.length - 1;
@@ -28,14 +28,23 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning }) {
       style={{ '--pet-color': pet.color, '--pet-bg': pet.bg }}
     >
       {/* ── Sprite ── */}
-      <div className="pet-frame">
-        <PixelPet
-          petId={petId}
-          stageIndex={stageIndex}
-          isRunning={isRunning}
-          gainCount={gainCount}
-        />
-      </div>
+      {mode === 'shortBreak' || mode === 'longBreak' ? (
+        <div className="sleep-box-large">
+          <span className="z1">Z</span>
+          <span className="z2">z</span>
+          <span className="z3">z</span>
+          <span className="z4">z</span>
+        </div>
+      ) : (
+        <div className="pet-frame">
+          <PixelPet
+            petId={petId}
+            stageIndex={stageIndex}
+            isRunning={isRunning}
+            gainCount={gainCount}
+          />
+        </div>
+      )}
       <p className="pet-name">{pet.name}</p>
 
       {/* ── XP bar ── */}

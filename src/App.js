@@ -794,7 +794,7 @@ function App() {
         </div>
 
         {/* Pet + XP */}
-        <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} />
+        <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} />
 
         <hr className="divider" />
 
