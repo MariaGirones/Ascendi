@@ -2,8 +2,7 @@ import './App.css';
 import { useState, useEffect, useRef } from 'react';
 import PetDisplay from './PetDisplay';
 import PetPicker from './PetPicker';
-import { MAX_XP, getStageIndex } from './pets';
-import { drawPet } from './petSprites';
+import { MAX_XP } from './pets';
 
 // ── Audio: end-of-session WAV ─────────────────────────────────────────────────
 let audio = null;
@@ -157,26 +156,6 @@ function loadPomodoroCount() {
   const cycleLen = loadCycleLength();
   const raw = parseInt(localStorage.getItem(LS_COUNT), 10);
   return isNaN(raw) ? 1 : clamp(raw, 1, cycleLen);
-}
-
-// ── Break popup pet canvas ────────────────────────────────────────────────────
-function BreakPetCanvas({ petId, xp }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = false;
-    drawPet(ctx, petId, getStageIndex(xp, petId), 0, true, '#ffffff');
-  }, [petId, xp]);
-  return (
-    <canvas
-      ref={ref}
-      width={96}
-      height={96}
-      style={{ imageRendering: 'pixelated', width: '80px', height: '80px', display: 'block', background: '#ffffff', borderRadius: '8px' }}
-    />
-  );
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -754,8 +733,11 @@ function App() {
       {showBreakPopup && (
         <div className={`welcome-modal break-popup-${pendingBreakMode === 'shortBreak' ? 'short' : 'long'}`}>
           <div className="modal-content modal-narrow">
-            <div className="break-popup-pet">
-              <BreakPetCanvas petId={chosenPetId} xp={xp} />
+            <div className="sleep-box">
+              <span className="z1">Z</span>
+              <span className="z2">z</span>
+              <span className="z3">z</span>
+              <span className="z4">z</span>
             </div>
             <h3>{pendingBreakMode === 'shortBreak' ? 'Short Break!' : 'Long Break!'}</h3>
             <p className="modal-sub">

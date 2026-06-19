@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Break Popup Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0e0d1c;
+      --bg-panel: #181628;
+      --bg-card:  #131122;
+      --text:     #cac4e0;
+      --text-dim: #8884b8;
+      --shadow:   rgba(0, 0, 0, 0.65);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Press Start 2P', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Per-popup accent colours ─── */
+    .break-popup-short { --accent: #3aaa8e; }
+    .break-popup-long  { --accent: #5888c8; }
+
+    /* ── Modal card ─────────────────── */
+    .modal-content {
+      background: var(--bg-panel);
+      border: 3px solid var(--accent);
+      box-shadow: 6px 6px 0 var(--shadow);
+      padding: 1.5rem 1.25rem;
+      width: 320px;
+    }
+
+    /* ── Pet canvas ─────────────────── */
+    .break-popup-pet {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Title ──────────────────────── */
+    .modal-content h3 {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      text-shadow: 2px 2px 0 var(--shadow);
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    /* ── Subtitle ───────────────────── */
+    .modal-sub {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+      line-height: 2.2;
+      letter-spacing: 0.03em;
+      text-align: center;
+    }
+
+    /* ── Suggestion list ─────────────── */
+    .welcome-instructions {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin: 0.75rem 0 0.25rem;
+      padding: 0;
+    }
+
+    .welcome-instructions li {
+      font-size: 0.75rem;
+      color: var(--text);
+      line-height: 2;
+      letter-spacing: 0.03em;
+      padding: 0.5rem 0.6rem;
+      background: var(--bg-card);
+      border-left: 3px solid var(--accent);
+    }
+
+    /* ── Button ─────────────────────── */
+    .got-it-btn {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.85rem;
+      background: var(--accent);
+      color: #0e0d1c;
+      border: none;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--shadow);
+      transition: transform 0.08s, box-shadow 0.08s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .got-it-btn:hover  { transform: translate(1px, 1px); box-shadow: 3px 3px 0 var(--shadow); }
+    .got-it-btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--shadow); }
+  </style>
+</head>
+<body>
+
+  <!-- Short break popup -->
+  <div class="break-popup-short">
+    <div class="modal-content">
+      <div class="break-popup-pet">
+        <canvas id="canvas-short" width="96" height="96"
+          style="image-rendering:pixelated;width:80px;height:80px;display:block;background:#ffffff;border-radius:8px;">
+        </canvas>
+      </div>
+      <h3>Short Break!</h3>
+      <p class="modal-sub">Take a quick breather</p>
+      <ul class="welcome-instructions">
+        <li>Drink some water</li>
+        <li>Stretch &amp; breathe</li>
+        <li>Rest your eyes</li>
+      </ul>
+      <button class="got-it-btn">START BREAK</button>
+    </div>
+  </div>
+
+  <!-- Long break popup -->
+  <div class="break-popup-long">
+    <div class="modal-content">
+      <div class="break-popup-pet">
+        <canvas id="canvas-long" width="96" height="96"
+          style="image-rendering:pixelated;width:80px;height:80px;display:block;background:#ffffff;border-radius:8px;">
+        </canvas>
+      </div>
+      <h3>Long Break!</h3>
+      <p class="modal-sub">You earned it — recharge!</p>
+      <ul class="welcome-instructions">
+        <li>Go for a short walk</li>
+        <li>Read a few pages</li>
+        <li>Grab a healthy snack</li>
+        <li>Listen to a song</li>
+      </ul>
+      <button class="got-it-btn">START BREAK</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { drawPet } from './src/petSprites.js';
+
+    function render(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      drawPet(ctx, 'cat', 3, 0, true, '#ffffff');
+    }
+
+    render('canvas-short');
+    render('canvas-long');
+  </script>
+
+</body>
+</html>
