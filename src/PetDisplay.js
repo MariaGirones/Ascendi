@@ -1,7 +1,7 @@
 import { getPetById, getStageIndex, MAX_XP } from './pets';
 import PixelPet from './PixelPet';
 
-export default function PetDisplay({ petId, xp, gainCount, isRunning, mode }) {
+export default function PetDisplay({ petId, xp, gainCount, isRunning, mode, isAdditionalTime }) {
   const pet           = getPetById(petId);
   const thresholds    = pet.stageThresholds;
   const maxStageIndex = thresholds.length - 1;
@@ -28,7 +28,8 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning, mode }) {
       style={{ '--pet-color': pet.color, '--pet-bg': pet.bg }}
     >
       {/* ── Sprite ── */}
-      {mode === 'shortBreak' || mode === 'longBreak' ? (
+      {/* Show Zs when resting: during break (running) or work paused; always follow isRunning for additional time */}
+      {((isAdditionalTime || mode === 'work') ? !isRunning : isRunning) ? (
         <div className="sleep-box-large">
           <span className="z1">Z</span>
           <span className="z2">z</span>
