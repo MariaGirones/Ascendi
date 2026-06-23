@@ -278,11 +278,18 @@ function drawDragon(ctx, stage, af, rest) {
   } else if (stage===4) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
+    // body
     f(ctx,4,4,8,8,O);
     f(ctx,5,8,4,2,B);
-    f(ctx,2,6,2,3,o); f(ctx,12,6,2,3,o);
-    d(ctx,12,11,o); d(ctx,13,12,o);
+    // horn
     d(ctx,8,3,Y);
+    // wings
+    d(ctx,3,6,o); d(ctx,2,7,o); d(ctx,3,7,o); d(ctx,2,8,o); d(ctx,3,8,o);
+    d(ctx,12,6,o); d(ctx,13,7,o); d(ctx,12,7,o); d(ctx,13,8,o); d(ctx,12,8,o);
+    // tail
+    d(ctx,12,11,o); d(ctx,13,12,o);
+    // teeth — row of small white pixels at bottom of face
+    d(ctx,6,11,W); d(ctx,8,11,W); d(ctx,10,11,W);
     eye(6,6); eye(9,6);
     ctx.restore();
   } else if (stage===5) {
@@ -290,8 +297,8 @@ function drawDragon(ctx, stage, af, rest) {
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,4,8,8,RE);
     f(ctx,5,7,4,3,B);
-    d(ctx,3,5,re); f(ctx,2,6,2,1,re); f(ctx,1,7,3,1,re);
-    d(ctx,12,5,re); f(ctx,12,6,2,1,re); f(ctx,12,7,3,1,re);
+    d(ctx,3,5,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,3,7,re); d(ctx,2,8,re); d(ctx,3,8,re);
+    d(ctx,12,5,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,12,7,re); d(ctx,13,8,re); d(ctx,12,8,re);
     d(ctx,12,11,re); d(ctx,13,12,re); d(ctx,14,13,re);
     d(ctx,8,3,Y);
     eye(6,6); eye(9,6);
@@ -301,8 +308,8 @@ function drawDragon(ctx, stage, af, rest) {
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,RE);
     f(ctx,5,7,4,4,B);
-    d(ctx,3,3,re); f(ctx,2,4,2,1,re); f(ctx,1,5,3,1,re); f(ctx,1,6,3,1,re);
-    d(ctx,12,3,re); f(ctx,12,4,2,1,re); f(ctx,12,5,3,1,re); f(ctx,12,6,3,1,re);
+    d(ctx,3,4,re); d(ctx,2,5,re); d(ctx,3,5,re); d(ctx,1,6,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,3,7,re); d(ctx,2,8,re); d(ctx,3,8,re);
+    d(ctx,12,4,re); d(ctx,13,5,re); d(ctx,12,5,re); d(ctx,14,6,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,12,7,re); d(ctx,13,8,re); d(ctx,12,8,re);
     f(ctx,12,11,2,1,re); d(ctx,13,12,re); d(ctx,13,13,re); d(ctx,12,14,re);
     d(ctx,7,2,Y); d(ctx,9,2,Y);
     eye(6,5); eye(9,5);
@@ -312,8 +319,8 @@ function drawDragon(ctx, stage, af, rest) {
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
     f(ctx,5,6,4,5,B);
-    d(ctx,3,2,bl); f(ctx,2,3,2,1,bl); f(ctx,1,4,3,1,bl); f(ctx,1,5,3,1,bl); f(ctx,1,6,3,1,bl);
-    d(ctx,12,2,bl); f(ctx,12,3,2,1,bl); f(ctx,12,4,3,1,bl); f(ctx,12,5,3,1,bl); f(ctx,12,6,3,1,bl);
+    d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,2,8,bl);
+    d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,13,8,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,12,14,bl);
     d(ctx,6,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,7,2,Y);
     d(ctx,9,1,Y); d(ctx,8,2,Y); d(ctx,9,2,Y); d(ctx,10,2,Y);
@@ -325,8 +332,8 @@ function drawDragon(ctx, stage, af, rest) {
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
     f(ctx,5,6,4,5,B);
-    d(ctx,3,2,bl); f(ctx,2,3,2,1,bl); f(ctx,1,4,3,1,bl); f(ctx,1,5,3,1,bl); f(ctx,1,6,3,1,bl); f(ctx,1,7,2,1,bl);
-    d(ctx,12,2,bl); f(ctx,12,3,2,1,bl); f(ctx,12,4,3,1,bl); f(ctx,12,5,3,1,bl); f(ctx,12,6,3,1,bl); f(ctx,13,7,2,1,bl);
+    d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,2,8,bl); d(ctx,1,8,bl); d(ctx,0,7,bl);
+    d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,13,8,bl); d(ctx,14,8,bl); d(ctx,15,7,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,11,14,bl); d(ctx,10,14,bl);
     d(ctx,6,1,Y); d(ctx,7,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,7,2,Y); d(ctx,5,3,Y); d(ctx,7,3,Y);
     d(ctx,9,1,Y); d(ctx,10,1,Y); d(ctx,8,2,Y); d(ctx,9,2,Y); d(ctx,10,2,Y); d(ctx,8,3,Y); d(ctx,10,3,Y);
@@ -338,8 +345,8 @@ function drawDragon(ctx, stage, af, rest) {
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
     f(ctx,5,5,4,6,B);
-    d(ctx,3,2,bl); f(ctx,2,3,2,1,bl); f(ctx,1,4,3,5,bl); d(ctx,2,9,bl);
-    d(ctx,12,2,bl); f(ctx,12,3,2,1,bl); f(ctx,12,4,3,5,bl); d(ctx,13,9,bl);
+    d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,0,6,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,0,7,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,0,8,bl); d(ctx,1,8,bl); d(ctx,2,8,bl); d(ctx,1,9,bl);
+    d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,15,6,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,15,7,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,15,8,bl); d(ctx,14,8,bl); d(ctx,13,8,bl); d(ctx,14,9,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); f(ctx,10,14,2,1,bl);
     d(ctx,5,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,4,3,Y); d(ctx,5,3,Y); d(ctx,6,3,Y);
     d(ctx,8,1,Y); d(ctx,7,2,Y); d(ctx,8,2,Y); d(ctx,9,2,Y);
