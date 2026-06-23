@@ -290,7 +290,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,4,8,8,RE);
-    d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,13,7,R);
+    d(ctx,12,9,FA); d(ctx,13,9,Y); d(ctx,14,9,Y); d(ctx,13,8,R); d(ctx,14,8,FA);
     d(ctx,3,4,re); d(ctx,2,4,re); d(ctx,1,5,re); d(ctx,2,5,re); d(ctx,3,5,re); d(ctx,0,6,re); d(ctx,1,6,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,0,7,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,1,8,re); d(ctx,2,8,re);
     d(ctx,12,4,re); d(ctx,13,4,re); d(ctx,14,5,re); d(ctx,13,5,re); d(ctx,12,5,re); d(ctx,15,6,re); d(ctx,14,6,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,15,7,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,14,8,re); d(ctx,13,8,re);
     d(ctx,12,11,re); d(ctx,13,12,re); d(ctx,14,13,re);
@@ -301,7 +301,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,RE);
-    d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,13,7,R); d(ctx,14,7,Y);
+    d(ctx,12,9,FA); d(ctx,13,9,Y); d(ctx,14,9,Y); d(ctx,13,8,R); d(ctx,14,8,FA); d(ctx,14,7,R);
     d(ctx,3,3,re); d(ctx,2,3,re); d(ctx,1,4,re); d(ctx,2,4,re); d(ctx,3,4,re); d(ctx,0,5,re); d(ctx,1,5,re); d(ctx,2,5,re); d(ctx,3,5,re); d(ctx,0,6,re); d(ctx,1,6,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,0,7,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,1,8,re);
     d(ctx,12,3,re); d(ctx,13,3,re); d(ctx,14,4,re); d(ctx,13,4,re); d(ctx,12,4,re); d(ctx,15,5,re); d(ctx,14,5,re); d(ctx,13,5,re); d(ctx,12,5,re); d(ctx,15,6,re); d(ctx,14,6,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,15,7,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,14,8,re);
     f(ctx,12,11,2,1,re); d(ctx,13,12,re); d(ctx,13,13,re); d(ctx,12,14,re);
