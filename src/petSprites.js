@@ -280,7 +280,6 @@ function drawDragon(ctx, stage, af, rest) {
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     // body
     f(ctx,4,4,8,8,O);
-    f(ctx,5,8,4,2,B);
     // horn
     d(ctx,8,3,Y);
     // wings
@@ -290,13 +289,14 @@ function drawDragon(ctx, stage, af, rest) {
     d(ctx,12,11,o); d(ctx,13,12,o);
     // teeth — row of small white pixels at bottom of face
     d(ctx,6,11,W); d(ctx,8,11,W); d(ctx,10,11,W);
+    d(ctx,6,9,K); d(ctx,7,9,K); d(ctx,8,9,K);
     eye(6,6); eye(9,6);
     ctx.restore();
   } else if (stage===5) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,4,8,8,RE);
-    f(ctx,5,7,4,3,B);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,6,11,K); d(ctx,9,11,K);
     d(ctx,3,5,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,3,7,re); d(ctx,2,8,re); d(ctx,3,8,re);
     d(ctx,12,5,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,12,7,re); d(ctx,13,8,re); d(ctx,12,8,re);
     d(ctx,12,11,re); d(ctx,13,12,re); d(ctx,14,13,re);
@@ -307,7 +307,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,RE);
-    f(ctx,5,7,4,4,B);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,6,11,K); d(ctx,9,11,K);
     d(ctx,3,4,re); d(ctx,2,5,re); d(ctx,3,5,re); d(ctx,1,6,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,3,7,re); d(ctx,2,8,re); d(ctx,3,8,re);
     d(ctx,12,4,re); d(ctx,13,5,re); d(ctx,12,5,re); d(ctx,14,6,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,12,7,re); d(ctx,13,8,re); d(ctx,12,8,re);
     f(ctx,12,11,2,1,re); d(ctx,13,12,re); d(ctx,13,13,re); d(ctx,12,14,re);
@@ -318,7 +318,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
-    f(ctx,5,6,4,5,B);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K);
     d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,2,8,bl);
     d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,13,8,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,12,14,bl);
@@ -331,7 +331,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
-    f(ctx,5,6,4,5,B);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K);
     d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,2,8,bl); d(ctx,1,8,bl); d(ctx,0,7,bl);
     d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,13,8,bl); d(ctx,14,8,bl); d(ctx,15,7,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,11,14,bl); d(ctx,10,14,bl);
@@ -344,7 +344,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
-    f(ctx,5,5,4,6,B);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K);
     d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,0,6,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,0,7,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,0,8,bl); d(ctx,1,8,bl); d(ctx,2,8,bl); d(ctx,1,9,bl);
     d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,15,6,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,15,7,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,15,8,bl); d(ctx,14,8,bl); d(ctx,13,8,bl); d(ctx,14,9,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); f(ctx,10,14,2,1,bl);
