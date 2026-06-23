@@ -281,7 +281,9 @@ function drawDragon(ctx, stage, af, rest) {
     f(ctx,4,4,8,8,RE);
     d(ctx,8,3,Y);
     d(ctx,12,11,re); d(ctx,13,12,re); d(ctx,14,13,re);
-    d(ctx,12,8,FA); d(ctx,13,8,Y);
+    if (af===0) { d(ctx,12,8,FA); d(ctx,13,8,Y); }
+    else if (af===1) { d(ctx,12,7,FA); d(ctx,13,7,Y); d(ctx,14,7,'#fff176'); }
+    else { d(ctx,12,8,R); d(ctx,13,8,FA); d(ctx,14,8,Y); }
     eye(6,6); eye(9,6);
     ctx.restore();
   } else if (stage===5) {
@@ -290,7 +292,9 @@ function drawDragon(ctx, stage, af, rest) {
     f(ctx,4,4,8,8,RE);
     d(ctx,2,5,re); d(ctx,1,6,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,0,7,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,1,5,re);
     d(ctx,13,5,re); d(ctx,14,6,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,15,7,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,14,5,re);
-    d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,13,7,R);
+    if (af===0) { d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,13,7,R); }
+    else if (af===1) { d(ctx,12,7,FA); d(ctx,13,7,FA); d(ctx,14,7,Y); d(ctx,12,8,R); d(ctx,14,8,'#fff176'); }
+    else { d(ctx,12,8,R); d(ctx,13,8,FA); d(ctx,14,8,Y); d(ctx,13,7,R); d(ctx,14,7,FA); }
     d(ctx,12,11,re); d(ctx,13,12,re); d(ctx,14,13,re);
     d(ctx,8,3,Y);
     eye(6,6); eye(9,6);
@@ -301,7 +305,9 @@ function drawDragon(ctx, stage, af, rest) {
     f(ctx,4,3,8,9,RE);
     d(ctx,2,4,re); d(ctx,1,5,re); d(ctx,2,5,re); d(ctx,3,5,re); d(ctx,0,6,re); d(ctx,1,6,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,0,7,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,1,4,re);
     d(ctx,13,4,re); d(ctx,14,5,re); d(ctx,13,5,re); d(ctx,12,5,re); d(ctx,15,6,re); d(ctx,14,6,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,15,7,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,14,4,re);
-    d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,14,8,Y); d(ctx,13,7,R); d(ctx,14,7,FA); d(ctx,14,6,R);
+    if (af===0) { d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,14,8,Y); d(ctx,13,7,R); d(ctx,14,7,FA); d(ctx,14,6,R); }
+    else if (af===1) { d(ctx,12,7,R); d(ctx,13,7,FA); d(ctx,14,7,Y); d(ctx,13,6,R); d(ctx,14,6,FA); d(ctx,14,5,'#fff176'); d(ctx,12,8,FA); }
+    else { d(ctx,12,8,R); d(ctx,13,8,FA); d(ctx,14,8,FA); d(ctx,14,7,Y); d(ctx,15,7,'#fff176'); d(ctx,13,7,R); d(ctx,15,8,Y); }
     f(ctx,12,11,2,1,re); d(ctx,13,12,re); d(ctx,13,13,re); d(ctx,12,14,re);
     d(ctx,7,1,Y); d(ctx,7,2,Y); d(ctx,9,1,Y); d(ctx,9,2,Y);
     eye(6,5); eye(9,5);
@@ -316,7 +322,9 @@ function drawDragon(ctx, stage, af, rest) {
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,12,14,bl);
     d(ctx,6,0,Y); d(ctx,6,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,7,2,Y);
     d(ctx,9,0,Y); d(ctx,9,1,Y); d(ctx,8,2,Y); d(ctx,9,2,Y); d(ctx,10,2,Y);
-    d(ctx,12,7,R); d(ctx,12,8,R); d(ctx,13,7,FA); d(ctx,13,8,FA); d(ctx,14,7,Y); d(ctx,14,8,Y); d(ctx,14,6,R); d(ctx,13,6,FA); d(ctx,15,7,'#fff176');
+    if (af===0) { d(ctx,12,7,R); d(ctx,12,8,R); d(ctx,13,7,FA); d(ctx,13,8,FA); d(ctx,14,7,Y); d(ctx,14,8,Y); d(ctx,14,6,R); d(ctx,13,6,FA); d(ctx,15,7,'#fff176'); }
+    else if (af===1) { d(ctx,12,6,R); d(ctx,12,7,R); d(ctx,13,6,FA); d(ctx,13,7,FA); d(ctx,14,6,Y); d(ctx,14,7,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,12,8,FA); d(ctx,13,8,Y); }
+    else { d(ctx,12,7,R); d(ctx,12,8,FA); d(ctx,13,7,FA); d(ctx,13,8,Y); d(ctx,14,7,Y); d(ctx,14,8,'#fff176'); d(ctx,15,7,Y); d(ctx,15,8,'#fff176'); d(ctx,13,6,R); }
     eye(6,5); eye(9,5);
     ctx.restore();
   } else if (stage===8) {
@@ -330,7 +338,9 @@ function drawDragon(ctx, stage, af, rest) {
     d(ctx,5,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,4,3,Y); d(ctx,5,3,Y); d(ctx,6,3,Y);
     d(ctx,8,1,Y); d(ctx,7,2,Y); d(ctx,8,2,Y); d(ctx,9,2,Y);
     d(ctx,11,1,Y); d(ctx,10,2,Y); d(ctx,11,2,Y); d(ctx,10,3,Y); d(ctx,11,3,Y); d(ctx,12,3,Y);
-    d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,5,Y); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,6,'#fff176');
+    if (af===0) { d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,5,Y); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,6,'#fff176'); }
+    else if (af===1) { d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,12,4,R); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,13,4,FA); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,14,4,Y); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,11,8,FA); }
+    else { d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,5,R); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,5,FA); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,5,Y); d(ctx,14,6,Y); d(ctx,14,7,'#fff176'); d(ctx,15,6,Y); d(ctx,15,7,'#fff176'); }
     eye(6,5); eye(9,5);
     ctx.restore();
   } else {
@@ -343,8 +353,16 @@ function drawDragon(ctx, stage, af, rest) {
     d(ctx,5,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,4,3,Y); d(ctx,5,3,Y); d(ctx,6,3,Y);
     d(ctx,8,1,Y); d(ctx,7,2,Y); d(ctx,8,2,Y); d(ctx,9,2,Y);
     d(ctx,11,1,Y); d(ctx,10,2,Y); d(ctx,11,2,Y); d(ctx,10,3,Y); d(ctx,11,3,Y); d(ctx,12,3,Y);
-    d(ctx,10,5,R); d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,4,Y); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,15,6,'#fff176');
-    d(ctx,10,6,Y); d(ctx,9,7,Y); d(ctx,10,7,Y); d(ctx,10,8,Y); d(ctx,9,9,Y);
+    if (af===0) {
+      d(ctx,10,5,R); d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,4,Y); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,15,6,'#fff176');
+      d(ctx,10,6,Y); d(ctx,9,7,Y); d(ctx,10,7,Y); d(ctx,10,8,Y); d(ctx,9,9,Y);
+    } else if (af===1) {
+      d(ctx,10,4,R); d(ctx,11,4,R); d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,12,3,FA); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,13,3,Y); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,14,3,Y); d(ctx,14,4,'#fff176'); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,15,4,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,15,3,'#fff176');
+      d(ctx,10,5,Y); d(ctx,9,6,Y); d(ctx,10,6,Y); d(ctx,10,7,Y); d(ctx,9,8,Y);
+    } else {
+      d(ctx,11,5,R); d(ctx,12,5,R); d(ctx,12,6,R); d(ctx,12,7,R); d(ctx,12,8,R); d(ctx,13,4,FA); d(ctx,13,5,FA); d(ctx,13,6,FA); d(ctx,13,7,FA); d(ctx,13,8,FA); d(ctx,14,4,Y); d(ctx,14,5,Y); d(ctx,14,6,Y); d(ctx,14,7,Y); d(ctx,15,4,Y); d(ctx,15,5,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,15,7,'#fff176'); d(ctx,15,8,'#fff176');
+      d(ctx,11,6,Y); d(ctx,10,7,Y); d(ctx,11,7,Y); d(ctx,11,8,Y); d(ctx,10,9,Y);
+    }
     d(ctx,6,5,W); d(ctx,9,5,W);
     ctx.restore();
   }
