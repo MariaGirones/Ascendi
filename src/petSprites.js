@@ -322,9 +322,9 @@ function drawDragon(ctx, stage, af, rest) {
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,12,14,bl);
     d(ctx,6,0,Y); d(ctx,6,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,7,2,Y);
     d(ctx,9,0,Y); d(ctx,9,1,Y); d(ctx,8,2,Y); d(ctx,9,2,Y); d(ctx,10,2,Y);
-    if (af===0) { d(ctx,12,7,R); d(ctx,12,8,R); d(ctx,13,7,FA); d(ctx,13,8,FA); d(ctx,14,7,Y); d(ctx,14,8,Y); d(ctx,14,6,R); d(ctx,13,6,FA); d(ctx,15,7,'#fff176'); d(ctx,11,9,R); d(ctx,12,9,FA); }
-    else if (af===1) { d(ctx,12,6,R); d(ctx,12,7,R); d(ctx,13,6,FA); d(ctx,13,7,FA); d(ctx,14,6,Y); d(ctx,14,7,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,11,8,R); d(ctx,11,9,FA); }
-    else { d(ctx,12,7,R); d(ctx,12,8,FA); d(ctx,13,7,FA); d(ctx,13,8,Y); d(ctx,14,7,Y); d(ctx,14,8,'#fff176'); d(ctx,15,7,Y); d(ctx,15,8,'#fff176'); d(ctx,13,6,R); d(ctx,11,8,R); d(ctx,12,9,R); }
+    if (af===0) { d(ctx,12,7,R); d(ctx,12,8,R); d(ctx,13,7,FA); d(ctx,13,8,FA); d(ctx,14,7,Y); d(ctx,14,8,Y); d(ctx,14,6,R); d(ctx,13,6,FA); d(ctx,15,7,'#fff176'); d(ctx,11,9,R); d(ctx,12,9,FA); d(ctx,3,8,R); d(ctx,2,9,FA); d(ctx,0,7,R); d(ctx,1,8,FA); }
+    else if (af===1) { d(ctx,12,6,R); d(ctx,12,7,R); d(ctx,13,6,FA); d(ctx,13,7,FA); d(ctx,14,6,Y); d(ctx,14,7,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,11,8,R); d(ctx,11,9,FA); d(ctx,2,8,R); d(ctx,3,9,FA); d(ctx,1,7,R); d(ctx,0,8,FA); d(ctx,3,7,FA); }
+    else { d(ctx,12,7,R); d(ctx,12,8,FA); d(ctx,13,7,FA); d(ctx,13,8,Y); d(ctx,14,7,Y); d(ctx,14,8,'#fff176'); d(ctx,15,7,Y); d(ctx,15,8,'#fff176'); d(ctx,13,6,R); d(ctx,11,8,R); d(ctx,12,9,R); d(ctx,3,8,FA); d(ctx,2,9,R); d(ctx,0,8,R); d(ctx,1,9,FA); d(ctx,2,7,R); }
     eye(6,5); eye(9,5);
     ctx.restore();
   } else if (stage===8) {
@@ -338,9 +338,9 @@ function drawDragon(ctx, stage, af, rest) {
     d(ctx,5,1,Y); d(ctx,5,2,Y); d(ctx,6,2,Y); d(ctx,4,3,Y); d(ctx,5,3,Y); d(ctx,6,3,Y);
     d(ctx,8,1,Y); d(ctx,7,2,Y); d(ctx,8,2,Y); d(ctx,9,2,Y);
     d(ctx,11,1,Y); d(ctx,10,2,Y); d(ctx,11,2,Y); d(ctx,10,3,Y); d(ctx,11,3,Y); d(ctx,12,3,Y);
-    if (af===0) { d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,4,Y); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,3,9,R); d(ctx,3,10,FA); d(ctx,0,8,R); d(ctx,1,9,FA); d(ctx,10,10,R); d(ctx,11,10,FA); d(ctx,11,11,Y); }
-    else if (af===1) { d(ctx,11,4,R); d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,12,3,R); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,13,3,FA); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,14,3,Y); d(ctx,14,4,'#fff176'); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,15,4,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,2,8,R); d(ctx,3,9,FA); d(ctx,1,8,FA); d(ctx,0,9,R); d(ctx,10,9,R); d(ctx,11,9,FA); d(ctx,11,10,Y); }
-    else { d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,4,R); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,4,FA); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,4,Y); d(ctx,14,5,Y); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,5,Y); d(ctx,15,6,'#fff176'); d(ctx,15,7,'#fff176'); d(ctx,3,8,R); d(ctx,2,9,FA); d(ctx,0,8,FA); d(ctx,0,9,R); d(ctx,10,10,FA); d(ctx,11,10,R); d(ctx,12,10,FA); d(ctx,11,11,'#fff176'); }
+    if (af===0) { d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,4,Y); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,3,9,R); d(ctx,3,10,FA); d(ctx,0,8,R); d(ctx,1,9,FA); d(ctx,10,10,R); d(ctx,11,10,FA); d(ctx,11,11,Y); d(ctx,3,7,R); d(ctx,2,8,FA); d(ctx,3,9,Y); d(ctx,0,6,R); d(ctx,1,7,FA); d(ctx,0,9,R); d(ctx,1,10,FA); d(ctx,4,10,R); d(ctx,5,11,FA); d(ctx,9,10,R); d(ctx,10,11,FA); }
+    else if (af===1) { d(ctx,11,4,R); d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,12,3,R); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,13,3,FA); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,14,3,Y); d(ctx,14,4,'#fff176'); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,15,4,'#fff176'); d(ctx,15,5,'#fff176'); d(ctx,2,8,R); d(ctx,3,9,FA); d(ctx,1,8,FA); d(ctx,0,9,R); d(ctx,10,9,R); d(ctx,11,9,FA); d(ctx,11,10,Y); d(ctx,2,7,R); d(ctx,3,8,FA); d(ctx,2,9,Y); d(ctx,0,7,R); d(ctx,1,6,FA); d(ctx,1,9,R); d(ctx,0,10,FA); d(ctx,3,10,R); d(ctx,4,11,FA); d(ctx,10,10,R); d(ctx,9,11,FA); d(ctx,5,10,R); }
+    else { d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,R); d(ctx,12,4,R); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,4,FA); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,4,Y); d(ctx,14,5,Y); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,5,Y); d(ctx,15,6,'#fff176'); d(ctx,15,7,'#fff176'); d(ctx,3,8,R); d(ctx,2,9,FA); d(ctx,0,8,FA); d(ctx,0,9,R); d(ctx,10,10,FA); d(ctx,11,10,R); d(ctx,12,10,FA); d(ctx,11,11,'#fff176'); d(ctx,3,7,FA); d(ctx,2,8,R); d(ctx,3,9,FA); d(ctx,0,6,FA); d(ctx,1,8,R); d(ctx,0,9,FA); d(ctx,1,10,R); d(ctx,5,10,FA); d(ctx,4,11,R); d(ctx,9,10,FA); d(ctx,10,10,R); d(ctx,6,11,FA); }
     eye(6,5); eye(9,5);
     ctx.restore();
   } else {
@@ -358,16 +358,19 @@ function drawDragon(ctx, stage, af, rest) {
       d(ctx,0,5,R); d(ctx,0,6,FA); d(ctx,0,7,R); d(ctx,1,8,FA); d(ctx,0,9,R); d(ctx,2,9,FA); d(ctx,2,10,Y); d(ctx,3,9,R); d(ctx,3,10,FA); d(ctx,4,10,R);
       d(ctx,10,9,R); d(ctx,10,10,FA); d(ctx,11,9,FA); d(ctx,11,10,Y); d(ctx,11,11,Y); d(ctx,12,10,FA); d(ctx,12,11,'#fff176');
       d(ctx,5,11,R); d(ctx,6,11,FA); d(ctx,8,11,FA); d(ctx,9,11,R);
+      d(ctx,3,6,R); d(ctx,2,7,FA); d(ctx,3,8,Y); d(ctx,2,9,FA); d(ctx,3,10,R); d(ctx,1,10,FA); d(ctx,0,8,R); d(ctx,1,9,FA); d(ctx,2,11,R); d(ctx,3,11,FA); d(ctx,4,11,Y); d(ctx,5,12,FA); d(ctx,6,12,R); d(ctx,7,12,FA); d(ctx,8,12,R); d(ctx,9,11,FA); d(ctx,10,11,R); d(ctx,10,12,FA); d(ctx,4,6,R); d(ctx,5,6,FA); d(ctx,0,5,R);
     } else if (af===1) {
       d(ctx,10,3,R); d(ctx,11,3,R); d(ctx,11,4,R); d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,12,2,FA); d(ctx,12,3,FA); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,13,2,Y); d(ctx,13,3,Y); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,14,2,Y); d(ctx,14,3,'#fff176'); d(ctx,14,4,'#fff176'); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,15,3,'#fff176'); d(ctx,15,4,'#fff176'); d(ctx,15,5,'#fff176');
       d(ctx,0,4,R); d(ctx,0,5,FA); d(ctx,0,6,R); d(ctx,1,7,FA); d(ctx,0,8,R); d(ctx,2,8,FA); d(ctx,2,9,Y); d(ctx,3,8,R); d(ctx,3,9,FA); d(ctx,4,9,R);
       d(ctx,10,8,R); d(ctx,10,9,FA); d(ctx,11,8,FA); d(ctx,11,9,Y); d(ctx,11,10,Y); d(ctx,12,9,FA); d(ctx,12,10,'#fff176');
       d(ctx,5,10,R); d(ctx,6,10,FA); d(ctx,8,10,FA); d(ctx,9,10,R);
+      d(ctx,2,6,R); d(ctx,3,7,FA); d(ctx,2,8,Y); d(ctx,3,9,FA); d(ctx,2,10,R); d(ctx,0,9,FA); d(ctx,1,8,R); d(ctx,0,10,FA); d(ctx,1,11,R); d(ctx,2,11,FA); d(ctx,3,12,Y); d(ctx,4,12,FA); d(ctx,5,12,R); d(ctx,7,12,R); d(ctx,8,12,FA); d(ctx,9,12,R); d(ctx,10,10,FA); d(ctx,10,11,R); d(ctx,5,6,R); d(ctx,4,7,FA); d(ctx,0,4,R);
     } else {
       d(ctx,10,4,R); d(ctx,11,4,R); d(ctx,11,5,R); d(ctx,11,6,R); d(ctx,11,7,R); d(ctx,11,8,FA); d(ctx,12,3,R); d(ctx,12,4,FA); d(ctx,12,5,FA); d(ctx,12,6,FA); d(ctx,12,7,FA); d(ctx,12,8,FA); d(ctx,13,3,FA); d(ctx,13,4,Y); d(ctx,13,5,Y); d(ctx,13,6,Y); d(ctx,13,7,Y); d(ctx,14,3,Y); d(ctx,14,4,Y); d(ctx,14,5,'#fff176'); d(ctx,14,6,'#fff176'); d(ctx,14,7,'#fff176'); d(ctx,15,4,Y); d(ctx,15,5,'#fff176'); d(ctx,15,6,'#fff176'); d(ctx,15,7,'#fff176');
       d(ctx,0,5,FA); d(ctx,0,6,R); d(ctx,0,7,FA); d(ctx,1,9,R); d(ctx,2,9,R); d(ctx,2,10,FA); d(ctx,3,10,R); d(ctx,3,11,FA); d(ctx,4,10,FA);
       d(ctx,10,9,FA); d(ctx,10,10,R); d(ctx,11,9,R); d(ctx,11,10,FA); d(ctx,11,11,'#fff176'); d(ctx,12,10,R); d(ctx,12,11,'#fff176');
       d(ctx,5,11,FA); d(ctx,7,11,R); d(ctx,8,11,R); d(ctx,9,11,FA);
+      d(ctx,3,6,FA); d(ctx,2,7,R); d(ctx,3,8,FA); d(ctx,2,9,R); d(ctx,3,10,FA); d(ctx,1,9,R); d(ctx,0,8,FA); d(ctx,1,10,R); d(ctx,2,11,FA); d(ctx,3,11,R); d(ctx,4,12,R); d(ctx,5,12,FA); d(ctx,6,12,Y); d(ctx,7,12,R); d(ctx,8,12,FA); d(ctx,9,12,FA); d(ctx,10,11,FA); d(ctx,10,12,R); d(ctx,4,6,FA); d(ctx,5,7,R); d(ctx,0,6,FA);
     }
     d(ctx,6,5,W); d(ctx,9,5,W);
     ctx.restore();
