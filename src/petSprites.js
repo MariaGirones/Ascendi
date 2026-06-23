@@ -318,7 +318,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
-    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K); d(ctx,5,12,K); d(ctx,9,12,K);
     d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,2,8,bl);
     d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,13,8,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,12,14,bl);
@@ -331,7 +331,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
-    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K); d(ctx,5,12,K); d(ctx,9,12,K);
     d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,2,8,bl); d(ctx,1,8,bl); d(ctx,0,7,bl);
     d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,13,8,bl); d(ctx,14,8,bl); d(ctx,15,7,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); d(ctx,11,14,bl); d(ctx,10,14,bl);
@@ -344,7 +344,7 @@ function drawDragon(ctx, stage, af, rest) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
     f(ctx,4,3,8,9,BL);
-    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K);
+    d(ctx,6,10,K); d(ctx,7,10,K); d(ctx,8,10,K); d(ctx,5,11,K); d(ctx,9,11,K); d(ctx,5,12,K); d(ctx,9,12,K);
     d(ctx,3,3,bl); d(ctx,2,4,bl); d(ctx,3,4,bl); d(ctx,1,5,bl); d(ctx,2,5,bl); d(ctx,3,5,bl); d(ctx,0,6,bl); d(ctx,1,6,bl); d(ctx,2,6,bl); d(ctx,3,6,bl); d(ctx,0,7,bl); d(ctx,1,7,bl); d(ctx,2,7,bl); d(ctx,3,7,bl); d(ctx,0,8,bl); d(ctx,1,8,bl); d(ctx,2,8,bl); d(ctx,1,9,bl);
     d(ctx,12,3,bl); d(ctx,13,4,bl); d(ctx,12,4,bl); d(ctx,14,5,bl); d(ctx,13,5,bl); d(ctx,12,5,bl); d(ctx,15,6,bl); d(ctx,14,6,bl); d(ctx,13,6,bl); d(ctx,12,6,bl); d(ctx,15,7,bl); d(ctx,14,7,bl); d(ctx,13,7,bl); d(ctx,12,7,bl); d(ctx,15,8,bl); d(ctx,14,8,bl); d(ctx,13,8,bl); d(ctx,14,9,bl);
     d(ctx,12,10,bl); d(ctx,13,11,bl); d(ctx,13,12,bl); d(ctx,12,13,bl); f(ctx,10,14,2,1,bl);
