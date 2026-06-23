@@ -278,18 +278,12 @@ function drawDragon(ctx, stage, af, rest) {
   } else if (stage===4) {
     ctx.save();
     const xo=af===1?2:0, yo=rest?1:af===2?-1:0; ctx.translate(xo*S,yo*S);
-    // body
-    f(ctx,4,4,8,8,O);
-    // horn
+    f(ctx,4,4,8,8,RE);
     d(ctx,8,3,Y);
-    // wings
-    d(ctx,3,6,o); d(ctx,2,7,o); d(ctx,3,7,o); d(ctx,2,8,o); d(ctx,3,8,o);
-    d(ctx,12,6,o); d(ctx,13,7,o); d(ctx,12,7,o); d(ctx,13,8,o); d(ctx,12,8,o);
-    // tail
-    d(ctx,12,11,o); d(ctx,13,12,o);
-    // teeth — row of small white pixels at bottom of face
-    d(ctx,6,11,W); d(ctx,8,11,W); d(ctx,10,11,W);
-    d(ctx,6,9,K); d(ctx,7,9,K); d(ctx,8,9,K);
+    d(ctx,3,5,re); d(ctx,2,6,re); d(ctx,3,6,re); d(ctx,1,7,re); d(ctx,2,7,re); d(ctx,3,7,re); d(ctx,2,8,re); d(ctx,3,8,re);
+    d(ctx,12,5,re); d(ctx,13,6,re); d(ctx,12,6,re); d(ctx,14,7,re); d(ctx,13,7,re); d(ctx,12,7,re); d(ctx,13,8,re); d(ctx,12,8,re);
+    d(ctx,12,11,re); d(ctx,13,12,re); d(ctx,14,13,re);
+    d(ctx,12,8,FA); d(ctx,13,8,Y); d(ctx,13,7,R);
     eye(6,6); eye(9,6);
     ctx.restore();
   } else if (stage===5) {
