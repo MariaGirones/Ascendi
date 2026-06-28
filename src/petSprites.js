@@ -162,50 +162,90 @@ function drawDog(ctx, stage, af, rest) {
   ctx.save();
   ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
 
+  // Shared colors for stages 5-9
+  const Gy1='#c49030', Gy2='#a8a888', Gy3='#909080', Gy4='#787870',
+        Gy5='#686860', Gy6='#585850', Gy7='#484840', Dk='#2a1808';
+
   if (stage===5) {
+    // Golden body, ear tips start greying, tiny tuft
     f(ctx,3,4,10,10,G);
-    f(ctx,2,5,2,4,G); f(ctx,2,5,1,4,g);
-    f(ctx,12,5,2,4,G); f(ctx,13,5,1,4,g);
-    d(ctx,7,3,g); d(ctx,8,3,g);
+    f(ctx,2,5,2,4,G);   f(ctx,2,5,1,4,g);    // left ear golden
+    f(ctx,12,5,2,4,G);  f(ctx,13,5,1,4,g);   // right ear golden
+    f(ctx,2,8,1,2,Gy2); f(ctx,13,8,1,2,Gy2); // grey tips on ears
+    d(ctx,6,3,g); d(ctx,7,3,g); d(ctx,8,3,g); // tuft
     eye(5,6); eye(9,6);
     d(ctx,7,8,N);
     if(af===1) d(ctx,7,9,P);
+
   } else if (stage===6) {
+    // Gold-grey blend, schnauzer mustache starts, ears more grey
     f(ctx,3,4,10,10,G);
-    f(ctx,2,5,2,5,G); f(ctx,2,5,1,5,g);
-    f(ctx,12,5,2,5,G); f(ctx,13,5,1,5,g);
-    d(ctx,6,3,g); d(ctx,7,3,g); d(ctx,8,3,g);
+    f(ctx,2,5,1,3,g);   f(ctx,2,5,2,6,Gy2);  // left ear: gold top, grey body
+    f(ctx,13,5,1,3,g);  f(ctx,12,5,2,6,Gy2); // right ear same
+    d(ctx,5,3,g); d(ctx,6,3,g); d(ctx,7,3,g); d(ctx,8,3,g); d(ctx,9,3,g); // tuft wider
+    f(ctx,3,9,10,3,Gy3); // grey lower half
     eye(5,6); eye(9,6);
     f(ctx,7,8,2,1,N);
+    // mustache hints on sides of nose
+    d(ctx,4,8,Gy2); d(ctx,5,8,Gy2);
+    d(ctx,10,8,Gy2); d(ctx,11,8,Gy2);
     if(af===1) d(ctx,7,9,P);
+
   } else if (stage===7) {
-    f(ctx,3,3,10,11,G);
-    f(ctx,2,5,2,6,G); f(ctx,2,5,1,6,g);
-    f(ctx,12,5,2,6,G); f(ctx,13,5,1,6,g);
-    f(ctx,6,2,4,1,g);
+    // Mostly grey, full schnauzer beard, long ears
+    f(ctx,3,3,10,11,Gy3);
+    f(ctx,2,4,1,3,g);   f(ctx,2,4,2,8,Gy4);  // left ear long
+    f(ctx,13,4,1,3,g);  f(ctx,12,4,2,8,Gy4); // right ear long
+    f(ctx,4,2,8,1,Gy4); f(ctx,5,1,6,1,Gy4);  // shaggy top fur
+    // eyebrow fur
+    f(ctx,4,5,3,1,Gy5); f(ctx,9,5,3,1,Gy5);
     eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,N);
-    d(ctx,4,7,P); d(ctx,10,7,P);
-    if(af===1) d(ctx,7,9,P);
+    f(ctx,7,8,2,1,Dk);   // dark nose
+    // schnauzer beard
+    f(ctx,4,8,3,2,Gy4); f(ctx,9,8,3,2,Gy4);
+    f(ctx,5,10,6,2,Gy3);
+    if(af===1) f(ctx,6,12,4,1,P);
+
   } else if (stage===8) {
-    f(ctx,3,3,10,11,G);
-    f(ctx,2,5,2,7,G); f(ctx,2,5,1,7,g);
-    f(ctx,12,5,2,7,G); f(ctx,13,5,1,7,g);
-    f(ctx,5,2,6,1,g);
+    // Long fur everywhere, pastor catalán forming
+    f(ctx,3,3,10,11,Gy4);
+    f(ctx,1,4,2,10,Gy5); // left ear very long
+    f(ctx,13,4,2,10,Gy5); // right ear very long
+    // shaggy top covering forehead
+    f(ctx,3,1,3,3,Gy6); f(ctx,6,0,4,4,Gy6); f(ctx,10,1,3,3,Gy6);
+    // eyebrows heavy
+    f(ctx,4,5,3,1,Gy6); f(ctx,9,5,3,1,Gy6);
     eye(5,6); eye(9,6);
-    f(ctx,6,8,3,1,N);
-    f(ctx,4,7,1,2,P); f(ctx,10,7,1,2,P);
-    if(af===1) d(ctx,7,9,P);
+    f(ctx,6,8,4,1,Dk);   // big dark nose
+    // full beard cascading down
+    f(ctx,3,8,4,3,Gy5); f(ctx,9,8,4,3,Gy5);
+    f(ctx,4,10,8,2,Gy4);
+    f(ctx,5,12,6,2,Gy3);
+    // shaggy legs
+    f(ctx,3,12,2,2,Gy5); f(ctx,11,12,2,2,Gy5);
+    if(af===1) f(ctx,6,13,4,1,P);
+
   } else {
-    f(ctx,3,3,10,11,G);
-    f(ctx,2,5,2,8,G); f(ctx,2,5,1,8,g);
-    f(ctx,12,5,2,8,G); f(ctx,13,5,1,8,g);
-    f(ctx,4,2,8,1,g);
-    eye(5,6); eye(9,6);
-    f(ctx,6,8,3,1,N);
-    f(ctx,4,7,2,2,P); f(ctx,10,7,2,2,P);
-    if(af===1) d(ctx,7,9,P);
-    f(ctx,3,11,10,1,R);
+    // Stage 9 — Pastor Catalán gris completo 🐕
+    f(ctx,2,3,12,11,Gy5);
+    f(ctx,0,3,2,12,Gy6); // left ear floor-length
+    f(ctx,14,3,2,12,Gy6); // right ear floor-length
+    // massive shaggy top fur — eyes barely visible
+    f(ctx,2,0,4,5,Gy7); f(ctx,6,-1,5,6,Gy7); f(ctx,11,0,4,5,Gy7);
+    f(ctx,3,3,3,2,Gy6); f(ctx,10,3,3,2,Gy6); // forehead fur
+    // eyes peeking under fur
+    f(ctx,4,5,2,1,Gy7); f(ctx,10,5,2,1,Gy7); // fur over eyes
+    eye(5,6); eye(10,6);
+    f(ctx,6,8,4,2,Dk);   // big dark nose
+    // epic full beard
+    f(ctx,2,8,4,4,Gy6); f(ctx,10,8,4,4,Gy6);
+    f(ctx,3,11,10,2,Gy5);
+    f(ctx,4,13,8,2,Gy4);
+    // shaggy legs blending into body
+    f(ctx,2,12,3,3,Gy6); f(ctx,11,12,3,3,Gy6);
+    // tail peek
+    f(ctx,14,9,1,4,Gy5);
+    if(af===1) f(ctx,6,12,4,2,P);
   }
 
   ctx.restore();
