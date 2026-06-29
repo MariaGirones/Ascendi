@@ -689,15 +689,15 @@ function App() {
       {showWelcome && (
         <div className="welcome-modal">
           <div className="modal-content modal-narrow">
-            <h3>Welcome to Ascendi!</h3>
+            <h3>{t.welcome}</h3>
             <ul className="welcome-instructions">
-              <li>⏱ Work in focused sessions to earn XP</li>
-              <li>🐾 Your pet grows as you level up</li>
-              <li>☕ Short breaks after each session</li>
-              <li>🛋️ Long break after every {cycleLength} sessions</li>
+              <li>{`⏱ ${t.workSessions}`}</li>
+              <li>{`🐾 ${t.petGrows}`}</li>
+              <li>{`☕ ${t.shortBreakAfter}`}</li>
+              <li>{`🛋️ ${t.longBreakAfter} ${cycleLength} ${t.sessions}`}</li>
             </ul>
             <button className="got-it-btn" onClick={handleWelcomeContinue}>
-              Pick your companion!
+              {t.pickCompanion}
             </button>
           </div>
         </div>
@@ -707,10 +707,10 @@ function App() {
       {showPicker && (
         <div className="welcome-modal">
           <div className="modal-content modal-wide">
-            <h3>{isFirstVisitRef.current ? 'Choose your companion' : '🐾 Change companion'}</h3>
+            <h3>{isFirstVisitRef.current ? t.chooseCompanion : t.changeCompanionTitle}</h3>
             {isFirstVisitRef.current && (
               <p className="modal-sub">
-                It grows as you earn XP from focus sessions.
+                {t.itGrows}
               </p>
             )}
             <PetPicker
@@ -728,22 +728,22 @@ function App() {
       {showXpWarning && (
         <div className="welcome-modal">
           <div className="modal-content modal-narrow">
-            <h3>⚠ Reset XP?</h3>
+            <h3>{t.resetXp}</h3>
             <div className="xp-warning-box">
-              <p>Switching companions will reset your XP to&nbsp;0.</p>
-              <p>This cannot be undone.</p>
+              <p>{t.switchingResets}</p>
+              <p>{t.cannotUndo}</p>
             </div>
             <button
               className="got-it-btn got-it-btn--danger"
               onClick={handleXpResetConfirm}
             >
-              Yes, switch &amp; reset
+              {t.yesSwitchReset}
             </button>
             <button
               className="picker-cancel-btn"
               onClick={() => setShowXpWarning(false)}
             >
-              Go back
+              {t.goBack}
             </button>
           </div>
         </div>
@@ -812,7 +812,7 @@ function App() {
         </div>
 
         {/* Pet + XP */}
-        <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} />
+        <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} />
 
         <hr className="divider" />
 

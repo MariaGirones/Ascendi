@@ -1,7 +1,7 @@
 import { getPetById, getStageIndex, MAX_XP } from './pets';
 import PixelPet from './PixelPet';
 
-export default function PetDisplay({ petId, xp, gainCount, isRunning, mode, isAdditionalTime }) {
+export default function PetDisplay({ petId, xp, gainCount, isRunning, mode, isAdditionalTime, label = 'Stage' }) {
   const pet           = getPetById(petId);
   const thresholds    = pet.stageThresholds;
   const maxStageIndex = thresholds.length - 1;
@@ -51,13 +51,13 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning, mode, isAd
       {/* ── XP bar ── */}
       <div className="xp-section">
         <div className="xp-label-row">
-          <span className="xp-count">Stage {stageIndex + 1} · XP {xp} / {MAX_XP}</span>
+          <span className="xp-count">{label} {stageIndex + 1} · XP {xp} / {MAX_XP}</span>
           {isMaxXP ? (
             <span className="xp-status xp-maxed">✨ Max XP!</span>
           ) : isFullyEvolved ? (
             <span className="xp-status">Fully evolved</span>
           ) : (
-            <span className="xp-status">{xpToNext} XP → Stage {stageIndex + 2}</span>
+            <span className="xp-status">{xpToNext} XP → {label} {stageIndex + 2}</span>
           )}
         </div>
 
