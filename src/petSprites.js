@@ -211,15 +211,15 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,5,15,6,1,ww);
     d(ctx,7,11,P); d(ctx,8,11,P);
     f(ctx,3,5,3,1,gy); f(ctx,10,5,3,1,gy);
-    d(ctx,5,4,K); d(ctx,10,4,K);
+    d(ctx,5,4,'#5c3010'); d(ctx,10,4,'#5c3010');
   } else {
     // Stage 9 — Pastor Catalán gris completo 🐕
     f(ctx,2,3,12,11,Gy5);
     f(ctx,0,3,2,12,Gy6); // left ear floor-length
     f(ctx,14,3,2,12,Gy6); // right ear floor-length
     // massive shaggy top fur — eyes barely visible
-    f(ctx,2,0,4,5,Gy7); f(ctx,6,-1,5,6,Gy7); f(ctx,11,0,4,5,Gy7);
-    d(ctx,5,5,K); d(ctx,10,5,K);
+    f(ctx,2,0,4,4,Gy7); f(ctx,6,-1,5,6,Gy7); f(ctx,11,0,4,4,Gy7);
+    d(ctx,5,5,'#5c3010'); d(ctx,10,5,'#5c3010');
     f(ctx,6,8,4,2,Dk);   // big dark nose
     // epic full beard
     f(ctx,2,8,4,4,Gy6); f(ctx,10,8,4,4,Gy6);
