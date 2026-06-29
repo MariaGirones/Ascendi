@@ -205,7 +205,7 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,2,2,12,12,Gy);
     f(ctx,3,0,10,2,gy);
     f(ctx,3,5,3,1,gy); f(ctx,10,5,3,1,gy);
-    d(ctx,5,6,K); d(ctx,10,6,K);
+    d(ctx,5,5,K); d(ctx,10,5,K);
     f(ctx,5,7,6,3,'#1a1008');
     f(ctx,0,6,3,4,W); f(ctx,13,6,3,4,W);
     f(ctx,3,10,10,3,W);
@@ -222,7 +222,7 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,3,3,3,2,Gy6); f(ctx,10,3,3,2,Gy6); // forehead fur
     // eyes peeking under fur
     f(ctx,4,5,2,1,Gy7); f(ctx,10,5,2,1,Gy7); // fur over eyes
-    eye(5,6); eye(10,6);
+    d(ctx,5,5,K); d(ctx,10,5,K);
     f(ctx,6,8,4,2,Dk);   // big dark nose
     // epic full beard
     f(ctx,2,8,4,4,Gy6); f(ctx,10,8,4,4,Gy6);
