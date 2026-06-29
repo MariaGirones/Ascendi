@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import PetDisplay from './PetDisplay';
 import PetPicker from './PetPicker';
 import { MAX_XP } from './pets';
+import { LANGUAGES, LS_LANG, loadLang, T } from './i18n';
 
 // ── Audio: end-of-session WAV ─────────────────────────────────────────────────
 let audio = null;
@@ -204,6 +205,13 @@ function App() {
   const [additionalTimeLeft, setAdditionalTimeLeft]       = useState(0);
   const [additionalTimeDuration, setAdditionalTimeDuration] = useState(300); // seconds; 5 min default
 
+  // Language state
+  const [lang, setLang]       = useState(loadLang);
+  const [langOpen, setLangOpen] = useState(false);
+
+  // Derived translations shorthand
+  const t = T[lang];
+
   // Refs — stable values readable inside async / stale-closure contexts
   const modeRef          = useRef(loadMode());
   const pomodoroCountRef = useRef(loadPomodoroCount());
@@ -246,6 +254,7 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_COUNT, pomodoroCount);    }, [pomodoroCount]);
   useEffect(() => { localStorage.setItem(LS_MODE,   mode);            }, [mode]);
   useEffect(() => { localStorage.setItem(LS_POINTS, points);         }, [points]);
+  useEffect(() => { localStorage.setItem(LS_LANG,   lang);            }, [lang]);
 
   // Apply theme and persist
   useEffect(() => {
@@ -659,16 +668,16 @@ function App() {
     /* shortBreak */       pomodoroCount;
 
   const modeLabel =
-    mode === 'work'       ? 'Work Session'  :
-    mode === 'shortBreak' ? '☕ Short Break' :
-                            '🛋️ Long Break';
+    mode === 'work'       ? t.work :
+    mode === 'shortBreak' ? `☕ ${t.shortBreak}` :
+                            `🛋️ ${t.longBreak}`;
 
   const subLabel =
     mode === 'work'
-      ? `Session ${pomodoroCount} / ${cycleLength}`
+      ? `${t.session} ${pomodoroCount} / ${cycleLength}`
       : mode === 'shortBreak'
-      ? `After session ${pomodoroCount} / ${cycleLength}`
-      : 'Cycle complete — enjoy the rest!';
+      ? `${t.session} ${pomodoroCount} / ${cycleLength}`
+      : t.youEarned;
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -750,28 +759,26 @@ function App() {
               <span className="z3">z</span>
               <span className="z4">z</span>
             </div>
-            <h3>{pendingBreakMode === 'shortBreak' ? 'Short Break!' : 'Long Break!'}</h3>
-            <p className="modal-sub">
-              {pendingBreakMode === 'shortBreak' ? 'Take a quick breather' : 'You earned it — recharge!'}
-            </p>
+            <h3>{pendingBreakMode === 'shortBreak' ? t.shortBreakTime : t.longBreakTime}</h3>
+            <p className="modal-sub">{t.youEarned}</p>
             <ul className="welcome-instructions break-suggestions">
               {pendingBreakMode === 'shortBreak' ? (
                 <>
-                  <li>Drink some water</li>
-                  <li>Stretch &amp; breathe</li>
-                  <li>Rest your eyes</li>
+                  <li>{t.stretchLegs}</li>
+                  <li>{t.deepBreaths}</li>
                 </>
               ) : (
                 <>
-                  <li>Go for a short walk</li>
-                  <li>Read a few pages</li>
-                  <li>Grab a healthy snack</li>
-                  <li>Listen to a song</li>
+                  <li>{t.stretchLegs}</li>
+                  <li>{t.deepBreaths}</li>
+                  <li>{t.readPages}</li>
+                  <li>{t.healthySnack}</li>
+                  <li>{t.listenSong}</li>
                 </>
               )}
             </ul>
             <button className="got-it-btn" onClick={handleStartBreak}>
-              START BREAK
+              {t.startBreak}
             </button>
           </div>
         </div>
@@ -789,15 +796,15 @@ function App() {
             <button
               className="settings-btn"
               onClick={openPetPicker}
-              aria-label="Change companion"
-              title="Change companion"
+              aria-label={t.changeCompanion}
+              title={t.changeCompanion}
             >
               🐾
             </button>
             <button
               className="theme-toggle"
               onClick={() => setDarkMode(d => !d)}
-              aria-label="Toggle light/dark mode"
+              aria-label={t.toggleTheme}
             >
               {darkMode ? '☀️' : '🌙'}
             </button>
@@ -813,8 +820,8 @@ function App() {
         <div className="session-info">
           {isAdditionalTime ? (
             <>
-              <span className="mode-label mode-label--at">Additional Time</span>
-              <span className="sub-label">Main cycle paused</span>
+              <span className="mode-label mode-label--at">{t.additionalTime}</span>
+              <span className="sub-label">{t.mainCyclePaused}</span>
             </>
           ) : (
             <>
@@ -839,7 +846,7 @@ function App() {
                 i < completedInCycle                       ? 'done'   : '',
                 i === pomodoroCount - 1 && mode === 'work' ? 'active' : '',
               ].filter(Boolean).join(' ')}
-              aria-label={`Session ${i + 1}`}
+              aria-label={`${t.session} ${i + 1}`}
             >●</span>
           ))}
         </div>
@@ -847,35 +854,35 @@ function App() {
         {isAdditionalTime ? (
           <div className="controls">
             {isRunning ? (
-              <button className="btn btn-sm btn-secondary" onClick={pauseTimer}>Pause</button>
+              <button className="btn btn-sm btn-secondary" onClick={pauseTimer}>{t.pause}</button>
             ) : (
               <button className="btn btn-sm btn-secondary" onClick={() => {
                 workerRef.current?.postMessage('start');
                 isRunningRef.current = true;
                 setIsRunning(true);
-              }}>Resume</button>
+              }}>{t.resume}</button>
             )}
             <button className="btn btn-sm btn-at-cancel" onClick={cancelAdditionalTime}>
-              Return to Cycle
+              {t.returnCycle}
             </button>
           </div>
         ) : (
           <div className="controls">
             <button className="btn" onClick={startTimer} disabled={isRunning}>
-              Start
+              {t.start}
             </button>
             <button className="btn" onClick={pauseTimer} disabled={!isRunning}>
-              Pause
+              {t.pause}
             </button>
             <button className="btn btn-secondary btn-sm" onClick={resetSession}>
-              Reset Session
+              {t.resetSession}
             </button>
             <button className="btn btn-secondary btn-sm" onClick={resetCycle}>
-              Reset Cycle
+              {t.resetCycle}
             </button>
             {undoVisible && (
               <button className="btn btn-undo btn-sm" onClick={handleUndo}>
-                Undo
+                {t.undo}
               </button>
             )}
           </div>
@@ -883,9 +890,9 @@ function App() {
 
         {isAdditionalTime ? (
           <div className="at-paused-info">
-            <span>Paused at</span>
+            <span>{t.pausedAt}</span>
             <span className="at-paused-time">{minutes}:{seconds.toString().padStart(2, '0')}</span>
-            <span>· Session {pomodoroCount}/{cycleLength}</span>
+            <span>· {t.session} {pomodoroCount}/{cycleLength}</span>
           </div>
         ) : (
           <div className="at-row">
@@ -896,19 +903,19 @@ function App() {
                   className={`btn-duration${additionalTimeDuration === sec ? ' btn-duration--active' : ''}`}
                   onClick={() => setAdditionalTimeDuration(sec)}
                 >
-                  {sec / 60}m
+                  {sec / 60}{t.min}
                 </button>
               ))}
             </div>
             <button className="btn btn-sm btn-at" onClick={startAdditionalTime}>
-              + Extra Time
+              {t.extraTime}
             </button>
           </div>
         )}
 
         <div className="settings-card">
           <div className="setting-row">
-            <label htmlFor="work-duration">Work</label>
+            <label htmlFor="work-duration">{t.work}</label>
             <div className="setting-control">
               <select
                 id="work-duration"
@@ -920,12 +927,12 @@ function App() {
                   <option key={m} value={m}>{m}</option>
                 ))}
               </select>
-              <span>min</span>
+              <span>{t.min}</span>
             </div>
           </div>
 
           <div className="setting-row">
-            <label htmlFor="short-break">Short break</label>
+            <label htmlFor="short-break">{t.shortBreak}</label>
             <div className="setting-control">
               <select
                 id="short-break"
@@ -937,12 +944,12 @@ function App() {
                   <option key={m} value={m}>{m}</option>
                 ))}
               </select>
-              <span>min</span>
+              <span>{t.min}</span>
             </div>
           </div>
 
           <div className="setting-row">
-            <label htmlFor="long-break">Long break</label>
+            <label htmlFor="long-break">{t.longBreak}</label>
             <div className="setting-control">
               <select
                 id="long-break"
@@ -954,12 +961,12 @@ function App() {
                   <option key={m} value={m}>{m}</option>
                 ))}
               </select>
-              <span>min</span>
+              <span>{t.min}</span>
             </div>
           </div>
 
           <div className="setting-row">
-            <label htmlFor="cycle-length">Sessions / cycle</label>
+            <label htmlFor="cycle-length">{t.sessionsCycle}</label>
             <div className="setting-control">
               <input
                 id="cycle-length"
@@ -975,6 +982,25 @@ function App() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="lang-selector">
+        <button className="lang-btn" onClick={() => setLangOpen(o => !o)} aria-label="Select language">
+          {lang}
+        </button>
+        {langOpen && (
+          <div className="lang-menu">
+            {LANGUAGES.map(l => (
+              <button
+                key={l}
+                className={`lang-option${l === lang ? ' lang-option--active' : ''}`}
+                onClick={() => { setLang(l); setLangOpen(false); }}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
