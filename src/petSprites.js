@@ -147,12 +147,13 @@ function drawDog(ctx, stage, af, rest) {
       d(ctx,7,8,N);
       if(af===1) d(ctx,7,9,P);
     } else {
-      f(ctx,3,4,10,9,G);
-      f(ctx,2,5,2,3,G); f(ctx,2,5,1,3,g);
-      f(ctx,12,5,2,3,G); f(ctx,13,5,1,3,g);
+      f(ctx,3,3,10,10,G);
+      f(ctx,1,4,2,6,g); f(ctx,13,4,2,6,g);
+      f(ctx,5,2,6,1,g); f(ctx,6,1,4,1,g);
       eye(5,6); eye(9,6);
-      d(ctx,7,8,N);
-      if(af===1) d(ctx,7,9,P);
+      f(ctx,7,8,2,1,N);
+      d(ctx,7,9,P); d(ctx,8,9,P);
+      if(af===1) d(ctx,7,10,P);
     }
 
     ctx.restore();
@@ -218,8 +219,7 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,0,3,2,12,Gy6); // left ear floor-length
     f(ctx,14,3,2,12,Gy6); // right ear floor-length
     // massive shaggy top fur — eyes barely visible
-    f(ctx,2,0,4,4,Gy7); f(ctx,6,-1,5,6,Gy7); f(ctx,11,0,4,4,Gy7);
-    d(ctx,5,5,'#5c3010'); d(ctx,10,5,'#5c3010');
+    f(ctx,2,0,4,4,Gy7); f(ctx,6,0,5,4,Gy7); f(ctx,11,0,4,4,Gy7);
     f(ctx,6,8,4,2,Dk);   // big dark nose
     // epic full beard
     f(ctx,2,8,4,4,Gy6); f(ctx,10,8,4,4,Gy6);
@@ -230,6 +230,7 @@ function drawDog(ctx, stage, af, rest) {
     // tail peek
     f(ctx,14,9,1,4,Gy5);
     if(af===1) f(ctx,6,12,4,2,P);
+    d(ctx,5,5,'#5c3010'); d(ctx,10,5,'#5c3010');
   }
 
   ctx.restore();
