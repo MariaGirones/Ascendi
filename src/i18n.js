@@ -31,6 +31,8 @@ export const T = {
     itGrows: 'It grows as you earn XP from focus sessions.',
     resetXp: '⚠ Reset XP?', switchingResets: 'Switching companions will reset your XP to 0.',
     cannotUndo: 'This cannot be undone.', yesSwitchReset: 'Yes, switch & reset', goBack: 'Go back',
+    consistencyWarning: 'Consistency matters — switching companion resets your XP to 0.',
+    letsGo: "LET'S GO!", confirm: 'CONFIRM', cancel: 'CANCEL',
   },
   ES: {
     appName: 'Ascendi',
@@ -56,6 +58,8 @@ export const T = {
     itGrows: 'Crece a medida que ganas XP en sesiones de enfoque.',
     resetXp: '⚠ ¿Reiniciar XP?', switchingResets: 'Cambiar de compañero reiniciará tu XP a 0.',
     cannotUndo: 'Esto no se puede deshacer.', yesSwitchReset: 'Sí, cambiar y reiniciar', goBack: 'Volver',
+    consistencyWarning: 'La constancia importa — cambiar de compañero reinicia tu XP a 0.',
+    letsGo: '¡VAMOS!', confirm: 'CONFIRMAR', cancel: 'CANCELAR',
   },
   DE: {
     appName: 'Ascendi',
@@ -81,6 +85,8 @@ export const T = {
     itGrows: 'Er wächst, wenn du XP in Fokussitzungen sammelst.',
     resetXp: '⚠ XP zurücksetzen?', switchingResets: 'Das Wechseln des Begleiters setzt deine XP auf 0 zurück.',
     cannotUndo: 'Dies kann nicht rückgängig gemacht werden.', yesSwitchReset: 'Ja, wechseln & zurücksetzen', goBack: 'Zurück',
+    consistencyWarning: 'Beständigkeit zählt — Begleiterwechsel setzt deine XP auf 0 zurück.',
+    letsGo: "LOS GEHT'S!", confirm: 'BESTÄTIGEN', cancel: 'ABBRECHEN',
   },
   FR: {
     appName: 'Ascendi',
@@ -106,6 +112,8 @@ export const T = {
     itGrows: 'Il grandit au fil de vos sessions de concentration.',
     resetXp: '⚠ Réinitialiser les XP ?', switchingResets: 'Changer de compagnon réinitialisera vos XP à 0.',
     cannotUndo: 'Cela ne peut pas être annulé.', yesSwitchReset: 'Oui, changer et réinitialiser', goBack: 'Retour',
+    consistencyWarning: 'La constance compte — changer de compagnon réinitialise vos XP à 0.',
+    letsGo: 'ALLONS-Y !', confirm: 'CONFIRMER', cancel: 'ANNULER',
   },
   PT: {
     appName: 'Ascendi',
@@ -131,6 +139,8 @@ export const T = {
     itGrows: 'Ele cresce à medida que você ganha XP nas sessões.',
     resetXp: '⚠ Redefinir XP?', switchingResets: 'Trocar de companheiro redefinirá seu XP para 0.',
     cannotUndo: 'Isso não pode ser desfeito.', yesSwitchReset: 'Sim, trocar e redefinir', goBack: 'Voltar',
+    consistencyWarning: 'A consistência importa — trocar de companheiro zera seu XP.',
+    letsGo: 'VAMOS!', confirm: 'CONFIRMAR', cancel: 'CANCELAR',
   },
   ZH: {
     appName: 'Ascendi',
@@ -156,6 +166,8 @@ export const T = {
     itGrows: '在专注会话中获得经验值时它会成长。',
     resetXp: '⚠ 重置经验值？', switchingResets: '更换伙伴将把您的经验值重置为0。',
     cannotUndo: '此操作无法撤销。', yesSwitchReset: '是的，切换并重置', goBack: '返回',
+    consistencyWarning: '坚持很重要 — 更换伙伴将把您的经验值重置为0。',
+    letsGo: '出发！', confirm: '确认', cancel: '取消',
   },
   NO: {
     appName: 'Ascendi',
@@ -181,5 +193,7 @@ export const T = {
     itGrows: 'Den vokser mens du tjener XP i fokusøkter.',
     resetXp: '⚠ Nullstille XP?', switchingResets: 'Å bytte venn vil nullstille XP til 0.',
     cannotUndo: 'Dette kan ikke angres.', yesSwitchReset: 'Ja, bytt og nullstill', goBack: 'Gå tilbake',
+    consistencyWarning: 'Konsistens er viktig — å bytte venn nullstiller XP til 0.',
+    letsGo: 'LA OSS GÅ!', confirm: 'BEKREFT', cancel: 'AVBRYT',
   },
 };

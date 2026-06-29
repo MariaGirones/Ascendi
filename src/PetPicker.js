@@ -24,7 +24,7 @@ function PetPreview({ petId, innerBg }) {
   );
 }
 
-export default function PetPicker({ currentPetId, onSelect, onConfirm, onCancel, isFirstVisit }) {
+export default function PetPicker({ currentPetId, onSelect, onConfirm, onCancel, isFirstVisit, t }) {
   return (
     <>
       <div className="pet-picker">
@@ -44,15 +44,15 @@ export default function PetPicker({ currentPetId, onSelect, onConfirm, onCancel,
       </div>
       {!isFirstVisit && (
         <p className="pet-picker-warning">
-          Consistency matters — switching companion resets your XP to 0.
+          {t.consistencyWarning}
         </p>
       )}
       <button className="picker-confirm-btn" onClick={onConfirm}>
-        {isFirstVisit ? "LET'S GO!" : 'CONFIRM'}
+        {isFirstVisit ? t.letsGo : t.confirm}
       </button>
       {!isFirstVisit && onCancel && (
         <button className="picker-cancel-btn" onClick={onCancel}>
-          CANCEL
+          {t.cancel}
         </button>
       )}
     </>

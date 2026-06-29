@@ -719,6 +719,7 @@ function App() {
               onConfirm={handlePickerConfirm}
               onCancel={!isFirstVisitRef.current ? handlePickerCancel : undefined}
               isFirstVisit={isFirstVisitRef.current}
+              t={t}
             />
           </div>
         </div>
