@@ -205,7 +205,7 @@ function drawDog(ctx, stage, af, rest) {
     f(ctx,2,2,12,12,Gy);
     f(ctx,3,0,10,2,gy);
     f(ctx,3,5,3,1,gy); f(ctx,10,5,3,1,gy);
-    d(ctx,5,5,K); d(ctx,10,5,K);
+    d(ctx,5,4,K); d(ctx,10,4,K);
     f(ctx,5,7,6,3,'#1a1008');
     f(ctx,0,6,3,4,W); f(ctx,13,6,3,4,W);
     f(ctx,3,10,10,3,W);
@@ -220,8 +220,6 @@ function drawDog(ctx, stage, af, rest) {
     // massive shaggy top fur — eyes barely visible
     f(ctx,2,0,4,5,Gy7); f(ctx,6,-1,5,6,Gy7); f(ctx,11,0,4,5,Gy7);
     f(ctx,3,3,3,2,Gy6); f(ctx,10,3,3,2,Gy6); // forehead fur
-    // eyes peeking under fur
-    f(ctx,4,5,2,1,Gy7); f(ctx,10,5,2,1,Gy7); // fur over eyes
     d(ctx,5,5,K); d(ctx,10,5,K);
     f(ctx,6,8,4,2,Dk);   // big dark nose
     // epic full beard
