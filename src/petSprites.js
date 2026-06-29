@@ -162,50 +162,46 @@ function drawDog(ctx, stage, af, rest) {
   ctx.save();
   ctx.translate((af===1?2:0)*S, (rest?1:af===2?-1:0)*S);
 
-  // Shared colors for stages 5-9
+  const W='#f0f0e0', w='#d8d8c8', Gy='#909080', gy='#a0a080';
   const Gy1='#c49030', Gy2='#a8a888', Gy3='#909080', Gy4='#787870',
         Gy5='#686860', Gy6='#585850', Gy7='#484840', Dk='#2a1808';
 
   if (stage===5) {
-    // Golden body, ear tips start greying, tiny tuft
     f(ctx,3,4,10,10,G);
-    f(ctx,2,5,2,4,G);   f(ctx,2,5,1,4,g);    // left ear golden
-    f(ctx,12,5,2,4,G);  f(ctx,13,5,1,4,g);   // right ear golden
-    f(ctx,2,8,1,2,Gy2); f(ctx,13,8,1,2,Gy2); // grey tips on ears
-    d(ctx,6,3,g); d(ctx,7,3,g); d(ctx,8,3,g); // tuft
-    eye(5,6); eye(9,6);
-    d(ctx,7,8,N);
-    if(af===1) d(ctx,7,9,P);
-
+    f(ctx,1,4,2,6,g); f(ctx,13,4,2,6,g);
+    d(ctx,5,2,g); d(ctx,6,2,g); d(ctx,7,2,g); d(ctx,8,2,g); d(ctx,9,2,g);
+    f(ctx,5,3,6,1,g);
+    eye(4,6); eye(10,6);
+    f(ctx,6,9,4,2,'#2a1808');
+    f(ctx,2,8,3,2,W); f(ctx,11,8,3,2,W);
+    f(ctx,4,10,8,2,w);
+    f(ctx,6,12,4,1,P);
   } else if (stage===6) {
-    // Gold-grey blend, schnauzer mustache starts, ears more grey
-    f(ctx,3,4,10,10,G);
-    f(ctx,2,5,1,3,g);   f(ctx,2,5,2,6,Gy2);  // left ear: gold top, grey body
-    f(ctx,13,5,1,3,g);  f(ctx,12,5,2,6,Gy2); // right ear same
-    d(ctx,5,3,g); d(ctx,6,3,g); d(ctx,7,3,g); d(ctx,8,3,g); d(ctx,9,3,g); // tuft wider
-    f(ctx,3,9,10,3,Gy3); // grey lower half
-    eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,N);
-    // mustache hints on sides of nose
-    d(ctx,4,8,Gy2); d(ctx,5,8,Gy2);
-    d(ctx,10,8,Gy2); d(ctx,11,8,Gy2);
-    if(af===1) d(ctx,7,9,P);
-
+    f(ctx,3,3,10,11,G);
+    f(ctx,1,4,2,7,g); f(ctx,13,4,2,7,g);
+    f(ctx,4,1,8,2,g); d(ctx,5,0,g); d(ctx,9,0,g);
+    f(ctx,3,5,3,1,g); f(ctx,10,5,3,1,g);
+    eye(4,6); eye(10,6);
+    f(ctx,6,8,4,2,'#2a1808');
+    f(ctx,1,7,4,3,W); f(ctx,11,7,4,3,W);
+    f(ctx,3,10,10,2,W);
+    f(ctx,4,12,8,2,w);
+    f(ctx,6,11,4,2,P);
   } else if (stage===7) {
-    // Mostly grey, full schnauzer beard, long ears
-    f(ctx,3,3,10,11,Gy3);
-    f(ctx,2,4,1,3,g);   f(ctx,2,4,2,8,Gy4);  // left ear long
-    f(ctx,13,4,1,3,g);  f(ctx,12,4,2,8,Gy4); // right ear long
-    f(ctx,4,2,8,1,Gy4); f(ctx,5,1,6,1,Gy4);  // shaggy top fur
-    // eyebrow fur
-    f(ctx,4,5,3,1,Gy5); f(ctx,9,5,3,1,Gy5);
-    eye(5,6); eye(9,6);
-    f(ctx,7,8,2,1,Dk);   // dark nose
-    // schnauzer beard
-    f(ctx,4,8,3,2,Gy4); f(ctx,9,8,3,2,Gy4);
-    f(ctx,5,10,6,2,Gy3);
-    if(af===1) f(ctx,6,12,4,1,P);
-
+    f(ctx,3,3,10,11,G);
+    f(ctx,3,9,10,5,Gy);
+    f(ctx,1,4,2,6,g); f(ctx,1,9,2,3,gy);
+    f(ctx,13,4,2,6,g); f(ctx,13,9,2,3,gy);
+    f(ctx,3,0,10,3,g); d(ctx,4,0,g); d(ctx,11,0,g);
+    f(ctx,3,5,4,1,g); f(ctx,9,5,4,1,g);
+    eye(4,6); eye(10,6);
+    f(ctx,5,8,6,2,'#1a1008');
+    f(ctx,1,6,4,4,W); f(ctx,11,6,4,4,W);
+    f(ctx,3,10,10,2,W);
+    f(ctx,3,12,10,2,w);
+    f(ctx,4,14,8,1,w);
+    f(ctx,6,11,4,2,P);
+    f(ctx,3,12,2,2,Gy); f(ctx,11,12,2,2,Gy);
   } else if (stage===8) {
     // Long fur everywhere, pastor catalán forming
     f(ctx,3,3,10,11,Gy4);
