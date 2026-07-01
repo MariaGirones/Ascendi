@@ -107,7 +107,11 @@ const LS_CYCLE = 'nsq_cycle';
 const LS_COUNT  = 'nsq_count';
 const LS_MODE   = 'nsq_mode';
 const LS_POINTS = 'nsq_points';
+const LS_GARDEN = 'nsq_garden';
 
+function loadGarden() {
+  try { return JSON.parse(localStorage.getItem(LS_GARDEN)) || []; } catch { return []; }
+}
 
 function loadXP() {
   const raw = parseInt(localStorage.getItem(LS_XP), 10);
@@ -209,6 +213,7 @@ function App() {
   const [lang, setLang]       = useState(loadLang);
   const [langOpen, setLangOpen] = useState(false);
   const [showGarden, setShowGarden] = useState(false);
+  const [gardenPets, setGardenPets] = useState(loadGarden);
 
   // Derived translations shorthand
   const t = T[lang];
@@ -256,6 +261,7 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_MODE,   mode);            }, [mode]);
   useEffect(() => { localStorage.setItem(LS_POINTS, points);         }, [points]);
   useEffect(() => { localStorage.setItem(LS_LANG,   lang);            }, [lang]);
+  useEffect(() => { localStorage.setItem(LS_GARDEN, JSON.stringify(gardenPets)); }, [gardenPets]);
 
   // Apply theme and persist
   useEffect(() => {
@@ -662,6 +668,10 @@ function App() {
     setShowBreakPopup(false);
   };
 
+  const handleRenameGardenPet = (index, newName) => {
+    setGardenPets(prev => prev.map((p, i) => i === index ? { ...p, name: newName } : p));
+  };
+
   // ── Derived display values ────────────────────────────────────────────────
   const completedInCycle =
     mode === 'work'      ? pomodoroCount - 1 :
@@ -1014,6 +1024,48 @@ function App() {
           </div>
         )}
       </div>
+      {showGarden && (
+        <div className="garden-overlay" onClick={() => setShowGarden(false)}>
+          <div className="garden-modal" onClick={e => e.stopPropagation()}>
+            <div className="garden-header">
+              <span className="garden-title">🌿 My garden <span className="garden-count">{gardenPets.length} / 10</span></span>
+              <button className="garden-close" onClick={() => setShowGarden(false)}>✕</button>
+            </div>
+            <div className="garden-scene">
+              <div className="garden-sky">
+                <div className="garden-sun" />
+                <div className="garden-cloud cloud-1" />
+                <div className="garden-cloud cloud-2" />
+              </div>
+              <div className="garden-ground">
+                <div className="garden-tree tree-left" />
+                <div className="garden-tree tree-right" />
+                {gardenPets.map((pet, i) => (
+                  <div
+                    key={i}
+                    className="garden-pet"
+                    style={{
+                      left: `${10 + (i % 5) * 18}%`,
+                      bottom: i < 5 ? '52%' : '28%',
+                    }}
+                  >
+                    <div className="garden-pet-sprite">{pet.emoji}</div>
+                    <input
+                      className="garden-pet-name"
+                      value={pet.name}
+                      onChange={e => handleRenameGardenPet(i, e.target.value)}
+                      maxLength={12}
+                    />
+                  </div>
+                ))}
+                {gardenPets.length === 0 && (
+                  <div className="garden-empty">Your garden is empty — send a stage 8+ pet here!</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
