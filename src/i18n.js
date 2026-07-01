@@ -1,4 +1,4 @@
-export const LANGUAGES = ['EN','ES','DE','FR','PT','ZH','NO'];
+export const LANGUAGES = ['EN','ES','DE','FR','PT','ZH','NO','IT','JA'];
 
 export const LS_LANG = 'nsq_lang';
 
@@ -195,5 +195,33 @@ export const T = {
     cannotUndo: 'Dette kan ikke angres.', yesSwitchReset: 'Ja, bytt og nullstill', goBack: 'Gå tilbake',
     consistencyWarning: 'Konsistens er viktig — å bytte venn nullstiller XP til 0.',
     letsGo: 'LA OSS GÅ!', confirm: 'BEKREFT', cancel: 'AVBRYT',
+  },
+  IT: {
+    stage: 'Livello', welcome: 'Benvenuto su Ascendi!', workSessions: 'Lavora in sessioni concentrate per guadagnare XP', petGrows: 'Il tuo compagno cresce salendo di livello', shortBreakAfter: 'Pause brevi dopo ogni sessione', longBreakAfter: 'Pausa lunga ogni', sessions: 'sessioni', pickCompanion: 'Scegli il tuo compagno!', chooseCompanion: 'Scegli il tuo compagno', changeCompanionTitle: '🐾 Cambia compagno', itGrows: 'Cresce man mano che guadagni XP nelle sessioni di concentrazione.', resetXp: '⚠ Azzera XP?', switchingResets: 'Cambiare compagno azzererà il tuo XP a 0.', cannotUndo: 'Questa azione non può essere annullata.', yesSwitchReset: 'Sì, cambia e azzera', goBack: 'Indietro',
+    work: 'Lavoro', shortBreak: 'Pausa breve', longBreak: 'Pausa lunga', sessionsCycle: 'Sessioni / ciclo',
+    start: 'Inizia', pause: 'Pausa', resetSession: 'Reimposta sessione', resetCycle: 'Reimposta ciclo',
+    undo: 'Annulla', extraTime: '+ Tempo extra', returnCycle: 'Torna al ciclo', resume: 'Riprendi',
+    additionalTime: 'Tempo aggiuntivo', mainCyclePaused: 'Ciclo principale in pausa',
+    pausedAt: 'In pausa a', session: 'Sessione', min: 'min',
+    changeCompanion: 'Cambia compagno', toggleTheme: 'Modalità chiara/scura',
+    startBreak: 'INIZIA PAUSA',
+    stretchLegs: 'Fai una passeggiata', deepBreaths: 'Respira profondamente',
+    readPages: 'Leggi qualche pagina', healthySnack: 'Mangia uno spuntino sano', listenSong: 'Ascolta una canzone',
+    shortBreakTime: 'Pausa breve!', longBreakTime: 'Pausa lunga!', youEarned: 'Ti sei guadagnato una pausa',
+    consistencyWarning: 'La costanza conta — cambiare compagno azzera il tuo XP a 0.', letsGo: 'ANDIAMO!', confirm: 'CONFERMA', cancel: 'ANNULLA',
+  },
+  JA: {
+    stage: 'ステージ', welcome: 'Ascendiへようこそ！', workSessions: '集中セッションでXPを獲得しよう', petGrows: 'レベルアップするとペットが成長します', shortBreakAfter: '各セッション後に短い休憩', longBreakAfter: 'ごとに長い休憩', sessions: 'セッション', pickCompanion: 'コンパニオンを選ぼう！', chooseCompanion: 'コンパニオンを選ぶ', changeCompanionTitle: '🐾 コンパニオンを変更', itGrows: '集中セッションでXPを獲得するにつれて成長します。', resetXp: '⚠ XPをリセット？', switchingResets: 'コンパニオンを変更するとXPが0にリセットされます。', cannotUndo: 'この操作は元に戻せません。', yesSwitchReset: 'はい、変更してリセット', goBack: '戻る',
+    work: '作業', shortBreak: '短い休憩', longBreak: '長い休憩', sessionsCycle: 'セッション / サイクル',
+    start: '開始', pause: '一時停止', resetSession: 'セッションをリセット', resetCycle: 'サイクルをリセット',
+    undo: '元に戻す', extraTime: '+ 追加時間', returnCycle: 'サイクルに戻る', resume: '再開',
+    additionalTime: '追加時間', mainCyclePaused: 'メインサイクル一時停止中',
+    pausedAt: '一時停止', session: 'セッション', min: '分',
+    changeCompanion: 'コンパニオンを変更', toggleTheme: 'ライト/ダークモード切替',
+    startBreak: '休憩を開始',
+    stretchLegs: '足を伸ばす', deepBreaths: '深呼吸をする',
+    readPages: '数ページ読む', healthySnack: '健康的なおやつを食べる', listenSong: '音楽を聴く',
+    shortBreakTime: '短い休憩！', longBreakTime: '長い休憩！', youEarned: '休憩を獲得しました',
+    consistencyWarning: '継続が大切です — コンパニオンを変えるとXPが0にリセットされます。', letsGo: 'レッツゴー！', confirm: '確認', cancel: 'キャンセル',
   },
 };
