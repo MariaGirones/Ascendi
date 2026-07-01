@@ -1303,7 +1303,7 @@ h1 {
 }
 
 .garden-modal {
-  width: min(520px, 95vw);
+  width: min(600px, 95vw);
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid #4caf7d;
@@ -1342,7 +1342,7 @@ h1 {
 
 .garden-scene {
   position: relative;
-  height: 320px;
+  height: 380px;
   overflow: hidden;
 }
 
@@ -1453,5 +1453,7 @@ h1 {
   padding: 8px 14px;
   border-radius: 6px;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  width: max-content;
+  max-width: 80%;
 }
