@@ -208,6 +208,7 @@ function App() {
   // Language state
   const [lang, setLang]       = useState(loadLang);
   const [langOpen, setLangOpen] = useState(false);
+  const [showGarden, setShowGarden] = useState(false);
 
   // Derived translations shorthand
   const t = T[lang];
@@ -788,7 +789,17 @@ function App() {
       {/* ── Main app ── */}
       <div className={`App mode-${mode}${alerting ? ' alerting' : ''}`}>
         <div className="top-bar">
-          <h1>Ascendi</h1>
+          <div className="top-bar-left">
+            <button
+              className="garden-circle-btn"
+              onClick={() => setShowGarden(g => !g)}
+              aria-label="My garden"
+              title="My garden"
+            >
+              🌿
+            </button>
+            <h1>Ascendi</h1>
+          </div>
           <div className="top-bar-actions">
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
               <span className="points-icon">✦</span>
