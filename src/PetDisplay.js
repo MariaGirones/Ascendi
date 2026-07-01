@@ -1,7 +1,7 @@
 import { getPetById, getStageIndex, MAX_XP } from './pets';
 import PixelPet from './PixelPet';
 
-export default function PetDisplay({ petId, xp, gainCount, isRunning, mode, isAdditionalTime, label = 'Stage' }) {
+export default function PetDisplay({ petId, xp, gainCount, isRunning, mode, isAdditionalTime, label = 'Stage', onJoinGarden }) {
   const pet           = getPetById(petId);
   const thresholds    = pet.stageThresholds;
   const maxStageIndex = thresholds.length - 1;
@@ -76,6 +76,11 @@ export default function PetDisplay({ petId, xp, gainCount, isRunning, mode, isAd
           )}
         </div>
       </div>
+      {stageIndex >= 7 && onJoinGarden && (
+        <button className="join-garden-btn" onClick={onJoinGarden}>
+          🌿 Join the garden
+        </button>
+      )}
     </div>
   );
 }

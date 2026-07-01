@@ -825,7 +825,7 @@ function App() {
 
         {/* Pet + XP */}
         <div className="pet-display-row">
-          <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} />
+          <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} onJoinGarden={() => { if (gardenPets.length >= 10) return; setGardenPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, emoji: '🐾' }]); }} />
           <button
             className="garden-circle-btn"
             onClick={() => setShowGarden(g => !g)}
