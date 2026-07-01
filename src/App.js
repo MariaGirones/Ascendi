@@ -789,17 +789,7 @@ function App() {
       {/* ── Main app ── */}
       <div className={`App mode-${mode}${alerting ? ' alerting' : ''}`}>
         <div className="top-bar">
-          <div className="top-bar-left">
-            <button
-              className="garden-circle-btn"
-              onClick={() => setShowGarden(g => !g)}
-              aria-label="My garden"
-              title="My garden"
-            >
-              🌿
-            </button>
-            <h1>Ascendi</h1>
-          </div>
+          <h1>Ascendi</h1>
           <div className="top-bar-actions">
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
               <span className="points-icon">✦</span>
@@ -824,7 +814,17 @@ function App() {
         </div>
 
         {/* Pet + XP */}
-        <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} />
+        <div className="pet-display-row">
+          <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} />
+          <button
+            className="garden-circle-btn"
+            onClick={() => setShowGarden(g => !g)}
+            aria-label="My garden"
+            title="My garden"
+          >
+            🌿
+          </button>
+        </div>
 
         <hr className="divider" />
 

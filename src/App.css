@@ -158,12 +158,11 @@ h1 {
     drop-shadow(0 0 8px rgba(140, 53, 72, 0.28));
 }
 
-/* ── Top bar left group ───────────────────────────────────────────────────── */
-
-.top-bar-left {
+.pet-display-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 12px;
 }
 
 .garden-circle-btn {
