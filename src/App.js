@@ -2,7 +2,8 @@ import './App.css';
 import { useState, useEffect, useRef } from 'react';
 import PetDisplay from './PetDisplay';
 import PetPicker from './PetPicker';
-import { MAX_XP } from './pets';
+import { MAX_XP, getStageIndex } from './pets';
+import { drawPet } from './petSprites';
 import { LANGUAGES, LS_LANG, loadLang, T } from './i18n';
 
 // ── Audio: end-of-session WAV ─────────────────────────────────────────────────
@@ -161,6 +162,26 @@ function loadPomodoroCount() {
   const cycleLen = loadCycleLength();
   const raw = parseInt(localStorage.getItem(LS_COUNT), 10);
   return isNaN(raw) ? 1 : clamp(raw, 1, cycleLen);
+}
+
+function GardenPetCanvas({ petId, stageIndex }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPet(ctx, petId, stageIndex, 0, false, 'transparent');
+  }, [petId, stageIndex]);
+  return (
+    <canvas
+      ref={ref}
+      width={128}
+      height={128}
+      style={{ width: '40px', height: '40px', imageRendering: 'pixelated' }}
+    />
+  );
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -825,7 +846,14 @@ function App() {
 
         {/* Pet + XP */}
         <div className="pet-display-row">
-          <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} onJoinGarden={() => { if (gardenPets.length >= 10) return; setGardenPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, emoji: '🐾' }]); }} />
+          <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} onJoinGarden={() => {
+            if (gardenPets.length >= 10) return;
+            setGardenPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, stageIndex: getStageIndex(xp, chosenPetId) }]);
+            setXP(0);
+            xpRef.current = 0;
+            isFirstVisitRef.current = true;
+            setShowPicker(true);
+          }} />
           <button
             className="garden-circle-btn"
             onClick={() => setShowGarden(g => !g)}
@@ -1049,7 +1077,9 @@ function App() {
                       bottom: i < 5 ? '52%' : '28%',
                     }}
                   >
-                    <div className="garden-pet-sprite">{pet.emoji}</div>
+                    <div className="garden-pet-sprite">
+                      <GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex} />
+                    </div>
                     <input
                       className="garden-pet-name"
                       value={pet.name}

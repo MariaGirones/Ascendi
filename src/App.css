@@ -1438,9 +1438,12 @@ h1 {
 }
 
 .garden-pet-sprite {
-  font-size: 24px;
+  width: 40px;
+  height: 40px;
   image-rendering: pixelated;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .garden-pet-name {
