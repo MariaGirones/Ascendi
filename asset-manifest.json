@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Ascendi/static/css/main.2f74b0b4.css",
-    "main.js": "/Ascendi/static/js/main.412daaf1.js",
+    "main.css": "/Ascendi/static/css/main.3addfec2.css",
+    "main.js": "/Ascendi/static/js/main.88cc2ee4.js",
     "static/js/453.f1446a7f.chunk.js": "/Ascendi/static/js/453.f1446a7f.chunk.js",
     "index.html": "/Ascendi/index.html",
-    "main.2f74b0b4.css.map": "/Ascendi/static/css/main.2f74b0b4.css.map",
-    "main.412daaf1.js.map": "/Ascendi/static/js/main.412daaf1.js.map",
+    "main.3addfec2.css.map": "/Ascendi/static/css/main.3addfec2.css.map",
+    "main.88cc2ee4.js.map": "/Ascendi/static/js/main.88cc2ee4.js.map",
     "453.f1446a7f.chunk.js.map": "/Ascendi/static/js/453.f1446a7f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2f74b0b4.css",
-    "static/js/main.412daaf1.js"
+    "static/css/main.3addfec2.css",
+    "static/js/main.88cc2ee4.js"
   ]
 }
