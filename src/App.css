@@ -192,6 +192,28 @@ h1 {
   gap: 0.35rem;
 }
 
+.help-btn {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.1s;
+  min-height: 36px;
+  min-width: 36px;
+}
+.help-btn:hover {
+  background: var(--bg-panel);
+  color: var(--text);
+}
+.help-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--shadow);
+}
+
 /* ── Points chip ──────────────────────────────────────────────────────────── */
 
 .points-chip {

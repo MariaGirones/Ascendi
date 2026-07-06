@@ -728,8 +728,8 @@ function App() {
               <li>{`☕ ${t.shortBreakAfter}`}</li>
               <li>{`🛋️ ${t.longBreakAfter} ${cycleLength} ${t.sessions}`}</li>
             </ul>
-            <button className="got-it-btn" onClick={handleWelcomeContinue}>
-              {t.pickCompanion}
+            <button className="got-it-btn" onClick={isFirstVisitRef.current ? handleWelcomeContinue : () => setShowWelcome(false)}>
+              {isFirstVisitRef.current ? t.pickCompanion : 'OK'}
             </button>
           </div>
         </div>
@@ -822,6 +822,14 @@ function App() {
         <div className="top-bar">
           <h1>Ascendi</h1>
           <div className="top-bar-actions">
+            <button
+              className="help-btn"
+              onClick={() => setShowWelcome(true)}
+              aria-label="How to use Ascendi"
+              title="How to use Ascendi"
+            >
+              ?
+            </button>
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
               <span className="points-icon">✦</span>
               <span className="points-value">{points}</span>
