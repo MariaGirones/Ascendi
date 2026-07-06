@@ -860,7 +860,19 @@ function App() {
             aria-label="My garden"
             title="My garden"
           >
-            🌿
+            <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="0" width="1" height="1" fill="#4caf7d"/>
+              <rect x="3" y="1" width="3" height="1" fill="#4caf7d"/>
+              <rect x="2" y="2" width="5" height="1" fill="#4caf7d"/>
+              <rect x="3" y="3" width="3" height="1" fill="#3a8f5a"/>
+              <rect x="1" y="3" width="7" height="1" fill="#4caf7d"/>
+              <rect x="2" y="4" width="5" height="1" fill="#3a8f5a"/>
+              <rect x="0" y="4" width="9" height="1" fill="#4caf7d"/>
+              <rect x="4" y="5" width="1" height="1" fill="#8B5E3C"/>
+              <rect x="4" y="6" width="1" height="1" fill="#8B5E3C"/>
+              <rect x="3" y="7" width="3" height="1" fill="#5abf5a"/>
+              <rect x="1" y="8" width="7" height="1" fill="#5abf5a"/>
+            </svg>
           </button>
         </div>
 
