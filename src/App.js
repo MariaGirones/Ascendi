@@ -109,9 +109,20 @@ const LS_COUNT  = 'nsq_count';
 const LS_MODE   = 'nsq_mode';
 const LS_POINTS = 'nsq_points';
 const LS_GARDEN = 'nsq_garden';
+const LS_NIGHT_GARDEN = 'nsq_garden_night';
+const LS_WINTER_GARDEN = 'nsq_garden_winter';
+const LS_GARDEN_NIGHT_PETS = 'nsq_garden_night_pets';
+const LS_GARDEN_WINTER_PETS = 'nsq_garden_winter_pets';
 
 function loadGarden() {
   try { return JSON.parse(localStorage.getItem(LS_GARDEN)) || []; } catch { return []; }
+}
+
+function loadNightGardenPets() {
+  try { return JSON.parse(localStorage.getItem(LS_GARDEN_NIGHT_PETS)) || []; } catch { return []; }
+}
+function loadWinterGardenPets() {
+  try { return JSON.parse(localStorage.getItem(LS_GARDEN_WINTER_PETS)) || []; } catch { return []; }
 }
 
 function loadXP() {
@@ -235,6 +246,12 @@ function App() {
   const [langOpen, setLangOpen] = useState(false);
   const [showGarden, setShowGarden] = useState(false);
   const [gardenPets, setGardenPets] = useState(loadGarden);
+  const [showNightGarden, setShowNightGarden] = useState(false);
+  const [showWinterGarden, setShowWinterGarden] = useState(false);
+  const [nightGardenPets, setNightGardenPets] = useState(loadNightGardenPets);
+  const [winterGardenPets, setWinterGardenPets] = useState(loadWinterGardenPets);
+  const [ownsNightGarden] = useState(true);
+  const [ownsWinterGarden] = useState(true);
   const [showStore, setShowStore] = useState(false);
 
   // Derived translations shorthand
@@ -284,6 +301,10 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_POINTS, points);         }, [points]);
   useEffect(() => { localStorage.setItem(LS_LANG,   lang);            }, [lang]);
   useEffect(() => { localStorage.setItem(LS_GARDEN, JSON.stringify(gardenPets)); }, [gardenPets]);
+  useEffect(() => { localStorage.setItem(LS_GARDEN_NIGHT_PETS, JSON.stringify(nightGardenPets)); }, [nightGardenPets]);
+  useEffect(() => { localStorage.setItem(LS_GARDEN_WINTER_PETS, JSON.stringify(winterGardenPets)); }, [winterGardenPets]);
+  useEffect(() => { localStorage.setItem(LS_NIGHT_GARDEN, JSON.stringify(ownsNightGarden)); }, [ownsNightGarden]);
+  useEffect(() => { localStorage.setItem(LS_WINTER_GARDEN, JSON.stringify(ownsWinterGarden)); }, [ownsWinterGarden]);
 
   // Apply theme and persist
   useEffect(() => {
@@ -694,6 +715,13 @@ function App() {
     setGardenPets(prev => prev.map((p, i) => i === index ? { ...p, name: newName } : p));
   };
 
+  const handleRenameNightPet = (index, newName) => {
+    setNightGardenPets(prev => prev.map((p, i) => i === index ? { ...p, name: newName } : p));
+  };
+  const handleRenameWinterPet = (index, newName) => {
+    setWinterGardenPets(prev => prev.map((p, i) => i === index ? { ...p, name: newName } : p));
+  };
+
   // ── Derived display values ────────────────────────────────────────────────
   const completedInCycle =
     mode === 'work'      ? pomodoroCount - 1 :
@@ -883,6 +911,47 @@ function App() {
               <rect x="1" y="8" width="7" height="1" fill="#5abf5a"/>
             </svg>
           </button>
+          {ownsNightGarden && (
+            <button
+              className="night-garden-circle-btn"
+              onClick={() => setShowNightGarden(g => !g)}
+              aria-label="Night garden"
+              title="Night garden"
+            >
+              <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="0" width="2" height="1" fill="#a080d0"/>
+                <rect x="2" y="1" width="2" height="1" fill="#a080d0"/>
+                <rect x="3" y="1" width="3" height="2" fill="#c0a0f0"/>
+                <rect x="2" y="3" width="5" height="1" fill="#a080d0"/>
+                <rect x="1" y="4" width="4" height="2" fill="#a080d0"/>
+                <rect x="5" y="2" width="2" height="3" fill="#c0a0f0"/>
+                <rect x="2" y="6" width="3" height="1" fill="#8060b0"/>
+                <rect x="3" y="7" width="2" height="1" fill="#6040a0"/>
+                <rect x="0" y="5" width="2" height="2" fill="#ffe8a0"/>
+                <rect x="1" y="4" width="1" height="1" fill="#ffe8a0"/>
+              </svg>
+            </button>
+          )}
+          {ownsWinterGarden && (
+            <button
+              className="winter-garden-circle-btn"
+              onClick={() => setShowWinterGarden(g => !g)}
+              aria-label="Winter garden"
+              title="Winter garden"
+            >
+              <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="0" width="1" height="9" fill="#a0c8e8"/>
+                <rect x="0" y="4" width="9" height="1" fill="#a0c8e8"/>
+                <rect x="1" y="1" width="1" height="1" fill="#a0c8e8"/>
+                <rect x="7" y="1" width="1" height="1" fill="#a0c8e8"/>
+                <rect x="1" y="7" width="1" height="1" fill="#a0c8e8"/>
+                <rect x="7" y="7" width="1" height="1" fill="#a0c8e8"/>
+                <rect x="3" y="3" width="3" height="3" fill="#d8f0ff"/>
+                <rect x="4" y="2" width="1" height="5" fill="#fff"/>
+                <rect x="2" y="4" width="5" height="1" fill="#fff"/>
+              </svg>
+            </button>
+          )}
           <button
             className="store-circle-btn"
             onClick={() => setShowStore(s => !s)}
@@ -1127,6 +1196,85 @@ function App() {
                 ))}
                 {gardenPets.length === 0 && (
                   <div className="garden-empty">Your garden is empty — send a stage 8+ pet here!</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showNightGarden && (
+        <div className="garden-overlay" onClick={() => setShowNightGarden(false)}>
+          <div className="night-garden-modal" onClick={e => e.stopPropagation()}>
+            <div className="garden-header night-garden-header">
+              <span className="garden-title" style={{color:'#a080d0'}}>🌙 Night Garden <span className="garden-count">{nightGardenPets.length} / 10</span></span>
+              <button className="garden-close" onClick={() => setShowNightGarden(false)}>✕</button>
+            </div>
+            <div className="night-garden-scene">
+              <div className="night-stars">
+                <div className="night-star" style={{top:'8px',left:'20px',width:'3px',height:'3px'}}/>
+                <div className="night-star" style={{top:'18px',left:'60px',width:'2px',height:'2px'}}/>
+                <div className="night-star" style={{top:'6px',left:'110px',width:'3px',height:'3px'}}/>
+                <div className="night-star" style={{top:'22px',left:'160px',width:'2px',height:'2px'}}/>
+                <div className="night-star" style={{top:'10px',left:'200px',width:'3px',height:'3px'}}/>
+                <div className="night-star" style={{top:'5px',left:'250px',width:'2px',height:'2px'}}/>
+                <div className="night-star" style={{top:'16px',left:'300px',width:'3px',height:'3px'}}/>
+                <div className="night-star" style={{top:'8px',left:'350px',width:'2px',height:'2px'}}/>
+                <div className="night-moon"/>
+              </div>
+              <div className="night-firefly" style={{top:'100px',left:'40px'}}/>
+              <div className="night-firefly" style={{top:'130px',left:'150px'}}/>
+              <div className="night-firefly" style={{top:'95px',left:'280px'}}/>
+              <div className="night-firefly" style={{top:'140px',left:'380px'}}/>
+              <div className="night-ground">
+                <div className="night-tree tree-left"/>
+                <div className="night-tree tree-right"/>
+                <div className="night-mushroom" style={{left:'50px'}}>🍄</div>
+                <div className="night-mushroom" style={{right:'50px'}}>🍄</div>
+                {nightGardenPets.map((pet, i) => (
+                  <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
+                    <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
+                    <input className="garden-pet-name night-pet-name" value={pet.name} onChange={e => handleRenameNightPet(i, e.target.value)} maxLength={12}/>
+                  </div>
+                ))}
+                {nightGardenPets.length === 0 && (
+                  <div className="garden-empty" style={{color:'#a080d0',background:'rgba(10,8,24,0.85)'}}>Your night garden is empty!</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showWinterGarden && (
+        <div className="garden-overlay" onClick={() => setShowWinterGarden(false)}>
+          <div className="winter-garden-modal" onClick={e => e.stopPropagation()}>
+            <div className="garden-header winter-garden-header">
+              <span className="garden-title" style={{color:'#80b0e0'}}>❄️ Winter Garden <span className="garden-count">{winterGardenPets.length} / 10</span></span>
+              <button className="garden-close" onClick={() => setShowWinterGarden(false)}>✕</button>
+            </div>
+            <div className="winter-garden-scene">
+              <div className="winter-sky"/>
+              <div className="winter-snowflake" style={{top:'8px',left:'15px'}}>❄</div>
+              <div className="winter-snowflake" style={{top:'25px',left:'60px',fontSize:'8px'}}>❄</div>
+              <div className="winter-snowflake" style={{top:'8px',left:'110px'}}>❄</div>
+              <div className="winter-snowflake" style={{top:'30px',left:'170px',fontSize:'8px'}}>❄</div>
+              <div className="winter-snowflake" style={{top:'12px',left:'220px'}}>❄</div>
+              <div className="winter-snowflake" style={{top:'20px',left:'280px',fontSize:'8px'}}>❄</div>
+              <div className="winter-snowflake" style={{top:'5px',left:'330px'}}>❄</div>
+              <div className="winter-snowflake" style={{top:'28px',left:'390px',fontSize:'8px'}}>❄</div>
+              <div className="winter-ground">
+                <div className="winter-tree tree-left"/>
+                <div className="winter-tree tree-right"/>
+                <div className="winter-snowman">⛄</div>
+                {winterGardenPets.map((pet, i) => (
+                  <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'56%':'32%'}}>
+                    <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
+                    <input className="garden-pet-name winter-pet-name" value={pet.name} onChange={e => handleRenameWinterPet(i, e.target.value)} maxLength={12}/>
+                  </div>
+                ))}
+                {winterGardenPets.length === 0 && (
+                  <div className="garden-empty" style={{color:'#2a5080',background:'rgba(232,244,255,0.9)'}}>Your winter garden is empty!</div>
                 )}
               </div>
             </div>

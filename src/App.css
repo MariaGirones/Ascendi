@@ -1712,3 +1712,125 @@ h1 {
   color: #5a3a1a;
   letter-spacing: 0.04em;
 }
+
+/* ── Night Garden / Winter Garden ─────────────────────────────────────────── */
+
+.night-garden-circle-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1.5px solid #8060b0;
+  background: rgba(128,96,176,0.15);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  padding: 0; flex-shrink: 0; transition: background 0.15s;
+}
+.night-garden-circle-btn:hover { background: rgba(128,96,176,0.3); }
+
+.winter-garden-circle-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1.5px solid #4080c0;
+  background: rgba(64,128,192,0.15);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  padding: 0; flex-shrink: 0; transition: background 0.15s;
+}
+.winter-garden-circle-btn:hover { background: rgba(64,128,192,0.3); }
+
+.night-garden-modal {
+  width: min(600px, 95vw); border-radius: 14px; overflow: hidden;
+  border: 1px solid #6040a0; box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+.night-garden-header { border-bottom: 1px solid #6040a044; }
+
+.night-garden-scene {
+  position: relative; height: 380px; overflow: hidden;
+  background: linear-gradient(180deg, #05030f 0%, #0d0828 60%, #1a1040 100%);
+}
+
+.night-stars { position: absolute; inset: 0; }
+.night-star { position: absolute; background: #fff; box-shadow: 0 0 3px #fff; }
+.night-moon {
+  position: absolute; top: 12px; right: 20px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #ffe8a0; box-shadow: 0 0 12px #ffe8a066;
+}
+.night-firefly {
+  position: absolute; width: 4px; height: 4px; border-radius: 50%;
+  background: #a0ff80; box-shadow: 0 0 6px #a0ff80;
+  animation: fireflyPulse 2s ease-in-out infinite;
+}
+@keyframes fireflyPulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.3; transform:scale(0.6); }
+}
+.night-ground {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 65%;
+  background: #0d2010; border-top: 3px solid #1a3018;
+}
+.night-tree { position: absolute; bottom: 100%; width: 0; height: 0; }
+.night-tree.tree-left { left: 12px; }
+.night-tree.tree-right { right: 12px; }
+.night-tree::before {
+  content: ''; position: absolute; bottom: -8px; left: -14px;
+  width: 28px; height: 40px; background: #0a1808;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.night-tree::after {
+  content: ''; position: absolute; bottom: -24px; left: -10px;
+  width: 20px; height: 28px; background: #0d2010;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.night-mushroom { position: absolute; bottom: 100%; font-size: 14px; }
+.night-pet-name {
+  font-size: 9px; font-weight: 500; color: #d0b0ff;
+  background: rgba(10,8,24,0.85); border: none;
+  border-bottom: 1px solid #8060b0; border-radius: 2px;
+  text-align: center; width: 52px; padding: 1px 3px; outline: none;
+}
+
+.winter-garden-modal {
+  width: min(600px, 95vw); border-radius: 14px; overflow: hidden;
+  border: 1px solid #4080c0; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.winter-garden-header { border-bottom: 1px solid #408060044; }
+
+.winter-garden-scene {
+  position: relative; height: 380px; overflow: hidden;
+}
+.winter-sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, #b8d8f0 0%, #d8ecf8 100%);
+}
+.winter-snowflake {
+  position: absolute; font-size: 10px; color: #fff;
+  opacity: 0.9; pointer-events: none;
+  animation: snowFall 6s linear infinite;
+}
+@keyframes snowFall {
+  0% { transform: translateY(-10px); opacity: 0.9; }
+  100% { transform: translateY(400px); opacity: 0.2; }
+}
+.winter-ground {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 58%;
+  background: #e8f4ff; border-top: 5px solid #fff;
+}
+.winter-tree { position: absolute; bottom: 100%; width: 0; height: 0; }
+.winter-tree.tree-left { left: 12px; }
+.winter-tree.tree-right { right: 12px; }
+.winter-tree::before {
+  content: ''; position: absolute; bottom: -8px; left: -14px;
+  width: 28px; height: 40px; background: #2a5a2a;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.winter-tree::after {
+  content: ''; position: absolute; bottom: -8px; left: -10px;
+  width: 20px; height: 12px; background: rgba(255,255,255,0.85);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.winter-snowman {
+  position: absolute; bottom: 100%; right: 22%;
+  font-size: 22px;
+}
+.winter-pet-name {
+  font-size: 9px; font-weight: 500; color: #2a5080;
+  background: rgba(232,244,255,0.92); border: none;
+  border-bottom: 1px solid #4080c0; border-radius: 2px;
+  text-align: center; width: 52px; padding: 1px 3px; outline: none;
+}
