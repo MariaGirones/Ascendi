@@ -1834,3 +1834,33 @@ h1 {
   border-bottom: 1px solid #4080c0; border-radius: 2px;
   text-align: center; width: 52px; padding: 1px 3px; outline: none;
 }
+
+.garden-pet-delete {
+  font-size: 8px;
+  background: rgba(180,40,40,0.7);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.garden-pet:hover .garden-pet-delete {
+  opacity: 1;
+}
+
+.store-owned-tag {
+  font-size: 9px;
+  color: #4caf7d;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border: 1px solid #4caf7d44;
+  border-radius: 4px;
+}

@@ -250,8 +250,8 @@ function App() {
   const [showWinterGarden, setShowWinterGarden] = useState(false);
   const [nightGardenPets, setNightGardenPets] = useState(loadNightGardenPets);
   const [winterGardenPets, setWinterGardenPets] = useState(loadWinterGardenPets);
-  const [ownsNightGarden] = useState(true);
-  const [ownsWinterGarden] = useState(true);
+  const [ownsNightGarden, setOwnsNightGarden] = useState(() => localStorage.getItem(LS_NIGHT_GARDEN) === 'true');
+  const [ownsWinterGarden, setOwnsWinterGarden] = useState(() => localStorage.getItem(LS_WINTER_GARDEN) === 'true');
   const [showStore, setShowStore] = useState(false);
 
   // Derived translations shorthand
@@ -303,8 +303,8 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_GARDEN, JSON.stringify(gardenPets)); }, [gardenPets]);
   useEffect(() => { localStorage.setItem(LS_GARDEN_NIGHT_PETS, JSON.stringify(nightGardenPets)); }, [nightGardenPets]);
   useEffect(() => { localStorage.setItem(LS_GARDEN_WINTER_PETS, JSON.stringify(winterGardenPets)); }, [winterGardenPets]);
-  useEffect(() => { localStorage.setItem(LS_NIGHT_GARDEN, JSON.stringify(ownsNightGarden)); }, [ownsNightGarden]);
-  useEffect(() => { localStorage.setItem(LS_WINTER_GARDEN, JSON.stringify(ownsWinterGarden)); }, [ownsWinterGarden]);
+  useEffect(() => { localStorage.setItem(LS_NIGHT_GARDEN, ownsNightGarden ? 'true' : 'false'); }, [ownsNightGarden]);
+  useEffect(() => { localStorage.setItem(LS_WINTER_GARDEN, ownsWinterGarden ? 'true' : 'false'); }, [ownsWinterGarden]);
 
   // Apply theme and persist
   useEffect(() => {
@@ -720,6 +720,16 @@ function App() {
   };
   const handleRenameWinterPet = (index, newName) => {
     setWinterGardenPets(prev => prev.map((p, i) => i === index ? { ...p, name: newName } : p));
+  };
+
+  const handleDeleteGardenPet = (index) => {
+    setGardenPets(prev => prev.filter((_, i) => i !== index));
+  };
+  const handleDeleteNightPet = (index) => {
+    setNightGardenPets(prev => prev.filter((_, i) => i !== index));
+  };
+  const handleDeleteWinterPet = (index) => {
+    setWinterGardenPets(prev => prev.filter((_, i) => i !== index));
   };
 
   // ── Derived display values ────────────────────────────────────────────────
@@ -1192,6 +1202,7 @@ function App() {
                       onChange={e => handleRenameGardenPet(i, e.target.value)}
                       maxLength={12}
                     />
+                    <button className="garden-pet-delete" onClick={() => handleDeleteGardenPet(i)} title="Remove from garden">✕</button>
                   </div>
                 ))}
                 {gardenPets.length === 0 && (
@@ -1235,6 +1246,7 @@ function App() {
                   <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
                     <input className="garden-pet-name night-pet-name" value={pet.name} onChange={e => handleRenameNightPet(i, e.target.value)} maxLength={12}/>
+                    <button className="garden-pet-delete" onClick={() => handleDeleteNightPet(i)} title="Remove from garden">✕</button>
                   </div>
                 ))}
                 {nightGardenPets.length === 0 && (
@@ -1271,6 +1283,7 @@ function App() {
                   <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'56%':'32%'}}>
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
                     <input className="garden-pet-name winter-pet-name" value={pet.name} onChange={e => handleRenameWinterPet(i, e.target.value)} maxLength={12}/>
+                    <button className="garden-pet-delete" onClick={() => handleDeleteWinterPet(i)} title="Remove from garden">✕</button>
                   </div>
                 ))}
                 {winterGardenPets.length === 0 && (
@@ -1304,8 +1317,11 @@ function App() {
                       <span className="store-preview-icon">🌙</span>
                       <span className="store-preview-star">⭐</span>
                     </div>
-                    <div className="store-item-price">💰 $0.99</div>
-                    <button className="store-buy-btn store-buy-btn--night">Buy</button>
+                    {ownsNightGarden ? (
+                      <div className="store-owned-tag">✓ Owned</div>
+                    ) : (
+                      <button className="store-buy-btn store-buy-btn--night" onClick={() => { setOwnsNightGarden(true); }}>Get</button>
+                    )}
                   </div>
 
                   <div className="store-item">
@@ -1314,8 +1330,11 @@ function App() {
                       <span className="store-preview-icon">❄️</span>
                       <span className="store-preview-tree">🌲</span>
                     </div>
-                    <div className="store-item-price">💰 $0.99</div>
-                    <button className="store-buy-btn store-buy-btn--winter">Buy</button>
+                    {ownsWinterGarden ? (
+                      <div className="store-owned-tag">✓ Owned</div>
+                    ) : (
+                      <button className="store-buy-btn store-buy-btn--winter" onClick={() => { setOwnsWinterGarden(true); }}>Get</button>
+                    )}
                   </div>
 
                 </div>
