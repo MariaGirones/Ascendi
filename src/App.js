@@ -732,6 +732,17 @@ function App() {
     setWinterGardenPets(prev => prev.filter((_, i) => i !== index));
   };
 
+  const handleDeleteNightGarden = () => {
+    setOwnsNightGarden(false);
+    setNightGardenPets([]);
+    setShowNightGarden(false);
+  };
+  const handleDeleteWinterGarden = () => {
+    setOwnsWinterGarden(false);
+    setWinterGardenPets([]);
+    setShowWinterGarden(false);
+  };
+
   // ── Derived display values ────────────────────────────────────────────────
   const completedInCycle =
     mode === 'work'      ? pomodoroCount - 1 :
@@ -901,83 +912,65 @@ function App() {
             isFirstVisitRef.current = true;
             setShowPicker(true);
           }} />
-          <button
-            className="garden-circle-btn"
-            onClick={() => setShowGarden(g => !g)}
-            aria-label="My garden"
-            title="My garden"
-          >
-            <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="4" y="0" width="1" height="1" fill="#4caf7d"/>
-              <rect x="3" y="1" width="3" height="1" fill="#4caf7d"/>
-              <rect x="2" y="2" width="5" height="1" fill="#4caf7d"/>
-              <rect x="3" y="3" width="3" height="1" fill="#3a8f5a"/>
-              <rect x="1" y="3" width="7" height="1" fill="#4caf7d"/>
-              <rect x="2" y="4" width="5" height="1" fill="#3a8f5a"/>
-              <rect x="0" y="4" width="9" height="1" fill="#4caf7d"/>
-              <rect x="4" y="5" width="1" height="1" fill="#8B5E3C"/>
-              <rect x="4" y="6" width="1" height="1" fill="#8B5E3C"/>
-              <rect x="3" y="7" width="3" height="1" fill="#5abf5a"/>
-              <rect x="1" y="8" width="7" height="1" fill="#5abf5a"/>
-            </svg>
-          </button>
-          {ownsNightGarden && (
-            <button
-              className="night-garden-circle-btn"
-              onClick={() => setShowNightGarden(g => !g)}
-              aria-label="Night garden"
-              title="Night garden"
-            >
+          <div className="garden-buttons-col">
+            <button className="garden-circle-btn" onClick={() => setShowGarden(g => !g)} aria-label="My garden" title="My garden">
               <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="4" y="0" width="2" height="1" fill="#a080d0"/>
-                <rect x="2" y="1" width="2" height="1" fill="#a080d0"/>
-                <rect x="3" y="1" width="3" height="2" fill="#c0a0f0"/>
-                <rect x="2" y="3" width="5" height="1" fill="#a080d0"/>
-                <rect x="1" y="4" width="4" height="2" fill="#a080d0"/>
-                <rect x="5" y="2" width="2" height="3" fill="#c0a0f0"/>
-                <rect x="2" y="6" width="3" height="1" fill="#8060b0"/>
-                <rect x="3" y="7" width="2" height="1" fill="#6040a0"/>
-                <rect x="0" y="5" width="2" height="2" fill="#ffe8a0"/>
-                <rect x="1" y="4" width="1" height="1" fill="#ffe8a0"/>
+                <rect x="4" y="0" width="1" height="1" fill="#4caf7d"/>
+                <rect x="3" y="1" width="3" height="1" fill="#4caf7d"/>
+                <rect x="2" y="2" width="5" height="1" fill="#4caf7d"/>
+                <rect x="3" y="3" width="3" height="1" fill="#3a8f5a"/>
+                <rect x="1" y="3" width="7" height="1" fill="#4caf7d"/>
+                <rect x="2" y="4" width="5" height="1" fill="#3a8f5a"/>
+                <rect x="0" y="4" width="9" height="1" fill="#4caf7d"/>
+                <rect x="4" y="5" width="1" height="1" fill="#8B5E3C"/>
+                <rect x="4" y="6" width="1" height="1" fill="#8B5E3C"/>
+                <rect x="3" y="7" width="3" height="1" fill="#5abf5a"/>
+                <rect x="1" y="8" width="7" height="1" fill="#5abf5a"/>
               </svg>
             </button>
-          )}
-          {ownsWinterGarden && (
-            <button
-              className="winter-garden-circle-btn"
-              onClick={() => setShowWinterGarden(g => !g)}
-              aria-label="Winter garden"
-              title="Winter garden"
-            >
+            {ownsNightGarden && (
+              <button className="night-garden-circle-btn" onClick={() => setShowNightGarden(g => !g)} aria-label="Night garden" title="Night garden">
+                <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="4" y="0" width="2" height="1" fill="#a080d0"/>
+                  <rect x="2" y="1" width="2" height="1" fill="#a080d0"/>
+                  <rect x="3" y="1" width="3" height="2" fill="#c0a0f0"/>
+                  <rect x="2" y="3" width="5" height="1" fill="#a080d0"/>
+                  <rect x="1" y="4" width="4" height="2" fill="#a080d0"/>
+                  <rect x="5" y="2" width="2" height="3" fill="#c0a0f0"/>
+                  <rect x="2" y="6" width="3" height="1" fill="#8060b0"/>
+                  <rect x="3" y="7" width="2" height="1" fill="#6040a0"/>
+                  <rect x="0" y="5" width="2" height="2" fill="#ffe8a0"/>
+                  <rect x="1" y="4" width="1" height="1" fill="#ffe8a0"/>
+                </svg>
+              </button>
+            )}
+            {ownsWinterGarden && (
+              <button className="winter-garden-circle-btn" onClick={() => setShowWinterGarden(g => !g)} aria-label="Winter garden" title="Winter garden">
+                <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="4" y="0" width="1" height="9" fill="#a0c8e8"/>
+                  <rect x="0" y="4" width="9" height="1" fill="#a0c8e8"/>
+                  <rect x="1" y="1" width="1" height="1" fill="#a0c8e8"/>
+                  <rect x="7" y="1" width="1" height="1" fill="#a0c8e8"/>
+                  <rect x="1" y="7" width="1" height="1" fill="#a0c8e8"/>
+                  <rect x="7" y="7" width="1" height="1" fill="#a0c8e8"/>
+                  <rect x="3" y="3" width="3" height="3" fill="#d8f0ff"/>
+                  <rect x="4" y="2" width="1" height="5" fill="#fff"/>
+                  <rect x="2" y="4" width="5" height="1" fill="#fff"/>
+                </svg>
+              </button>
+            )}
+            <button className="store-circle-btn" onClick={() => setShowStore(s => !s)} aria-label="Ascendi Shop" title="Ascendi Shop">
               <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="4" y="0" width="1" height="9" fill="#a0c8e8"/>
-                <rect x="0" y="4" width="9" height="1" fill="#a0c8e8"/>
-                <rect x="1" y="1" width="1" height="1" fill="#a0c8e8"/>
-                <rect x="7" y="1" width="1" height="1" fill="#a0c8e8"/>
-                <rect x="1" y="7" width="1" height="1" fill="#a0c8e8"/>
-                <rect x="7" y="7" width="1" height="1" fill="#a0c8e8"/>
-                <rect x="3" y="3" width="3" height="3" fill="#d8f0ff"/>
-                <rect x="4" y="2" width="1" height="5" fill="#fff"/>
-                <rect x="2" y="4" width="5" height="1" fill="#fff"/>
+                <rect x="1" y="7" width="7" height="2" fill="#8B5E3C"/>
+                <rect x="0" y="5" width="9" height="2" fill="#c49030"/>
+                <rect x="1" y="3" width="7" height="2" fill="#e8b84b"/>
+                <rect x="2" y="1" width="5" height="2" fill="#e8b84b"/>
+                <rect x="3" y="0" width="3" height="1" fill="#FFE135"/>
+                <rect x="4" y="2" width="1" height="4" fill="#FFE135"/>
+                <rect x="3" y="4" width="3" height="1" fill="#FFE135"/>
               </svg>
             </button>
-          )}
-          <button
-            className="store-circle-btn"
-            onClick={() => setShowStore(s => !s)}
-            aria-label="Ascendi Shop"
-            title="Ascendi Shop"
-          >
-            <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="1" y="7" width="7" height="2" fill="#8B5E3C"/>
-              <rect x="0" y="5" width="9" height="2" fill="#c49030"/>
-              <rect x="1" y="3" width="7" height="2" fill="#e8b84b"/>
-              <rect x="2" y="1" width="5" height="2" fill="#e8b84b"/>
-              <rect x="3" y="0" width="3" height="1" fill="#FFE135"/>
-              <rect x="4" y="2" width="1" height="4" fill="#FFE135"/>
-              <rect x="3" y="4" width="3" height="1" fill="#FFE135"/>
-            </svg>
-          </button>
+          </div>
         </div>
 
         <hr className="divider" />
@@ -1219,7 +1212,10 @@ function App() {
           <div className="night-garden-modal" onClick={e => e.stopPropagation()}>
             <div className="garden-header night-garden-header">
               <span className="garden-title" style={{color:'#a080d0'}}>🌙 Night Garden <span className="garden-count">{nightGardenPets.length} / 10</span></span>
-              <button className="garden-close" onClick={() => setShowNightGarden(false)}>✕</button>
+              <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
+                <button className="garden-delete-btn" onClick={handleDeleteNightGarden} title="Delete this garden">🗑</button>
+                <button className="garden-close" onClick={() => setShowNightGarden(false)}>✕</button>
+              </div>
             </div>
             <div className="night-garden-scene">
               <div className="night-stars">
@@ -1263,7 +1259,10 @@ function App() {
           <div className="winter-garden-modal" onClick={e => e.stopPropagation()}>
             <div className="garden-header winter-garden-header">
               <span className="garden-title" style={{color:'#80b0e0'}}>❄️ Winter Garden <span className="garden-count">{winterGardenPets.length} / 10</span></span>
-              <button className="garden-close" onClick={() => setShowWinterGarden(false)}>✕</button>
+              <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
+                <button className="garden-delete-btn" onClick={handleDeleteWinterGarden} title="Delete this garden">🗑</button>
+                <button className="garden-close" onClick={() => setShowWinterGarden(false)}>✕</button>
+              </div>
             </div>
             <div className="winter-garden-scene">
               <div className="winter-sky"/>
