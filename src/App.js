@@ -235,6 +235,7 @@ function App() {
   const [langOpen, setLangOpen] = useState(false);
   const [showGarden, setShowGarden] = useState(false);
   const [gardenPets, setGardenPets] = useState(loadGarden);
+  const [showStore, setShowStore] = useState(false);
 
   // Derived translations shorthand
   const t = T[lang];
@@ -882,6 +883,22 @@ function App() {
               <rect x="1" y="8" width="7" height="1" fill="#5abf5a"/>
             </svg>
           </button>
+          <button
+            className="store-circle-btn"
+            onClick={() => setShowStore(s => !s)}
+            aria-label="Ascendi Shop"
+            title="Ascendi Shop"
+          >
+            <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="1" y="7" width="7" height="2" fill="#8B5E3C"/>
+              <rect x="0" y="5" width="9" height="2" fill="#c49030"/>
+              <rect x="1" y="3" width="7" height="2" fill="#e8b84b"/>
+              <rect x="2" y="1" width="5" height="2" fill="#e8b84b"/>
+              <rect x="3" y="0" width="3" height="1" fill="#FFE135"/>
+              <rect x="4" y="2" width="1" height="4" fill="#FFE135"/>
+              <rect x="3" y="4" width="3" height="1" fill="#FFE135"/>
+            </svg>
+          </button>
         </div>
 
         <hr className="divider" />
@@ -1111,6 +1128,70 @@ function App() {
                 {gardenPets.length === 0 && (
                   <div className="garden-empty">Your garden is empty — send a stage 8+ pet here!</div>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showStore && (
+        <div className="store-overlay" onClick={() => setShowStore(false)}>
+          <div className="store-modal" onClick={e => e.stopPropagation()}>
+            <div className="store-header">
+              <span className="store-title">🏪 Ascendi Shop</span>
+              <button className="store-close" onClick={() => setShowStore(false)}>✕</button>
+            </div>
+            <div className="store-scene">
+              <div className="store-torch store-torch-left">🕯️</div>
+              <div className="store-torch store-torch-right">🕯️</div>
+              <p className="store-greeting">Welcome, traveler! What can I get you?</p>
+
+              <div className="store-shelf">
+                <div className="store-shelf-label">Gardens</div>
+                <div className="store-shelf-items">
+
+                  <div className="store-item">
+                    <div className="store-item-name" style={{color:'#a080d0'}}>Night Garden</div>
+                    <div className="store-item-preview store-item-preview--night">
+                      <span className="store-preview-icon">🌙</span>
+                      <span className="store-preview-star">⭐</span>
+                    </div>
+                    <div className="store-item-price">💰 $0.99</div>
+                    <button className="store-buy-btn store-buy-btn--night">Buy</button>
+                  </div>
+
+                  <div className="store-item">
+                    <div className="store-item-name" style={{color:'#80b0e0'}}>Winter Garden</div>
+                    <div className="store-item-preview store-item-preview--winter">
+                      <span className="store-preview-icon">❄️</span>
+                      <span className="store-preview-tree">🌲</span>
+                    </div>
+                    <div className="store-item-price">💰 $0.99</div>
+                    <button className="store-buy-btn store-buy-btn--winter">Buy</button>
+                  </div>
+
+                </div>
+              </div>
+
+              <div className="store-shelf">
+                <div className="store-shelf-label">Coming Soon</div>
+                <div className="store-shelf-items store-shelf-items--soon">
+                  <div className="store-item store-item--soon">
+                    <div style={{fontSize:'22px'}}>🎨</div>
+                    <div className="store-item-name">Themes</div>
+                    <div className="store-soon-tag">Soon</div>
+                  </div>
+                  <div className="store-item store-item--soon">
+                    <div style={{fontSize:'22px'}}>✨</div>
+                    <div className="store-item-name">Effects</div>
+                    <div className="store-soon-tag">Soon</div>
+                  </div>
+                  <div className="store-item store-item--soon">
+                    <div style={{fontSize:'22px'}}>🏠</div>
+                    <div className="store-item-name">Decor</div>
+                    <div className="store-soon-tag">Soon</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
