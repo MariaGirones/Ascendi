@@ -872,14 +872,6 @@ function App() {
         <div className="top-bar">
           <h1>Ascendi</h1>
           <div className="top-bar-actions">
-            <button
-              className="help-btn"
-              onClick={() => setShowWelcome(true)}
-              aria-label="How to use Ascendi"
-              title="How to use Ascendi"
-            >
-              ?
-            </button>
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
               <span className="points-icon">✦</span>
               <span className="points-value">{points}</span>
@@ -898,6 +890,14 @@ function App() {
               aria-label={t.toggleTheme}
             >
               {darkMode ? '☀️' : '🌙'}
+            </button>
+            <button
+              className="help-btn"
+              onClick={() => setShowWelcome(true)}
+              aria-label="How to use Ascendi"
+              title="How to use Ascendi"
+            >
+              ?
             </button>
           </div>
         </div>
@@ -931,16 +931,24 @@ function App() {
             {ownsNightGarden && (
               <button className="night-garden-circle-btn" onClick={() => setShowNightGarden(g => !g)} aria-label="Night garden" title="Night garden">
                 <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="4" y="0" width="2" height="1" fill="#a080d0"/>
-                  <rect x="2" y="1" width="2" height="1" fill="#a080d0"/>
-                  <rect x="3" y="1" width="3" height="2" fill="#c0a0f0"/>
-                  <rect x="2" y="3" width="5" height="1" fill="#a080d0"/>
-                  <rect x="1" y="4" width="4" height="2" fill="#a080d0"/>
-                  <rect x="5" y="2" width="2" height="3" fill="#c0a0f0"/>
-                  <rect x="2" y="6" width="3" height="1" fill="#8060b0"/>
-                  <rect x="3" y="7" width="2" height="1" fill="#6040a0"/>
-                  <rect x="0" y="5" width="2" height="2" fill="#ffe8a0"/>
-                  <rect x="1" y="4" width="1" height="1" fill="#ffe8a0"/>
+                  <rect x="3" y="0" width="4" height="1" fill="#ffe8a0"/>
+                  <rect x="2" y="1" width="2" height="1" fill="#ffe8a0"/>
+                  <rect x="5" y="1" width="2" height="1" fill="#ffe8a0"/>
+                  <rect x="1" y="2" width="2" height="1" fill="#ffe8a0"/>
+                  <rect x="1" y="3" width="2" height="1" fill="#ffe8a0"/>
+                  <rect x="1" y="4" width="2" height="1" fill="#ffe8a0"/>
+                  <rect x="1" y="5" width="2" height="1" fill="#ffe8a0"/>
+                  <rect x="2" y="6" width="2" height="1" fill="#ffe8a0"/>
+                  <rect x="3" y="7" width="1" height="1" fill="#ffe8a0"/>
+                  <rect x="3" y="1" width="1" height="6" fill="#ffe8a0"/>
+                  <rect x="4" y="2" width="1" height="4" fill="#ffe8a0"/>
+                  <rect x="5" y="3" width="1" height="2" fill="#ffe8a0"/>
+                  <rect x="4" y="0" width="2" height="1" fill="#c8a840"/>
+                  <rect x="6" y="1" width="1" height="2" fill="#c8a840"/>
+                  <rect x="7" y="2" width="1" height="3" fill="#c8a840"/>
+                  <rect x="6" y="5" width="1" height="2" fill="#c8a840"/>
+                  <rect x="4" y="7" width="3" height="1" fill="#c8a840"/>
+                  <rect x="3" y="8" width="4" height="1" fill="#c8a840"/>
                 </svg>
               </button>
             )}

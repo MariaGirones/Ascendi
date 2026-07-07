@@ -171,6 +171,7 @@ h1 {
   align-items: center;
   gap: 8px;
   padding-top: 8px;
+  flex-shrink: 0;
 }
 
 .garden-circle-btn {
