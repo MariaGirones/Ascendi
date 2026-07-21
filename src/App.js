@@ -272,6 +272,27 @@ function GardenPetCanvas({ petId, stageIndex }) {
   );
 }
 
+function ConfirmModal({ message, onConfirm, onCancel, confirmLabel = 'Confirm', danger = false }) {
+  return (
+    <div className="confirm-overlay" onClick={onCancel}>
+      <div className="confirm-modal" onClick={e => e.stopPropagation()}>
+        <p className="confirm-message">{message}</p>
+        <div className="confirm-actions">
+          <button
+            className={`confirm-btn${danger ? ' confirm-btn--danger' : ''}`}
+            onClick={onConfirm}
+          >
+            {confirmLabel}
+          </button>
+          <button className="confirm-cancel" onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 function App() {
   // Timer settings (all persisted)
@@ -330,6 +351,11 @@ function App() {
   const [ownsNightGarden, setOwnsNightGarden] = useState(() => localStorage.getItem(LS_NIGHT_GARDEN) === 'true');
   const [ownsWinterGarden, setOwnsWinterGarden] = useState(() => localStorage.getItem(LS_WINTER_GARDEN) === 'true');
   const [showStore, setShowStore] = useState(false);
+  const [confirm, setConfirm] = useState(null);
+
+  const askConfirm = (message, onConfirm, confirmLabel = 'Confirm', danger = false) => {
+    setConfirm({ message, onConfirm, confirmLabel, danger });
+  };
 
   // Derived translations shorthand
   const t = T[lang];
@@ -816,24 +842,53 @@ function App() {
   };
 
   const handleDeleteGardenPet = (index) => {
-    setGardenPets(prev => prev.filter((_, i) => i !== index));
+    askConfirm(
+      'Remove this pet from the garden?',
+      () => setGardenPets(prev => prev.filter((_, i) => i !== index)),
+      'Remove',
+      true
+    );
   };
   const handleDeleteNightPet = (index) => {
-    setNightGardenPets(prev => prev.filter((_, i) => i !== index));
+    askConfirm(
+      'Remove this pet from the night garden?',
+      () => setNightGardenPets(prev => prev.filter((_, i) => i !== index)),
+      'Remove',
+      true
+    );
   };
   const handleDeleteWinterPet = (index) => {
-    setWinterGardenPets(prev => prev.filter((_, i) => i !== index));
+    askConfirm(
+      'Remove this pet from the winter garden?',
+      () => setWinterGardenPets(prev => prev.filter((_, i) => i !== index)),
+      'Remove',
+      true
+    );
   };
 
   const handleDeleteNightGarden = () => {
-    setOwnsNightGarden(false);
-    setNightGardenPets([]);
-    setShowNightGarden(false);
+    askConfirm(
+      'Delete the Night Garden? All pets inside will be lost.',
+      () => {
+        setOwnsNightGarden(false);
+        setNightGardenPets([]);
+        setShowNightGarden(false);
+      },
+      'Delete garden',
+      true
+    );
   };
   const handleDeleteWinterGarden = () => {
-    setOwnsWinterGarden(false);
-    setWinterGardenPets([]);
-    setShowWinterGarden(false);
+    askConfirm(
+      'Delete the Winter Garden? All pets inside will be lost.',
+      () => {
+        setOwnsWinterGarden(false);
+        setWinterGardenPets([]);
+        setShowWinterGarden(false);
+      },
+      'Delete garden',
+      true
+    );
   };
 
   // ── Derived display values ────────────────────────────────────────────────
@@ -999,11 +1054,18 @@ function App() {
         <div className="pet-display-row">
           <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} onJoinGarden={() => {
             if (gardenPets.length >= 10) return;
-            setGardenPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, stageIndex: getStageIndex(xp, chosenPetId) }]);
-            setXP(0);
-            xpRef.current = 0;
-            isFirstVisitRef.current = true;
-            setShowPicker(true);
+            askConfirm(
+              'Send this pet to the garden? Their XP will be frozen and you will need to choose a new companion.',
+              () => {
+                setGardenPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, stageIndex: getStageIndex(xp, chosenPetId) }]);
+                setXP(0);
+                xpRef.current = 0;
+                isFirstVisitRef.current = true;
+                setShowPicker(true);
+              },
+              'Send to garden',
+              false
+            );
           }} />
           <div className="garden-buttons-col">
             <button className="garden-circle-btn" onClick={() => setShowGarden(g => !g)} aria-label="My garden" title="My garden">
@@ -1463,6 +1525,16 @@ function App() {
             </div>
           </div>
         </div>
+      )}
+
+      {confirm && (
+        <ConfirmModal
+          message={confirm.message}
+          onConfirm={() => { confirm.onConfirm(); setConfirm(null); }}
+          onCancel={() => setConfirm(null)}
+          confirmLabel={confirm.confirmLabel}
+          danger={confirm.danger}
+        />
       )}
     </>
   );

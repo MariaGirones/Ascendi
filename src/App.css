@@ -1888,3 +1888,86 @@ h1 {
   opacity: 1;
   filter: none;
 }
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.confirm-modal {
+  background: var(--bg-panel);
+  border: 2px solid var(--border-hi);
+  box-shadow: 4px 4px 0 var(--shadow);
+  padding: 1.25rem 1rem;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.confirm-message {
+  font-size: 0.8rem;
+  color: var(--text);
+  line-height: 2;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+.confirm-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.confirm-btn {
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--accent, #d06878);
+  color: #0e0d1c;
+  border: none;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--shadow);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.confirm-btn:hover {
+  transform: translate(1px,1px);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+.confirm-btn--danger {
+  background: #a83030;
+  color: #fff;
+}
+.confirm-btn--danger:hover {
+  background: #8c2424;
+}
+
+.confirm-cancel {
+  width: 100%;
+  padding: 0.6rem;
+  background: none;
+  border: 2px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: border-color 0.15s, color 0.15s;
+}
+.confirm-cancel:hover {
+  border-color: var(--text-dim);
+  color: var(--text);
+}
+
+[data-theme="light"] .confirm-btn { color: #fff; }
