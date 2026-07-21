@@ -8,6 +8,8 @@ import { LANGUAGES, LS_LANG, loadLang, T } from './i18n';
 
 // ── Audio: end-of-session WAV ─────────────────────────────────────────────────
 let audio = null;
+let audioUnlocked = false;
+
 function preloadAudio() {
   if (!audio) {
     audio = new Audio(process.env.PUBLIC_URL + '/endOfPomodoro.wav');
@@ -15,13 +17,42 @@ function preloadAudio() {
   }
 }
 
-// ── Audio: synthesized start chime (Web Audio API, no file needed) ────────────
+// Mobile browsers (iOS Safari, Android Chrome) block audio.play() unless it's
+// invoked from within a user gesture. Unlock the element once, on the first
+// pointerdown anywhere in the app, by playing + immediately pausing it — after
+// that, calling audio.play() later (e.g. on session end, with no fresh
+// gesture) is allowed.
+function unlockAudio() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+  preloadAudio();
+  audio.play().then(() => {
+    audio.pause();
+    audio.currentTime = 0;
+  }).catch(err => console.warn('[Ascendi audio]', err));
+}
+
+// ── Audio: shared Web Audio context (start chime + WAV-failure beep) ─────────
+let audioCtx = null;
+function getAudioCtx() {
+  const AudioCtx = window.AudioContext || window['webkitAudioContext'];
+  if (!audioCtx) audioCtx = new AudioCtx();
+  return audioCtx;
+}
+
+// iOS Safari suspends the AudioContext until it's resumed from within a user
+// gesture; call this at the top of any gesture-triggered handler (e.g. Start).
+function resumeAudioCtxIfSuspended() {
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(err => console.warn('[Ascendi audio]', err));
+  }
+}
+
 // Two ascending sine tones (E5 → A5) — clearly distinct from the end WAV.
 // Fires on the user's tap/click, so mobile autoplay restrictions do not apply.
 function playStartChime() {
   try {
-    const AudioCtx = window.AudioContext || window['webkitAudioContext'];
-    const ctx = new AudioCtx();
+    const ctx = getAudioCtx();
     const t   = ctx.currentTime;
     [659.25, 880].forEach((freq, i) => {
       const osc  = ctx.createOscillator();
@@ -37,8 +68,39 @@ function playStartChime() {
       osc.start(onset);
       osc.stop(onset + 0.38);
     });
-    setTimeout(() => ctx.close(), 1200);
-  } catch (e) {}
+  } catch (e) {
+    console.warn('[Ascendi audio]', e);
+  }
+}
+
+// Fallback beep (short 440Hz sine tone) used when the end-of-session WAV
+// fails to play (e.g. audio.play() rejected by the browser).
+function playFallbackBeep() {
+  try {
+    const ctx  = getAudioCtx();
+    const osc  = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.value = 440;
+    const t = ctx.currentTime;
+    gain.gain.setValueAtTime(0.3, t);
+    osc.start(t);
+    osc.stop(t + 0.3);
+  } catch (e) {
+    console.warn('[Ascendi audio]', e);
+  }
+}
+
+// Plays the end-of-session WAV, falling back to a synthesized beep if it fails.
+function playEndSound() {
+  preloadAudio();
+  audio.currentTime = 0;
+  audio.play().catch(err => {
+    console.warn('[Ascendi audio]', err);
+    playFallbackBeep();
+  });
 }
 
 // ── Notifications ─────────────────────────────────────────────────────────────
@@ -51,7 +113,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register(process.env.PUBLIC_URL + '/sw.js')
       .then(r  => { swReg = r; })
-      .catch(() => {});
+      .catch(err => console.warn('[Ascendi notification]', err));
   });
 }
 
@@ -63,17 +125,32 @@ function showNotification(title, body, { persistent = false } = {}) {
     body,
     tag:      'ascendi-session',
     renotify: true,
+    silent:   false,
     ...(persistent && { requireInteraction: true }),
     vibrate:  persistent ? [200, 100, 200] : [100],
   };
-  try {
-    if (swReg) {
-      swReg.showNotification(title, options);
-    } else {
+  const tryDirectNotification = () => {
+    try {
       new Notification(title, options);
+    } catch (err) {
+      console.warn('[Ascendi notification]', err);
     }
-  } catch (_) {
-    try { new Notification(title, options); } catch (_2) {}
+  };
+  // iOS does not reliably support service workers while the page is in the
+  // background, so fall back to a direct Notification whenever swReg is
+  // unavailable or showNotification fails.
+  if (!swReg) {
+    tryDirectNotification();
+    return;
+  }
+  try {
+    Promise.resolve(swReg.showNotification(title, options)).catch(err => {
+      console.warn('[Ascendi notification]', err);
+      tryDirectNotification();
+    });
+  } catch (err) {
+    console.warn('[Ascendi notification]', err);
+    tryDirectNotification();
   }
 }
 
@@ -319,12 +396,26 @@ function App() {
     document.title = `Ascendi ${m}:${s.toString().padStart(2, '0')}`;
   }, [timeLeft]);
 
+  // Preload the end-of-session audio on mount, and unlock it on the first
+  // user gesture — mobile browsers block audio.play() until a gesture occurs.
+  useEffect(() => {
+    preloadAudio();
+    const handleFirstInteraction = () => unlockAudio();
+    window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
+    return () => window.removeEventListener('pointerdown', handleFirstInteraction);
+  }, []);
+
   // Create the worker once
   useEffect(() => {
     const timerWorker = new Worker(`${process.env.PUBLIC_URL}/timer-worker.js`);
     workerRef.current = timerWorker;
     setWorker(timerWorker);
-    return () => timerWorker.terminate();
+    return () => {
+      // Stop ticking before terminating so no queued 'tick' message can be
+      // delivered to a worker that's already gone (or after unmount).
+      timerWorker.postMessage('stop');
+      timerWorker.terminate();
+    };
   }, []);
 
   // Wire up the tick handler — re-registers only when the worker instance changes
@@ -377,9 +468,7 @@ function App() {
     setTimeout(() => setAlerting(false), 1500);
 
     // Sound
-    preloadAudio();
-    audio.currentTime = 0;
-    audio.play().catch(() => {});
+    playEndSound();
 
     // Notification — persistent so it stays visible in background tabs
     {
@@ -434,9 +523,7 @@ function App() {
 
     setAlerting(true);
     setTimeout(() => setAlerting(false), 1500);
-    preloadAudio();
-    audio.currentTime = 0;
-    audio.play().catch(() => {});
+    playEndSound();
     showNotification(
       'Additional time complete!',
       'Your main session is ready to resume.',
@@ -470,6 +557,12 @@ function App() {
   // ── Controls ──────────────────────────────────────────────────────────────
   const startTimer = () => {
     if (workerRef.current && !isRunningRef.current) {
+      // Ask for notification permission here too, so users who skip the pet
+      // picker (which also asks) still get prompted before their first session.
+      requestNotificationPermission();
+      // iOS Safari suspends the AudioContext until resumed inside a gesture.
+      resumeAudioCtxIfSuspended();
+
       // Detect a fresh session start (vs. resume from pause)
       const fullDuration = getDuration(
         modeRef.current, workSecsRef.current, shortSecsRef.current, longSecsRef.current
@@ -609,7 +702,7 @@ function App() {
 
   const requestNotificationPermission = () => {
     if ('Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission();
+      Notification.requestPermission().catch(err => console.warn('[Ascendi notification]', err));
     }
   };
 
