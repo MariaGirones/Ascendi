@@ -73,34 +73,67 @@ function playStartChime() {
   }
 }
 
-// Fallback beep (short 440Hz sine tone) used when the end-of-session WAV
-// fails to play (e.g. audio.play() rejected by the browser).
-function playFallbackBeep() {
+// ── Audio: selectable end-of-session alarm sounds ─────────────────────────────
+function playWhistle(volume = 1) {
   try {
-    const ctx  = getAudioCtx();
-    const osc  = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = 'sine';
-    osc.frequency.value = 440;
+    const ctx = getAudioCtx();
     const t = ctx.currentTime;
-    gain.gain.setValueAtTime(0.3, t);
-    osc.start(t);
-    osc.stop(t + 0.3);
-  } catch (e) {
-    console.warn('[Ascendi audio]', e);
-  }
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1400, t);
+    osc.frequency.exponentialRampToValueAtTime(1800, t + 0.08);
+    osc.frequency.exponentialRampToValueAtTime(1600, t + 0.25);
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(0.4 * volume, t + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+    osc.start(t); osc.stop(t + 0.35);
+  } catch(e) { console.warn('[Ascendi audio]', e); }
 }
 
-// Plays the end-of-session WAV, falling back to a synthesized beep if it fails.
-function playEndSound() {
-  preloadAudio();
-  audio.currentTime = 0;
-  audio.play().catch(err => {
-    console.warn('[Ascendi audio]', err);
-    playFallbackBeep();
-  });
+function playBell(volume = 1) {
+  try {
+    const ctx = getAudioCtx();
+    const t = ctx.currentTime;
+    [523.25, 1046.5, 2093].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.3 * volume / (i + 1), t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 1.5);
+      osc.start(t); osc.stop(t + 1.5);
+    });
+  } catch(e) { console.warn('[Ascendi audio]', e); }
+}
+
+function playChime(volume = 1) {
+  try {
+    const ctx = getAudioCtx();
+    const t = ctx.currentTime;
+    [783.99, 987.77, 1174.66, 1318.51].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      const onset = t + i * 0.12;
+      gain.gain.setValueAtTime(0, onset);
+      gain.gain.linearRampToValueAtTime(0.2 * volume, onset + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, onset + 0.6);
+      osc.start(onset); osc.stop(onset + 0.6);
+    });
+  } catch(e) { console.warn('[Ascendi audio]', e); }
+}
+
+// Plays the user's chosen end-of-session alarm sound at the chosen volume.
+function playEndSound(sound = 'whistle', vol = 0.7) {
+  if (sound === 'none') return;
+  if (sound === 'bell') { playBell(vol); return; }
+  if (sound === 'chime') { playChime(vol); return; }
+  playWhistle(vol);
 }
 
 // ── Notifications ─────────────────────────────────────────────────────────────
@@ -120,6 +153,7 @@ if ('serviceWorker' in navigator) {
 // opts.persistent = true  → requireInteraction + longer vibrate (end-of-session)
 // opts.persistent = false → auto-dismiss, short vibrate (session-start confirm)
 function showNotification(title, body, { persistent = false } = {}) {
+  if (!notifEnabledRef.current) return;
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
   const options = {
     body,
@@ -191,10 +225,25 @@ const LS_WINTER_GARDEN = 'nsq_garden_winter';
 const LS_GARDEN_NIGHT_PETS = 'nsq_garden_night_pets';
 const LS_GARDEN_WINTER_PETS = 'nsq_garden_winter_pets';
 const LS_STATS = 'nsq_stats';
+const LS_SOUND = 'nsq_sound';
+const LS_VOLUME = 'nsq_volume';
+const LS_NOTIF = 'nsq_notif';
+const LS_FONTSIZE = 'nsq_fontsize';
 
 function loadStats() {
   try { return JSON.parse(localStorage.getItem(LS_STATS)) || {}; } catch { return {}; }
 }
+
+function loadSound() { return localStorage.getItem(LS_SOUND) || 'whistle'; }
+function loadVolume() { const r = parseFloat(localStorage.getItem(LS_VOLUME)); return isNaN(r) ? 0.7 : r; }
+function loadNotifEnabled() { return localStorage.getItem(LS_NOTIF) !== 'false'; }
+function loadFontSize() { return localStorage.getItem(LS_FONTSIZE) || 'M'; }
+
+// showNotification is a module-level function (called from many places, including
+// before any App instance exists), so this can't be a useRef — it's a plain
+// mutable object the component syncs via a useEffect, mirroring the same .current
+// access pattern.
+let notifEnabledRef = { current: loadNotifEnabled() };
 
 function loadGarden() {
   try { return JSON.parse(localStorage.getItem(LS_GARDEN)) || []; } catch { return []; }
@@ -473,7 +522,6 @@ function App() {
 
   // Language state
   const [lang, setLang]       = useState(loadLang);
-  const [langOpen, setLangOpen] = useState(false);
   const [showGarden, setShowGarden] = useState(false);
   const [gardenPets, setGardenPets] = useState(loadGarden);
   const [showNightGarden, setShowNightGarden] = useState(false);
@@ -484,6 +532,13 @@ function App() {
   const [ownsWinterGarden, setOwnsWinterGarden] = useState(() => localStorage.getItem(LS_WINTER_GARDEN) === 'true');
   const [showStore, setShowStore] = useState(false);
   const [confirm, setConfirm] = useState(null);
+
+  // Settings modal state
+  const [showSettings, setShowSettings] = useState(false);
+  const [soundChoice, setSoundChoice] = useState(loadSound);
+  const [volume, setVolume] = useState(loadVolume);
+  const [notifEnabled, setNotifEnabled] = useState(loadNotifEnabled);
+  const [fontSize, setFontSize] = useState(loadFontSize);
 
   const askConfirm = (message, onConfirm, confirmLabel = 'Confirm', danger = false) => {
     setConfirm({ message, onConfirm, confirmLabel, danger });
@@ -514,6 +569,8 @@ function App() {
   const additionalPointsEarnedRef = useRef(0);
   const timeLeftRef               = useRef(timeLeft);
   const additionalTimeLeftRef     = useRef(additionalTimeLeft);
+  const soundChoiceRef            = useRef(loadSound());
+  const volumeRef                 = useRef(loadVolume());
 
   // Keep refs in sync with state
   useEffect(() => { modeRef.current          = mode;                  }, [mode]);
@@ -527,6 +584,9 @@ function App() {
   useEffect(() => { pointsRef.current        = points;                }, [points]);
   useEffect(() => { timeLeftRef.current      = timeLeft;              }, [timeLeft]);
   useEffect(() => { additionalTimeLeftRef.current = additionalTimeLeft; }, [additionalTimeLeft]);
+  useEffect(() => { soundChoiceRef.current   = soundChoice;           }, [soundChoice]);
+  useEffect(() => { volumeRef.current        = volume;                }, [volume]);
+  useEffect(() => { notifEnabledRef.current  = notifEnabled;          }, [notifEnabled]);
 
   // Persist all settings & session state to localStorage
   useEffect(() => { localStorage.setItem(LS_XP,    xp);               }, [xp]);
@@ -545,12 +605,22 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_NIGHT_GARDEN, ownsNightGarden ? 'true' : 'false'); }, [ownsNightGarden]);
   useEffect(() => { localStorage.setItem(LS_WINTER_GARDEN, ownsWinterGarden ? 'true' : 'false'); }, [ownsWinterGarden]);
   useEffect(() => { localStorage.setItem(LS_STATS, JSON.stringify(stats)); }, [stats]);
+  useEffect(() => { localStorage.setItem(LS_SOUND, soundChoice); }, [soundChoice]);
+  useEffect(() => { localStorage.setItem(LS_VOLUME, volume); }, [volume]);
+  useEffect(() => { localStorage.setItem(LS_NOTIF, notifEnabled); }, [notifEnabled]);
+  useEffect(() => { localStorage.setItem(LS_FONTSIZE, fontSize); }, [fontSize]);
 
   // Apply theme and persist
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
     localStorage.setItem(LS_DARK, darkMode);
   }, [darkMode]);
+
+  // Apply chosen font size to the document root
+  useEffect(() => {
+    const sizes = { S: '13px', M: '16px', L: '19px' };
+    document.documentElement.style.fontSize = sizes[fontSize] || '16px';
+  }, [fontSize]);
 
   // Browser tab title
   useEffect(() => {
@@ -645,7 +715,7 @@ function App() {
     setTimeout(() => setAlerting(false), 1500);
 
     // Sound
-    playEndSound();
+    playEndSound(soundChoiceRef.current, volumeRef.current);
 
     // Notification — persistent so it stays visible in background tabs
     {
@@ -705,7 +775,7 @@ function App() {
 
     setAlerting(true);
     setTimeout(() => setAlerting(false), 1500);
-    playEndSound();
+    playEndSound(soundChoiceRef.current, volumeRef.current);
     showNotification(
       'Additional time complete!',
       'Your main session is ready to resume.',
@@ -1183,6 +1253,14 @@ function App() {
         <div className="top-bar">
           <h1>Ascendi</h1>
           <div className="top-bar-actions">
+            <button
+              className="settings-gear-btn"
+              onClick={() => setShowSettings(true)}
+              aria-label="Settings"
+              title="Settings"
+            >
+              ⚙️
+            </button>
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
               <span className="points-icon">✦</span>
               <span className="points-value">{points}</span>
@@ -1471,24 +1549,6 @@ function App() {
         <FocusCalendar stats={stats} petColor={getPetById(chosenPetId).color} />
       </div>
 
-      <div className="lang-selector">
-        <button className="lang-btn" onClick={() => setLangOpen(o => !o)} aria-label="Select language">
-          {lang}
-        </button>
-        {langOpen && (
-          <div className="lang-menu">
-            {LANGUAGES.map(l => (
-              <button
-                key={l}
-                className={`lang-option${l === lang ? ' lang-option--active' : ''}`}
-                onClick={() => { setLang(l); setLangOpen(false); }}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
       {showGarden && (
         <div className="garden-overlay" onClick={() => setShowGarden(false)}>
           <div className="garden-modal" onClick={e => e.stopPropagation()}>
@@ -1687,6 +1747,114 @@ function App() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showSettings && (
+        <div className="settings-overlay" onClick={() => setShowSettings(false)}>
+          <div className="settings-modal" onClick={e => e.stopPropagation()}>
+            <div className="settings-modal-header">
+              <span className="settings-modal-title">⚙️ Settings</span>
+              <button className="settings-modal-close" onClick={() => setShowSettings(false)}>✕</button>
+            </div>
+            <div className="settings-modal-body">
+
+              <div className="settings-section-label">Sound</div>
+              <div className="settings-row">
+                <span className="settings-row-label">Alarm</span>
+                <div className="settings-sound-btns">
+                  {['whistle','bell','chime','none'].map(s => (
+                    <button
+                      key={s}
+                      className={`settings-sound-btn${soundChoice === s ? ' active' : ''}`}
+                      onClick={() => {
+                        setSoundChoice(s);
+                        if (s !== 'none') playEndSound(s, volumeRef.current);
+                      }}
+                    >
+                      {s === 'whistle' ? '🎵' : s === 'bell' ? '🔔' : s === 'chime' ? '✨' : '🔇'}
+                      <span>{s.charAt(0).toUpperCase() + s.slice(1)}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="settings-row">
+                <span className="settings-row-label">Volume</span>
+                <div className="settings-volume-row">
+                  <span style={{fontSize:'12px'}}>🔈</span>
+                  <input
+                    type="range" min="0" max="1" step="0.05"
+                    value={volume}
+                    className="settings-volume-slider"
+                    onChange={e => setVolume(parseFloat(e.target.value))}
+                  />
+                  <span style={{fontSize:'12px'}}>🔊</span>
+                </div>
+              </div>
+
+              <div className="settings-section-label">Notifications</div>
+              <div className="settings-row">
+                <div>
+                  <span className="settings-row-label">Push notifications</span>
+                  <div className="settings-row-sub">Session start & end alerts</div>
+                </div>
+                <button
+                  className={`settings-toggle${notifEnabled ? ' active' : ''}`}
+                  onClick={() => setNotifEnabled(v => !v)}
+                  aria-label="Toggle notifications"
+                >
+                  <div className="settings-toggle-thumb"/>
+                </button>
+              </div>
+
+              <div className="settings-section-label">Display</div>
+              <div className="settings-row">
+                <span className="settings-row-label">Language</span>
+                <div className="settings-lang-btns">
+                  {LANGUAGES.map(l => (
+                    <button
+                      key={l}
+                      className={`settings-lang-btn${lang === l ? ' active' : ''}`}
+                      onClick={() => setLang(l)}
+                    >{l}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="settings-row">
+                <span className="settings-row-label">Font size</span>
+                <div className="settings-font-btns">
+                  {['S','M','L'].map(f => (
+                    <button
+                      key={f}
+                      className={`settings-font-btn${fontSize === f ? ' active' : ''}`}
+                      onClick={() => setFontSize(f)}
+                    >{f}</button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="settings-section-label">Account</div>
+              <div className="settings-account-btns">
+                <button className="settings-account-btn" onClick={() => {
+                  askConfirm('Reset focus statistics? Your calendar history will be cleared.', () => setStats({}), 'Reset stats', true);
+                }}>📊 Reset statistics</button>
+                <button className="settings-account-btn settings-account-btn--warn" onClick={() => {
+                  askConfirm('Reset account? This clears your XP and stats but keeps your pet.', () => {
+                    setXP(0); xpRef.current = 0;
+                    setPoints(0); pointsRef.current = 0;
+                    setStats({});
+                  }, 'Reset account', true);
+                }}>⚠️ Reset account — clears XP & stats, keeps pet</button>
+                <button className="settings-account-btn settings-account-btn--danger" onClick={() => {
+                  askConfirm('Delete everything? This cannot be undone.', () => {
+                    localStorage.clear();
+                    window.location.reload();
+                  }, 'Delete everything', true);
+                }}>🗑 Delete account — removes everything</button>
+              </div>
+
             </div>
           </div>
         </div>
