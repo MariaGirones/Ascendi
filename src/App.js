@@ -505,6 +505,8 @@ function App() {
   const savedCycleStateRef        = useRef(null);
   const additionalWorkSecsRef     = useRef(0);
   const additionalPointsEarnedRef = useRef(0);
+  const timeLeftRef               = useRef(timeLeft);
+  const additionalTimeLeftRef     = useRef(additionalTimeLeft);
 
   // Keep refs in sync with state
   useEffect(() => { modeRef.current          = mode;                  }, [mode]);
@@ -516,6 +518,8 @@ function App() {
   useEffect(() => { isRunningRef.current     = isRunning;             }, [isRunning]);
   useEffect(() => { xpRef.current            = xp;                    }, [xp]);
   useEffect(() => { pointsRef.current        = points;                }, [points]);
+  useEffect(() => { timeLeftRef.current      = timeLeft;              }, [timeLeft]);
+  useEffect(() => { additionalTimeLeftRef.current = additionalTimeLeft; }, [additionalTimeLeft]);
 
   // Persist all settings & session state to localStorage
   useEffect(() => { localStorage.setItem(LS_XP,    xp);               }, [xp]);
@@ -554,7 +558,21 @@ function App() {
     preloadAudio();
     const handleFirstInteraction = () => unlockAudio();
     window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
-    return () => window.removeEventListener('pointerdown', handleFirstInteraction);
+
+    // Re-sync the worker's clock whenever the tab comes back into the
+    // foreground, so throttled background timers can't drift the countdown.
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && isRunningRef.current) {
+        workerRef.current?.postMessage('stop');
+        const seconds = isAdditionalTimeRef.current ? additionalTimeLeftRef.current : timeLeftRef.current;
+        workerRef.current?.postMessage({ type: 'start', seconds });
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      window.removeEventListener('pointerdown', handleFirstInteraction);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   // Create the worker once
@@ -574,12 +592,12 @@ function App() {
   useEffect(() => {
     if (!worker) return;
     worker.onmessage = (event) => {
-      if (event.data !== 'tick') return;
+      if (!event.data || event.data.type !== 'tick') return;
       if (!isRunningRef.current) return; // discard stale ticks after stop
 
       if (isAdditionalTimeRef.current) {
         // Additional-time mode: count down the mini timer and award points
-        setAdditionalTimeLeft(prev => Math.max(0, prev - 1));
+        setAdditionalTimeLeft(event.data.remaining);
         additionalWorkSecsRef.current++;
         const earned = Math.floor(additionalWorkSecsRef.current / 60);
         if (earned > additionalPointsEarnedRef.current) {
@@ -590,7 +608,7 @@ function App() {
           setPoints(newPoints);
         }
       } else {
-        setTimeLeft(prev => Math.max(0, prev - 1));
+        setTimeLeft(event.data.remaining);
         if (modeRef.current === 'work') {
           workSecondsRef.current++;
           const earned = Math.floor(workSecondsRef.current / 60);
@@ -730,7 +748,7 @@ function App() {
       );
       const isFreshStart = timeLeft === fullDuration;
 
-      workerRef.current.postMessage('start');
+      workerRef.current.postMessage({ type: 'start', seconds: timeLeft });
       isRunningRef.current = true;
       setIsRunning(true);
 
@@ -835,7 +853,10 @@ function App() {
     setAdditionalTimeLeft(additionalTimeDuration);
     // Ensure the worker is ticking (it may have been paused)
     if (!isRunningRef.current) {
-      workerRef.current?.postMessage('start');
+      // additionalTimeLeft itself is still the stale pre-update value here
+      // (setAdditionalTimeLeft above hasn't committed yet) — additionalTimeDuration
+      // is the value it's being set to, so that's what the worker should start from.
+      workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeDuration });
       isRunningRef.current = true;
       setIsRunning(true);
     }
@@ -1314,7 +1335,7 @@ function App() {
               <button className="btn btn-sm btn-secondary" onClick={pauseTimer}>{t.pause}</button>
             ) : (
               <button className="btn btn-sm btn-secondary" onClick={() => {
-                workerRef.current?.postMessage('start');
+                workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeLeft });
                 isRunningRef.current = true;
                 setIsRunning(true);
               }}>{t.resume}</button>
