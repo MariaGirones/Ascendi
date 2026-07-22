@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect, useRef } from 'react';
 import PetDisplay from './PetDisplay';
 import PetPicker from './PetPicker';
-import { MAX_XP, getStageIndex } from './pets';
+import { MAX_XP, getStageIndex, getPetById } from './pets';
 import { drawPet } from './petSprites';
 import { LANGUAGES, LS_LANG, loadLang, T } from './i18n';
 
@@ -190,6 +190,11 @@ const LS_NIGHT_GARDEN = 'nsq_garden_night';
 const LS_WINTER_GARDEN = 'nsq_garden_winter';
 const LS_GARDEN_NIGHT_PETS = 'nsq_garden_night_pets';
 const LS_GARDEN_WINTER_PETS = 'nsq_garden_winter_pets';
+const LS_STATS = 'nsq_stats';
+
+function loadStats() {
+  try { return JSON.parse(localStorage.getItem(LS_STATS)) || {}; } catch { return {}; }
+}
 
 function loadGarden() {
   try { return JSON.parse(localStorage.getItem(LS_GARDEN)) || []; } catch { return []; }
@@ -293,6 +298,123 @@ function ConfirmModal({ message, onConfirm, onCancel, confirmLabel = 'Confirm', 
   );
 }
 
+function FocusCalendar({ stats, petColor }) {
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0, 10);
+  const totalMins = Object.values(stats).reduce((a, b) => a + b, 0);
+  const activeDays = Object.keys(stats).filter(k => stats[k] > 0).length;
+  const bestDay = Math.max(0, ...Object.values(stats));
+  const avgDay = activeDays > 0 ? Math.round(totalMins / activeDays) : 0;
+
+  let streak = 0;
+  const d = new Date(today);
+  while (true) {
+    const key = d.toISOString().slice(0, 10);
+    if (stats[key] > 0) { streak++; d.setDate(d.getDate() - 1); }
+    else break;
+  }
+
+  const start = new Date(today);
+  start.setDate(start.getDate() - 364);
+  const dow = start.getDay();
+  start.setDate(start.getDate() - (dow === 0 ? 6 : dow - 1));
+
+  const weeks = [];
+  for (let w = 0; w < 53; w++) {
+    const week = [];
+    for (let d2 = 0; d2 < 7; d2++) {
+      const date = new Date(start);
+      date.setDate(start.getDate() + w * 7 + d2);
+      week.push(date);
+    }
+    weeks.push(week);
+  }
+
+  const hex = petColor.replace('#', '');
+  const r = parseInt(hex.slice(0,2),16);
+  const g = parseInt(hex.slice(2,4),16);
+  const b = parseInt(hex.slice(4,6),16);
+
+  function getColor(mins) {
+    if (!mins || mins === 0) return 'var(--bg-card)';
+    const a = mins < 15 ? 0.22 : mins < 30 ? 0.44 : mins < 60 ? 0.66 : mins < 90 ? 0.85 : 1;
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  const monthLabels = [];
+  weeks.forEach((week, wi) => {
+    if (week[0].getDate() <= 7) {
+      monthLabels.push({ wi, label: week[0].toLocaleString('default', { month: 'short' }) });
+    }
+  });
+
+  return (
+    <div className="focus-calendar">
+      <div className="focus-calendar-header">
+        <span className="focus-calendar-title">FOCUS HISTORY</span>
+        <span className="focus-calendar-total">{totalMins} min total</span>
+      </div>
+      <div className="focus-calendar-grid-wrapper">
+        <div className="focus-day-labels">
+          <span>Mon</span><span/><span>Wed</span><span/><span>Fri</span><span/><span>Sun</span>
+        </div>
+        <div className="focus-grid-col">
+          <div className="focus-month-labels" style={{gridTemplateColumns:`repeat(${weeks.length}, 10px)`}}>
+            {monthLabels.map(({ wi, label }) => (
+              <span key={wi} style={{gridColumn: wi + 1}}>{label}</span>
+            ))}
+          </div>
+          <div className="focus-grid">
+            {weeks.map((week, wi) => (
+              <div key={wi} className="focus-week">
+                {week.map((date, di) => {
+                  const key = date.toISOString().slice(0, 10);
+                  const mins = stats[key] || 0;
+                  const isFuture = date > today;
+                  const isToday = key === todayStr;
+                  return (
+                    <div
+                      key={di}
+                      className={`focus-cell${isToday ? ' focus-cell--today' : ''}`}
+                      style={{ background: isFuture ? 'transparent' : getColor(mins) }}
+                      title={!isFuture ? (mins > 0 ? `${key}: ${mins} min` : key) : ''}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="focus-legend">
+        <span className="focus-legend-label">Less</span>
+        {[0.22, 0.44, 0.66, 0.85, 1].map((a, i) => (
+          <div key={i} className="focus-legend-cell" style={{background:`rgba(${r},${g},${b},${a})`}}/>
+        ))}
+        <span className="focus-legend-label">More</span>
+      </div>
+      <div className="focus-stats-row">
+        <div className="focus-stat">
+          <span className="focus-stat-value">{streak}</span>
+          <span className="focus-stat-label">day streak 🔥</span>
+        </div>
+        <div className="focus-stat">
+          <span className="focus-stat-value">{activeDays}</span>
+          <span className="focus-stat-label">days active</span>
+        </div>
+        <div className="focus-stat">
+          <span className="focus-stat-value">{bestDay}</span>
+          <span className="focus-stat-label">best day (min)</span>
+        </div>
+        <div className="focus-stat">
+          <span className="focus-stat-value">{avgDay}</span>
+          <span className="focus-stat-label">avg/day (min)</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 function App() {
   // Timer settings (all persisted)
@@ -324,6 +446,9 @@ function App() {
 
   // Points — earned in real time while the timer is running (1 per minute of work)
   const [points, setPoints] = useState(loadPoints);
+
+  // Daily focus stats (minutes worked per day, keyed by 'YYYY-MM-DD') — feeds the focus calendar
+  const [stats, setStats] = useState(loadStats);
 
   // UI state
   const isFirstVisitRef               = useRef(localStorage.getItem(LS_PET) === null);
@@ -408,6 +533,7 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_GARDEN_WINTER_PETS, JSON.stringify(winterGardenPets)); }, [winterGardenPets]);
   useEffect(() => { localStorage.setItem(LS_NIGHT_GARDEN, ownsNightGarden ? 'true' : 'false'); }, [ownsNightGarden]);
   useEffect(() => { localStorage.setItem(LS_WINTER_GARDEN, ownsWinterGarden ? 'true' : 'false'); }, [ownsWinterGarden]);
+  useEffect(() => { localStorage.setItem(LS_STATS, JSON.stringify(stats)); }, [stats]);
 
   // Apply theme and persist
   useEffect(() => {
@@ -515,6 +641,11 @@ function App() {
       setXP(newXP);
       setXpGainCount(c => c + 1);
     }
+    if (modeRef.current === 'work') {
+      const today = new Date().toISOString().slice(0, 10);
+      const earned = Math.floor(workSecsRef.current / 60);
+      if (earned > 0) setStats(prev => ({ ...prev, [today]: (prev[today] || 0) + earned }));
+    }
 
     // Reset per-session point tracking before advancing to the next session
     workSecondsRef.current  = 0;
@@ -563,6 +694,10 @@ function App() {
       xpRef.current = newXP;
       setXP(newXP);
       setXpGainCount(c => c + 1);
+    }
+    if (atEarned > 0) {
+      const today = new Date().toISOString().slice(0, 10);
+      setStats(prev => ({ ...prev, [today]: (prev[today] || 0) + atEarned }));
     }
     additionalWorkSecsRef.current     = 0;
     additionalPointsEarnedRef.current = 0;
@@ -1304,6 +1439,8 @@ function App() {
             </div>
           </div>
         </div>
+
+        <FocusCalendar stats={stats} petColor={getPetById(chosenPetId).color} />
       </div>
 
       <div className="lang-selector">
