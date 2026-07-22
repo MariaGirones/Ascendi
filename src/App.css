@@ -2004,6 +2004,7 @@ h1 {
   display: flex;
   gap: 4px;
   overflow-x: auto;
+  flex-direction: row;
 }
 .focus-day-labels {
   display: grid;

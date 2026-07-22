@@ -299,6 +299,11 @@ function ConfirmModal({ message, onConfirm, onCancel, confirmLabel = 'Confirm', 
 }
 
 function FocusCalendar({ stats, petColor }) {
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollLeft = 0;
+  }, []);
+
   const today = new Date();
   const todayStr = today.toISOString().slice(0, 10);
   const totalMins = Object.values(stats).reduce((a, b) => a + b, 0);
@@ -329,6 +334,7 @@ function FocusCalendar({ stats, petColor }) {
     }
     weeks.push(week);
   }
+  weeks.reverse();
 
   const hex = petColor.replace('#', '');
   const r = parseInt(hex.slice(0,2),16);
@@ -343,8 +349,9 @@ function FocusCalendar({ stats, petColor }) {
 
   const monthLabels = [];
   weeks.forEach((week, wi) => {
-    if (week[0].getDate() <= 7) {
-      monthLabels.push({ wi, label: week[0].toLocaleString('default', { month: 'short' }) });
+    const firstDay = week[0];
+    if (firstDay.getDate() <= 7) {
+      monthLabels.push({ wi, label: firstDay.toLocaleString('default', { month: 'short' }) });
     }
   });
 
@@ -354,7 +361,7 @@ function FocusCalendar({ stats, petColor }) {
         <span className="focus-calendar-title">FOCUS HISTORY</span>
         <span className="focus-calendar-total">{totalMins} min total</span>
       </div>
-      <div className="focus-calendar-grid-wrapper">
+      <div className="focus-calendar-grid-wrapper" ref={scrollRef}>
         <div className="focus-day-labels">
           <span>Mon</span><span/><span>Wed</span><span/><span>Fri</span><span/><span>Sun</span>
         </div>
