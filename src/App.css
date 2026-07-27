@@ -1830,16 +1830,22 @@ h1 {
 .garden-delete-btn {
   background: none;
   border: none;
-  font-size: 14px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: #c03030;
   cursor: pointer;
-  opacity: 0.5;
-  padding: 0 2px;
+  opacity: 0;
+  padding: 2px 4px;
   transition: opacity 0.15s;
-  filter: grayscale(0.3);
 }
-.garden-delete-btn:hover {
+.garden-header:hover .garden-delete-btn,
+.night-garden-header:hover .garden-delete-btn,
+.winter-garden-header:hover .garden-delete-btn,
+.garden-delete-btn:hover,
+.garden-delete-btn:focus-visible {
   opacity: 1;
-  filter: none;
 }
 
 .confirm-overlay {

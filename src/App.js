@@ -1601,7 +1601,7 @@ function App() {
             <div className="garden-header night-garden-header">
               <span className="garden-title" style={{color:'#a080d0'}}>🌙 Night Garden <span className="garden-count">{nightGardenPets.length} / 10</span></span>
               <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
-                <button className="garden-delete-btn" onClick={handleDeleteNightGarden} title="Delete this garden">🗑</button>
+                <button className="garden-delete-btn" onClick={handleDeleteNightGarden} title="Delete this garden">delete</button>
                 <button className="garden-close" onClick={() => setShowNightGarden(false)}>✕</button>
               </div>
             </div>
@@ -1648,7 +1648,7 @@ function App() {
             <div className="garden-header winter-garden-header">
               <span className="garden-title" style={{color:'#80b0e0'}}>❄️ Winter Garden <span className="garden-count">{winterGardenPets.length} / 10</span></span>
               <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
-                <button className="garden-delete-btn" onClick={handleDeleteWinterGarden} title="Delete this garden">🗑</button>
+                <button className="garden-delete-btn" onClick={handleDeleteWinterGarden} title="Delete this garden">delete</button>
                 <button className="garden-close" onClick={() => setShowWinterGarden(false)}>✕</button>
               </div>
             </div>
