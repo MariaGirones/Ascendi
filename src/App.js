@@ -512,6 +512,7 @@ function App() {
   const [showPicker, setShowPicker]       = useState(false);
   const [pendingPetId, setPendingPetId]   = useState(null);
   const [showXpWarning, setShowXpWarning] = useState(false);
+  const [showGardenPicker, setShowGardenPicker] = useState(false);
   const [darkMode, setDarkMode]           = useState(loadDarkMode);
   const [showBreakPopup, setShowBreakPopup]   = useState(false);
   const [pendingBreakMode, setPendingBreakMode] = useState(null);
@@ -1124,6 +1125,31 @@ function App() {
     );
   };
 
+  // Only gardens the user has unlocked/purchased are offered as a destination —
+  // My Garden is free/always available, Night & Winter are store purchases.
+  const gardenOptions = [
+    { key: 'day',    label: 'My Garden',      icon: '🌿', color: undefined,  pets: gardenPets,       setPets: setGardenPets,       unlocked: true },
+    { key: 'night',  label: 'Night Garden',   icon: '🌙', color: '#a080d0',  pets: nightGardenPets,  setPets: setNightGardenPets,  unlocked: ownsNightGarden },
+    { key: 'winter', label: 'Winter Garden',  icon: '❄️', color: '#80b0e0',  pets: winterGardenPets, setPets: setWinterGardenPets, unlocked: ownsWinterGarden },
+  ].filter(g => g.unlocked);
+
+  const sendPetToGarden = (option) => {
+    if (option.pets.length >= 10) return;
+    setShowGardenPicker(false);
+    askConfirm(
+      `Send this pet to ${option.label}? Their XP will be frozen and you will need to choose a new companion.`,
+      () => {
+        option.setPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, stageIndex: getStageIndex(xp, chosenPetId) }]);
+        setXP(0);
+        xpRef.current = 0;
+        isFirstVisitRef.current = true;
+        setShowPicker(true);
+      },
+      'Send to garden',
+      false
+    );
+  };
+
   // ── Derived display values ────────────────────────────────────────────────
   const completedInCycle =
     mode === 'work'      ? pomodoroCount - 1 :
@@ -1293,21 +1319,7 @@ function App() {
 
         {/* Pet + XP */}
         <div className="pet-display-row">
-          <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} onJoinGarden={() => {
-            if (gardenPets.length >= 10) return;
-            askConfirm(
-              'Send this pet to the garden? Their XP will be frozen and you will need to choose a new companion.',
-              () => {
-                setGardenPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, stageIndex: getStageIndex(xp, chosenPetId) }]);
-                setXP(0);
-                xpRef.current = 0;
-                isFirstVisitRef.current = true;
-                setShowPicker(true);
-              },
-              'Send to garden',
-              false
-            );
-          }} />
+          <PetDisplay petId={chosenPetId} xp={xp} gainCount={xpGainCount} isRunning={isRunning} mode={mode} isAdditionalTime={isAdditionalTime} label={t.stage} onJoinGarden={() => setShowGardenPicker(true)} />
           <div className="garden-buttons-col">
             <button className="garden-circle-btn" onClick={() => setShowGarden(g => !g)} aria-label="My garden" title="My garden">
               <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1855,6 +1867,36 @@ function App() {
                 }}>🗑 Delete account — removes everything</button>
               </div>
 
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showGardenPicker && (
+        <div className="garden-picker-overlay" onClick={() => setShowGardenPicker(false)}>
+          <div className="garden-picker-modal" onClick={e => e.stopPropagation()}>
+            <div className="garden-picker-header">
+              <span className="garden-picker-title">Choose a garden</span>
+              <button className="garden-picker-close" onClick={() => setShowGardenPicker(false)}>✕</button>
+            </div>
+            <p className="garden-picker-sub">Their XP will be frozen and you'll pick a new companion.</p>
+            <div className="garden-picker-list">
+              {gardenOptions.map(option => {
+                const isFull = option.pets.length >= 10;
+                return (
+                  <button
+                    key={option.key}
+                    className="garden-picker-option"
+                    style={option.color ? { '--garden-color': option.color } : undefined}
+                    disabled={isFull}
+                    onClick={() => sendPetToGarden(option)}
+                  >
+                    <span className="garden-picker-option-icon">{option.icon}</span>
+                    <span className="garden-picker-option-label">{option.label}</span>
+                    <span className="garden-picker-option-count">{option.pets.length} / 10{isFull ? ' · full' : ''}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
