@@ -519,7 +519,7 @@ function App() {
   const [undoVisible, setUndoVisible]         = useState(false);
   const [isAdditionalTime, setIsAdditionalTime]           = useState(false);
   const [additionalTimeLeft, setAdditionalTimeLeft]       = useState(0);
-  const [additionalTimeDuration, setAdditionalTimeDuration] = useState(5); // minutes; 5 min default
+  const [showExtraTimePicker, setShowExtraTimePicker] = useState(false);
 
   // Language state
   const [lang, setLang]       = useState(loadLang);
@@ -915,7 +915,8 @@ function App() {
     setTimeLeft(tl);
   };
 
-  const startAdditionalTime = () => {
+  const startAdditionalTime = (minutes) => {
+    setShowExtraTimePicker(false);
     // Snapshot the current cycle so it can be restored later
     savedCycleStateRef.current = {
       mode:          modeRef.current,
@@ -928,13 +929,10 @@ function App() {
     additionalPointsEarnedRef.current = 0;
     isAdditionalTimeRef.current = true;
     setIsAdditionalTime(true);
-    setAdditionalTimeLeft(additionalTimeDuration * 60);
+    setAdditionalTimeLeft(minutes * 60);
     // Ensure the worker is ticking (it may have been paused)
     if (!isRunningRef.current) {
-      // additionalTimeLeft itself is still the stale pre-update value here
-      // (setAdditionalTimeLeft above hasn't committed yet) — additionalTimeDuration
-      // is the value it's being set to, so that's what the worker should start from.
-      workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeDuration * 60 });
+      workerRef.current?.postMessage({ type: 'start', seconds: minutes * 60 });
       isRunningRef.current = true;
       setIsRunning(true);
     }
@@ -1471,18 +1469,7 @@ function App() {
           </div>
         ) : (
           <div className="at-row">
-            <div className="duration-picker">
-              {[5, 10, 15, 20, 25, 30, 45, 60].map(min => (
-                <button
-                  key={min}
-                  className={`btn-duration${additionalTimeDuration === min ? ' btn-duration--active' : ''}`}
-                  onClick={() => setAdditionalTimeDuration(min)}
-                >
-                  {min}{t.min}
-                </button>
-              ))}
-            </div>
-            <button className="btn btn-sm btn-at" onClick={startAdditionalTime}>
+            <button className="btn btn-sm btn-at" onClick={() => setShowExtraTimePicker(true)}>
               {t.extraTime}
             </button>
           </div>
@@ -1897,6 +1884,28 @@ function App() {
                   </button>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showExtraTimePicker && (
+        <div className="extra-time-picker-overlay" onClick={() => setShowExtraTimePicker(false)}>
+          <div className="extra-time-picker-modal" onClick={e => e.stopPropagation()}>
+            <div className="extra-time-picker-header">
+              <span className="extra-time-picker-title">{t.extraTime}</span>
+              <button className="extra-time-picker-close" onClick={() => setShowExtraTimePicker(false)}>✕</button>
+            </div>
+            <div className="extra-time-picker-list">
+              {[5, 10, 15, 20, 30, 60].map(min => (
+                <button
+                  key={min}
+                  className="extra-time-picker-option"
+                  onClick={() => startAdditionalTime(min)}
+                >
+                  {min} {t.min}
+                </button>
+              ))}
             </div>
           </div>
         </div>

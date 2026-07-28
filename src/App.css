@@ -659,7 +659,7 @@ h1 {
   box-shadow: 2px 2px 0 var(--shadow);
 }
 
-/* Row below main controls — duration picker + Extra Time button */
+/* Row below main controls — Extra Time button */
 .at-row {
   display: flex;
   align-items: center;
@@ -667,39 +667,6 @@ h1 {
   margin-bottom: 1.25rem;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-/* Duration selector — three small pill buttons */
-.duration-picker {
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.btn-duration {
-  padding: 0.4rem 0.6rem;
-  background: var(--bg-card);
-  border: 2px solid var(--border);
-  color: var(--text-dim);
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.65rem;
-  cursor: pointer;
-  box-shadow: 2px 2px 0 var(--shadow);
-  transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.08s, box-shadow 0.08s;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-.btn-duration:hover {
-  border-color: var(--xp-border);
-  color: var(--xp-fill);
-}
-
-.btn-duration--active {
-  background: color-mix(in srgb, var(--xp-fill) 15%, var(--bg-card));
-  border-color: var(--xp-fill);
-  color: var(--xp-fill);
 }
 
 /* Paused cycle indicator — shown under AT controls */
@@ -731,11 +698,6 @@ h1 {
   box-shadow:
     0 0 0 5px color-mix(in srgb, var(--xp-fill) 28%, transparent),
     3px 3px 0 var(--shadow);
-}
-
-.btn-duration:focus-visible {
-  outline: 2px solid var(--xp-fill);
-  outline-offset: 2px;
 }
 
 /* ── Settings card ─────────────────────────────────────────────────────────── */
@@ -1250,7 +1212,6 @@ h1 {
   /* Controls */
   .controls           { gap: 0.5rem; }
   .at-row             { gap: 0.4rem; }
-  .btn-duration       { min-height: 44px; padding: 0.5rem 0.65rem; }
 
   /* Pet picker — 2 columns on narrow phones */
   .pet-picker         { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
@@ -2028,6 +1989,80 @@ h1 {
   font-size: 0.55rem;
   color: var(--text-muted);
   white-space: nowrap;
+}
+
+.extra-time-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 1800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.extra-time-picker-modal {
+  background: var(--bg-panel);
+  border: 2px solid var(--border-hi);
+  box-shadow: 4px 4px 0 var(--shadow);
+  padding: 1rem;
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.extra-time-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.extra-time-picker-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.extra-time-picker-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.extra-time-picker-close:hover { color: var(--text); }
+
+.extra-time-picker-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.extra-time-picker-option {
+  padding: 0.6rem 0.4rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.08s, box-shadow 0.08s;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.extra-time-picker-option:hover {
+  border-color: var(--xp-border);
+  color: var(--xp-fill);
+}
+.extra-time-picker-option:focus-visible {
+  outline: 2px solid var(--xp-fill);
+  outline-offset: 2px;
 }
 
 .focus-calendar {
