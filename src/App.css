@@ -229,13 +229,15 @@ h1 {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.3rem 0.5rem;
+  padding: 0.4rem 0.6rem;
   background: var(--bg-card);
   border: 2px solid var(--border-hi);
   box-shadow: 2px 2px 0 var(--shadow);
   cursor: default;
   user-select: none;
   white-space: nowrap;
+  min-height: 36px;
+  min-width: 36px;
 }
 
 .points-icon {
@@ -260,10 +262,12 @@ h1 {
   border: 2px solid var(--border);
   font-size: 0.85rem;
   line-height: 1;
-  padding: 0.3rem 0.4rem;
+  padding: 0.4rem 0.6rem;
   cursor: pointer;
   box-shadow: 2px 2px 0 var(--shadow);
   transition: background 0.15s, transform 0.1s, box-shadow 0.1s;
+  min-height: 36px;
+  min-width: 36px;
 }
 
 .settings-btn:hover  { background: var(--bg-panel); }
@@ -283,6 +287,8 @@ h1 {
   transition: background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.1s;
   white-space: nowrap;
   letter-spacing: 0.03em;
+  min-height: 36px;
+  min-width: 36px;
 }
 
 .theme-toggle:hover {
@@ -1205,7 +1211,10 @@ h1 {
   .picker-cancel-btn  { font-size: 0.75rem; min-height: 48px; }
   .picker-confirm-btn { font-size: 0.75rem; min-height: 48px; }
   .settings-btn,
-  .theme-toggle       { min-height: 48px; min-width: 48px; }
+  .theme-toggle,
+  .settings-gear-btn,
+  .help-btn,
+  .points-chip        { min-height: 48px; min-width: 48px; }
   .points-chip        { padding: 0.25rem 0.4rem; }
   .points-value       { font-size: 0.6rem; }
 
@@ -2181,7 +2190,7 @@ h1 {
   background: var(--bg-card);
   border: 2px solid var(--border);
   font-size: 0.85rem;
-  padding: 0.3rem 0.4rem;
+  padding: 0.4rem 0.6rem;
   cursor: pointer;
   box-shadow: 2px 2px 0 var(--shadow);
   transition: background 0.15s, transform 0.1s, box-shadow 0.1s;

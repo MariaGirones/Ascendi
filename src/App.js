@@ -1277,14 +1277,6 @@ function App() {
         <div className="top-bar">
           <h1>Ascendi</h1>
           <div className="top-bar-actions">
-            <button
-              className="settings-gear-btn"
-              onClick={() => setShowSettings(true)}
-              aria-label="Settings"
-              title="Settings"
-            >
-              ⚙️
-            </button>
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
               <span className="points-icon">✦</span>
               <span className="points-value">{points}</span>
@@ -1311,6 +1303,14 @@ function App() {
               title="How to use Ascendi"
             >
               ?
+            </button>
+            <button
+              className="settings-gear-btn"
+              onClick={() => setShowSettings(true)}
+              aria-label="Settings"
+              title="Settings"
+            >
+              ⚙️
             </button>
           </div>
         </div>
