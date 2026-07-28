@@ -519,7 +519,7 @@ function App() {
   const [undoVisible, setUndoVisible]         = useState(false);
   const [isAdditionalTime, setIsAdditionalTime]           = useState(false);
   const [additionalTimeLeft, setAdditionalTimeLeft]       = useState(0);
-  const [additionalTimeDuration, setAdditionalTimeDuration] = useState(300); // seconds; 5 min default
+  const [additionalTimeDuration, setAdditionalTimeDuration] = useState(5); // minutes; 5 min default
 
   // Language state
   const [lang, setLang]       = useState(loadLang);
@@ -928,13 +928,13 @@ function App() {
     additionalPointsEarnedRef.current = 0;
     isAdditionalTimeRef.current = true;
     setIsAdditionalTime(true);
-    setAdditionalTimeLeft(additionalTimeDuration);
+    setAdditionalTimeLeft(additionalTimeDuration * 60);
     // Ensure the worker is ticking (it may have been paused)
     if (!isRunningRef.current) {
       // additionalTimeLeft itself is still the stale pre-update value here
       // (setAdditionalTimeLeft above hasn't committed yet) — additionalTimeDuration
       // is the value it's being set to, so that's what the worker should start from.
-      workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeDuration });
+      workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeDuration * 60 });
       isRunningRef.current = true;
       setIsRunning(true);
     }
@@ -1472,13 +1472,13 @@ function App() {
         ) : (
           <div className="at-row">
             <div className="duration-picker">
-              {[300, 600, 900, 1200, 1500, 1800, 2700, 3600].map(sec => (
+              {[5, 10, 15, 20, 25, 30, 45, 60].map(min => (
                 <button
-                  key={sec}
-                  className={`btn-duration${additionalTimeDuration === sec ? ' btn-duration--active' : ''}`}
-                  onClick={() => setAdditionalTimeDuration(sec)}
+                  key={min}
+                  className={`btn-duration${additionalTimeDuration === min ? ' btn-duration--active' : ''}`}
+                  onClick={() => setAdditionalTimeDuration(min)}
                 >
-                  {sec / 60}{t.min}
+                  {min}{t.min}
                 </button>
               ))}
             </div>
