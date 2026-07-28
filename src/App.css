@@ -1898,6 +1898,69 @@ h1 {
   opacity: 1;
 }
 
+.garden-pet-move {
+  position: relative;
+}
+
+.garden-pet-move-btn {
+  background: none;
+  border: none;
+  font-size: 7px;
+  color: #4a7a4a;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 1px 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.garden-pet:hover .garden-pet-move-btn {
+  opacity: 1;
+}
+
+.garden-pet-move-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 4px;
+  background: #fff;
+  border: 1px solid #4caf7d;
+  border-radius: 4px;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 96px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  z-index: 20;
+}
+
+.garden-pet-move-option {
+  background: none;
+  border: none;
+  font-size: 8px;
+  color: #1a3a1a;
+  text-align: left;
+  padding: 3px 4px;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.garden-pet-move-option:hover:not(:disabled) {
+  background: rgba(76,175,125,0.15);
+}
+.garden-pet-move-option:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.garden-pet-move-empty {
+  font-size: 8px;
+  color: #888;
+  padding: 3px 4px;
+  white-space: nowrap;
+}
+
 .store-owned-tag {
   font-size: 9px;
   color: #4caf7d;

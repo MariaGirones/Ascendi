@@ -271,7 +271,7 @@ function loadDarkMode() { return localStorage.getItem(LS_DARK) !== 'false'; }
 const WORK_OPTIONS       = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90];
 const SHORT_BREAK_OPTIONS = [5,10,15,20,25,30];
 const LONG_BREAK_OPTIONS  = [10,15,20,25,30];
-const MAX_GARDEN_PETS = 5;
+const MAX_GARDEN_PETS = 10;
 const OCEAN_GARDEN_PRICE = 800;
 
 function snapToOptions(raw, options, defaultVal) {
@@ -321,7 +321,7 @@ function GardenPetCanvas({ petId, stageIndex }) {
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawPet(ctx, petId, stageIndex, 0, false, 'transparent', 1.0);
+    drawPet(ctx, petId, stageIndex, 0, false, 'transparent', 1.5);
   }, [petId, stageIndex]);
   return (
     <canvas
@@ -520,6 +520,7 @@ function App() {
   const [pendingPetId, setPendingPetId]   = useState(null);
   const [showXpWarning, setShowXpWarning] = useState(false);
   const [showGardenPicker, setShowGardenPicker] = useState(false);
+  const [moveMenuFor, setMoveMenuFor]     = useState(null); // { gardenKey, index } | null
   const [darkMode, setDarkMode]           = useState(loadDarkMode);
   const [showBreakPopup, setShowBreakPopup]   = useState(false);
   const [pendingBreakMode, setPendingBreakMode] = useState(null);
@@ -1192,6 +1193,50 @@ function App() {
     );
   };
 
+  // Moving a pet already inside a garden over to a different unlocked garden.
+  const movePetToGarden = (fromOption, index, toOption) => {
+    if (toOption.pets.length >= MAX_GARDEN_PETS) return;
+    const pet = fromOption.pets[index];
+    fromOption.setPets(prev => prev.filter((_, i) => i !== index));
+    toOption.setPets(prev => [...prev, pet]);
+    setMoveMenuFor(null);
+  };
+
+  const renderMoveTo = (gardenKey, index) => {
+    const fromOption = gardenOptions.find(g => g.key === gardenKey);
+    const others = gardenOptions.filter(g => g.key !== gardenKey);
+    const isOpen = !!moveMenuFor && moveMenuFor.gardenKey === gardenKey && moveMenuFor.index === index;
+    return (
+      <div className="garden-pet-move" onClick={e => e.stopPropagation()}>
+        <button
+          className="garden-pet-move-btn"
+          onClick={() => setMoveMenuFor(isOpen ? null : { gardenKey, index })}
+        >
+          Move to...
+        </button>
+        {isOpen && (
+          <div className="garden-pet-move-menu">
+            {others.length === 0 ? (
+              <div className="garden-pet-move-empty">No other gardens unlocked</div>
+            ) : others.map(o => {
+              const full = o.pets.length >= MAX_GARDEN_PETS;
+              return (
+                <button
+                  key={o.key}
+                  className="garden-pet-move-option"
+                  disabled={full}
+                  onClick={() => movePetToGarden(fromOption, index, o)}
+                >
+                  {o.icon} {o.label}{full ? ' · full' : ''}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   // ── Derived display values ────────────────────────────────────────────────
   const completedInCycle =
     mode === 'work'      ? pomodoroCount - 1 :
@@ -1610,7 +1655,7 @@ function App() {
 
       {showGarden && (
         <div className="garden-overlay" onClick={() => setShowGarden(false)}>
-          <div className="garden-modal" onClick={e => e.stopPropagation()}>
+          <div className="garden-modal" onClick={e => { e.stopPropagation(); setMoveMenuFor(null); }}>
             <div className="garden-header">
               <span className="garden-title">🌿 My garden <span className="garden-count">{gardenPets.length} / {MAX_GARDEN_PETS}</span></span>
               <button className="garden-close" onClick={() => setShowGarden(false)}>✕</button>
@@ -1640,9 +1685,10 @@ function App() {
                       className="garden-pet-name"
                       value={pet.name}
                       onChange={e => handleRenameGardenPet(i, e.target.value)}
-                      maxLength={24}
+                      maxLength={15}
                     />
                     <button className="garden-pet-delete" onClick={() => handleDeleteGardenPet(i)} title="Remove from garden">✕</button>
+                    {renderMoveTo('day', i)}
                   </div>
                 ))}
                 {gardenPets.length === 0 && (
@@ -1656,7 +1702,7 @@ function App() {
 
       {showNightGarden && (
         <div className="garden-overlay" onClick={() => setShowNightGarden(false)}>
-          <div className="night-garden-modal" onClick={e => e.stopPropagation()}>
+          <div className="night-garden-modal" onClick={e => { e.stopPropagation(); setMoveMenuFor(null); }}>
             <div className="garden-header night-garden-header">
               <span className="garden-title" style={{color:'#a080d0'}}>🌙 Night Garden <span className="garden-count">{nightGardenPets.length} / {MAX_GARDEN_PETS}</span></span>
               <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
@@ -1688,8 +1734,9 @@ function App() {
                 {nightGardenPets.map((pet, i) => (
                   <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name night-pet-name" value={pet.name} onChange={e => handleRenameNightPet(i, e.target.value)} maxLength={24}/>
+                    <input className="garden-pet-name night-pet-name" value={pet.name} onChange={e => handleRenameNightPet(i, e.target.value)} maxLength={15}/>
                     <button className="garden-pet-delete" onClick={() => handleDeleteNightPet(i)} title="Remove from garden">✕</button>
+                    {renderMoveTo('night', i)}
                   </div>
                 ))}
                 {nightGardenPets.length === 0 && (
@@ -1703,7 +1750,7 @@ function App() {
 
       {showWinterGarden && (
         <div className="garden-overlay" onClick={() => setShowWinterGarden(false)}>
-          <div className="winter-garden-modal" onClick={e => e.stopPropagation()}>
+          <div className="winter-garden-modal" onClick={e => { e.stopPropagation(); setMoveMenuFor(null); }}>
             <div className="garden-header winter-garden-header">
               <span className="garden-title" style={{color:'#80b0e0'}}>❄️ Winter Garden <span className="garden-count">{winterGardenPets.length} / {MAX_GARDEN_PETS}</span></span>
               <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
@@ -1728,8 +1775,9 @@ function App() {
                 {winterGardenPets.map((pet, i) => (
                   <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'56%':'32%'}}>
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name winter-pet-name" value={pet.name} onChange={e => handleRenameWinterPet(i, e.target.value)} maxLength={24}/>
+                    <input className="garden-pet-name winter-pet-name" value={pet.name} onChange={e => handleRenameWinterPet(i, e.target.value)} maxLength={15}/>
                     <button className="garden-pet-delete" onClick={() => handleDeleteWinterPet(i)} title="Remove from garden">✕</button>
+                    {renderMoveTo('winter', i)}
                   </div>
                 ))}
                 {winterGardenPets.length === 0 && (
@@ -1743,7 +1791,7 @@ function App() {
 
       {showOceanGarden && (
         <div className="garden-overlay" onClick={() => setShowOceanGarden(false)}>
-          <div className="ocean-garden-modal" onClick={e => e.stopPropagation()}>
+          <div className="ocean-garden-modal" onClick={e => { e.stopPropagation(); setMoveMenuFor(null); }}>
             <div className="garden-header ocean-garden-header">
               <span className="garden-title" style={{color:'#3ab0d8'}}>🌊 Ocean Garden <span className="garden-count">{oceanGardenPets.length} / {MAX_GARDEN_PETS}</span></span>
               <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
@@ -1770,8 +1818,9 @@ function App() {
                 {oceanGardenPets.map((pet, i) => (
                   <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name ocean-pet-name" value={pet.name} onChange={e => handleRenameOceanPet(i, e.target.value)} maxLength={24}/>
+                    <input className="garden-pet-name ocean-pet-name" value={pet.name} onChange={e => handleRenameOceanPet(i, e.target.value)} maxLength={15}/>
                     <button className="garden-pet-delete" onClick={() => handleDeleteOceanPet(i)} title="Remove from garden">✕</button>
+                    {renderMoveTo('ocean', i)}
                   </div>
                 ))}
                 {oceanGardenPets.length === 0 && (
