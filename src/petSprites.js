@@ -1000,9 +1000,9 @@ function drawAxolotl(ctx, stage, af, rest) {
 
 const DRAW_FUNCTIONS = { cat: drawCat, dog: drawDog, dragon: drawDragon, bunny: drawBunny, fox: drawFox, axolotl: drawAxolotl };
 
-export function drawPet(ctx, petId, stage, animFrame, isResting, bgColor) {
+export function drawPet(ctx, petId, stage, animFrame, isResting, bgColor, fillRatio = 0.65) {
   const size = Math.min(ctx.canvas.width, ctx.canvas.height);
-  S = Math.max(1, Math.floor(size * 0.65 / 16));
+  S = Math.max(1, Math.floor(size * fillRatio / 16));
   PAD = Math.round((size - S * 16) / 2);
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   if (bgColor) { ctx.fillStyle = bgColor; ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height); }

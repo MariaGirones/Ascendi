@@ -266,6 +266,7 @@ function loadDarkMode() { return localStorage.getItem(LS_DARK) !== 'false'; }
 const WORK_OPTIONS       = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90];
 const SHORT_BREAK_OPTIONS = [5,10,15,20,25,30];
 const LONG_BREAK_OPTIONS  = [10,15,20,25,30];
+const MAX_GARDEN_PETS = 5;
 
 function snapToOptions(raw, options, defaultVal) {
   if (isNaN(raw)) return defaultVal;
@@ -314,7 +315,7 @@ function GardenPetCanvas({ petId, stageIndex }) {
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawPet(ctx, petId, stageIndex, 0, false, 'transparent');
+    drawPet(ctx, petId, stageIndex, 0, false, 'transparent', 0.9);
   }, [petId, stageIndex]);
   return (
     <canvas
@@ -1132,7 +1133,7 @@ function App() {
   ].filter(g => g.unlocked);
 
   const sendPetToGarden = (option) => {
-    if (option.pets.length >= 10) return;
+    if (option.pets.length >= MAX_GARDEN_PETS) return;
     setShowGardenPicker(false);
     askConfirm(
       `Send this pet to ${option.label}? Their XP will be frozen and you will need to choose a new companion.`,
@@ -1552,7 +1553,7 @@ function App() {
         <div className="garden-overlay" onClick={() => setShowGarden(false)}>
           <div className="garden-modal" onClick={e => e.stopPropagation()}>
             <div className="garden-header">
-              <span className="garden-title">🌿 My garden <span className="garden-count">{gardenPets.length} / 10</span></span>
+              <span className="garden-title">🌿 My garden <span className="garden-count">{gardenPets.length} / {MAX_GARDEN_PETS}</span></span>
               <button className="garden-close" onClick={() => setShowGarden(false)}>✕</button>
             </div>
             <div className="garden-scene">
@@ -1598,7 +1599,7 @@ function App() {
         <div className="garden-overlay" onClick={() => setShowNightGarden(false)}>
           <div className="night-garden-modal" onClick={e => e.stopPropagation()}>
             <div className="garden-header night-garden-header">
-              <span className="garden-title" style={{color:'#a080d0'}}>🌙 Night Garden <span className="garden-count">{nightGardenPets.length} / 10</span></span>
+              <span className="garden-title" style={{color:'#a080d0'}}>🌙 Night Garden <span className="garden-count">{nightGardenPets.length} / {MAX_GARDEN_PETS}</span></span>
               <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
                 <button className="garden-delete-btn" onClick={handleDeleteNightGarden} title="Delete this garden">delete</button>
                 <button className="garden-close" onClick={() => setShowNightGarden(false)}>✕</button>
@@ -1645,7 +1646,7 @@ function App() {
         <div className="garden-overlay" onClick={() => setShowWinterGarden(false)}>
           <div className="winter-garden-modal" onClick={e => e.stopPropagation()}>
             <div className="garden-header winter-garden-header">
-              <span className="garden-title" style={{color:'#80b0e0'}}>❄️ Winter Garden <span className="garden-count">{winterGardenPets.length} / 10</span></span>
+              <span className="garden-title" style={{color:'#80b0e0'}}>❄️ Winter Garden <span className="garden-count">{winterGardenPets.length} / {MAX_GARDEN_PETS}</span></span>
               <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
                 <button className="garden-delete-btn" onClick={handleDeleteWinterGarden} title="Delete this garden">delete</button>
                 <button className="garden-close" onClick={() => setShowWinterGarden(false)}>✕</button>
@@ -1869,7 +1870,7 @@ function App() {
             <p className="garden-picker-sub">Their XP will be frozen and you'll pick a new companion.</p>
             <div className="garden-picker-list">
               {gardenOptions.map(option => {
-                const isFull = option.pets.length >= 10;
+                const isFull = option.pets.length >= MAX_GARDEN_PETS;
                 return (
                   <button
                     key={option.key}
@@ -1880,7 +1881,7 @@ function App() {
                   >
                     <span className="garden-picker-option-icon">{option.icon}</span>
                     <span className="garden-picker-option-label">{option.label}</span>
-                    <span className="garden-picker-option-count">{option.pets.length} / 10{isFull ? ' · full' : ''}</span>
+                    <span className="garden-picker-option-count">{option.pets.length} / {MAX_GARDEN_PETS}{isFull ? ' · full' : ''}</span>
                   </button>
                 );
               })}
