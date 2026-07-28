@@ -222,8 +222,10 @@ const LS_POINTS = 'nsq_points';
 const LS_GARDEN = 'nsq_garden';
 const LS_NIGHT_GARDEN = 'nsq_garden_night';
 const LS_WINTER_GARDEN = 'nsq_garden_winter';
+const LS_OCEAN_GARDEN = 'nsq_garden_ocean';
 const LS_GARDEN_NIGHT_PETS = 'nsq_garden_night_pets';
 const LS_GARDEN_WINTER_PETS = 'nsq_garden_winter_pets';
+const LS_GARDEN_OCEAN_PETS = 'nsq_garden_ocean_pets';
 const LS_STATS = 'nsq_stats';
 const LS_SOUND = 'nsq_sound';
 const LS_VOLUME = 'nsq_volume';
@@ -255,6 +257,9 @@ function loadNightGardenPets() {
 function loadWinterGardenPets() {
   try { return JSON.parse(localStorage.getItem(LS_GARDEN_WINTER_PETS)) || []; } catch { return []; }
 }
+function loadOceanGardenPets() {
+  try { return JSON.parse(localStorage.getItem(LS_GARDEN_OCEAN_PETS)) || []; } catch { return []; }
+}
 
 function loadXP() {
   const raw = parseInt(localStorage.getItem(LS_XP), 10);
@@ -267,6 +272,7 @@ const WORK_OPTIONS       = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90
 const SHORT_BREAK_OPTIONS = [5,10,15,20,25,30];
 const LONG_BREAK_OPTIONS  = [10,15,20,25,30];
 const MAX_GARDEN_PETS = 5;
+const OCEAN_GARDEN_PRICE = 800;
 
 function snapToOptions(raw, options, defaultVal) {
   if (isNaN(raw)) return defaultVal;
@@ -315,7 +321,7 @@ function GardenPetCanvas({ petId, stageIndex }) {
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawPet(ctx, petId, stageIndex, 0, false, 'transparent', 0.9);
+    drawPet(ctx, petId, stageIndex, 0, false, 'transparent', 1.0);
   }, [petId, stageIndex]);
   return (
     <canvas
@@ -528,10 +534,13 @@ function App() {
   const [gardenPets, setGardenPets] = useState(loadGarden);
   const [showNightGarden, setShowNightGarden] = useState(false);
   const [showWinterGarden, setShowWinterGarden] = useState(false);
+  const [showOceanGarden, setShowOceanGarden] = useState(false);
   const [nightGardenPets, setNightGardenPets] = useState(loadNightGardenPets);
   const [winterGardenPets, setWinterGardenPets] = useState(loadWinterGardenPets);
+  const [oceanGardenPets, setOceanGardenPets] = useState(loadOceanGardenPets);
   const [ownsNightGarden, setOwnsNightGarden] = useState(() => localStorage.getItem(LS_NIGHT_GARDEN) === 'true');
   const [ownsWinterGarden, setOwnsWinterGarden] = useState(() => localStorage.getItem(LS_WINTER_GARDEN) === 'true');
+  const [ownsOceanGarden, setOwnsOceanGarden] = useState(() => localStorage.getItem(LS_OCEAN_GARDEN) === 'true');
   const [showStore, setShowStore] = useState(false);
   const [confirm, setConfirm] = useState(null);
 
@@ -604,8 +613,10 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_GARDEN, JSON.stringify(gardenPets)); }, [gardenPets]);
   useEffect(() => { localStorage.setItem(LS_GARDEN_NIGHT_PETS, JSON.stringify(nightGardenPets)); }, [nightGardenPets]);
   useEffect(() => { localStorage.setItem(LS_GARDEN_WINTER_PETS, JSON.stringify(winterGardenPets)); }, [winterGardenPets]);
+  useEffect(() => { localStorage.setItem(LS_GARDEN_OCEAN_PETS, JSON.stringify(oceanGardenPets)); }, [oceanGardenPets]);
   useEffect(() => { localStorage.setItem(LS_NIGHT_GARDEN, ownsNightGarden ? 'true' : 'false'); }, [ownsNightGarden]);
   useEffect(() => { localStorage.setItem(LS_WINTER_GARDEN, ownsWinterGarden ? 'true' : 'false'); }, [ownsWinterGarden]);
+  useEffect(() => { localStorage.setItem(LS_OCEAN_GARDEN, ownsOceanGarden ? 'true' : 'false'); }, [ownsOceanGarden]);
   useEffect(() => { localStorage.setItem(LS_STATS, JSON.stringify(stats)); }, [stats]);
   useEffect(() => { localStorage.setItem(LS_SOUND, soundChoice); }, [soundChoice]);
   useEffect(() => { localStorage.setItem(LS_VOLUME, volume); }, [volume]);
@@ -1073,6 +1084,9 @@ function App() {
   const handleRenameWinterPet = (index, newName) => {
     setWinterGardenPets(prev => prev.map((p, i) => i === index ? { ...p, name: newName } : p));
   };
+  const handleRenameOceanPet = (index, newName) => {
+    setOceanGardenPets(prev => prev.map((p, i) => i === index ? { ...p, name: newName } : p));
+  };
 
   const handleDeleteGardenPet = (index) => {
     askConfirm(
@@ -1094,6 +1108,14 @@ function App() {
     askConfirm(
       'Remove this pet from the winter garden?',
       () => setWinterGardenPets(prev => prev.filter((_, i) => i !== index)),
+      'Remove',
+      true
+    );
+  };
+  const handleDeleteOceanPet = (index) => {
+    askConfirm(
+      'Remove this pet from the ocean garden?',
+      () => setOceanGardenPets(prev => prev.filter((_, i) => i !== index)),
       'Remove',
       true
     );
@@ -1123,13 +1145,34 @@ function App() {
       true
     );
   };
+  const handleDeleteOceanGarden = () => {
+    askConfirm(
+      'Delete the Ocean Garden? All pets inside will be lost.',
+      () => {
+        setOwnsOceanGarden(false);
+        setOceanGardenPets([]);
+        setShowOceanGarden(false);
+      },
+      'Delete garden',
+      true
+    );
+  };
+
+  const handleBuyOceanGarden = () => {
+    if (points < OCEAN_GARDEN_PRICE) return;
+    const newPoints = points - OCEAN_GARDEN_PRICE;
+    setPoints(newPoints);
+    pointsRef.current = newPoints;
+    setOwnsOceanGarden(true);
+  };
 
   // Only gardens the user has unlocked/purchased are offered as a destination —
-  // My Garden is free/always available, Night & Winter are store purchases.
+  // My Garden is free/always available, Night, Winter & Ocean are store purchases.
   const gardenOptions = [
     { key: 'day',    label: 'My Garden',      icon: '🌿', color: undefined,  pets: gardenPets,       setPets: setGardenPets,       unlocked: true },
     { key: 'night',  label: 'Night Garden',   icon: '🌙', color: '#a080d0',  pets: nightGardenPets,  setPets: setNightGardenPets,  unlocked: ownsNightGarden },
     { key: 'winter', label: 'Winter Garden',  icon: '❄️', color: '#80b0e0',  pets: winterGardenPets, setPets: setWinterGardenPets, unlocked: ownsWinterGarden },
+    { key: 'ocean',  label: 'Ocean Garden',   icon: '🌊', color: '#3ab0d8',  pets: oceanGardenPets,  setPets: setOceanGardenPets,  unlocked: ownsOceanGarden },
   ].filter(g => g.unlocked);
 
   const sendPetToGarden = (option) => {
@@ -1374,6 +1417,22 @@ function App() {
                 </svg>
               </button>
             )}
+            {ownsOceanGarden && (
+              <button className="ocean-garden-circle-btn" onClick={() => setShowOceanGarden(g => !g)} aria-label="Ocean garden" title="Ocean garden">
+                <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="0" y="2" width="2" height="1" fill="#3ab0d8"/>
+                  <rect x="2" y="1" width="2" height="1" fill="#3ab0d8"/>
+                  <rect x="4" y="2" width="2" height="1" fill="#3ab0d8"/>
+                  <rect x="6" y="1" width="2" height="1" fill="#3ab0d8"/>
+                  <rect x="8" y="2" width="1" height="1" fill="#3ab0d8"/>
+                  <rect x="0" y="5" width="2" height="1" fill="#7ad0e8"/>
+                  <rect x="2" y="4" width="2" height="1" fill="#7ad0e8"/>
+                  <rect x="4" y="5" width="2" height="1" fill="#7ad0e8"/>
+                  <rect x="6" y="4" width="2" height="1" fill="#7ad0e8"/>
+                  <rect x="8" y="5" width="1" height="1" fill="#7ad0e8"/>
+                </svg>
+              </button>
+            )}
             <button className="store-circle-btn" onClick={() => setShowStore(s => !s)} aria-label="Ascendi Shop" title="Ascendi Shop">
               <svg width="18" height="18" viewBox="0 0 9 9" style={{imageRendering:'pixelated'}} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect x="1" y="7" width="7" height="2" fill="#8B5E3C"/>
@@ -1581,7 +1640,7 @@ function App() {
                       className="garden-pet-name"
                       value={pet.name}
                       onChange={e => handleRenameGardenPet(i, e.target.value)}
-                      maxLength={12}
+                      maxLength={24}
                     />
                     <button className="garden-pet-delete" onClick={() => handleDeleteGardenPet(i)} title="Remove from garden">✕</button>
                   </div>
@@ -1629,7 +1688,7 @@ function App() {
                 {nightGardenPets.map((pet, i) => (
                   <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name night-pet-name" value={pet.name} onChange={e => handleRenameNightPet(i, e.target.value)} maxLength={12}/>
+                    <input className="garden-pet-name night-pet-name" value={pet.name} onChange={e => handleRenameNightPet(i, e.target.value)} maxLength={24}/>
                     <button className="garden-pet-delete" onClick={() => handleDeleteNightPet(i)} title="Remove from garden">✕</button>
                   </div>
                 ))}
@@ -1669,12 +1728,54 @@ function App() {
                 {winterGardenPets.map((pet, i) => (
                   <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'56%':'32%'}}>
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name winter-pet-name" value={pet.name} onChange={e => handleRenameWinterPet(i, e.target.value)} maxLength={12}/>
+                    <input className="garden-pet-name winter-pet-name" value={pet.name} onChange={e => handleRenameWinterPet(i, e.target.value)} maxLength={24}/>
                     <button className="garden-pet-delete" onClick={() => handleDeleteWinterPet(i)} title="Remove from garden">✕</button>
                   </div>
                 ))}
                 {winterGardenPets.length === 0 && (
                   <div className="garden-empty" style={{color:'#2a5080',background:'rgba(232,244,255,0.9)'}}>Your winter garden is empty!</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showOceanGarden && (
+        <div className="garden-overlay" onClick={() => setShowOceanGarden(false)}>
+          <div className="ocean-garden-modal" onClick={e => e.stopPropagation()}>
+            <div className="garden-header ocean-garden-header">
+              <span className="garden-title" style={{color:'#3ab0d8'}}>🌊 Ocean Garden <span className="garden-count">{oceanGardenPets.length} / {MAX_GARDEN_PETS}</span></span>
+              <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
+                <button className="garden-delete-btn" onClick={handleDeleteOceanGarden} title="Delete this garden">delete</button>
+                <button className="garden-close" onClick={() => setShowOceanGarden(false)}>✕</button>
+              </div>
+            </div>
+            <div className="ocean-garden-scene">
+              <div className="ocean-light-ray" style={{left:'10%'}}/>
+              <div className="ocean-light-ray" style={{left:'35%', animationDelay:'1.5s'}}/>
+              <div className="ocean-light-ray" style={{left:'60%', animationDelay:'0.8s'}}/>
+              <div className="ocean-light-ray" style={{left:'82%', animationDelay:'2.2s'}}/>
+              <div className="ocean-bubble" style={{left:'15%', animationDelay:'0s'}}/>
+              <div className="ocean-bubble" style={{left:'32%', animationDelay:'1.2s'}}/>
+              <div className="ocean-bubble" style={{left:'52%', animationDelay:'2.4s'}}/>
+              <div className="ocean-bubble" style={{left:'70%', animationDelay:'0.6s'}}/>
+              <div className="ocean-bubble" style={{left:'88%', animationDelay:'1.8s'}}/>
+              <div className="ocean-floor">
+                <div className="ocean-seaweed" style={{left:'18px'}}/>
+                <div className="ocean-seaweed ocean-seaweed--right" style={{right:'18px'}}/>
+                <div className="ocean-coral" style={{left:'50px'}}>🪸</div>
+                <div className="ocean-shell" style={{left:'46%'}}>🐚</div>
+                <div className="ocean-coral" style={{right:'60px'}}>🪸</div>
+                {oceanGardenPets.map((pet, i) => (
+                  <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
+                    <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
+                    <input className="garden-pet-name ocean-pet-name" value={pet.name} onChange={e => handleRenameOceanPet(i, e.target.value)} maxLength={24}/>
+                    <button className="garden-pet-delete" onClick={() => handleDeleteOceanPet(i)} title="Remove from garden">✕</button>
+                  </div>
+                ))}
+                {oceanGardenPets.length === 0 && (
+                  <div className="garden-empty" style={{color:'#0a3a5c',background:'rgba(200,169,110,0.9)'}}>Your ocean garden is empty!</div>
                 )}
               </div>
             </div>
@@ -1721,6 +1822,29 @@ function App() {
                       <div className="store-owned-tag">✓ Owned</div>
                     ) : (
                       <button className="store-buy-btn store-buy-btn--winter" onClick={() => { setOwnsWinterGarden(true); }}>Get</button>
+                    )}
+                  </div>
+
+                  <div className="store-item">
+                    <div className="store-item-name" style={{color:'#3ab0d8'}}>Ocean Garden</div>
+                    <div className="store-item-preview store-item-preview--ocean">
+                      <span className="store-preview-icon">🌊</span>
+                      <span className="store-preview-shell">🐚</span>
+                    </div>
+                    <p className="store-item-desc">A peaceful underwater world</p>
+                    {ownsOceanGarden ? (
+                      <div className="store-owned-tag">✓ Owned</div>
+                    ) : (
+                      <>
+                        <div className="store-item-price">✦ {OCEAN_GARDEN_PRICE} pts</div>
+                        <button
+                          className="store-buy-btn store-buy-btn--ocean"
+                          onClick={handleBuyOceanGarden}
+                          disabled={points < OCEAN_GARDEN_PRICE}
+                        >
+                          Get
+                        </button>
+                      </>
                     )}
                   </div>
 
