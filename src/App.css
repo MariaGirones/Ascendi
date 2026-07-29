@@ -340,7 +340,6 @@ h1 {
 /* Pixel pet canvas */
 .pixel-pet {
   image-rendering: pixelated;
-  image-rendering: crisp-edges;
   display: block;
 }
 
@@ -1557,7 +1556,7 @@ h1 {
   border: 1px solid #5a3a1a;
   padding: 10px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
@@ -1781,7 +1780,7 @@ h1 {
   width: min(600px, 95vw); border-radius: 14px; overflow: hidden;
   border: 1px solid #4080c0; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
 }
-.winter-garden-header { border-bottom: 1px solid #408060044; }
+.winter-garden-header { border-bottom: 1px solid #4080c044; }
 
 .winter-garden-scene {
   position: relative; height: 380px; overflow: hidden;

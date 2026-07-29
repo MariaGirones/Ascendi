@@ -404,9 +404,9 @@ function FocusCalendar({ stats, petColor }) {
 
   const monthLabels = [];
   weeks.forEach((week, wi) => {
-    const firstDay = week[0];
-    if (firstDay.getDate() <= 7) {
-      monthLabels.push({ wi, label: firstDay.toLocaleString('default', { month: 'short' }) });
+    const lastDay = week[week.length - 1];
+    if (lastDay.getDate() <= 7) {
+      monthLabels.push({ wi, label: lastDay.toLocaleString('default', { month: 'short' }) });
     }
   });
 
@@ -477,7 +477,7 @@ function FocusCalendar({ stats, petColor }) {
   );
 }
 
-function HomeScreen({ pet, xp, stats, onStart, onOpenSettings, onOpenPicker, darkMode, t }) {
+function HomeScreen({ pet, xp, stats, onStart, onOpenSettings, onOpenPicker, darkMode, onToggleDark, t }) {
   const stageIdx = getStageIndex(xp, pet.id);
   const stageName = pet.stageNames[stageIdx];
   const nextThreshold = pet.stageThresholds[stageIdx + 1] ?? 1000;
@@ -501,6 +501,9 @@ function HomeScreen({ pet, xp, stats, onStart, onOpenSettings, onOpenPicker, dar
       <div className="home-top-bar">
         <span className="home-title">ASCENDI</span>
         <div className="home-top-actions">
+          <button className="home-icon-btn" onClick={onToggleDark} aria-label="Toggle theme">
+            {darkMode ? '☀️' : '🌙'}
+          </button>
           <button className="home-icon-btn" onClick={onOpenSettings} aria-label="Settings">⚙️</button>
           <button className="home-icon-btn" onClick={onOpenPicker} aria-label="Change pet">🐾</button>
         </div>
@@ -714,7 +717,7 @@ function App() {
       if (document.visibilityState === 'visible' && isRunningRef.current) {
         workerRef.current?.postMessage('stop');
         const seconds = isAdditionalTimeRef.current ? additionalTimeLeftRef.current : timeLeftRef.current;
-        workerRef.current?.postMessage({ type: 'start', seconds });
+        if (seconds > 0) workerRef.current?.postMessage({ type: 'start', seconds });
       }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -1233,7 +1236,7 @@ function App() {
     askConfirm(
       `Send this pet to ${option.label}? Their XP will be frozen and you will need to choose a new companion.`,
       () => {
-        option.setPets(prev => [...prev, { id: chosenPetId, name: chosenPetId, stageIndex: getStageIndex(xp, chosenPetId) }]);
+        option.setPets(prev => [...prev, { id: chosenPetId, name: getPetById(chosenPetId).name, stageIndex: getStageIndex(xpRef.current, chosenPetId) }]);
         setXP(0);
         xpRef.current = 0;
         isFirstVisitRef.current = true;
@@ -1420,6 +1423,7 @@ function App() {
           onStart={() => setScreen('timer')}
           onOpenSettings={() => setShowSettings(true)}
           onOpenPicker={() => setShowPicker(true)}
+          onToggleDark={() => setDarkMode(d => !d)}
           darkMode={darkMode}
           t={t}
         />
