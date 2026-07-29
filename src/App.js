@@ -477,6 +477,64 @@ function FocusCalendar({ stats, petColor }) {
   );
 }
 
+function HomeScreen({ pet, xp, stats, onStart, onOpenSettings, onOpenPicker, darkMode, t }) {
+  const stageIdx = getStageIndex(xp, pet.id);
+  const stageName = pet.stageNames[stageIdx];
+  const nextThreshold = pet.stageThresholds[stageIdx + 1] ?? 1000;
+  const prevThreshold = pet.stageThresholds[stageIdx] ?? 0;
+  const xpInStage = xp - prevThreshold;
+  const xpNeeded = nextThreshold - prevThreshold;
+  const pct = Math.min(100, Math.round((xpInStage / xpNeeded) * 100));
+
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPet(ctx, pet.id, stageIdx, 0, false, 'transparent');
+  }, [pet.id, stageIdx]);
+
+  return (
+    <div className="home-screen">
+      <div className="home-top-bar">
+        <span className="home-title">ASCENDI</span>
+        <div className="home-top-actions">
+          <button className="home-icon-btn" onClick={onOpenSettings} aria-label="Settings">⚙️</button>
+          <button className="home-icon-btn" onClick={onOpenPicker} aria-label="Change pet">🐾</button>
+        </div>
+      </div>
+
+      <div className="home-pet-section">
+        <canvas
+          ref={canvasRef}
+          width={128} height={128}
+          className="home-pet-canvas"
+        />
+        <div className="home-pet-info">
+          <div className="home-pet-name">{pet.name}</div>
+          <div className="home-pet-stage">{t.stage} {stageIdx + 1} · {stageName}</div>
+          <div className="home-xp-bar-wrap">
+            <div className="home-xp-bar" style={{width:`${pct}%`, background: pet.color}}/>
+          </div>
+          <div className="home-xp-label">XP {xp} / {nextThreshold}</div>
+        </div>
+      </div>
+
+      <div className="home-calendar-section">
+        <FocusCalendar stats={stats} petColor={pet.color} />
+      </div>
+
+      <div className="home-start-section">
+        <button className="home-start-btn" onClick={onStart} style={{borderColor: pet.color, color: pet.color}}>
+          ▶ START SESSION
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 function App() {
   // Timer settings (all persisted)
@@ -513,6 +571,7 @@ function App() {
   const [stats, setStats] = useState(loadStats);
 
   // UI state
+  const [screen, setScreen] = useState('home');
   const isFirstVisitRef               = useRef(localStorage.getItem(LS_PET) === null);
   const [showWelcome, setShowWelcome]     = useState(() => localStorage.getItem(LS_PET) === null);
   const [showPicker, setShowPicker]       = useState(false);
@@ -1353,9 +1412,21 @@ function App() {
         </div>
       )}
 
-      {/* ── Main app ── */}
+      {screen === 'home' ? (
+        <HomeScreen
+          pet={getPetById(chosenPetId)}
+          xp={xp}
+          stats={stats}
+          onStart={() => setScreen('timer')}
+          onOpenSettings={() => setShowSettings(true)}
+          onOpenPicker={() => setShowPicker(true)}
+          darkMode={darkMode}
+          t={t}
+        />
+      ) : (
       <div className={`App mode-${mode}${alerting ? ' alerting' : ''}`}>
         <div className="top-bar">
+          <button className="home-back-btn" onClick={() => setScreen('home')} aria-label="Go to home">← Home</button>
           <h1>Ascendi</h1>
           <div className="top-bar-actions">
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
@@ -1642,8 +1713,8 @@ function App() {
           </div>
         </div>
 
-        <FocusCalendar stats={stats} petColor={getPetById(chosenPetId).color} />
       </div>
+      )}
 
       {showGarden && (
         <div className="garden-overlay" onClick={() => setShowGarden(false)}>
