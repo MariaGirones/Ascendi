@@ -2654,12 +2654,14 @@ h1 {
   border: 2px solid var(--border);
   color: var(--text-dim);
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.5rem;
-  padding: 0.4rem 0.7rem;
+  font-size: 0.45rem;
+  padding: 0.4rem 0.6rem;
   cursor: pointer;
   box-shadow: 2px 2px 0 var(--shadow);
   letter-spacing: 0.04em;
   transition: background 0.15s, transform 0.1s, box-shadow 0.1s;
+  min-height: 36px;
+  white-space: nowrap;
 }
 .home-back-btn:hover { background: var(--bg-panel); color: var(--text); }
 .home-back-btn:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--shadow); }

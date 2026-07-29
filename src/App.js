@@ -1430,7 +1430,6 @@ function App() {
       ) : (
       <div className={`App mode-${mode}${alerting ? ' alerting' : ''}`}>
         <div className="top-bar">
-          <button className="home-back-btn" onClick={() => setScreen('home')} aria-label="Go to home">← Home</button>
           <h1>Ascendi</h1>
           <div className="top-bar-actions">
             <div className="points-chip" title="Points balance" aria-label={`${points} points`}>
@@ -1468,6 +1467,7 @@ function App() {
             >
               ⚙️
             </button>
+            <button className="home-back-btn" onClick={() => setScreen('home')} aria-label="Go to home">← Home</button>
           </div>
         </div>
 
