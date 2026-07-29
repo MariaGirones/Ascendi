@@ -272,7 +272,6 @@ const WORK_OPTIONS       = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90
 const SHORT_BREAK_OPTIONS = [5,10,15,20,25,30];
 const LONG_BREAK_OPTIONS  = [10,15,20,25,30];
 const MAX_GARDEN_PETS = 10;
-const OCEAN_GARDEN_PRICE = 800;
 
 function snapToOptions(raw, options, defaultVal) {
   if (isNaN(raw)) return defaultVal;
@@ -328,7 +327,7 @@ function GardenPetCanvas({ petId, stageIndex }) {
       ref={ref}
       width={128}
       height={128}
-      style={{ width: '40px', height: '40px', imageRendering: 'pixelated' }}
+      style={{ width: '50px', height: '50px', imageRendering: 'pixelated' }}
     />
   );
 }
@@ -1159,13 +1158,6 @@ function App() {
     );
   };
 
-  const handleBuyOceanGarden = () => {
-    if (points < OCEAN_GARDEN_PRICE) return;
-    const newPoints = points - OCEAN_GARDEN_PRICE;
-    setPoints(newPoints);
-    pointsRef.current = newPoints;
-    setOwnsOceanGarden(true);
-  };
 
   // Only gardens the user has unlocked/purchased are offered as a destination —
   // My Garden is free/always available, Night, Winter & Ocean are store purchases.
@@ -1669,23 +1661,20 @@ function App() {
               <div className="garden-ground">
                 <div className="garden-tree tree-left" />
                 <div className="garden-tree tree-right" />
+              </div>
+              <div className="garden-pets-grid">
                 {gardenPets.map((pet, i) => (
-                  <div
-                    key={i}
-                    className="garden-pet"
-                    style={{
-                      left: `${10 + (i % 5) * 18}%`,
-                      bottom: i < 5 ? '52%' : '28%',
-                    }}
-                  >
+                  <div key={i} className="garden-pet">
                     <div className="garden-pet-sprite">
                       <GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex} />
                     </div>
-                    <input
+                    <textarea
                       className="garden-pet-name"
                       value={pet.name}
                       onChange={e => handleRenameGardenPet(i, e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') e.preventDefault(); }}
                       maxLength={15}
+                      rows={2}
                     />
                     <button className="garden-pet-delete" onClick={() => handleDeleteGardenPet(i)} title="Remove from garden">✕</button>
                     {renderMoveTo('day', i)}
@@ -1731,10 +1720,19 @@ function App() {
                 <div className="night-tree tree-right"/>
                 <div className="night-mushroom" style={{left:'50px'}}>🍄</div>
                 <div className="night-mushroom" style={{right:'50px'}}>🍄</div>
+              </div>
+              <div className="garden-pets-grid">
                 {nightGardenPets.map((pet, i) => (
-                  <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
+                  <div key={i} className="garden-pet">
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name night-pet-name" value={pet.name} onChange={e => handleRenameNightPet(i, e.target.value)} maxLength={15}/>
+                    <textarea
+                      className="garden-pet-name night-pet-name"
+                      value={pet.name}
+                      onChange={e => handleRenameNightPet(i, e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') e.preventDefault(); }}
+                      maxLength={15}
+                      rows={2}
+                    />
                     <button className="garden-pet-delete" onClick={() => handleDeleteNightPet(i)} title="Remove from garden">✕</button>
                     {renderMoveTo('night', i)}
                   </div>
@@ -1772,10 +1770,19 @@ function App() {
                 <div className="winter-tree tree-left"/>
                 <div className="winter-tree tree-right"/>
                 <div className="winter-snowman">⛄</div>
+              </div>
+              <div className="garden-pets-grid">
                 {winterGardenPets.map((pet, i) => (
-                  <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'56%':'32%'}}>
+                  <div key={i} className="garden-pet">
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name winter-pet-name" value={pet.name} onChange={e => handleRenameWinterPet(i, e.target.value)} maxLength={15}/>
+                    <textarea
+                      className="garden-pet-name winter-pet-name"
+                      value={pet.name}
+                      onChange={e => handleRenameWinterPet(i, e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') e.preventDefault(); }}
+                      maxLength={15}
+                      rows={2}
+                    />
                     <button className="garden-pet-delete" onClick={() => handleDeleteWinterPet(i)} title="Remove from garden">✕</button>
                     {renderMoveTo('winter', i)}
                   </div>
@@ -1815,10 +1822,19 @@ function App() {
                 <div className="ocean-coral" style={{left:'50px'}}>🪸</div>
                 <div className="ocean-shell" style={{left:'46%'}}>🐚</div>
                 <div className="ocean-coral" style={{right:'60px'}}>🪸</div>
+              </div>
+              <div className="garden-pets-grid">
                 {oceanGardenPets.map((pet, i) => (
-                  <div key={i} className="garden-pet" style={{left:`${10+(i%5)*18}%`, bottom: i<5?'52%':'28%'}}>
+                  <div key={i} className="garden-pet">
                     <div className="garden-pet-sprite"><GardenPetCanvas petId={pet.id} stageIndex={pet.stageIndex}/></div>
-                    <input className="garden-pet-name ocean-pet-name" value={pet.name} onChange={e => handleRenameOceanPet(i, e.target.value)} maxLength={15}/>
+                    <textarea
+                      className="garden-pet-name ocean-pet-name"
+                      value={pet.name}
+                      onChange={e => handleRenameOceanPet(i, e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') e.preventDefault(); }}
+                      maxLength={15}
+                      rows={2}
+                    />
                     <button className="garden-pet-delete" onClick={() => handleDeleteOceanPet(i)} title="Remove from garden">✕</button>
                     {renderMoveTo('ocean', i)}
                   </div>
@@ -1884,16 +1900,7 @@ function App() {
                     {ownsOceanGarden ? (
                       <div className="store-owned-tag">✓ Owned</div>
                     ) : (
-                      <>
-                        <div className="store-item-price">✦ {OCEAN_GARDEN_PRICE} pts</div>
-                        <button
-                          className="store-buy-btn store-buy-btn--ocean"
-                          onClick={handleBuyOceanGarden}
-                          disabled={points < OCEAN_GARDEN_PRICE}
-                        >
-                          Get
-                        </button>
-                      </>
+                      <button className="store-buy-btn store-buy-btn--ocean" onClick={() => { setOwnsOceanGarden(true); }}>Get</button>
                     )}
                   </div>
 
