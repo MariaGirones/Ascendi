@@ -231,6 +231,47 @@ const LS_SOUND = 'nsq_sound';
 const LS_VOLUME = 'nsq_volume';
 const LS_NOTIF = 'nsq_notif';
 const LS_FONTSIZE = 'nsq_fontsize';
+const LS_TIME_LEFT = 'nsq_time_left';
+const LS_IS_ADDITIONAL_TIME = 'nsq_is_additional_time';
+const LS_ADDITIONAL_TIME_LEFT = 'nsq_additional_time_left';
+
+function loadTimeLeft() {
+  const raw = parseInt(localStorage.getItem(LS_TIME_LEFT), 10);
+  return isNaN(raw) ? null : raw;
+}
+function loadIsAdditionalTime() { return localStorage.getItem(LS_IS_ADDITIONAL_TIME) === 'true'; }
+function loadAdditionalTimeLeft() {
+  const raw = parseInt(localStorage.getItem(LS_ADDITIONAL_TIME_LEFT), 10);
+  return isNaN(raw) ? 0 : raw;
+}
+
+// Timer-session record: the absolute wall-clock anchor for the currently
+// running segment (fresh work/break run, or a resume from pause). Any tab —
+// after a full reload, a mobile background suspension, or just waking up —
+// recomputes "remaining" from this instead of trusting in-memory/worker state,
+// which may have been frozen or discarded while the tab was backgrounded.
+const LS_TIMER_SESSION = 'nsq_timer_session';
+
+function saveTimerSession(session) {
+  try { localStorage.setItem(LS_TIMER_SESSION, JSON.stringify(session)); } catch { /* ignore quota errors */ }
+}
+function loadTimerSession() {
+  try { return JSON.parse(localStorage.getItem(LS_TIMER_SESSION)); } catch { return null; }
+}
+function clearTimerSession() {
+  try { localStorage.removeItem(LS_TIMER_SESSION); } catch { /* ignore */ }
+}
+
+// ── Cross-tab leader election ─────────────────────────────────────────────────
+// Only one open tab may own the Worker and award XP/points/stats — otherwise
+// two tabs both ticking the same session would double-award and clobber each
+// other's localStorage writes. Web Locks API gives free, automatic failover
+// (the lock releases itself when a tab closes or crashes); for browsers
+// without it, fall back to a localStorage heartbeat + BroadcastChannel.
+const TIMER_LOCK_NAME = 'ascendi-timer-leader';
+const LS_LEADER_HEARTBEAT = 'nsq_leader_heartbeat';
+const LEADER_HEARTBEAT_INTERVAL_MS = 1000;
+const LEADER_HEARTBEAT_STALE_MS = 3000;
 
 function loadStats() {
   try { return JSON.parse(localStorage.getItem(LS_STATS)) || {}; } catch { return {}; }
@@ -551,7 +592,7 @@ function App() {
   const [pomodoroCount, setPomodoroCount] = useState(loadPomodoroCount);
   const [mode, setMode]                   = useState(loadMode);
   const [timeLeft, setTimeLeft]           = useState(() =>
-    getDuration(
+    loadTimeLeft() ?? getDuration(
       loadMode(),
       loadWorkMinutes() * 60,
       loadShortBreakMinutes() * 60,
@@ -561,6 +602,10 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [worker, setWorker]       = useState(null);
   const [alerting, setAlerting]   = useState(false);
+
+  // Cross-tab leader election — only the leader tab owns the Worker and is
+  // allowed to award XP/points/stats; other open tabs mirror its state.
+  const [isLeader, setIsLeader] = useState(false);
 
   // Pet & XP state
   const [xp, setXP]                   = useState(loadXP);
@@ -586,8 +631,8 @@ function App() {
   const [showBreakPopup, setShowBreakPopup]   = useState(false);
   const [pendingBreakMode, setPendingBreakMode] = useState(null);
   const [undoVisible, setUndoVisible]         = useState(false);
-  const [isAdditionalTime, setIsAdditionalTime]           = useState(false);
-  const [additionalTimeLeft, setAdditionalTimeLeft]       = useState(0);
+  const [isAdditionalTime, setIsAdditionalTime]           = useState(loadIsAdditionalTime);
+  const [additionalTimeLeft, setAdditionalTimeLeft]       = useState(loadAdditionalTimeLeft);
   const [showExtraTimePicker, setShowExtraTimePicker] = useState(false);
 
   // Language state
@@ -644,6 +689,10 @@ function App() {
   const additionalTimeLeftRef     = useRef(additionalTimeLeft);
   const soundChoiceRef            = useRef(loadSound());
   const volumeRef                 = useRef(loadVolume());
+  const isLeaderRef               = useRef(false);
+  const leaderReleaseRef          = useRef(null); // resolves the Web Locks promise to release leadership
+  const bcRef                     = useRef(null);  // BroadcastChannel for control-forwarding + fallback election
+  const tabIdRef                  = useRef(Math.random().toString(36).slice(2));
 
   // Keep refs in sync with state
   useEffect(() => { modeRef.current          = mode;                  }, [mode]);
@@ -653,6 +702,7 @@ function App() {
   useEffect(() => { longSecsRef.current      = longBreakMinutes * 60; }, [longBreakMinutes]);
   useEffect(() => { cycleLengthRef.current   = cycleLength;           }, [cycleLength]);
   useEffect(() => { isRunningRef.current     = isRunning;             }, [isRunning]);
+  useEffect(() => { isLeaderRef.current      = isLeader;              }, [isLeader]);
   useEffect(() => { xpRef.current            = xp;                    }, [xp]);
   useEffect(() => { pointsRef.current        = points;                }, [points]);
   useEffect(() => { timeLeftRef.current      = timeLeft;              }, [timeLeft]);
@@ -670,6 +720,11 @@ function App() {
   useEffect(() => { localStorage.setItem(LS_CYCLE, cycleLength);      }, [cycleLength]);
   useEffect(() => { localStorage.setItem(LS_COUNT, pomodoroCount);    }, [pomodoroCount]);
   useEffect(() => { localStorage.setItem(LS_MODE,   mode);            }, [mode]);
+  // So a paused (or otherwise non-running) session survives a full reload
+  // too — not just a running one, which recomputeFromSession already covers.
+  useEffect(() => { localStorage.setItem(LS_TIME_LEFT, timeLeft);      }, [timeLeft]);
+  useEffect(() => { localStorage.setItem(LS_IS_ADDITIONAL_TIME, isAdditionalTime ? 'true' : 'false'); }, [isAdditionalTime]);
+  useEffect(() => { localStorage.setItem(LS_ADDITIONAL_TIME_LEFT, additionalTimeLeft); }, [additionalTimeLeft]);
   useEffect(() => { localStorage.setItem(LS_POINTS, points);         }, [points]);
   useEffect(() => { localStorage.setItem(LS_LANG,   lang);            }, [lang]);
   useEffect(() => { localStorage.setItem(LS_GARDEN, JSON.stringify(gardenPets)); }, [gardenPets]);
@@ -704,6 +759,70 @@ function App() {
     document.title = `Ascendi ${m}:${s.toString().padStart(2, '0')}`;
   }, [timeLeft]);
 
+  // Recompute "how much time is actually left" from the absolute timestamp
+  // anchor persisted in localStorage, rather than trusting in-memory/worker
+  // state — which may have been frozen (background-tab throttling) or lost
+  // entirely (a full tab reload/kill, which mobile browsers do aggressively
+  // once a tab has been backgrounded for a while). Called on mount (once
+  // this tab knows whether it's leader), on every visibilitychange back to
+  // 'visible', and once a second by follower tabs for display purposes.
+  // `restartWorker` also re-anchors and restarts this tab's own Worker from
+  // the corrected remaining time — meaningful only for the leader.
+  const recomputeFromSession = (restartWorker) => {
+    const session = loadTimerSession();
+    if (!session) return;
+
+    const elapsed = Math.max(0, (Date.now() - session.startedAt) / 1000);
+    const cappedElapsed = Math.min(elapsed, session.initialRemaining);
+    const remaining = Math.max(0, Math.round(session.initialRemaining - elapsed));
+
+    if (session.isAdditionalTime) {
+      isAdditionalTimeRef.current = true;
+      setIsAdditionalTime(true);
+      setAdditionalTimeLeft(remaining);
+    } else {
+      setTimeLeft(remaining);
+    }
+    isRunningRef.current = true;
+    setIsRunning(true);
+
+    if (isLeaderRef.current) {
+      // Only the leader may catch up the work-seconds/points counters —
+      // a follower must never touch these, or two tabs recomputing the
+      // same background gap would double-award.
+      const targetRef = session.isAdditionalTime ? additionalWorkSecsRef : workSecondsRef;
+      const newWorkSecs = session.workSecondsAtStart + cappedElapsed;
+      targetRef.current = newWorkSecs;
+      if (session.isAdditionalTime || modeRef.current === 'work') {
+        const earnedRef = session.isAdditionalTime ? additionalPointsEarnedRef : pointsEarnedRef;
+        const earned = Math.floor(newWorkSecs / 60);
+        if (earned > earnedRef.current) {
+          const delta = earned - earnedRef.current;
+          const newPoints = pointsRef.current + delta;
+          pointsRef.current = newPoints;
+          setPoints(newPoints);
+        }
+        earnedRef.current = earned;
+      }
+
+      if (restartWorker && remaining > 0) {
+        workerRef.current?.postMessage('stop');
+        workerRef.current?.postMessage({ type: 'start', seconds: remaining });
+        saveTimerSession({
+          startedAt: Date.now(),
+          initialRemaining: remaining,
+          isAdditionalTime: session.isAdditionalTime,
+          workSecondsAtStart: newWorkSecs,
+        });
+      }
+      // If remaining is already 0, leave timeLeft/additionalTimeLeft at 0
+      // with isRunning still true — the existing session-end /
+      // additional-time-end effects detect that transition and run the
+      // normal completion flow (sound, notification, XP, stats, next mode)
+      // using the now-correctly-caught-up work-seconds total.
+    }
+  };
+
   // Preload the end-of-session audio on mount, and unlock it on the first
   // user gesture — mobile browsers block audio.play() until a gesture occurs.
   useEffect(() => {
@@ -711,13 +830,15 @@ function App() {
     const handleFirstInteraction = () => unlockAudio();
     window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
 
-    // Re-sync the worker's clock whenever the tab comes back into the
-    // foreground, so throttled background timers can't drift the countdown.
+    // Re-sync from the absolute timestamp anchor whenever the tab comes back
+    // into the foreground. We never trust that the worker kept ticking in
+    // the background — iOS Safari in particular suspends JS (and Workers)
+    // aggressively on lock/app-switch, so "how much time passed" can only be
+    // known by comparing wall-clock time now against when the segment
+    // started, not by counting ticks that may never have fired.
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && isRunningRef.current) {
-        workerRef.current?.postMessage('stop');
-        const seconds = isAdditionalTimeRef.current ? additionalTimeLeftRef.current : timeLeftRef.current;
-        if (seconds > 0) workerRef.current?.postMessage({ type: 'start', seconds });
+      if (document.visibilityState === 'visible') {
+        recomputeFromSession(isLeaderRef.current);
       }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -727,18 +848,93 @@ function App() {
     };
   }, []);
 
-  // Create the worker once
+  // ── Cross-tab leader election ────────────────────────────────────────────
+  // Exactly one open tab may drive the timer (own the Worker, award XP /
+  // points / stats) — otherwise two tabs both ticking the same session could
+  // double-award and clobber each other's localStorage writes. Web Locks
+  // gives free, automatic failover: the lock releases itself the instant a
+  // leader tab closes or crashes, and the browser hands it to the next tab
+  // waiting in line — no polling needed. Falls back to a localStorage
+  // heartbeat + BroadcastChannel election for browsers without it.
   useEffect(() => {
+    let cancelled = false;
+    const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('ascendi-timer') : null;
+    bcRef.current = bc;
+
+    if (navigator.locks && navigator.locks.request) {
+      navigator.locks.request(TIMER_LOCK_NAME, () => new Promise((release) => {
+        if (cancelled) { release(); return; }
+        leaderReleaseRef.current = release;
+        setIsLeader(true);
+        // Resolve only when this tab goes away — that's what releases the
+        // lock and lets the next queued tab become leader.
+      })).catch(() => { /* Locks API unexpectedly failed — stay a follower */ });
+    } else {
+      const claim = () => {
+        localStorage.setItem(LS_LEADER_HEARTBEAT, JSON.stringify({ id: tabIdRef.current, ts: Date.now() }));
+        bc?.postMessage({ type: 'leader-announce', id: tabIdRef.current });
+        setIsLeader(true);
+      };
+      const tick = () => {
+        if (cancelled) return;
+        if (isLeaderRef.current) {
+          localStorage.setItem(LS_LEADER_HEARTBEAT, JSON.stringify({ id: tabIdRef.current, ts: Date.now() }));
+          return;
+        }
+        let hb = null;
+        try { hb = JSON.parse(localStorage.getItem(LS_LEADER_HEARTBEAT)); } catch { /* ignore */ }
+        if (!hb || Date.now() - hb.ts > LEADER_HEARTBEAT_STALE_MS) claim();
+      };
+      const handleAnnounce = (e) => {
+        if (e.data?.type === 'leader-announce' && e.data.id !== tabIdRef.current) setIsLeader(false);
+      };
+      bc?.addEventListener('message', handleAnnounce);
+      tick();
+      const intervalId = setInterval(tick, LEADER_HEARTBEAT_INTERVAL_MS);
+      return () => {
+        cancelled = true;
+        clearInterval(intervalId);
+        bc?.removeEventListener('message', handleAnnounce);
+        bc?.close();
+      };
+    }
+
+    return () => {
+      cancelled = true;
+      leaderReleaseRef.current?.();
+      leaderReleaseRef.current = null;
+      bc?.close();
+    };
+  }, []);
+
+  // Create the Worker only once this tab is confirmed leader — a follower
+  // never owns one. Also resumes any run that was already in progress
+  // before this tab reloaded, or before it took over from a leader that
+  // just closed.
+  useEffect(() => {
+    if (!isLeader) return;
     const timerWorker = new Worker(`${process.env.PUBLIC_URL}/timer-worker.js`);
     workerRef.current = timerWorker;
     setWorker(timerWorker);
+    recomputeFromSession(true);
     return () => {
       // Stop ticking before terminating so no queued 'tick' message can be
       // delivered to a worker that's already gone (or after unmount).
       timerWorker.postMessage('stop');
       timerWorker.terminate();
+      workerRef.current = null;
     };
-  }, []);
+  }, [isLeader]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Followers don't own a Worker — recompute the display from the shared
+  // session record once a second so the countdown still visibly moves in
+  // every open tab, without any of them driving real (persisted) state.
+  useEffect(() => {
+    if (isLeader) return;
+    recomputeFromSession(false);
+    const intervalId = setInterval(() => recomputeFromSession(false), 1000);
+    return () => clearInterval(intervalId);
+  }, [isLeader]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Wire up the tick handler — re-registers only when the worker instance changes
   useEffect(() => {
@@ -780,10 +976,15 @@ function App() {
   // Fires whenever timeLeft reaches 0 while the timer is running.
   useEffect(() => {
     if (timeLeft !== 0 || !isRunningRef.current) return;
+    // Only the leader awards XP/points/stats — a follower just mirrors the
+    // timeLeft-hits-0 moment visually and waits for the leader's real
+    // completion (next mode, isRunning=false) to reach it via localStorage.
+    if (!isLeaderRef.current) return;
 
     workerRef.current?.postMessage('stop');
     isRunningRef.current = false;
     setIsRunning(false);
+    clearTimerSession();
 
     // Flash alert
     setAlerting(true);
@@ -841,12 +1042,14 @@ function App() {
   // Fires when the mini timer reaches 0.
   useEffect(() => {
     if (!isAdditionalTime || additionalTimeLeft !== 0) return;
+    if (!isLeaderRef.current) return;
 
     workerRef.current?.postMessage('stop');
     isRunningRef.current = false;
     setIsRunning(false);
     isAdditionalTimeRef.current = false;
     setIsAdditionalTime(false);
+    clearTimerSession();
 
     setAlerting(true);
     setTimeout(() => setAlerting(false), 1500);
@@ -886,7 +1089,10 @@ function App() {
   }, [isAdditionalTime, additionalTimeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Controls ──────────────────────────────────────────────────────────────
+  // A tab that isn't the leader has no Worker of its own — forward the
+  // intent to whichever tab currently is leader instead of acting locally.
   const startTimer = () => {
+    if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'start' }); return; }
     if (workerRef.current && !isRunningRef.current) {
       // Ask for notification permission here too, so users who skip the pet
       // picker (which also asks) still get prompted before their first session.
@@ -903,6 +1109,12 @@ function App() {
       workerRef.current.postMessage({ type: 'start', seconds: timeLeft });
       isRunningRef.current = true;
       setIsRunning(true);
+      saveTimerSession({
+        startedAt: Date.now(),
+        initialRemaining: timeLeft,
+        isAdditionalTime: false,
+        workSecondsAtStart: workSecondsRef.current,
+      });
 
       // Play start chime + notify only when a work session begins fresh
       if (modeRef.current === 'work' && isFreshStart) {
@@ -913,14 +1125,17 @@ function App() {
   };
 
   const pauseTimer = () => {
+    if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'pause' }); return; }
     if (workerRef.current && isRunningRef.current) {
       workerRef.current.postMessage('stop');
+      clearTimerSession();
       isRunningRef.current = false;
       setIsRunning(false);
     }
   };
 
   const resetSession = () => {
+    if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'resetSession' }); return; }
     lastStateRef.current = {
       mode: modeRef.current,
       pomodoroCount: pomodoroCountRef.current,
@@ -936,6 +1151,7 @@ function App() {
     }, 5000);
     if (isRunningRef.current) {
       workerRef.current?.postMessage('stop');
+      clearTimerSession();
       isRunningRef.current = false;
       setIsRunning(false);
     }
@@ -947,6 +1163,7 @@ function App() {
   };
 
   const resetCycle = () => {
+    if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'resetCycle' }); return; }
     lastStateRef.current = {
       mode: modeRef.current,
       pomodoroCount: pomodoroCountRef.current,
@@ -962,6 +1179,7 @@ function App() {
     }, 5000);
     if (isRunningRef.current) {
       workerRef.current?.postMessage('stop');
+      clearTimerSession();
       isRunningRef.current = false;
       setIsRunning(false);
     }
@@ -990,6 +1208,7 @@ function App() {
   };
 
   const startAdditionalTime = (minutes) => {
+    if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'startAdditionalTime', minutes }); return; }
     setShowExtraTimePicker(false);
     // Snapshot the current cycle so it can be restored later
     savedCycleStateRef.current = {
@@ -1010,10 +1229,31 @@ function App() {
       isRunningRef.current = true;
       setIsRunning(true);
     }
+    saveTimerSession({
+      startedAt: Date.now(),
+      initialRemaining: minutes * 60,
+      isAdditionalTime: true,
+      workSecondsAtStart: 0,
+    });
+  };
+
+  const resumeAdditionalTime = () => {
+    if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'resumeAdditionalTime' }); return; }
+    workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeLeftRef.current });
+    isRunningRef.current = true;
+    setIsRunning(true);
+    saveTimerSession({
+      startedAt: Date.now(),
+      initialRemaining: additionalTimeLeftRef.current,
+      isAdditionalTime: true,
+      workSecondsAtStart: additionalWorkSecsRef.current,
+    });
   };
 
   const cancelAdditionalTime = () => {
+    if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'cancelAdditionalTime' }); return; }
     workerRef.current?.postMessage('stop');
+    clearTimerSession();
     isRunningRef.current = false;
     setIsRunning(false);
     isAdditionalTimeRef.current = false;
@@ -1031,6 +1271,29 @@ function App() {
       savedCycleStateRef.current = null;
     }
   };
+
+  // A follower tab's button clicks forward here as a 'control' message
+  // instead of acting locally — only the leader is listening and allowed to
+  // act on them, so the exact same handler a local click would use runs.
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (!isLeaderRef.current) return;
+      const msg = e.data;
+      if (!msg || msg.type !== 'control') return;
+      switch (msg.action) {
+        case 'start':               startTimer(); break;
+        case 'pause':                pauseTimer(); break;
+        case 'resetSession':         resetSession(); break;
+        case 'resetCycle':           resetCycle(); break;
+        case 'startAdditionalTime':  startAdditionalTime(msg.minutes); break;
+        case 'resumeAdditionalTime': resumeAdditionalTime(); break;
+        case 'cancelAdditionalTime': cancelAdditionalTime(); break;
+        default: break;
+      }
+    };
+    bcRef.current?.addEventListener('message', handleMessage);
+    return () => bcRef.current?.removeEventListener('message', handleMessage);
+  }); // no deps — re-registers each render so it always closes over the latest handlers
 
   const requestNotificationPermission = () => {
     if ('Notification' in window && Notification.permission === 'default') {
@@ -1236,7 +1499,9 @@ function App() {
     askConfirm(
       `Send this pet to ${option.label}? Their XP will be frozen and you will need to choose a new companion.`,
       () => {
-        option.setPets(prev => [...prev, { id: chosenPetId, name: getPetById(chosenPetId).name, stageIndex: getStageIndex(xpRef.current, chosenPetId) }]);
+        const petName = getPetById(chosenPetId).name;
+        const stageIndex = getStageIndex(xpRef.current, chosenPetId);
+        option.setPets(prev => [...prev, { id: chosenPetId, name: petName, stageIndex }]);
         setXP(0);
         xpRef.current = 0;
         isFirstVisitRef.current = true;
@@ -1601,11 +1866,7 @@ function App() {
             {isRunning ? (
               <button className="btn btn-sm btn-secondary" onClick={pauseTimer}>{t.pause}</button>
             ) : (
-              <button className="btn btn-sm btn-secondary" onClick={() => {
-                workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeLeft });
-                isRunningRef.current = true;
-                setIsRunning(true);
-              }}>{t.resume}</button>
+              <button className="btn btn-sm btn-secondary" onClick={resumeAdditionalTime}>{t.resume}</button>
             )}
             <button className="btn btn-sm btn-at-cancel" onClick={cancelAdditionalTime}>
               {t.returnCycle}
