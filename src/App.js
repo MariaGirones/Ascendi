@@ -996,9 +996,9 @@ function App() {
     // Notification — persistent so it stays visible in background tabs
     {
       const msgs = {
-        work:       { title: 'Work session complete!', body: 'Nice work! Press Start to begin your break.' },
-        shortBreak: { title: 'Break over.',            body: 'Ready to focus? Press Start for the next session.' },
-        longBreak:  { title: 'Long break over.',       body: 'New cycle ready. Press Start when you\'re set.' },
+        work:       { title: 'Work session complete!', body: 'Session complete! Your pet is proud of you. 🐾' },
+        shortBreak: { title: 'Break over.',            body: 'Time to breathe. A short break is your reward. ☕' },
+        longBreak:  { title: 'Long break over.',       body: 'Amazing work. Take a long break — you\'ve earned it. 🌿' },
       };
       const { title, body } = msgs[modeRef.current] ?? { title: "Time's up!", body: 'Press Start for the next session.' };
       showNotification(title, body, { persistent: true });
@@ -1056,7 +1056,7 @@ function App() {
     playEndSound(soundChoiceRef.current, volumeRef.current);
     showNotification(
       'Additional time complete!',
-      'Your main session is ready to resume.',
+      'Extra focus time started. Every minute counts. ✨',
       { persistent: true }
     );
 
@@ -1119,7 +1119,7 @@ function App() {
       // Play start chime + notify only when a work session begins fresh
       if (modeRef.current === 'work' && isFreshStart) {
         playStartChime();
-        showNotification('Work session started!', 'Stay focused — you\'ve got this! 🎯');
+        showNotification('Work session started!', 'Focus mode on. Let\'s grow together. 🌱');
       }
     }
   };
@@ -2194,7 +2194,7 @@ function App() {
             <div className="store-scene">
               <div className="store-torch store-torch-left">🕯️</div>
               <div className="store-torch store-torch-right">🕯️</div>
-              <p className="store-greeting">Welcome, traveler! What can I get you?</p>
+              <p className="store-greeting">What can I help you grow today?</p>
 
               <div className="store-shelf">
                 <div className="store-shelf-label">Gardens</div>
