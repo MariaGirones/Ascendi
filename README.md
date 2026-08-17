@@ -64,9 +64,8 @@ A gamified Pomodoro timer web app where you grow and evolve virtual pixel-art pe
 
 ### 🔔 Notifications & Audio
 - Push notifications for session start and end (via Service Worker)
-- iOS/Android audio unlock on first user gesture
-- Web Audio API fallback beep if WAV fails
-- Shared AudioContext to avoid mobile autoplay issues
+- All sounds — start chime and five alarm options (whistle/bell/chime/pop/none) — are synthesized live with the Web Audio API, no audio files
+- Shared AudioContext, resumed on the first user gesture to satisfy mobile autoplay restrictions
 
 ---
 
@@ -110,7 +109,6 @@ PixelPet.js — animated canvas pet renderer
 public/
 timer-worker.js — drift-correcting Web Worker timer
 sw.js — service worker for push notifications
-endOfPomodoro.wav — end-of-session alarm sound
 ---
 
 ## 🗺 Roadmap

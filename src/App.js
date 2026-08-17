@@ -6,33 +6,7 @@ import { MAX_XP, getStageIndex, getPetById } from './pets';
 import { drawPet } from './petSprites';
 import { LANGUAGES, LS_LANG, loadLang, T } from './i18n';
 
-// ── Audio: end-of-session WAV ─────────────────────────────────────────────────
-let audio = null;
-let audioUnlocked = false;
-
-function preloadAudio() {
-  if (!audio) {
-    audio = new Audio(process.env.PUBLIC_URL + '/endOfPomodoro.wav');
-    audio.load();
-  }
-}
-
-// Mobile browsers (iOS Safari, Android Chrome) block audio.play() unless it's
-// invoked from within a user gesture. Unlock the element once, on the first
-// pointerdown anywhere in the app, by playing + immediately pausing it — after
-// that, calling audio.play() later (e.g. on session end, with no fresh
-// gesture) is allowed.
-function unlockAudio() {
-  if (audioUnlocked) return;
-  audioUnlocked = true;
-  preloadAudio();
-  audio.play().then(() => {
-    audio.pause();
-    audio.currentTime = 0;
-  }).catch(err => console.warn('[Ascendi audio]', err));
-}
-
-// ── Audio: shared Web Audio context (start chime + WAV-failure beep) ─────────
+// ── Audio: shared Web Audio context (start chime + end-of-session sounds) ────
 let audioCtx = null;
 function getAudioCtx() {
   const AudioCtx = window.AudioContext || window['webkitAudioContext'];
@@ -48,7 +22,7 @@ function resumeAudioCtxIfSuspended() {
   }
 }
 
-// Two ascending sine tones (E5 → A5) — clearly distinct from the end WAV.
+// Two ascending sine tones (E5 → A5) — clearly distinct from the end sounds.
 // Fires on the user's tap/click, so mobile autoplay restrictions do not apply.
 function playStartChime() {
   try {
@@ -128,11 +102,28 @@ function playChime(volume = 1) {
   } catch(e) { console.warn('[Ascendi audio]', e); }
 }
 
+function playPop(volume = 1) {
+  try {
+    const ctx = getAudioCtx();
+    const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, t);
+    osc.frequency.exponentialRampToValueAtTime(440, t + 0.1);
+    gain.gain.setValueAtTime(0.5 * volume, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+    osc.start(t); osc.stop(t + 0.15);
+  } catch(e) { console.warn('[Ascendi audio]', e); }
+}
+
 // Plays the user's chosen end-of-session alarm sound at the chosen volume.
 function playEndSound(sound = 'whistle', vol = 0.7) {
   if (sound === 'none') return;
   if (sound === 'bell') { playBell(vol); return; }
   if (sound === 'chime') { playChime(vol); return; }
+  if (sound === 'pop') { playPop(vol); return; }
   playWhistle(vol);
 }
 
@@ -591,14 +582,22 @@ function App() {
   // Timer state
   const [pomodoroCount, setPomodoroCount] = useState(loadPomodoroCount);
   const [mode, setMode]                   = useState(loadMode);
-  const [timeLeft, setTimeLeft]           = useState(() =>
-    loadTimeLeft() ?? getDuration(
+  const [timeLeft, setTimeLeft]           = useState(() => {
+    const dur = getDuration(
       loadMode(),
       loadWorkMinutes() * 60,
       loadShortBreakMinutes() * 60,
       loadLongBreakMinutes() * 60,
-    )
-  );
+    );
+    const fallback = dur > 0 ? dur : 25 * 60;
+    // A persisted 0 isn't trustworthy on its own — it's what a session
+    // looks like the instant it completes, and if the app closed in that
+    // exact window (before the completion effect could advance to the next
+    // mode), reopening would otherwise get stuck showing 0:00 forever,
+    // since that effect only fires while isRunningRef is true.
+    const saved = loadTimeLeft();
+    return (saved !== null && saved > 0) ? saved : fallback;
+  });
   const [isRunning, setIsRunning] = useState(false);
   const [worker, setWorker]       = useState(null);
   const [alerting, setAlerting]   = useState(false);
@@ -823,13 +822,7 @@ function App() {
     }
   };
 
-  // Preload the end-of-session audio on mount, and unlock it on the first
-  // user gesture — mobile browsers block audio.play() until a gesture occurs.
   useEffect(() => {
-    preloadAudio();
-    const handleFirstInteraction = () => unlockAudio();
-    window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
-
     // Re-sync from the absolute timestamp anchor whenever the tab comes back
     // into the foreground. We never trust that the worker kept ticking in
     // the background — iOS Safari in particular suspends JS (and Workers)
@@ -843,7 +836,6 @@ function App() {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => {
-      window.removeEventListener('pointerdown', handleFirstInteraction);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
@@ -956,7 +948,11 @@ function App() {
           setPoints(newPoints);
         }
       } else {
-        setTimeLeft(event.data.remaining);
+        if (event.data.remaining > 0 || isAdditionalTimeRef.current) {
+          setTimeLeft(event.data.remaining);
+        } else if (!isAdditionalTimeRef.current && event.data.remaining === 0 && isRunningRef.current) {
+          setTimeLeft(event.data.remaining);
+        }
         if (modeRef.current === 'work') {
           workSecondsRef.current++;
           const earned = Math.floor(workSecondsRef.current / 60);
@@ -2281,7 +2277,7 @@ function App() {
               <div className="settings-row">
                 <span className="settings-row-label">Alarm</span>
                 <div className="settings-sound-btns">
-                  {['whistle','bell','chime','none'].map(s => (
+                  {['whistle','bell','chime','pop','none'].map(s => (
                     <button
                       key={s}
                       className={`settings-sound-btn${soundChoice === s ? ' active' : ''}`}
@@ -2290,7 +2286,7 @@ function App() {
                         if (s !== 'none') playEndSound(s, volumeRef.current);
                       }}
                     >
-                      {s === 'whistle' ? '🎵' : s === 'bell' ? '🔔' : s === 'chime' ? '✨' : '🔇'}
+                      {s === 'whistle' ? '🎵' : s === 'bell' ? '🔔' : s === 'chime' ? '✨' : s === 'pop' ? '🎈' : '🔇'}
                       <span>{s.charAt(0).toUpperCase() + s.slice(1)}</span>
                     </button>
                   ))}

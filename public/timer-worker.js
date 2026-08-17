@@ -4,6 +4,7 @@ let startedAt = 0;
 let totalSeconds = 0;
 
 function tick() {
+  if (!startedAt || !totalSeconds) return;
   const now = Date.now();
   const elapsed = Math.round((now - startedAt) / 1000);
   const remaining = Math.max(0, totalSeconds - elapsed);
@@ -27,6 +28,7 @@ self.onmessage = function(e) {
   }
   if (e.data && e.data.type === 'start') {
     if (timeoutId !== null) return;
+    if (!e.data.seconds || e.data.seconds <= 0) return;
     totalSeconds = e.data.seconds;
     startedAt = Date.now();
     expected = startedAt + 1000;
