@@ -1085,6 +1085,11 @@ function App() {
   }, [isAdditionalTime, additionalTimeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Controls ──────────────────────────────────────────────────────────────
+  // Never arm the worker with 0 (or a corrupted negative) seconds — it
+  // silently refuses those, which used to leave isRunning stuck true with
+  // no ticks ever coming back. Always fall back to a real duration instead.
+  const safeSeconds = (value, fallback) => (value > 0 ? value : fallback);
+
   // A tab that isn't the leader has no Worker of its own — forward the
   // intent to whichever tab currently is leader instead of acting locally.
   const startTimer = () => {
@@ -1099,15 +1104,7 @@ function App() {
       const fullDuration = getDuration(
         modeRef.current, workSecsRef.current, shortSecsRef.current, longSecsRef.current
       );
-      // timeLeft should always be positive here, but if it's ever stuck at
-      // 0 (or corrupted negative) — e.g. a stale/interrupted transition
-      // between sessions — starting it as-is would arm the worker with a
-      // zero-second timer, which it silently refuses to run: isRunning
-      // would flip to true with no ticks ever coming back, stuck until a
-      // full Reset Session/Cycle. Recover instead by starting a fresh full
-      // session for the current mode, so START always works no matter
-      // which session in the cycle we're on.
-      const seconds = timeLeft > 0 ? timeLeft : fullDuration;
+      const seconds = safeSeconds(timeLeft, fullDuration);
       const isFreshStart = seconds === fullDuration;
       if (seconds !== timeLeft) setTimeLeft(seconds);
 
@@ -1244,12 +1241,14 @@ function App() {
 
   const resumeAdditionalTime = () => {
     if (!isLeaderRef.current) { bcRef.current?.postMessage({ type: 'control', action: 'resumeAdditionalTime' }); return; }
-    workerRef.current?.postMessage({ type: 'start', seconds: additionalTimeLeftRef.current });
+    if (additionalTimeLeftRef.current <= 0) { cancelAdditionalTime(); return; }
+    const seconds = additionalTimeLeftRef.current;
+    workerRef.current?.postMessage({ type: 'start', seconds });
     isRunningRef.current = true;
     setIsRunning(true);
     saveTimerSession({
       startedAt: Date.now(),
-      initialRemaining: additionalTimeLeftRef.current,
+      initialRemaining: seconds,
       isAdditionalTime: true,
       workSecondsAtStart: additionalWorkSecsRef.current,
     });
