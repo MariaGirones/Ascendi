@@ -1096,18 +1096,27 @@ function App() {
       // iOS Safari suspends the AudioContext until resumed inside a gesture.
       resumeAudioCtxIfSuspended();
 
-      // Detect a fresh session start (vs. resume from pause)
       const fullDuration = getDuration(
         modeRef.current, workSecsRef.current, shortSecsRef.current, longSecsRef.current
       );
-      const isFreshStart = timeLeft === fullDuration;
+      // timeLeft should always be positive here, but if it's ever stuck at
+      // 0 (or corrupted negative) — e.g. a stale/interrupted transition
+      // between sessions — starting it as-is would arm the worker with a
+      // zero-second timer, which it silently refuses to run: isRunning
+      // would flip to true with no ticks ever coming back, stuck until a
+      // full Reset Session/Cycle. Recover instead by starting a fresh full
+      // session for the current mode, so START always works no matter
+      // which session in the cycle we're on.
+      const seconds = timeLeft > 0 ? timeLeft : fullDuration;
+      const isFreshStart = seconds === fullDuration;
+      if (seconds !== timeLeft) setTimeLeft(seconds);
 
-      workerRef.current.postMessage({ type: 'start', seconds: timeLeft });
+      workerRef.current.postMessage({ type: 'start', seconds });
       isRunningRef.current = true;
       setIsRunning(true);
       saveTimerSession({
         startedAt: Date.now(),
-        initialRemaining: timeLeft,
+        initialRemaining: seconds,
         isAdditionalTime: false,
         workSecondsAtStart: workSecondsRef.current,
       });
